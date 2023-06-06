@@ -1,0 +1,41 @@
+.weekend-info {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 0 2rem;
+}
+
+.weekend-info__next-weekend {
+  color: var(--text-color);
+}
+.weekend-info__next-weekend__title {
+  font-size: 1.7rem;
+}
+.weekend-info__next-weekend__race {
+  font-size: 3rem;
+}
+.weekend-info__next-weekend__track {
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+.weekend-info__next-weekend__date,
+.weekend-info__next-weekend__time {
+  margin: 1rem 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.weekend-info__next-session {
+  color: var(--text-color);
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+.weekend-info__next-session__title {
+  font-size: 1.7rem;
+}
+.weekend-info__next-session__name {
+  font-size: 3rem;
+}

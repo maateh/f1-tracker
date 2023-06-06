@@ -1,0 +1,29 @@
+.countdown-timer {
+  display: flex;
+}
+.countdown-timer__unit__container {
+  margin: 1rem;
+}
+.countdown-timer__value {
+  font-size: 3rem;
+}
+.countdown-timer__unit {
+  font-size: 1.3rem;
+}
+
+@media (max-width: 40rem) {
+  .countdown-timer {
+    flex-wrap: wrap;
+  }
+  
+  .countdown-timer__unit__container {
+    flex: 1 0 calc(30%);
+  }
+
+  .countdown-timer__value {
+    font-size: 1.8rem;
+  }
+  .countdown-timer__unit {
+    font-size: 1rem;
+  }
+}

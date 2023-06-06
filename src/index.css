@@ -1,0 +1,33 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;300;400;500;600;700;800&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;600;700&display=swap'); */
+
+/* variables */
+:root {
+  /* https://realtimecolors.com/?colors=121211-ebebea-c5706d-212220-271319 */
+  --text-color: #333;
+  --text-color-light: #ededee;
+  --bg-color: #ebebea;
+  --primary: #e0443f;
+  --secondary: #212220;
+  --highlight: #ca6666;
+  /* --accent: #271319; */
+  --error: #e00f3c;
+}
+
+body {
+  margin: 0;
+  font-family: Dosis, sans-serif;
+  background: var(--bg-color);
+}
+
+ul, li, p, h1, h2, h3, h4 {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+}
