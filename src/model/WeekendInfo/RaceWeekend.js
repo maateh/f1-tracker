@@ -13,22 +13,8 @@ class RaceWeekend extends SessionList {
 		this.circuit = new Circuit(raceInfo.Circuit)
 	}
 
-	nextSessionTitle() {
-    // TODO:
-    // itt a konkrét session-t kéne visszaadni, nem csak a title-t
-    // const session = ...
-
-		const practice = this.sessions.practices.find((p) => p.isOver())
-    console.log('PRACTICE: ', practice)
-		if (practice) {
-			return practice.title
-		}
-
-		if (this.sessions.qualifying.isOver()) {
-			return 'Qualifying'
-		}
-
-		return 'Racing Time!'
+	get active() {
+		return this.sessions.practices[0].start < Date.now()
 	}
 }
 

@@ -1,6 +1,6 @@
-import SessionTime from "./SessionTime";
+import SessionTimer from "./SessionTimer";
 
-class Session extends SessionTime {
+class Session extends SessionTimer {
   constructor(sessionInfo) {
     super(sessionInfo)
     this.key = sessionInfo.key

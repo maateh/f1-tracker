@@ -1,15 +1,25 @@
 .countdown-timer {
   display: flex;
+  align-items: center;
 }
+
 .countdown-timer__unit__container {
   margin: 1rem;
 }
+
 .countdown-timer__value {
   font-size: 3rem;
 }
+
 .countdown-timer__unit {
   font-size: 1.3rem;
 }
+
+.countdown-timer__separator {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
 
 @media (max-width: 40rem) {
   .countdown-timer {
@@ -25,5 +35,9 @@
   }
   .countdown-timer__unit {
     font-size: 1rem;
+  }
+
+  .countdown-timer__separator {
+    display: none;
   }
 }
