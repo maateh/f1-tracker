@@ -1,19 +1,42 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import Select from "react-select"
+
+// hooks
+import { useFetch } from "../../hooks/useFetch"
+
+// model
+import SeasonList from "../../model/SeasonList"
 
 // styles
 import './ScheduleSelector.css'
 
-
 const ScheduleSelector = ({ year, setYear }) => {
-  const [value, setValue] = useState(year)
+  const { data, isPending, error } = useFetch('/seasons', 'SeasonTable', '?limit=100')
+  const [seasons, setSeasons] = useState(null)
+  // console.log('SEASONS: ', seasons)
 
-  const handleSelect = () => {
-    setYear(value)
-  }
+  useEffect(() => {
+    if (data) {
+      setSeasons(new SeasonList(data))
+    }
+  }, [data])
 
   return (
     <div className="schedule-selector">
-      <button className="btn" onClick={handleSelect}>Button</button>
+
+      {isPending && <p className="loading">Loading...</p>}
+      {error && <p className="error">{error}</p>}
+
+      {seasons && (
+        <label className="season-picker">
+          <span>Select a Season</span>
+          <Select
+            onChange={(season) => setYear(season.value)}
+            options={seasons.getForSelect()}
+            isSearchable={false}
+          />
+        </label>
+      )}
     </div>
   )
 }

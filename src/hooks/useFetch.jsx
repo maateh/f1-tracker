@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 
-const prefixUrl = 'http://ergast.com/api/f1'
+const prefixUrl = 'https://ergast.com/api/f1'
 const suffixUrl = '.json'
 
-export const useFetch = (url, key, method = "GET", query = '') => {
+export const useFetch = (url, key, query = '', method = "GET") => {
   const [data, setData] = useState(null)
   const [isPending, setIsPending] = useState(false)
   const [error, setError] = useState(null)

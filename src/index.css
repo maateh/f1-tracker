@@ -47,7 +47,7 @@ a {
   border-bottom: 2px solid #ccc;
 }
 .btn {
-  background: var(--primary);
+  background: var(--highlight);
   padding: 0.5rem 0.8rem;
   border-radius: 8px;
   color: var(--text-color-light);
@@ -56,5 +56,37 @@ a {
   border: 1px solid var(--highlight);
 }
 .btn:hover {
-  background: var(--highlight);
+  background: var(--text-color);
+  border: 1px solid var(--text-color);
 }
+
+
+/* forms */
+label {
+  display: block;
+  margin: 1.5rem auto;
+}
+label span {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+/* input, textarea {
+  padding: 8px 6px;
+  font-size: 1em;
+  color: #777;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+} */
+/* textarea {
+  min-height: 160px;
+} */
+/* .error {
+  color: red;
+  background: pink;
+  border: 1px solid red;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 10px 0;
+} */

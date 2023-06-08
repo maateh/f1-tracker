@@ -11,6 +11,12 @@ import WeekendInfo from './WeekendInfo'
 import './Home.css'
 
 
+// TODO:
+// A context miatt egy pillanatra megjelenik az ERROR üzenet
+// -> implementálni kéne az isPending és error property-ket is
+// a contextektbe || vagy egy fetchIsReady propertyt (?)
+// Home & Schedule
+
 const Home = () => {
   const { weekend, dispatch } = useWeekendContext()
 

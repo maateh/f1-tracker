@@ -1,7 +1,72 @@
-.schedule-info__container {
+.schedule-info__container > .schedule__grid {
   font-size: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 30%);
+  grid-gap: 5rem 0.5rem;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
 .schedule-info__container > p.season {
-  font-size: 1.8rem;
+  font-size: 3rem;
   font-weight: bold;
+  text-shadow: 1px 1px 1px;
+  grid-column: 1 / 4;
+  margin: 2rem 4rem;
+  padding: 1.2rem 0 0.8rem 0;
+  letter-spacing: 0.5rem;
+
+  border-top: 0.5rem solid var(--primary);
+  border-radius: 24px;
+}
+.schedule__grid > .schedule-weekend__info {
+  height: 80%;
+  width: 75%;
+  margin: auto;
+  padding: 2rem;
+  justify-self: center;
+  align-self: center;
+  border-top: 4px solid var(--secondary);
+  border-left: 4px solid var(--secondary);
+  border-radius: 4px;
+  
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+.schedule__grid > .schedule-weekend__info:hover {
+  background: #ccc;
+}
+
+.schedule__grid > .schedule-weekend__info > .round {
+  font-size: 1.5rem;
+}
+.schedule__grid > .schedule-weekend__info > .name {
+  font-size: 2rem;
+}
+.schedule__grid > .schedule-weekend__info > .btn {
+  width: 7rem;
+  margin: 0.8rem auto 0;
+}
+
+@media (max-width: 70rem) {
+  .schedule-info__container > .schedule__grid {
+    grid-template-columns: repeat(2, 50%);
+    grid-gap: 5rem 0;
+  }
+
+  .schedule__grid > .schedule-weekend__info {
+    width: 30vw;
+  }
+}
+
+@media (max-width: 45rem) {
+  .schedule-info__container > .schedule__grid {
+    grid-template-columns: 100%;
+    grid-gap: 5rem 0;
+  }
+
+  .schedule__grid > .schedule-weekend__info {
+    width: 50vw;
+  }
 }
