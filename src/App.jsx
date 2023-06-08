@@ -2,25 +2,37 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 // pages
 import Home from './pages/home/Home'
-import Calendar from './pages/calendar/Calendar'
+import Schedule from './pages/schedule/Schedule'
 import Results from './pages/results/Results'
 import History from './pages/history/History'
 
 // components
 import Navbar from './components/Navbar'
 
-function App() {
+// context
+import { ScheduleContextProvider } from './context/ScheduleContext'
+import { WeekendContextProvider } from './context/WeekendContext'
+
+const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
         <Route
           path='/'
-          element={<Home />}
+          element={
+            <WeekendContextProvider>
+              <Home />
+            </WeekendContextProvider>
+          }
         />
         <Route
-          path='/calendar'
-          element={<Calendar />}
+          path='/schedule'
+          element={
+            <ScheduleContextProvider>
+              <Schedule />
+            </ScheduleContextProvider>
+          }
         />
         <Route
           path='/results'

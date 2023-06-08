@@ -1,0 +1,7 @@
+.schedule-info__container {
+  font-size: 2rem;
+}
+.schedule-info__container > p.season {
+  font-size: 1.8rem;
+  font-weight: bold;
+}

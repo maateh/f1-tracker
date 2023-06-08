@@ -1,3 +1,3 @@
-# F1 statistics & weekend schedule tracker
+# F1 Statistics & Weekend Schedule Tracker
 
-A simple F1 statistics and weekend schedule tracker React app, using the Ergast F1 API.
+A simple [Formula 1](https://www.formula1.com/) statistics and weekend schedule tracker [React](https://react.dev) app, using the [Ergast F1 API](https://ergast.com/mrd/).

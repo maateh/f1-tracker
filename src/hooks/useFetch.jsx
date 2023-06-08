@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 
-const prefixUrl = 'https://ergast.com/api/f1'
+const prefixUrl = 'http://ergast.com/api/f1'
 const suffixUrl = '.json'
 
 export const useFetch = (url, key, method = "GET", query = '') => {
@@ -10,8 +10,9 @@ export const useFetch = (url, key, method = "GET", query = '') => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
+    const controller = new AbortController()
+    
     const fetchData = async () => {
-      const controller = new AbortController()
       setIsPending(true)
       
       axios({
@@ -32,13 +33,13 @@ export const useFetch = (url, key, method = "GET", query = '') => {
         .finally(() => {
           setIsPending(false)
         })
-
-      return () => {
-        controller.abort()
-      }
     }
 
     fetchData()
+
+    return () => {
+      controller.abort()
+    }
   }, [url, key, method, query])
   return { data, isPending, error }
 }

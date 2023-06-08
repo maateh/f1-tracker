@@ -5,8 +5,8 @@ class RaceWeekend extends SessionList {
 	constructor(data) {
     const raceInfo = data.Races[0]
     super(raceInfo)
-    this.round = data.round
-    this.season = data.season
+    this.round = raceInfo.round
+    this.season = raceInfo.season
 
 		this.name = raceInfo.raceName
 		this.wikiUrl = raceInfo.url
