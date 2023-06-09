@@ -9,10 +9,6 @@ import History from './pages/history/History'
 // components
 import Navbar from './components/Navbar'
 
-// context
-import { ScheduleContextProvider } from './context/ScheduleContext'
-import { WeekendContextProvider } from './context/WeekendContext'
-
 const App = () => {
   return (
     <BrowserRouter>
@@ -20,19 +16,11 @@ const App = () => {
       <Routes>
         <Route
           path='/'
-          element={
-            <WeekendContextProvider>
-              <Home />
-            </WeekendContextProvider>
-          }
+          element={<Home />}
         />
         <Route
           path='/schedule'
-          element={
-            <ScheduleContextProvider>
-              <Schedule />
-            </ScheduleContextProvider>
-          }
+          element={<Schedule />}
         />
         <Route
           path='/results'

@@ -10,8 +10,8 @@ import SeasonList from "../../model/SeasonList"
 // styles
 import './ScheduleSelector.css'
 
-const ScheduleSelector = ({ year, setYear }) => {
-  const { data, isPending, error } = useFetch('/seasons', 'SeasonTable', '?limit=100')
+const ScheduleSelector = ({ setYear }) => {
+  const { data, loading, error } = useFetch('/seasons', 'SeasonTable', '?limit=100')
   const [seasons, setSeasons] = useState(null)
   // console.log('SEASONS: ', seasons)
 
@@ -24,7 +24,7 @@ const ScheduleSelector = ({ year, setYear }) => {
   return (
     <div className="schedule-selector">
 
-      {isPending && <p className="loading">Loading...</p>}
+      {loading && <p className="loading">Loading...</p>}
       {error && <p className="error">{error}</p>}
 
       {seasons && (

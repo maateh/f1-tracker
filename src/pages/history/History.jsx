@@ -3,10 +3,8 @@ import './History.css'
 
 const History = () => {
   return (
-    <main className="history">
-      <div className="container">
-        History
-      </div>
+    <main className="history__container">
+      <h1 className="page__title">History</h1>
     </main>
   )
 }

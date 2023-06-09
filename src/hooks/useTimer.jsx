@@ -13,7 +13,7 @@ export const useTimer = (end) => {
 			setDuration(
 				intervalToDuration({ start: Date.now(), end })
 			)
-			console.log(duration)
+			// console.log(duration)
 		}, 1000)
 
 		Object.values(duration).every(item => item === 0) && clearInterval(intervalId)

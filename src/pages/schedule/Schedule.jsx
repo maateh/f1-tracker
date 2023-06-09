@@ -1,39 +1,32 @@
-import { useEffect, useState } from "react";
+import { useReducer, useState } from "react";
 
 // components
 import ScheduleSelector from "./ScheduleSelector";
 import ScheduleInfo from "./ScheduleInfo";
 
 // hooks
-import { useScheduleContext } from "../../hooks/useScheduleContext"
-import { useFetch } from "../../hooks/useFetch";
+import { INITIAL_DATA_STATE, useDataReducer } from "../../hooks/useDataReducer";
+import { useFetchWithDispatch } from "../../hooks/useFetchWithDispatch";
 
 // styles
 import './Schedule.css'
 
 const Schedule = () => {
-  const { schedule, dispatch } = useScheduleContext()
-
   const currentYear = new Date().getFullYear()
   const [year, setYear] = useState(currentYear)
-  const { data, isPending, error } = useFetch(`/${year}`, 'RaceTable')
 
-  useEffect(() => {
-    dispatch({ type: 'SET_SCHEDULE', payload: data })
-  }, [data, dispatch, year])
+  const [state, dispatch] = useReducer(useDataReducer, INITIAL_DATA_STATE)
+  useFetchWithDispatch(dispatch, `/${year}`, 'RaceTable')
 
   return (
     <main className="schedule__container">
       <h1 className="page__title">Season Schedule</h1>
 
-      {isPending && <p className="loading">Loading...</p>}
-      {error && <p className="error">{error}</p>}
+      {state.loading && <p className="loading">Loading...</p>}
+      {state.error && <p className="error">{state.error}</p>}
 
-      <ScheduleSelector year={year} setYear={setYear} />
-
-      {schedule && (
-        <ScheduleInfo data={schedule} />
-      )}
+      <ScheduleSelector setYear={setYear} />
+      {state.data && <ScheduleInfo data={state.data} />}
     </main>
   )
 }

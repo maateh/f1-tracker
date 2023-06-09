@@ -1,7 +1,7 @@
 import SessionList from "./SessionList";
 import Circuit from "../Circuit";
 
-class RaceWeekend extends SessionList {
+class Weekend extends SessionList {
 	constructor(data) {
     const raceInfo = data.Races[0]
     super(raceInfo)
@@ -18,4 +18,4 @@ class RaceWeekend extends SessionList {
 	}
 }
 
-export default RaceWeekend
+export default Weekend

@@ -1,0 +1,26 @@
+.weekend-headline {
+  color: var(--text-color);
+}
+.weekend-headline .title {
+  font-size: 1.7rem;
+}
+.weekend-headline .race {
+  font-size: 3rem;
+}
+.weekend-headline .track {
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+.weekend-headline .date,
+.weekend-headline .time {
+  margin: 1rem 0;
+  font-weight: bold;
+}
+.weekend-headline .date {
+  color: var(--highlight);
+  font-size: 2.5rem;
+}
+.weekend-headline .time {
+  color: var(--primary);
+  font-size: 3rem;
+}

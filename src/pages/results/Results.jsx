@@ -5,10 +5,8 @@ const Results = () => {
   return (
     // évenkénti leosztás
     // - melyik pályán: időmérő, versenyeredmények pilótánkénti leosztásban az adott évre 
-    <main className="results">
-      <div className="container">
-        Results
-      </div>
+    <main className="results__container">
+      <h1 className="page__title">Results</h1>
     </main>
   )
 }
