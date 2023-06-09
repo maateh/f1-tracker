@@ -2,7 +2,7 @@
 import WeekendList from "./weekend/WeekendList"
 
 // model
-import Schedule from "../../model/Schedule"
+import Schedule from "../../model/schedule/Schedule"
 
 // styles
 import './ScheduleInfo.css'
@@ -13,8 +13,8 @@ const ScheduleInfo = ({ data }) => {
   // console.log('SCHEDULE: ', schedule)
   return (
     <div className="schedule-info">
-      <h2 className="season">{schedule.season}</h2>
-      <WeekendList weekends={schedule.weekends} />
+      <h2 className="season">{schedule.year}</h2>
+      {schedule.weekends && <WeekendList weekends={schedule.weekends} />}
     </div>
   )
 }

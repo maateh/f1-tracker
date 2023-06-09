@@ -1,9 +1,9 @@
 class Circuit {
-  constructor(circuitInfo) {
-    this.id = circuitInfo.circuitId
-    this.name = circuitInfo.circuitName
-    this.wikiUrl = circuitInfo.url
-    this.location = circuitInfo.Location
+  constructor(data) {
+    this.id = data.circuitId
+    this.name = data.circuitName
+    this.wikiUrl = data.url
+    this.location = data.Location
   }
 }
 

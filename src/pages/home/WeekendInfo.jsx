@@ -3,19 +3,19 @@ import WeekendHeadline from './weekend/WeekendHeadline'
 import SessionHeadline from './session/SessionHeadline'
 
 // models
-import Weekend from '../../model/weekend/Weekend'
+import Weekend from '../../model/schedule/weekend/Weekend'
 
 // styles
 import './WeekendInfo.css'
 
 const WeekendInfo = ({ data }) => {
-	const weekend = new Weekend(data)
+	const weekend = new Weekend(data.Races[0])
 	// console.log('WEEKEND: ', weekend)
 
 	return (
 		<div className="weekend-info">
 			<WeekendHeadline weekend={weekend} />
-			<SessionHeadline session={weekend.relevantSession} />
+			<SessionHeadline session={weekend.sessions.relevantSession} />
 		</div>
 	)
 }

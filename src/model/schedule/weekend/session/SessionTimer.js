@@ -1,9 +1,9 @@
 import format from "date-fns/format";
 
 class SessionTimer {
-	constructor(sessionInfo) {
-		this.date = sessionInfo.date
-		this.time = sessionInfo.time
+	constructor(data) {
+		this.date = data.date
+		this.time = data.time
 	}
 
 	get start() {

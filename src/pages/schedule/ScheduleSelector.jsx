@@ -5,7 +5,7 @@ import Select from "react-select"
 import { useFetch } from "../../hooks/useFetch"
 
 // model
-import SeasonList from "../../model/SeasonList"
+import SeasonList from "../../model/season/SeasonList"
 
 // styles
 import './ScheduleSelector.css'
