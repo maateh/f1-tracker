@@ -1,20 +1,19 @@
+// hooks
+import { useScheduleContext } from "../../hooks/useScheduleContext"
+
 // components
 import WeekendList from "./weekend/WeekendList"
-
-// model
-import Schedule from "../../model/schedule/Schedule"
 
 // styles
 import './ScheduleInfo.css'
 
-const ScheduleInfo = ({ data }) => {
-  const schedule = new Schedule(data)
-  
-  // console.log('SCHEDULE: ', schedule)
+const ScheduleInfo = () => {
+  const { schedule } = useScheduleContext()
+
   return (
     <div className="schedule-info">
       <h2 className="season">{schedule.year}</h2>
-      {schedule.weekends && <WeekendList weekends={schedule.weekends} />}
+      <WeekendList />
     </div>
   )
 }

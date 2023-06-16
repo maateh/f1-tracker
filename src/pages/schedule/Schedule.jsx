@@ -1,32 +1,37 @@
-import { useReducer, useState } from "react";
+import { useEffect } from "react";
 
 // components
-import ScheduleSelector from "./ScheduleSelector";
+import ScheduleSelector from "./selector/ScheduleSelector";
 import ScheduleInfo from "./ScheduleInfo";
 
 // hooks
-import { INITIAL_DATA_STATE, useDataReducer } from "../../hooks/useDataReducer";
-import { useFetchWithDispatch } from "../../hooks/useFetchWithDispatch";
+import { useScheduleContext } from "../../hooks/useScheduleContext"
+
+// model
+import ScheduleModel from "../../model/schedule/Schedule";
 
 // styles
 import './Schedule.css'
 
 const Schedule = () => {
-  const currentYear = new Date().getFullYear()
-  const [year, setYear] = useState(currentYear)
-
-  const [state, dispatch] = useReducer(useDataReducer, INITIAL_DATA_STATE)
-  useFetchWithDispatch(dispatch, `/${year}`, 'RaceTable')
+  const { schedule, year, loading, error, dispatch } = useScheduleContext()
+  
+  useEffect(() => {
+    dispatch({ type: 'FETCH_SCHEDULE_START' })
+    ScheduleModel.fetch(`/${year}`)
+      .then(data => dispatch({ type: 'FETCH_SCHEDULE_SUCCESS', payload: data }))
+      .catch(err => dispatch({ type: 'FETCH_SCHEDULE_ERROR', payload: err.message }))
+  }, [year, dispatch])
 
   return (
     <main className="schedule__container">
       <h1 className="page__title">Season Schedule</h1>
 
-      {state.loading && <p className="loading">Loading...</p>}
-      {state.error && <p className="error">{state.error}</p>}
+      {loading && <p className="loading">Loading...</p>}
+      {error && <p className="error">{error}</p>}
 
-      <ScheduleSelector setYear={setYear} />
-      {state.data && <ScheduleInfo data={state.data} />}
+      {schedule && <ScheduleSelector />}
+      {schedule && <ScheduleInfo />}
     </main>
   )
 }

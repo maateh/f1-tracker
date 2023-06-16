@@ -1,7 +1,6 @@
 .navbar {
   width: 100%;
   background: var(--primary);
-  /* border-bottom: #333 solid 1px; */
 }
 .navbar .container {
   max-width: 100rem;
@@ -14,7 +13,7 @@
 .navbar .brand {
   display: flex;
   align-items: center;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   text-transform: uppercase;
 }
 .navbar .brand img {

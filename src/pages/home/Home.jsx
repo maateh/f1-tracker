@@ -1,18 +1,24 @@
-import { useReducer } from 'react'
+import { useEffect } from 'react'
 
-// hooks
-import { INITIAL_DATA_STATE, useDataReducer } from '../../hooks/useDataReducer'
-import { useFetchWithDispatch } from '../../hooks/useFetchWithDispatch'
+// context
+import { useWeekendContext } from '../../hooks/useWeekendContext'
 
 // components
 import WeekendInfo from './WeekendInfo'
 
 // styles
 import './Home.css'
+import Weekend from '../../model/schedule/weekend/Weekend'
 
 const Home = () => {
-  const [state, dispatch] = useReducer(useDataReducer, INITIAL_DATA_STATE)
-  useFetchWithDispatch(dispatch, '/current/next', 'RaceTable')
+  const { weekend, loading, error, dispatch } = useWeekendContext()
+
+  useEffect(() => {
+    dispatch({ type: 'FETCH_START' })
+    Weekend.fetch('/current/next')
+      .then(data => dispatch({ type: 'FETCH_SUCCESS', payload: data }))
+      .catch(err => dispatch({ type: 'FETCH_ERROR', payload: err.message }))
+  }, [dispatch])
 
   return (
     <main className="home__container">
@@ -20,10 +26,10 @@ const Home = () => {
         Track the most <span className="highlight">Formula 1</span> statistics in one place!
       </h1>
 
-      {state.loading && <p className="loading">Loading...</p>}
-      {state.error && <p className="error">{state.error}</p>}
+      {loading && <p className="loading">Loading...</p>}
+      {error && <p className="error">{error}</p>}
 
-      {state.data && <WeekendInfo data={state.data} />}
+      {weekend && <WeekendInfo />}
     </main>
   )
 }

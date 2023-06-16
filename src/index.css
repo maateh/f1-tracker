@@ -46,6 +46,14 @@ a {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
   border-bottom: 2px solid #ccc;
 }
+.page__subtitle {
+  max-width: fit-content;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  margin: auto;
+  border-bottom: 2px solid #888;
+}
 .btn {
   background: var(--highlight);
   padding: 0.5rem 0.8rem;
@@ -55,9 +63,10 @@ a {
   font-size: 1rem;
   border: 1px solid var(--highlight);
 }
-.btn:hover {
-  background: var(--text-color);
-  border: 1px solid var(--text-color);
+.btn:hover,
+.btn:active {
+  background: var(--primary);
+  border: 1px solid var(--primary);
 }
 .highlight {
   font-weight: bold;

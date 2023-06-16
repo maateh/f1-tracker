@@ -1,6 +1,10 @@
+// hooks
+import { fetchData } from '../../../api/fetchData'
+
+// model
 import Circuit from '../../Circuit'
 import SessionList from './session/SessionList'
-import ResultList from './result/ResultList'
+import ResultList from '../../result/ResultList'
 
 class Weekend {
 	constructor(data) {
@@ -13,6 +17,14 @@ class Weekend {
 
 		this.parseSessions(data)
 		this.parseResults(data)
+	}
+
+	static async fetch(url) {
+		return fetchData(url, 'RaceTable')
+			.then(data => new Weekend(data.Races[0]))
+			.catch(err => {
+				throw new Error(err)
+			})
 	}
 
 	get active() {

@@ -1,7 +1,12 @@
+// context
+import { useWeekendContext } from '../../../hooks/useWeekendContext'
+
 // styles
 import './WeekendHeadline.css'
 
-const WeekendHeadline = ({ weekend }) => {
+const WeekendHeadline = () => {
+  const { weekend } = useWeekendContext()
+
   return (
     <div className="weekend-headline">
       <h2 className="title">{`${weekend.active ? 'Current' : 'Next'} Weekend`}</h2>

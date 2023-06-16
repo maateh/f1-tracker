@@ -1,5 +1,5 @@
 // hooks
-import { useTimer } from '../../../hooks/useTimer'
+import { useTimer } from './hooks/useTimer'
 
 // styles
 import './CountdownTimer.css'

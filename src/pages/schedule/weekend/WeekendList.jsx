@@ -1,9 +1,13 @@
 import { useNavigate } from 'react-router-dom'
 
+// hooks
+import { useScheduleContext } from '../../../hooks/useScheduleContext'
+
 // styles
 import './WeekendList.css'
 
-const WeekendList = ({ weekends }) => {
+const WeekendList = () => {
+  const { schedule: { weekends } } = useScheduleContext()
   const navigate = useNavigate()
 
   return (

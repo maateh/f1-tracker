@@ -1,10 +1,15 @@
+// context
+import { useWeekendContext } from '../../../hooks/useWeekendContext'
+
 // components
-import CountdownTimer from './CountdownTimer'
+import CountdownTimer from './countdown/CountdownTimer'
 
 // styles
 import './SessionHeadline.css'
 
-const SessionHeadline = ({ session }) => {
+const SessionHeadline = () => {
+  const { weekend: { sessions: { relevantSession: session } }} = useWeekendContext()
+
   return (
     <div className="session-headline">
       <h2 className="title">{`${session.active ? 'Current' : 'Next'} Session`}</h2>
