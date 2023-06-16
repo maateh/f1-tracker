@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import Select from 'react-select'
 
 // context
-import { useResultsFilterContext } from '../../../hooks/useResultsFilterContext'
+import { useResultsFilterContext } from '../../context/hooks/useResultsFilterContext'
 
 // model
-import Options from '../../../model/filter/FilterOptions'
+import FilterOptionsModel from '../../../../model/filter/FilterOptions'
 
 // styles
 import './FilterOptions.css'
@@ -25,7 +25,7 @@ const FilterOptions = () => {
 
 	useEffect(() => {
 		setLoading(true)
-		Options.fetch(currentFilters.year.value)
+		FilterOptionsModel.fetch(currentFilters.year.value)
 			.then(data => setOptions(data))
 			.catch(err => setError(err.message))
 			.finally(() => setLoading(false))

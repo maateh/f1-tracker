@@ -1,6 +1,6 @@
 // components
-import CurrentFilterList from './CurrentFilterList'
-import FilterOptions from './FilterOptions'
+import CurrentFilterList from './current/CurrentFilterList'
+import FilterOptions from './options/FilterOptions'
 
 // styles
 import './ResultsFilter.css'

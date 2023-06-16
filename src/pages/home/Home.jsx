@@ -1,21 +1,23 @@
 import { useEffect } from 'react'
 
-// context
-import { useWeekendContext } from '../../hooks/useWeekendContext'
-
 // components
-import WeekendInfo from './WeekendInfo'
+import WeekendInfo from './info/WeekendInfo'
+
+// context
+import { useWeekendContext } from './context/hooks/useWeekendContext'
+
+// model
+import WeekendModel from '../../model/season/weekend/Weekend'
 
 // styles
 import './Home.css'
-import Weekend from '../../model/schedule/weekend/Weekend'
 
 const Home = () => {
   const { weekend, loading, error, dispatch } = useWeekendContext()
 
   useEffect(() => {
     dispatch({ type: 'FETCH_START' })
-    Weekend.fetch('/current/next')
+    WeekendModel.fetch('/current/next')
       .then(data => dispatch({ type: 'FETCH_SUCCESS', payload: data }))
       .catch(err => dispatch({ type: 'FETCH_ERROR', payload: err.message }))
   }, [dispatch])

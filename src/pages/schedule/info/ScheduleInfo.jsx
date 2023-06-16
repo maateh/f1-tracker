@@ -1,8 +1,8 @@
-// hooks
-import { useScheduleContext } from "../../hooks/useScheduleContext"
+// context
+import { useScheduleContext } from "../context/hooks/useScheduleContext"
 
 // components
-import WeekendList from "./weekend/WeekendList"
+import WeekendList from "../weekend/WeekendList"
 
 // styles
 import './ScheduleInfo.css'

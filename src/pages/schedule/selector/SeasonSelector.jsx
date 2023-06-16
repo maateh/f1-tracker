@@ -1,23 +1,23 @@
 import { useEffect } from "react"
 
 // components
-import SeasonPicker from "./SeasonPicker"
+import SeasonPicker from "./picker/SeasonPicker"
 
-// hooks
-import { useScheduleContext } from "../../../hooks/useScheduleContext"
+// context
+import { useScheduleContext } from "../context/hooks/useScheduleContext"
 
 // model
-import SeasonList from "../../../model/season/SeasonList"
+import SeasonListModel from "../../../model/season/SeasonList"
 
 // styles
-import './ScheduleSelector.css'
+import './SeasonSelector.css'
 
-const ScheduleSelector = () => {
+const SeasonSelector = () => {
   const { seasons, loading, error, dispatch } = useScheduleContext()
 
   useEffect(() => {
     dispatch({ type: 'FETCH_SEASONS_START' })
-    SeasonList.fetch('/seasons')
+    SeasonListModel.fetch('/seasons')
       .then(data => dispatch({ type: 'FETCH_SEASONS_SUCCESS', payload: data }))
       .catch(err => dispatch({ type: 'FETCH_SEASONS_ERROR', payload: err.message }))
   }, [dispatch])
@@ -27,9 +27,10 @@ const ScheduleSelector = () => {
       {loading && <p className="loading">Loading...</p>}
       {error && <p className="error">{error}</p>}
 
+      <h2 className="page__subtitle">Select a Season</h2>
       {seasons && <SeasonPicker />}
     </div>
   )
 }
 
-export default ScheduleSelector
+export default SeasonSelector

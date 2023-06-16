@@ -1,5 +1,5 @@
 // context
-import { useResultsFilterContext } from '../../../hooks/useResultsFilterContext'
+import { useResultsFilterContext } from '../../context/hooks/useResultsFilterContext'
 
 // styles
 import './CurrentFilterList.css'

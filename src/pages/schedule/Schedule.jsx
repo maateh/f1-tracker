@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 
 // components
-import ScheduleSelector from "./selector/ScheduleSelector";
-import ScheduleInfo from "./ScheduleInfo";
+import SeasonSelector from "./selector/SeasonSelector";
+import ScheduleInfo from "./info/ScheduleInfo";
 
-// hooks
-import { useScheduleContext } from "../../hooks/useScheduleContext"
+// context
+import { useScheduleContext } from "./context/hooks/useScheduleContext"
 
 // model
-import ScheduleModel from "../../model/schedule/Schedule";
+import SeasonModel from "../../model/season/Season";
 
 // styles
 import './Schedule.css'
@@ -18,7 +18,7 @@ const Schedule = () => {
   
   useEffect(() => {
     dispatch({ type: 'FETCH_SCHEDULE_START' })
-    ScheduleModel.fetch(`/${year}`)
+    SeasonModel.fetch(`/${year}`)
       .then(data => dispatch({ type: 'FETCH_SCHEDULE_SUCCESS', payload: data }))
       .catch(err => dispatch({ type: 'FETCH_SCHEDULE_ERROR', payload: err.message }))
   }, [year, dispatch])
@@ -30,7 +30,7 @@ const Schedule = () => {
       {loading && <p className="loading">Loading...</p>}
       {error && <p className="error">{error}</p>}
 
-      {schedule && <ScheduleSelector />}
+      {schedule && <SeasonSelector />}
       {schedule && <ScheduleInfo />}
     </main>
   )

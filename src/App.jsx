@@ -14,9 +14,9 @@ import History from './pages/history/History'
 import Error from './pages/error/Error'
 
 // context
-import { WeekendContextProvider } from './context/WeekendContext'
-import { ScheduleContextProvider } from './context/ScheduleContext'
-import { ResultsFilterContextProvider } from './context/ResultsFilterContext'
+import { WeekendContextProvider } from './pages/home/context/WeekendContext'
+import { ScheduleContextProvider } from './pages/schedule/context/ScheduleContext'
+import { ResultsFilterContextProvider } from './pages/results/context/ResultsFilterContext'
 
 const router = createBrowserRouter([
   {

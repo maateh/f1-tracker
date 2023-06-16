@@ -1,8 +1,9 @@
-import SeasonList from '../season/SeasonList'
-import WeekendList from '../schedule/weekend/WeekendList'
-
-// hooks
+// api
 import { fetchData } from '../../api/fetchData'
+
+// model
+import SeasonList from '../season/SeasonList'
+import WeekendList from '../season/weekend/WeekendList'
 
 class FilterTypes {
 	#years = []

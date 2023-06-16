@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
 // model
-import ResultList from "../../../model/result/ResultList"
+import ResultListModel from "../../../model/result/ResultList"
 
 const Weekend = () => {
   const params = useParams()
@@ -12,7 +12,7 @@ const Weekend = () => {
 
   useEffect(() => {
     setLoading(true)
-    ResultList.fetchWeekend(`/${params.year}/${params.weekend}/results`)
+    ResultListModel.fetchWeekend(`/${params.year}/${params.weekend}/results`)
       .then(data => setResults(data))
       .catch(err => setError(err.message))
       .finally(() => setLoading(false))

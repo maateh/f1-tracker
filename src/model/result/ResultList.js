@@ -1,11 +1,10 @@
-// hooks
+// api
 import { fetchData } from "../../api/fetchData"
 
 // model
 import Result from "./Result"
-import Weekend from "../schedule/weekend/Weekend"
-import Schedule from "../schedule/Schedule"
-
+import Weekend from "../season/weekend/Weekend"
+import Season from "../season/Season"
 
 class ResultList {
   constructor(data) {
@@ -14,7 +13,7 @@ class ResultList {
 
   static async fetchWeekends(url) {
     return fetchData(url, 'RaceTable', '?limit=300')
-      .then(data => new Schedule(data))
+      .then(data => new Season(data))
       .catch(err => {
         throw new Error(err)
       })

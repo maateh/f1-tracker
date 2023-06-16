@@ -1,7 +1,7 @@
 import { createContext, useReducer } from 'react'
 
 // model
-import CurrentFilters from '../model/filter/CurrentFilters'
+import CurrentFiltersModel from '../../../model/filter/CurrentFilters'
 
 const resultsFilterReducer = (state, action) => {
 	switch (action.type) {
@@ -16,7 +16,7 @@ export const ResultsFilterContext = createContext()
 
 export const ResultsFilterContextProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(resultsFilterReducer, {
-		currentFilters: new CurrentFilters()
+		currentFilters: new CurrentFiltersModel()
 	})
 
 	return (

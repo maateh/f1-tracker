@@ -1,8 +1,8 @@
-// hooks
+// api
 import { fetchData } from '../../../api/fetchData'
 
 // model
-import Circuit from '../../Circuit'
+import Circuit from './circuit/Circuit'
 import SessionList from './session/SessionList'
 import ResultList from '../../result/ResultList'
 

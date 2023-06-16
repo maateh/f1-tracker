@@ -1,5 +1,5 @@
 // context
-import { useWeekendContext } from '../../../hooks/useWeekendContext'
+import { useWeekendContext } from '../context/hooks/useWeekendContext'
 
 // components
 import CountdownTimer from './countdown/CountdownTimer'

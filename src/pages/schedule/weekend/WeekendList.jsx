@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 
 // hooks
-import { useScheduleContext } from '../../../hooks/useScheduleContext'
+import { useScheduleContext } from '../context/hooks/useScheduleContext'
 
 // styles
 import './WeekendList.css'
