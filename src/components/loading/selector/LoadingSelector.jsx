@@ -1,5 +1,5 @@
 // skeleton loading component
-import Loading from "../../../../../components/Loading"
+import Loading from "../Loading"
 
 // styles
 import './LoadingSelector.css'

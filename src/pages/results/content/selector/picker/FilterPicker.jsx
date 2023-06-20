@@ -1,35 +1,12 @@
-import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Select from 'react-select'
 
 // context
-import { useResultsFilterContext } from '../../context/hooks/useResultsFilterContext'
+import { useResultsFilterContext } from '../context/hooks/useResultsFilterContext'
 
-// model
-import FilterOptionsModel from '../../../../model/filter/FilterOptions'
-
-// styles
-import './FilterOptions.css'
-
-const FilterOptions = () => {
-	const { currentFilters, dispatch } = useResultsFilterContext()
+const FilterPicker = () => {
+	const { currentFilters, options, dispatch } = useResultsFilterContext()
 	const navigate = useNavigate()
-
-	const [options, setOptions] = useState(null)
-	const [error, setError] = useState(null)
-	const [loading, setLoading] = useState(false)
-
-	useEffect(() => {
-		navigate(currentFilters.getRoute(), { replace: true })
-	}, [navigate, currentFilters])
-
-	useEffect(() => {
-		setLoading(true)
-		FilterOptionsModel.fetch(currentFilters.year.value)
-			.then(data => setOptions(data))
-			.catch(err => setError(err.message))
-			.finally(() => setLoading(false))
-	}, [currentFilters.year])
 
 	const handleChange = (option, key) => {
 		if (currentFilters.year.value === option.value) {
@@ -45,8 +22,8 @@ const FilterOptions = () => {
 		navigate(currentFilters.getRoute(), { replace: true })
 	}
 
-	return loading ? 'loading' : error ? 'error' : options && (
-		<div className="filter-options">
+	return (
+		<div className="filter-picker">
 			<label className="year">
 				<span>Year</span>
 				<Select
@@ -81,4 +58,4 @@ const FilterOptions = () => {
 	)
 }
 
-export default FilterOptions
+export default FilterPicker

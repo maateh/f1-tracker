@@ -6,15 +6,12 @@ import Main from './layouts/Main'
 // pages
 import Homepage from './pages/home/Homepage'
 import SchedulePage from './pages/schedule/SchedulePage'
-import Results from './pages/results/Results'
-import Seasons from './pages/results/listing/Seasons'
-import Weekend from './pages/results/listing/Weekend'
-import WeekendSession from './pages/results/listing/WeekendSession'
+import ResultsPage from './pages/results/ResultsPage'
+import Seasons from './pages/results/content/listing/Seasons'
+import Weekend from './pages/results/content/listing/Weekend'
+import WeekendSession from './pages/results/content/listing/WeekendSession'
 import History from './pages/history/History'
 import NotFound from './pages/error/NotFound'
-
-// context
-import { ResultsFilterContextProvider } from './pages/results/context/ResultsFilterContext'
 
 const router = createBrowserRouter([
   {
@@ -31,11 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: "results",
-        element: (
-          <ResultsFilterContextProvider>
-            <Results />
-          </ResultsFilterContextProvider>
-        ),
+        element: <ResultsPage />,
         children: [
           {
             path: ":year/all/summary",

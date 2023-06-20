@@ -1,5 +1,5 @@
 // components
-import Content from "./content/Content";
+import ScheduleContent from "./content/ScheduleContent";
 
 // context
 import { ScheduleContextProvider } from "./context/ScheduleContext";
@@ -13,7 +13,7 @@ const SchedulePage = () => {
       <h1 className="page__title">Season Schedule</h1>
 
       <ScheduleContextProvider>
-        <Content />
+        <ScheduleContent />
       </ScheduleContextProvider>
     </main>
   )

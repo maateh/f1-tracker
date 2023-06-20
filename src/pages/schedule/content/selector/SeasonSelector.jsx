@@ -2,7 +2,7 @@ import { useEffect } from "react"
 
 // components
 import SeasonPicker from "./picker/SeasonPicker"
-import LoadingSelector from "./loading/LoadingSelector"
+import LoadingSelector from "../../../../components/loading/selector/LoadingSelector"
 
 // context
 import { useScheduleContext } from "../../context/hooks/useScheduleContext"

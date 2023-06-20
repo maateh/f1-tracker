@@ -1,0 +1,31 @@
+/* filter selector layout */
+.results-filter-selector {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* filter picker layout */
+.results-filter-selector .filter-picker {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.results-filter-selector .filter-picker > label {
+	margin: 0 3rem 3rem;
+	min-width: 12rem;
+}
+
+.results-filter-selector .filter-picker > label > span {
+	text-align: start;
+	font-size: 1.2rem;
+	font-weight: bold;
+	margin-bottom: 0.3rem;
+	padding-left: 0.4rem;
+	border-top: 2px solid var(--secondary);
+	border-left: 4px solid var(--secondary);
+	border-radius: 2px;
+}
