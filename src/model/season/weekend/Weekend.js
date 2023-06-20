@@ -35,7 +35,7 @@ class Weekend {
 		if (
 			data.FirstPractice &&
 			data.SecondPractice &&
-			data.ThirdPractice &&
+			(data.ThirdPractice || data.Sprint) &&
 			data.Qualifying &&
 			data.date &&
 			data.time

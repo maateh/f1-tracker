@@ -1,0 +1,11 @@
+.season-selector {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.season-selector .season-picker > div {
+  width: 10rem;
+  margin: 1rem auto;
+}

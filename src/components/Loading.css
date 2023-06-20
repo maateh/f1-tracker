@@ -1,0 +1,24 @@
+.loading {
+  background: #bbb;
+  overflow: hidden;
+  margin: 0.5rem auto;
+  border-radius: 4px;
+  display: flex;
+}
+.loading.title {
+  width: 50%;
+  height: 1.8rem;
+}
+.loading.text {
+  width: 100%;
+  height: 1.5rem;
+}
+.loading.avatar {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+}
+.loading.thumbnail {
+  width: 8rem;
+  height: 8rem;
+}

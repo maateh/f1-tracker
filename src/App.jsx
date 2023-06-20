@@ -4,41 +4,30 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Main from './layouts/Main'
 
 // pages
-import Home from './pages/home/Home'
-import Schedule from './pages/schedule/Schedule'
+import Homepage from './pages/home/Homepage'
+import SchedulePage from './pages/schedule/SchedulePage'
 import Results from './pages/results/Results'
 import Seasons from './pages/results/listing/Seasons'
 import Weekend from './pages/results/listing/Weekend'
 import WeekendSession from './pages/results/listing/WeekendSession'
 import History from './pages/history/History'
-import Error from './pages/error/Error'
+import NotFound from './pages/error/NotFound'
 
 // context
-import { WeekendContextProvider } from './pages/home/context/WeekendContext'
-import { ScheduleContextProvider } from './pages/schedule/context/ScheduleContext'
 import { ResultsFilterContextProvider } from './pages/results/context/ResultsFilterContext'
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
-    errorElement: <Error />,
     children: [
       {
         index: true,
-        element: (
-          <WeekendContextProvider>
-            <Home />
-          </WeekendContextProvider>
-        )
+        element: <Homepage />
       },
       {
         path: "schedule",
-        element: (
-          <ScheduleContextProvider>
-            <Schedule />
-          </ScheduleContextProvider>
-        )
+        element: <SchedulePage />
       },
       {
         path: "results",
@@ -65,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "history",
         element: <History />
+      },
+      {
+        path: "*",
+        element: <NotFound />
       }
     ]
   }

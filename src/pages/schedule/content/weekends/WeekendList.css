@@ -1,0 +1,82 @@
+/* season title */
+.weekend-list__container {
+  width: 95%;
+  margin: auto;
+}
+.weekend-list__container > h2.season-year {
+  width: 18rem;
+  margin: 3rem auto;
+  padding: 1.2rem 0 0.8rem;
+  font-size: 4rem;
+  font-weight: bold;
+  letter-spacing: 0.6rem;
+  text-shadow: 1px 2px 2px;
+
+  border-top: 0.5rem solid var(--highlight);
+  border-bottom: 0.5rem solid var(--highlight);
+  border-radius: 24px;
+}
+
+
+/* weekend list & weekend-cards */
+.weekend-list {
+  font-size: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5rem 1rem;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+.weekend-list > .weekend-card {
+  height: 80%;
+  width: 75%;
+  margin: auto;
+  padding: 2rem;
+  justify-self: center;
+  align-self: center;
+  border-top: 4px solid var(--secondary);
+  border-left: 4px solid var(--secondary);
+  border-radius: 4px;
+  
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+.weekend-list > .weekend-card:hover,
+.weekend-list > .weekend-card:active {
+  background: #ccc;
+}
+
+.weekend-list > .weekend-card > .round {
+  font-size: 1.5rem;
+}
+.weekend-list > .weekend-card > .name {
+  font-size: 2rem;
+}
+.weekend-list > .weekend-card > .btn {
+  width: 7rem;
+  margin: 0.8rem auto 0;
+}
+
+@media (max-width: 80rem) {
+  .weekend-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5rem 0;
+  }
+
+  .weekend-list > .weekend-card {
+    width: 30vw;
+  }
+}
+
+@media (max-width: 55rem) {
+  .weekend-list {
+    grid-template-columns: 1fr;
+    gap: 5rem 0;
+  }
+
+  .weekend-list > .weekend-card {
+    width: 45vw;
+  }
+}

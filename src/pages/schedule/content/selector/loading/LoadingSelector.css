@@ -1,0 +1,8 @@
+.loading-selector__wrapper {
+  width: 15rem;
+  margin: 0 auto;
+}
+.loading-selector__wrapper .text,
+.loading-selector__wrapper .title {
+  height: 2rem;
+}

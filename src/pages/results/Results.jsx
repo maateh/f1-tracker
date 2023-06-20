@@ -1,9 +1,10 @@
+import { Outlet } from 'react-router-dom'
+
 // components
 import ResultsFilter from './filter/ResultsFilter'
 
 // styles
 import './Results.css'
-import { Outlet } from 'react-router-dom'
 
 const Results = () => {
   return (

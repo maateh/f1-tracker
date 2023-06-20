@@ -1,0 +1,75 @@
+/* main layout */
+.home-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: flex-start;
+  margin: 0 1.5rem;
+  gap: 1rem;
+}
+
+@media (max-width: 50rem) {
+  .home-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 5rem;
+  }
+}
+
+/* layout globals */
+.relevant-weekend,
+.relevant-session {
+  color: var(--text-color);
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-content .title {
+  font-size: 1.7rem;
+}
+.home-content .race,
+.home-content .name {
+  font-size: 3rem;
+}
+
+@media (max-width: 40rem) {
+  .home-content .title {
+    font-size: 1.5rem;
+  }
+  .home-content .race,
+  .home-content .name {
+    font-size: 2.5rem;
+  }
+}
+
+
+/* weekend layout */
+.relevant-weekend .track {
+  font-size: 1.5rem;
+}
+.relevant-weekend .date,
+.relevant-weekend .time {
+  margin: 0.4rem 0;
+  font-weight: bold;
+}
+.relevant-weekend .date {
+  color: var(--highlight);
+  font-size: 2.5rem;
+}
+.relevant-weekend .time {
+  color: var(--primary);
+  font-size: 3rem;
+}
+
+@media (max-width: 40rem) {
+  .relevant-weekend .date {
+    font-size: 2.2rem;
+  }
+  .relevant-weekend .time {
+    font-size: 2.5rem;
+  }
+}
+
+
+/* session layout */

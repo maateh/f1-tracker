@@ -1,12 +1,23 @@
-import { useRouteError } from "react-router-dom"
+// styles
+import './Error.css'
 
-const Error = () => {
-  const error = useRouteError()
+const Error = ({ error }) => {
+  error = {
+    details: 'Error details',
+    code: 400
+  }
 
   return (
-    <div>
-      <p>Error Page</p>
-      <p>Error: {error.message}</p>
+    <div className="error-page__container">
+      <h2 className="error-page__title">Ooops!</h2>
+      <h4 className="error-page__subtitle">Failed to load required data. Try refresh the page.</h4>
+
+      <p className="error-code">{error.code}</p>
+      <p className="error-details">{error.details}</p>
+
+      <button
+        className="btn"
+        onClick={() => window.location.reload()}>Refresh Page</button>
     </div>
   )
 }

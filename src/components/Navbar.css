@@ -3,8 +3,7 @@
   background: var(--primary);
 }
 .navbar .container {
-  max-width: 100rem;
-  padding: 0.8rem 2rem;
+  padding: 0.5rem 2.25rem;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -18,7 +17,7 @@
 }
 .navbar .brand img {
   margin-right: 1rem;
-  width: 36px;
+  width: 2.5rem;
   border-radius: 0.2rem;
 }
 .navbar .brand span {
@@ -32,29 +31,41 @@
   align-items: center;
 }
 
-.navbar li {
-  margin-left: 2.5rem;
-}
-
 .navbar a {
+  padding: 0.5rem 0.8rem;
   color: #333;
   font-size: 1.2rem;
   color: var(--text-color-light);
 }
-.navbar li a:hover {
+.navbar li a.active {
+  background: var(--highlight);
+  border-radius: 8px;
+  font-weight: bold;
+}
+.navbar li a:hover,
+.navbar li a:active {
   text-decoration: underline;
 }
 
 
-@media (max-width: 800px) {
+@media (max-width: 50rem) {
   .navbar .container {
-    padding: 0.8rem 1rem;
+    padding: 0.5rem 1rem;
   }
   .navbar .brand span {
     font-size: 1.1rem;
     font-weight: bold;
   }
+  .navbar .brand img {
+    width: 1.8rem;
+  }
   .navbar a {
     font-size: 1rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  .navbar .container ul {
+    display: none;
   }
 }

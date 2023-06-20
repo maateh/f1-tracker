@@ -1,9 +1,0 @@
-.home__container {
-  max-width: 100rem;
-  margin: 1rem auto;
-  text-align: center;
-}
-
-.home__container > .page__title > span {
-  font-size: 4.5rem;
-}
