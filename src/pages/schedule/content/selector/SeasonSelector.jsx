@@ -2,7 +2,7 @@ import { useEffect } from "react"
 
 // components
 import SeasonPicker from "./picker/SeasonPicker"
-import LoadingSelector from "../../../../components/loading/selector/LoadingSelector"
+import SkeletonSelector from "../../../../components/skeleton/SkeletonSelector"
 
 // context
 import { useScheduleContext } from "../../context/hooks/useScheduleContext"
@@ -25,7 +25,7 @@ const SeasonSelector = () => {
 
   return (
     <div className="season-selector">
-      {loading && !seasons && <LoadingSelector />}
+      {loading && !seasons && <SkeletonSelector />}
       {error && <p className="error__element">{error}</p>}
 
       {seasons && <SeasonPicker />}

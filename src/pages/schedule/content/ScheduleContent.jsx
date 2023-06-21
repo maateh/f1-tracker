@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 // components
 import SeasonSelector from './selector/SeasonSelector'
 import WeekendList from './weekends/WeekendList'
-import LoadingScheduleContent from './loading/LoadingScheduleContent'
+import SkeletonGrid from '../../../components/skeleton/SkeletonGrid'
 import Error from '../../error/Error'
 
 // context
@@ -24,7 +24,7 @@ const Content = () => {
 
   return (
     <div className="schedule-content">
-      {loading && !schedule && <LoadingScheduleContent />}
+      {loading && !schedule && <SkeletonGrid counter={9} />}
       {error && <Error error={error} />}
 
       {schedule && (

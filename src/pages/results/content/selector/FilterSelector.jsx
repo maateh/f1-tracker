@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 // components
 import FilterPicker from './picker/FilterPicker'
-import LoadingSelector from "../../../../components/loading/selector/LoadingSelector"
+import SkeletonSelector from "../../../../components/skeleton/SkeletonSelector"
 
 // context
 import { useResultsFilterContext } from './context/hooks/useResultsFilterContext'
@@ -31,7 +31,7 @@ const FilterSelector = () => {
 
   return (
     <div className="results-filter-selector">
-      {loading && <LoadingSelector />}
+      {loading && <SkeletonSelector />}
       {error && <p className="error__element">{error.message}</p>}
 
       {options && <FilterPicker />}
