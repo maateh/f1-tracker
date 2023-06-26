@@ -3,12 +3,17 @@
   background: var(--primary);
 }
 .navbar .container {
-  padding: 0.5rem 2.25rem;
-  margin: 0 auto;
+  padding: 0.8rem 2.25rem;
   display: flex;
   justify-content: space-between;
 }
 
+.navbar a {
+  color: var(--text-color-light);
+}
+
+
+/* brand */
 .navbar .brand {
   display: flex;
   align-items: center;
@@ -25,32 +30,37 @@
   font-weight: bold;
 }
 
+
+/* links */
 .navbar ul {
+  width: 50%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  gap: 2rem;
 }
 
-.navbar a {
-  padding: 0.5rem 0.8rem;
-  color: #333;
-  font-size: 1.2rem;
-  color: var(--text-color-light);
+.navbar li > a {
+  padding: 0.4rem 0.7rem;
+  font-size: 1.25rem;
 }
-.navbar li a.active {
-  background: var(--highlight);
-  border-radius: 8px;
+.navbar li > a.active {
   font-weight: bold;
+  letter-spacing: 0.1rem;
+  color: var(--text-color);
+  background: #eee;
+  box-shadow: 1px 1px 1px 1px #ccc;
+  border-radius: 12px;
 }
-.navbar li a:hover,
-.navbar li a:active {
+.navbar li > a:hover,
+.navbar li > a:active {
   text-decoration: underline;
 }
 
 
 @media (max-width: 50rem) {
   .navbar .container {
-    padding: 0.5rem 1rem;
+    padding: 1rem;
   }
   .navbar .brand span {
     font-size: 1.1rem;

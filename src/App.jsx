@@ -10,7 +10,11 @@ import ResultsPage from './pages/results/ResultsPage'
 import Seasons from './pages/results/content/listing/Seasons'
 import Weekend from './pages/results/content/listing/Weekend'
 import WeekendSession from './pages/results/content/listing/WeekendSession'
-import History from './pages/history/History'
+import HistoryPage from './pages/history/HistoryPage'
+import LapsHistory from './pages/history/content/laps/LapsHistory'
+import DriversHistory from './pages/history/content/drivers/DriversHistory'
+import ConstructorsHistory from './pages/history/content/constructors/ConstructorsHistory'
+import PitsHistory from './pages/history/content/pits/PitsHistory'
 import NotFound from './pages/error/NotFound'
 
 const router = createBrowserRouter([
@@ -46,7 +50,25 @@ const router = createBrowserRouter([
       },
       {
         path: "history",
-        element: <History />
+        element: <HistoryPage />,
+        children: [
+          {
+            path: "laps",
+            element: <LapsHistory />
+          },
+          {
+            path: "drivers",
+            element: <DriversHistory />
+          },
+          {
+            path: "constructors",
+            element: <ConstructorsHistory />
+          },
+          {
+            path: "pits",
+            element: <PitsHistory />
+          },
+        ]
       },
       {
         path: "*",
