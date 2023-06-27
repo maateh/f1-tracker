@@ -51,7 +51,6 @@ class SessionList {
 
   get nextSession() {
 		const practice = this.practices.find(p => !p.active && !p.over)
-    // console.log('NEXT_PRACTICE: ', practice)
 		if (practice) {
 			return practice
 		}
