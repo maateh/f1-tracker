@@ -54,7 +54,7 @@
 .weekend-list > .weekend-card > .name {
   font-size: 2rem;
 }
-.weekend-list > .weekend-card > .btn {
+.weekend-list > .weekend-card > a {
   width: 7rem;
   margin: 0.8rem auto 0;
 }

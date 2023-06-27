@@ -1,45 +1,57 @@
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import Select from 'react-select'
 
 // context
 import { useResultsFilterContext } from '../context/hooks/useResultsFilterContext'
 
 const FilterPicker = () => {
-	const { currentFilters, options, dispatch } = useResultsFilterContext()
+	const params = useParams()
 	const navigate = useNavigate()
 
-	const handleChange = (option, key) => {
-		if (currentFilters.year.value === option.value) {
-			return
-		}
-		if (key === 'year') {
-			currentFilters.weekend = currentFilters.defaultWeekend
-			currentFilters.session = currentFilters.defaultSession
-		}
+	const { options } = useResultsFilterContext()
+	const [filter, setFilter] = useState({
+		year: params.year ? params.year : 2023,
+		weekend: params.weekend ? params.weekend : 'all',
+		session: params.session ? params.session : 'summary',
+	})
 
-		currentFilters[key] = option
-		dispatch({ type: 'SET_CURRENT_FILTERS', payload: currentFilters })
-		navigate(currentFilters.getRoute(), { replace: true })
-	}
+	useEffect(() => {
+		navigate(`./${filter.year}/${filter.weekend}/${filter.session}`, {
+			replace: true,
+		})
+	}, [navigate, filter])
 
 	return (
 		<div className="filter-picker">
 			<label className="year">
 				<span>Year</span>
 				<Select
-					onChange={option => handleChange(option, 'year')}
-					placeholder={currentFilters.year.label}
-					defaultValue={currentFilters.year.value}
+					onChange={option =>
+						setFilter(
+							prev => {
+								return prev.year === option.value ? { ...prev } : {
+									year: option.value,
+									weekend: 'all',
+									session: 'summary',
+								}
+							}
+						)
+					}
+					placeholder={filter.year}
+					value={filter.year}
 					options={options.years}
 					isSearchable={true}
 				/>
 			</label>
-			<label className="round">
+			<label className="weekend">
 				<span>Weekend</span>
 				<Select
-					onChange={option => handleChange(option, 'weekend')}
-					placeholder={currentFilters.weekend.label}
-					defaultValue={currentFilters.weekend.value}
+					onChange={option =>
+						setFilter(prev => ({ ...prev, weekend: option.value }))
+					}
+					placeholder={options.getWeekendName(filter.weekend)}
+					value={filter.weekend}
 					options={options.weekends}
 					isSearchable={true}
 				/>
@@ -47,9 +59,11 @@ const FilterPicker = () => {
 			<label className="session">
 				<span>Session</span>
 				<Select
-					onChange={option => handleChange(option, 'session')}
-					placeholder={currentFilters.session.label}
-					defaultValue={currentFilters.session.value}
+					onChange={option =>
+						setFilter(prev => ({ ...prev, session: option.value }))
+					}
+					placeholder={options.getSessionLabel(filter.session)}
+					value={filter.session}
 					options={options.sessions}
 					isSearchable={false}
 				/>

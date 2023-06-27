@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 // components
 import FilterPicker from './picker/FilterPicker'
@@ -15,19 +15,17 @@ import FilterOptionsModel from '../../../../model/filter/FilterOptions'
 import './FilterSelector.css'
 
 const FilterSelector = () => {
-  const navigate = useNavigate()
-  const { options, currentFilters, loading, error, dispatch } = useResultsFilterContext()
-
-	useEffect(() => {
-		navigate(currentFilters.getRoute(), { replace: true })
-	}, [navigate, currentFilters])
+  const params = useParams()
+  const { options, loading, error, dispatch } = useResultsFilterContext()
 
   useEffect(() => {
+    const year = params.year ? params.year : new Date().getFullYear()
+    
 		dispatch({ type: 'FETCH_OPTIONS_START' })
-		FilterOptionsModel.fetch(currentFilters.year.value)
+		FilterOptionsModel.fetch(year)
 			.then(data => dispatch({ type: 'FETCH_OPTIONS_SUCCESS', payload: data }))
 			.catch(err => dispatch({ type: 'FETCH_OPTIONS_ERROR', payload: err }))
-	}, [currentFilters.year, dispatch])
+	}, [params.year, dispatch])
 
   return (
     <div className="results-filter-selector">

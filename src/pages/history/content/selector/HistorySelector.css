@@ -16,7 +16,7 @@
 .history-selector > .category-container > .option {
   cursor: pointer;
   padding: 0.4rem 0.6rem;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
   color: var(--text-color);
   letter-spacing: 0.1rem;

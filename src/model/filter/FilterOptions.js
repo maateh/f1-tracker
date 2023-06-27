@@ -44,9 +44,17 @@ class FilterTypes {
 	get weekends() {
 		return this.#weekends.map(weekend => ({ value: weekend.round, label: weekend.name }))
 	}
-
+	
 	get sessions() {
 		return this.#sessions
+	}
+	
+	getWeekendName(round) {
+		return this.#weekends.find(w => w.round === round).name
+	}
+
+	getSessionLabel(session) {
+		return this.#sessions.find(s => s.value === session).label
 	}
 }
 
