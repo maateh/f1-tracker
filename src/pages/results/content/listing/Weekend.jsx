@@ -9,6 +9,7 @@ import { useResultsListingContext } from "./context/hooks/useResultsListingConte
 
 // model
 import ResultListModel from "../../../../model/result/ResultList"
+import { CircularProgress } from "@mui/material"
 
 const Weekend = () => {
   const params = useParams()
@@ -23,7 +24,7 @@ const Weekend = () => {
 
   return (
     <div className="results-listing__seasons">
-      {loading && 'loading'}
+      {loading && <CircularProgress />}
       {error && <Error error={error} />}
 
       {weekend && (

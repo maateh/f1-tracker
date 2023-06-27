@@ -2,13 +2,20 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 // components
-import Error from "../../../error/Error"
+import ListingContent from './ListingContent'
+import Error from "../../../../error/Error"
 
 // context
-import { useResultsListingContext } from "./context/hooks/useResultsListingContext"
+import { useResultsListingContext } from "../context/hooks/useResultsListingContext"
 
 // model
-import ResultListModel from '../../../../model/result/ResultList'
+import ResultListModel from '../../../../../model/result/ResultList'
+
+// icons
+import { CircularProgress } from '@mui/material'
+
+// styles
+import './Seasons.css'
 
 const Seasons = () => {
   const params = useParams()
@@ -22,16 +29,11 @@ const Seasons = () => {
   }, [params.year, dispatch])
 
   return (
-    <div className="results-listing__seasons">
-      {loading && 'loading'}
+    <div className="seasons-listing__container">
+      {loading && <CircularProgress />}
       {error && <Error error={error} />}
 
-      {seasons && seasons.weekends.map(weekend => (
-        <div key={weekend.round}>
-          <span>Round: {weekend.round} - </span>
-          <span>Weekend: {weekend.name}</span>
-        </div>
-      ))}
+      {seasons && <ListingContent />}
     </div>
   )
 }

@@ -36,7 +36,7 @@
   border-top-left-radius: 8px;
   
   display: flex;
-  flex-flow: column nowrap;
+  flex-direction: column;
   justify-content: center;
   position: relative;
 }
