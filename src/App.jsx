@@ -7,7 +7,7 @@ import Main from './layouts/Main'
 import Homepage from './pages/home/Homepage'
 import SchedulePage from './pages/schedule/SchedulePage'
 import ResultsPage from './pages/results/ResultsPage'
-import Seasons from './pages/results/content/listing/seasons/Seasons'
+import SeasonsListing from './pages/results/content/listing/seasons/SeasonsListing'
 import Weekend from './pages/results/content/listing/Weekend'
 import WeekendSession from './pages/results/content/listing/WeekendSession'
 import HistoryPage from './pages/history/HistoryPage'
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: ":year/all/summary",
-            element: <Seasons />
+            element: <SeasonsListing />
           },
           {
             path: ":year/:weekend/summary",

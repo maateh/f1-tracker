@@ -3,19 +3,19 @@ import { createContext, useReducer } from "react";
 const INITIAL_RESULTS_LISTING_STATE = {
   loading: false,
   error: null,
-  seasons: null,
+  season: null,
   weekend: null,
   weekendSession: null
 }
 
 const resultsListingReducer = (state, action) => {
   switch (action.type) {
-    case 'FETCH_SEASONS_START':
-      return { ...state, loading: true, error: null, seasons: null }
-    case 'FETCH_SEASONS_SUCCESS':
-      return { ...state, loading: false, error: null, seasons: action.payload }
-    case 'FETCH_SEASONS_ERROR':
-      return { ...state, loading: false, error: action.payload, seasons: null }
+    case 'FETCH_SEASON_START':
+      return { ...state, loading: true, error: null, season: null }
+    case 'FETCH_SEASON_SUCCESS':
+      return { ...state, loading: false, error: null, season: action.payload }
+    case 'FETCH_SEASON_ERROR':
+      return { ...state, loading: false, error: action.payload, season: null }
     case 'FETCH_WEEKEND_START':
       return { ...state, loading: true, error: null, weekend: null }
     case 'FETCH_WEEKEND_SUCCESS':

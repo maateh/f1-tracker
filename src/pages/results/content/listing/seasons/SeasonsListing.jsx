@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 // components
-import ListingContent from './ListingContent'
+import ListingContent from './content/ListingContent'
 import Error from "../../../../error/Error"
 
 // context
@@ -15,17 +15,17 @@ import ResultListModel from '../../../../../model/result/ResultList'
 import { CircularProgress } from '@mui/material'
 
 // styles
-import './Seasons.css'
+import './SeasonsListing.css'
 
-const Seasons = () => {
+const SeasonsListing = () => {
   const params = useParams()
-  const { seasons, loading, error, dispatch } = useResultsListingContext()
+  const { season, loading, error, dispatch } = useResultsListingContext()
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_SEASONS_START' })
+    dispatch({ type: 'FETCH_SEASON_START' })
     ResultListModel.fetchWeekends(`/${params.year}/results`)
-      .then(data => dispatch({ type: 'FETCH_SEASONS_SUCCESS', payload: data }))
-      .catch(err => dispatch({ type: 'FETCH_SEASONS_ERROR', payload: err }))
+      .then(data => dispatch({ type: 'FETCH_SEASON_SUCCESS', payload: data }))
+      .catch(err => dispatch({ type: 'FETCH_SEASON_ERROR', payload: err }))
   }, [params.year, dispatch])
 
   return (
@@ -33,9 +33,9 @@ const Seasons = () => {
       {loading && <CircularProgress />}
       {error && <Error error={error} />}
 
-      {seasons && <ListingContent />}
+      {season && <ListingContent />}
     </div>
   )
 }
 
-export default Seasons
+export default SeasonsListing

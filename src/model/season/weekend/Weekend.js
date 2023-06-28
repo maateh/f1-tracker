@@ -27,10 +27,6 @@ class Weekend {
 			})
 	}
 
-	get active() {
-		return this.sessions.practices[0].start < Date.now()
-	}
-
 	parseSessions(data) {
 		if (
 			data.FirstPractice &&
@@ -49,6 +45,42 @@ class Weekend {
 			this.results = new ResultList(data)
 		}
 	}
+
+	get active() {
+		return this.sessions.practices[0].start < Date.now()
+	}
+
+	get pole() {
+		return 'POLE'
+  }
+
+  get winningDriver() {
+    return 'W-D'
+  }
+
+  get winningConstructor() {
+    return 'W-C'
+  }
+
+  get fastestLap() {
+		return this.results.reduce((prev, curr) => {
+			if (!prev || !prev.fastestLap) {
+				return curr
+			}
+			if (!curr || !curr.fastestLap) {
+				return prev
+			}
+			return prev.fastestLap.Time.time < curr.fastestLap.Time.time ? prev : curr
+		}).fastestLap.Time.time
+  }
+
+  get laps() {
+    return 'LAPS'
+  }
+
+  get raceDuration() {
+    return 'DURATION'
+  }
 }
 
 export default Weekend
