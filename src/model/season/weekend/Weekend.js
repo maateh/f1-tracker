@@ -55,14 +55,14 @@ class Weekend {
   }
 
   get winningDriver() {
-    return 'W-D'
+    return this.results[0].driver.fullName
   }
 
   get winningConstructor() {
-    return 'W-C'
+    return this.results[0].constructor.name
   }
 
-  get fastestLap() {
+  get fastestDriver() {
 		return this.results.reduce((prev, curr) => {
 			if (!prev || !prev.fastestLap) {
 				return curr
@@ -71,15 +71,19 @@ class Weekend {
 				return prev
 			}
 			return prev.fastestLap.Time.time < curr.fastestLap.Time.time ? prev : curr
-		}).fastestLap.Time.time
+		})
   }
 
+	get fastestLapTime() {
+		return this.fastestDriver.fastestLap.Time.time
+	}
+
   get laps() {
-    return 'LAPS'
+    return this.results[0].laps
   }
 
   get raceDuration() {
-    return 'DURATION'
+    return this.results[0].time.time
   }
 }
 

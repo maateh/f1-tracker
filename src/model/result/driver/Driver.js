@@ -8,6 +8,10 @@ class Driver {
     this.familyName = data.familyName
     this.nationality = data.nationality
   }
+
+  get fullName() {
+    return `${this.givenName} ${this.familyName}`
+  }
 }
 
 export default Driver

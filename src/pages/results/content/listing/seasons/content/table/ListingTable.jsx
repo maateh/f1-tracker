@@ -28,14 +28,19 @@ const ListingTable = () => {
         <tbody>
           {weekends.map(weekend => (
             <tr key={weekend.round}>
-              {/* {console.log('weekend.results: ', weekend.results)} */}
               <td className="round">{`#${weekend.round}`}</td>
               <td className="weekend">{weekend.name}</td>
               <td className="circuit">{weekend.circuit.name}</td>
 
               <td className="pole">{weekend.pole}</td>
-              <td className="winner">{`${weekend.winningDriver} (${weekend.winningConstructor})`}</td>
-              <td className="fl">{weekend.fastestLap}</td>
+              <td className="winner">
+                <p className='winner-driver'>{weekend.winningDriver}</p>
+                <p className="winner-constructor">{`(${weekend.winningConstructor})`}</p>
+              </td>
+              <td className="fl">
+                <p className='fl-time'>{weekend.fastestLapTime}</p>
+                <p className='fl-driver'>{` (${weekend.fastestDriver.driver.code})`}</p>
+              </td>
               <td className="laps">{weekend.laps}</td>
               <td className="duration">{weekend.raceDuration}</td>
             </tr>
