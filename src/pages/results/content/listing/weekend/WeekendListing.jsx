@@ -10,6 +10,8 @@ import { useResultsListingContext } from "../context/hooks/useResultsListingCont
 
 // model
 import ResultListModel from "../../../../../model/result/ResultList"
+
+// icon
 import { CircularProgress } from "@mui/material"
 
 // styles

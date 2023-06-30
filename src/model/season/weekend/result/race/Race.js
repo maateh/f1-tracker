@@ -1,7 +1,8 @@
-import Constructor from "../season/weekend/result/constructor/Constructor"
-import Driver from "../season/weekend/result/driver/Driver"
+// model
+import Constructor from "../constructor/Constructor"
+import Driver from "../../../../result/driver/Driver"
 
-class Result {
+class Race {
   constructor(data) {
     this.number = data.number
     this.position = data.position
@@ -9,13 +10,13 @@ class Result {
     this.grid = data.grid
     this.laps = data.laps
     this.status = data.status
-
-    this.time = data.Time
+    
+    this.raceTime = data.Time
     this.fastestLap = data.FastestLap
-
+    
     this.driver = new Driver(data.Driver)
     this.constructor = new Constructor(data.Constructor)
   }
 }
 
-export default Result
+export default Race

@@ -7,8 +7,7 @@ import WeekendList from "../season/weekend/WeekendList"
 class Season {
   constructor(data) {
     this.year = data.season
-    this.wikiUrl = data.url
-
+    this.parseWiki(data)
     this.parseWeekends(data)
   }
 
@@ -18,6 +17,12 @@ class Season {
       .catch(err => {
         throw new Error(err)
       })
+  }
+
+  parseWiki(data) {
+    if (data.url) {
+      this.wiki = data.url
+    }
   }
 
   parseWeekends(data) {

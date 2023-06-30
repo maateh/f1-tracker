@@ -9,7 +9,7 @@ import Error from "../../../../error/Error"
 import { useResultsListingContext } from "../context/hooks/useResultsListingContext"
 
 // model
-import ResultListModel from '../../../../../model/result/ResultList'
+import ResultListModel from '../../../../../model/season/weekend/result/ResultList'
 
 // icons
 import { CircularProgress } from '@mui/material'
@@ -23,9 +23,12 @@ const SeasonListing = () => {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_SEASON_START' })
-    ResultListModel.fetchWeekends(`/${params.year}/results`)
+    ResultListModel.fetchResults(params.year)
       .then(data => dispatch({ type: 'FETCH_SEASON_SUCCESS', payload: data }))
-      .catch(err => dispatch({ type: 'FETCH_SEASON_ERROR', payload: err }))
+      .catch(err => {
+        console.log('ERROR')
+        dispatch({ type: 'FETCH_SEASON_ERROR', payload: err })
+      })
   }, [params.year, dispatch])
 
   return (

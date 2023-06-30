@@ -1,3 +1,4 @@
+// model
 import Weekend from "./Weekend"
 
 class WeekendList {

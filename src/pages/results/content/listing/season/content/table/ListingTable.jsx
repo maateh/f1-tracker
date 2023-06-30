@@ -36,19 +36,19 @@ const ListingTable = () => {
               <td className="circuit">{weekend.circuit.name}</td>
 
               <td className="pole">
-                <p className="pole-time">{weekend.pole}</p>
-                <p className="pole-driver">driver</p>
+                <p className="pole-time">{weekend.result.pole.q3}</p>
+                <p className="pole-driver">{`(${weekend.result.pole.driver.code})`}</p>
               </td>
               <td className="winner">
-                <p className='winner-driver'>{weekend.winningDriver}</p>
-                <p className="winner-constructor">{`(${weekend.winningConstructor})`}</p>
+                <p className='winner-driver'>{weekend.result.raceWinner}</p>
+                <p className="winner-constructor">{`(${weekend.result.raceWinnerConstructor})`}</p>
               </td>
               <td className="fl">
-                <p className='fl-time'>{weekend.fastestLapTime}</p>
-                <p className='fl-driver'>{` (${weekend.fastestDriver.driver.code})`}</p>
+                <p className='fl-time'>{weekend.result.fastestDriver.fastestLap.Time.time}</p>
+                <p className='fl-driver'>{` (${weekend.result.fastestDriver.driver.code})`}</p>
               </td>
-              <td className="laps">{weekend.laps}</td>
-              <td className="duration">{weekend.raceDuration}</td>
+              <td className="laps">{weekend.result.laps}</td>
+              <td className="duration">{weekend.result.raceDuration}</td>
             </tr>
           ))}
         </tbody>
