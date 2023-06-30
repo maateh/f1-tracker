@@ -1,7 +1,10 @@
 // context
 import { useResultsListingContext } from '../../../context/hooks/useResultsListingContext'
 
-const info = [
+// styles
+import './ListingTable.css'
+
+const header = [
 	{ key: 'round', placeholder: 'Round' },
 	{ key: 'weekend', placeholder: 'Weekend' },
 	{ key: 'circuit', placeholder: 'Circuit name' },
@@ -16,11 +19,11 @@ const ListingTable = () => {
 	const { season: { weekends } } = useResultsListingContext()
 
 	return (
-		<div className="seasons-listing-table">
+		<div className="season listing-table">
       <table>
         <thead>
           <tr>
-            {info.map(i => (
+            {header.map(i => (
               <th key={i.key}>{i.placeholder}</th>
             ))}
           </tr>
@@ -32,7 +35,10 @@ const ListingTable = () => {
               <td className="weekend">{weekend.name}</td>
               <td className="circuit">{weekend.circuit.name}</td>
 
-              <td className="pole">{weekend.pole}</td>
+              <td className="pole">
+                <p className="pole-time">{weekend.pole}</p>
+                <p className="pole-driver">driver</p>
+              </td>
               <td className="winner">
                 <p className='winner-driver'>{weekend.winningDriver}</p>
                 <p className="winner-constructor">{`(${weekend.winningConstructor})`}</p>

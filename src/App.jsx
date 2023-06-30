@@ -7,9 +7,9 @@ import Main from './layouts/Main'
 import Homepage from './pages/home/Homepage'
 import SchedulePage from './pages/schedule/SchedulePage'
 import ResultsPage from './pages/results/ResultsPage'
-import SeasonsListing from './pages/results/content/listing/seasons/SeasonsListing'
-import Weekend from './pages/results/content/listing/Weekend'
-import WeekendSession from './pages/results/content/listing/WeekendSession'
+import SeasonListing from './pages/results/content/listing/season/SeasonListing'
+import WeekendListing from './pages/results/content/listing/weekend/WeekendListing'
+import WeekendSessionListing from './pages/results/content/listing/weekend-session/WeekendSessionListing'
 import HistoryPage from './pages/history/HistoryPage'
 import LapsHistory from './pages/history/content/laps/LapsHistory'
 import DriversHistory from './pages/history/content/drivers/DriversHistory'
@@ -36,15 +36,15 @@ const router = createBrowserRouter([
         children: [
           {
             path: ":year/all/summary",
-            element: <SeasonsListing />
+            element: <SeasonListing />
           },
           {
             path: ":year/:weekend/summary",
-            element: <Weekend />
+            element: <WeekendListing />
           },
           {
             path: ":year/:weekend/:session",
-            element: <WeekendSession />
+            element: <WeekendSessionListing />
           }
         ]
       },

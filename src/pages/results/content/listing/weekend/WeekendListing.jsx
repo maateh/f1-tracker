@@ -2,16 +2,20 @@ import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 
 // components
-import Error from "../../../error/Error"
+import ListingContent from "./content/ListingContent"
+import Error from "../../../../error/Error"
 
 // context
-import { useResultsListingContext } from "./context/hooks/useResultsListingContext"
+import { useResultsListingContext } from "../context/hooks/useResultsListingContext"
 
 // model
-import ResultListModel from "../../../../model/result/ResultList"
+import ResultListModel from "../../../../../model/result/ResultList"
 import { CircularProgress } from "@mui/material"
 
-const Weekend = () => {
+// styles
+import '../ListingStyles.css'
+
+const WeekendListing = () => {
   const params = useParams()
   const { weekend, loading, error, dispatch } = useResultsListingContext()
 
@@ -23,18 +27,13 @@ const Weekend = () => {
   }, [params.year, params.weekend, dispatch])
 
   return (
-    <div className="results-listing__seasons">
+    <div className="weekend listing__container">
       {loading && <CircularProgress />}
       {error && <Error error={error} />}
 
-      {weekend && (
-        <div key={weekend.round}>
-          <span>Round: {weekend.round} - </span>
-          <span>Weekend: {weekend.name}</span>
-        </div>
-      )}
+      {weekend && <ListingContent />}
     </div>
   )
 }
 
-export default Weekend
+export default WeekendListing

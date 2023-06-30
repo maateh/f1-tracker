@@ -1,0 +1,58 @@
+/* seasons listing */
+/* .results-content .listing__container {
+
+} */
+
+
+/* seasons listing content */
+.results-content .listing-content {
+  margin: 0 4rem;
+}
+
+
+
+/* LISTING TABLE */
+.results-content .listing-table {
+  display: flex;
+  justify-content: center;
+}
+
+.results-content .listing-table table {
+  width: 100%;
+  border-spacing: 0;
+  border: 3px solid var(--secondary);
+  border-radius: 10px;
+}
+
+/* table background & borders */
+.results-content .listing-table tbody tr:nth-child(2n+1) {
+  background: #fff;
+}
+.results-content .listing-table td,
+.results-content .listing-table th {
+  text-shadow: 1px 1px 2px rgba(50, 50, 50, 0.5);
+  border-right: 1px dashed var(--highlight);
+}
+.results-content .listing-table td:last-child,
+.results-content .listing-table th:last-child {
+  border-right: none;
+}
+
+/* table header */
+.results-content .listing-table thead {
+  background: var(--highlight);
+}
+.results-content .listing-table thead th {
+  padding: 0.8rem;
+  color: var(--text-color-light);
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* table data */
+.results-content .listing-table td {
+  font-size: 1.1rem;
+  padding: 0.6rem 1.3rem;
+}

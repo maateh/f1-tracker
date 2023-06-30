@@ -16,6 +16,7 @@
 
 /* weekend list & weekend-card */
 .weekend-list {
+  margin: 0 4rem;
   font-size: 2rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);

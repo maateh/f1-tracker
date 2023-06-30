@@ -1,0 +1,45 @@
+/* custom table data styles */
+.season.listing-table td.round {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.season.listing-table td.weekend {
+  font-weight: 600;
+}
+
+.season.listing-table td.circuit {
+  font-weight: 500;
+}
+
+.season.listing-table td.pole > p.pole-time {
+  font-weight: 500;
+}
+.season.listing-table td.pole > p.pole-driver {
+  font-weight: 300;
+  font-size: 0.9rem;
+}
+
+.season.listing-table td.winner > p.winner-driver {
+  font-weight: 600;
+}
+.season.listing-table td.winner > p.winner-constructor {
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+.season.listing-table td.fl > p.fl-time {
+  font-weight: 500;
+}
+.season.listing-table td.fl > p.fl-driver {
+  font-weight: 300;
+  font-size: 0.9rem;
+}
+
+.season.listing-table td.laps {
+  font-weight: 600;
+}
+
+.season.listing-table td.duration {
+  font-weight: 400;
+}

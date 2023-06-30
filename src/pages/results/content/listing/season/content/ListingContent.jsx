@@ -1,5 +1,5 @@
 // components
-import AdditionalInformation from "./additional-info/AdditionalInformation"
+import AdditionalInfo from "./additional-info/AdditionalInfo"
 import ListingTable from "./table/ListingTable"
 
 // context
@@ -9,10 +9,10 @@ const ListingContent = () => {
   const { season } = useResultsListingContext()
   
   return (
-    <div className="seasons-listing-content">
+    <div className="season listing-content">
       <h2 className="page__subtitle">{season.year}</h2>
 
-      <AdditionalInformation />      
+      <AdditionalInfo />
       <ListingTable />
     </div>
   )

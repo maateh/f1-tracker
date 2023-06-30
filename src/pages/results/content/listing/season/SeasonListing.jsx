@@ -15,9 +15,9 @@ import ResultListModel from '../../../../../model/result/ResultList'
 import { CircularProgress } from '@mui/material'
 
 // styles
-import './SeasonsListing.css'
+import '../ListingStyles.css'
 
-const SeasonsListing = () => {
+const SeasonListing = () => {
   const params = useParams()
   const { season, loading, error, dispatch } = useResultsListingContext()
 
@@ -29,7 +29,7 @@ const SeasonsListing = () => {
   }, [params.year, dispatch])
 
   return (
-    <div className="seasons-listing__container">
+    <div className="season listing__container">
       {loading && <CircularProgress />}
       {error && <Error error={error} />}
 
@@ -38,4 +38,4 @@ const SeasonsListing = () => {
   )
 }
 
-export default SeasonsListing
+export default SeasonListing
