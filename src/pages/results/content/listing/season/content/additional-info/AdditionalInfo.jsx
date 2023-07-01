@@ -17,6 +17,14 @@ const AdditionalInfo = () => {
       </div>
 
       <div>
+        <p>DNFs</p>
+      </div>
+
+      <div>
+        <p>sprint weekends</p>
+      </div>
+
+      <div>
         <p>amount of drivers</p>
         <p>#drivers TABLE</p>
       </div>

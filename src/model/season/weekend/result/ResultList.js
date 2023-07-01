@@ -11,8 +11,8 @@ class ResultList {
 
     return Promise.all([fetchQualifyings, fetchRaces])
       .then(data => {
-        data[0].Races.forEach((w, index) => w.Results = data[1].Races[index].Results)
-        return new Season(data[0])
+        data[1].Races.forEach((w, index) => w.QualifyingResults = data[0].Races[index].QualifyingResults)
+        return new Season(data[1])
       })
       .catch(err => {
         throw new Error(err)

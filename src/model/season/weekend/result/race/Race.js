@@ -1,6 +1,6 @@
 // model
 import Constructor from "../constructor/Constructor"
-import Driver from "../../../../result/driver/Driver"
+import Driver from "../driver/Driver"
 
 class Race {
   constructor(data) {
