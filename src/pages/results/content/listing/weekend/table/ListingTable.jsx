@@ -7,7 +7,7 @@ const header = [
 
 const ListingTable = () => {
   return (
-    <div className="weekend listing-table">
+    <div className="weekend listing-table__container">
       <table>
         <thead>
           <tr>

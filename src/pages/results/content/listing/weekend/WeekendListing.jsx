@@ -1,8 +1,9 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
 // components
-import ListingContent from "./content/ListingContent"
+import ListingInfo from "../info/ListingInfo"
+import ListingTable from "./table/ListingTable"
 import Error from "../../../../error/Error"
 
 // context
@@ -10,6 +11,7 @@ import { useResultsListingContext } from "../context/hooks/useResultsListingCont
 
 // model
 import ResultModel from "../../../../../model/season/weekend/result/Result"
+import WeekendInfoModel from "../../../../../model/season/weekend/result/info/WeekendInfo"
 
 // icon
 import { CircularProgress } from "@mui/material"
@@ -20,6 +22,7 @@ import '../ListingStyles.css'
 const WeekendListing = () => {
   const params = useParams()
   const { weekend, loading, error, dispatch } = useResultsListingContext()
+  const [weekendInfo, setWeekendInfo] = useState(null)
 
   useEffect(() => {
     dispatch({ type: 'FETCH_WEEKEND_START' })
@@ -28,12 +31,22 @@ const WeekendListing = () => {
       .catch(err => dispatch({ type: 'FETCH_WEEKEND_ERROR', payload: err }))
   }, [params.year, params.weekend, dispatch])
 
+  useEffect(() => {
+    const info = new WeekendInfoModel(weekend)
+    setWeekendInfo(info)
+  }, [weekend])
+
   return (
     <div className="weekend listing__container">
       {loading && <CircularProgress />}
       {error && <Error error={error} />}
 
-      {weekend && <ListingContent />}
+      {weekend && weekendInfo && (
+        <>
+          <ListingInfo info={weekendInfo} />
+          <ListingTable />
+        </>
+      )}
     </div>
   )
 }

@@ -1,5 +1,5 @@
 // context
-import { useResultsListingContext } from '../../../context/hooks/useResultsListingContext'
+import { useResultsListingContext } from '../../context/hooks/useResultsListingContext'
 
 // styles
 import './ListingTable.css'
@@ -19,7 +19,7 @@ const ListingTable = () => {
 	const { season: { weekends } } = useResultsListingContext()
 
 	return (
-		<div className="season listing-table">
+		<div className="season listing-table__container">
       <table>
         <thead>
           <tr>
@@ -36,7 +36,7 @@ const ListingTable = () => {
               <td className="circuit">{weekend.circuit.name}</td>
 
               <td className="pole">
-                <p className="pole-time">{weekend.result.pole.q3}</p>
+                <p className="pole-time">{weekend.result.pole.time}</p>
                 <p className="pole-driver">{`(${weekend.result.pole.driver.code})`}</p>
               </td>
               <td className="winner">
@@ -44,8 +44,8 @@ const ListingTable = () => {
                 <p className="winner-constructor">{`(${weekend.result.raceWinnerConstructor})`}</p>
               </td>
               <td className="fl">
-                <p className='fl-time'>{weekend.result.fastestDriver.fastestLap.Time.time}</p>
-                <p className='fl-driver'>{` (${weekend.result.fastestDriver.driver.code})`}</p>
+                <p className='fl-time'>{weekend.result.fastestDriver?.fastestLap.Time.time}</p>
+                <p className='fl-driver'>{` (${weekend.result.fastestDriver?.driver.code})`}</p>
               </td>
               <td className="laps">{weekend.result.laps}</td>
               <td className="duration">{weekend.result.raceDuration}</td>

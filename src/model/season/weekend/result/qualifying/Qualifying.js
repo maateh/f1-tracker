@@ -14,6 +14,10 @@ class Qualifying {
     this.driver = new Driver(data.Driver)
     this.constructor = new Constructor(data.Constructor)
   }
+
+  get time() {
+    return this.q3 ? this.q3 : this.q2 ? this.q2 : this.q1
+  }
 }
 
 export default Qualifying

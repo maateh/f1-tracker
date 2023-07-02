@@ -1,5 +1,6 @@
 // components
-import ListingContent from "./content/ListingContent"
+import ListingTable from "./table/ListingTable"
+import ListingInfo from "../info/ListingInfo"
 
 // styles
 import '../ListingStyles.css'
@@ -12,7 +13,8 @@ const WeekendSessionListing = () => {
     <div className="weekend-session listing__container">
       {/* TODO: check error & loading */}
 
-      <ListingContent />
+      {/* <ListingInfo info={weekendSessionInfo} /> */}
+      <ListingTable />
     </div>
   )
 }
