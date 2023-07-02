@@ -5,8 +5,8 @@ const InfoCard = ({ info }) => {
       <div className="category-data__container">
         {info.data.map(data => (
           <div className="category-data" key={data.title}>
-            <p className="category-data-icon">{data.icon}</p>
-            <p className="category-data-title">{data.title}</p>
+            <span className="category-data-icon">{data.icon}</span>
+            <span className="category-data-title">{data.title}</span>
             <p className="category-data-desc">{data.desc}</p>
           </div>
         ))}

@@ -1,48 +1,83 @@
+// icons
+import EventIcon from '@mui/icons-material/Event';
+import SportsMotorsportsIcon from '@mui/icons-material/SportsMotorsports';
+import EngineeringIcon from '@mui/icons-material/Engineering';
+
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import CelebrationIcon from '@mui/icons-material/Celebration';
+import PlusOneIcon from '@mui/icons-material/PlusOne';
+
+import SportsScoreIcon from '@mui/icons-material/SportsScore';
+import Timer10SelectIcon from '@mui/icons-material/Timer10Select';
+import ErrorIcon from '@mui/icons-material/Error';
+import WarningIcon from '@mui/icons-material/Warning';
+
+import FlashOnIcon from '@mui/icons-material/FlashOn';
+import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
+
 class SeasonInfo {
   constructor(season) {
     console.log('season-DATA: ', season)
     return [
       {
+        category: 'General Information',
+        data: [
+          { title: 'Drivers', desc: this.driversAmount(season), icon: <SportsMotorsportsIcon /> },
+          { title: 'Constructors', desc: this.constructorsAmount(season), icon: <EngineeringIcon /> },
+          { title: 'Race Weekends', desc: this.weekendsAmount(season), icon: <EventIcon /> },
+        ]
+      },
+      {
         category: 'How many different?',
         data: [
-          // { title: 'Grand Prix Winners', desc: 'description', icon: <CircularProgress /> },
-          { title: 'Grand Prix Winners', desc: this.grandPrixWinners(season) },
-          { title: 'Pole Sitters', desc: this.poleSitters(season) },
-          { title: 'Drivers on Podium', desc: this.driversOnPodium(season) },
-          { title: 'Point Scorers', desc: this.pointScorers(season) },
+          { title: 'Grand Prix Winners', desc: this.grandPrixWinners(season), icon: <EmojiEventsIcon /> },
+          { title: 'Pole Sitters', desc: this.poleSitters(season), icon: <WorkspacePremiumIcon /> },
+          { title: 'Drivers on Podium', desc: this.driversOnPodium(season), icon: <CelebrationIcon /> },
+          { title: 'Point Scorers', desc: this.pointScorers(season), icon: <PlusOneIcon /> },
         ]
       },
       {
         category: 'Drivers Races Status',
         data: [
-          { title: 'Finished', desc: this.finished(season) },
-          { title: 'Got a Lap in Race', desc: this.gotALap(season) },
-          { title: 'Crashed', desc: this.crashed(season) },
-          { title: 'Engine failure', desc: this.engineFailure(season) },
-          { title: 'Brakes failure', desc: this.brakesFailure(season) },
-          { title: 'Electrical failure', desc: this.electricalFailure(season) },
-          { title: 'Other failure', desc: this.otherFailure(season) },
+          { title: 'Finished the Race', desc: this.finished(season), icon: <SportsScoreIcon /> },
+          { title: 'Drivers got a Lap', desc: this.gotALap(season), icon: <Timer10SelectIcon /> },
+          { title: 'Crashed in Race', desc: this.crashed(season), icon: <ErrorIcon /> },
+          { title: 'Mechanical Failures', desc: this.failures(season), icon: <WarningIcon /> }
         ]
       },
       {
         category: 'Sprint Races',
         data: [
-          { title: 'Amount of Sprints', desc: this.sprintsAmount(season) },
-          { title: 'Sprint Race Winners', desc: this.sprintRaceWinners(season) },
-          { title: 'Shootout Winners', desc: this.shootoutWinners(season) },
-          { title: 'Drivers in TOP 3', desc: this.driversInTopThree(season) },
-          { title: 'Point Scorers', desc: this.sprintPointScorers(season) },
+          { title: 'Amount of Sprints', desc: this.sprintsAmount(season), icon: <FlashOnIcon /> },
+          { title: 'Sprint Race Winners', desc: this.sprintRaceWinners(season), icon: <MilitaryTechIcon /> },
+          { title: 'Shootout Winners', desc: this.shootoutWinners(season), icon: <WorkspacePremiumIcon /> },
+          { title: 'Point Scorers', desc: this.sprintPointScorers(season), icon: <PlusOneIcon /> },
         ]
       },
-      {
-        category: 'General Information',
-        data: [
-          { title: 'Drivers', desc: this.driversAmount(season) },
-          { title: 'Constructors', desc: this.constructorsAmount(season) }
-        ]
-      }
     ]
   }
+
+  // General information
+  weekendsAmount(season) {
+    const year = new Date().getFullYear()
+    return `${season.weekends.length} weekends in this season ${year === +season.year ? ' currently' : ''}`
+  }
+
+  driversAmount(season) {
+    const drivers = season.weekends.map(w => (
+      w.result.race.map(r => r.driver.code)
+    )).flat(1)
+    return `${new Set(drivers).size} drivers participated`
+  }
+
+  constructorsAmount(season) {
+    const constructors = season.weekends.map(w => (
+      w.result.race.map(r => r.constructor.id)
+    )).flat(1)
+    return `${new Set(constructors).size} constructors participated`
+  }
+
 
   // How many different?
   grandPrixWinners(season) {
@@ -65,30 +100,47 @@ class SeasonInfo {
   }
 
   pointScorers(season) {
-    const pointScorers = season.weekends.map(w => {
-      return w.result.race
+    const pointScorers = season.weekends.map(w => (
+      w.result.race
         .filter(r => r.points > 0)
         .map(r => r.driver.code)
-    }).flat(1)
-    console.log('pointScorers: ', pointScorers)
+    )).flat(1)
     return`${new Set(pointScorers).size} different drivers`
   }
 
 
   // Drivers Races Status
-  finished(season) { return 'test_data' } // 'finished'
+  finished(season) {
+    return season.weekends.map(w => (
+      w.result.race
+        .filter(r => r.status.includes('Finished' || '+'))
+        .map(r => r.driver.code)
+    )).flat(1).length + ' times in this season'
+  }
 
-  gotALap(season) { return 'test_data' } // '+x Laps'
+  gotALap(season) {
+    return season.weekends.map(w => (
+      w.result.race
+        .filter(r => r.status.includes('+'))
+        .map(r => r.driver.code)
+    )).flat(1).length + ' times in this season'
+  }
 
-  crashed(season) { return 'test_data' } // 'accident/collision'
+  crashed(season) {
+    return season.weekends.map(w => (
+      w.result.race
+        .filter(r => r.status.includes('Accident' || 'Collision'))
+        .map(r => r.driver.code)
+    )).flat(1).length + ' times in this season'
+  }
 
-  engineFailure(season) { return 'test_data' } // 'engine/overheating'
-
-  brakesFailure(season) { return 'test_data' } // 'brakes'
-
-  electricalFailure(season) { return 'test_data' } // 'electrical'
-
-  otherFailure(season) { return 'test_data' } // '...'
+  failures(season) {
+    return season.weekends.map(w => (
+      w.result.race
+        .filter(r => !r.status.includes('Finished' || '+' || 'Accident' || 'Collision'))
+        .map(r => r.driver.code)
+    )).flat(1).length + ' times in this season'
+  }
 
 
   // Sprint Races
@@ -101,12 +153,6 @@ class SeasonInfo {
   driversInTopThree(season) { return 'test_data' }
 
   sprintPointScorers(season) { return 'test_data' }
-
-
-  // General information
-  driversAmount(season) { return 'test_data' }
-
-  constructorsAmount(season) { return 'test_data' }
 }
 
 export default SeasonInfo
