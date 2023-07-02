@@ -1,5 +1,5 @@
 // context
-import { useResultsListingContext } from '../../context/hooks/useResultsListingContext'
+import { useSeasonListingContext } from '../context/hooks/useSeasonListingContext'
 
 // styles
 import './ListingTable.css'
@@ -16,7 +16,7 @@ const header = [
 ]
 
 const ListingTable = () => {
-	const { season: { weekends } } = useResultsListingContext()
+	const { data: { weekends } } = useSeasonListingContext()
 
 	return (
 		<div className="season listing-table__container">

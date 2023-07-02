@@ -2,22 +2,19 @@ import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 
 // components
-import ListingTable from "./table/ListingTable"
+// import ListingTable from "./table/ListingTable"
 import ListingInfo from "../info/ListingInfo"
 import Error from "../../../../error/Error"
 
 // context
-import { useWeekendSessionListingContext } from "./context/hooks/useWeekendSessionListingContext"
+import { useSeasonSessionListingContext } from "./context/hooks/useSeasonSessionListing"
 
 // icon
 import { CircularProgress } from "@mui/material"
 
-// styles
-import '../ListingStyles.css'
-
-const WeekendSessionListing = () => {
+const SeasonSessionListing = () => {
   const params = useParams()
-  const { data, info, loading, error, dispatch } = useWeekendSessionListingContext()
+  const { data, info, loading, error, dispatch } = useSeasonSessionListingContext()
 
   useEffect(() => {
     dispatch({ type: 'FETCH_START' })
@@ -34,11 +31,11 @@ const WeekendSessionListing = () => {
       {data && info && (
         <>
           <ListingInfo info={info} />
-          <ListingTable />
+          {/* <ListingTable /> */}
         </>
       )}
     </div>
   )
 }
 
-export default WeekendSessionListing
+export default SeasonSessionListing

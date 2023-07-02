@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 
 // components
@@ -7,11 +7,10 @@ import ListingTable from "./table/ListingTable"
 import Error from "../../../../error/Error"
 
 // context
-import { useResultsListingContext } from "../context/hooks/useResultsListingContext"
+import { useWeekendListingContext } from "./context/hooks/useWeekendListingContext"
 
 // model
 import ResultModel from "../../../../../model/season/weekend/result/Result"
-import WeekendInfoModel from "../../../../../model/season/weekend/result/info/WeekendInfo"
 
 // icon
 import { CircularProgress } from "@mui/material"
@@ -21,29 +20,23 @@ import '../ListingStyles.css'
 
 const WeekendListing = () => {
   const params = useParams()
-  const { weekend, loading, error, dispatch } = useResultsListingContext()
-  const [weekendInfo, setWeekendInfo] = useState(null)
+  const { data, info, loading, error, dispatch } = useWeekendListingContext()
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_WEEKEND_START' })
+    dispatch({ type: 'FETCH_START' })
     ResultModel.fetchResult(params.year, params.weekend)
-      .then(data => dispatch({ type: 'FETCH_WEEKEND_SUCCESS', payload: data }))
-      .catch(err => dispatch({ type: 'FETCH_WEEKEND_ERROR', payload: err }))
+      .then(data => dispatch({ type: 'FETCH_SUCCESS', payload: data }))
+      .catch(err => dispatch({ type: 'FETCH_ERROR', payload: err }))
   }, [params.year, params.weekend, dispatch])
-
-  useEffect(() => {
-    const info = new WeekendInfoModel(weekend)
-    setWeekendInfo(info)
-  }, [weekend])
 
   return (
     <div className="weekend listing__container">
       {loading && <CircularProgress />}
       {error && <Error error={error} />}
 
-      {weekend && weekendInfo && (
+      {data && info && (
         <>
-          <ListingInfo info={weekendInfo} />
+          <ListingInfo info={info} />
           <ListingTable />
         </>
       )}

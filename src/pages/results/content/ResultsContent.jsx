@@ -5,7 +5,6 @@ import FilterSelector from "./selector/FilterSelector"
 
 // context
 import { ResultsFilterContextProvider } from "./selector/context/ResultsFilterContext"
-import { ResultsListingContextProvider } from "./listing/context/ResultsListingContext"
 
 const ResultsContent = () => {
   return (
@@ -14,9 +13,7 @@ const ResultsContent = () => {
         <FilterSelector />
       </ResultsFilterContextProvider>
 
-      <ResultsListingContextProvider>
-        <Outlet />
-      </ResultsListingContextProvider>
+      <Outlet />
     </div>
   )
 }

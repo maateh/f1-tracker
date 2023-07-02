@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 // components
@@ -7,11 +7,10 @@ import ListingTable from './table/ListingTable'
 import Error from "../../../../error/Error"
 
 // context
-import { useResultsListingContext } from "../context/hooks/useResultsListingContext"
+import { useSeasonListingContext } from './context/hooks/useSeasonListingContext'
 
 // model
 import ResultListModel from '../../../../../model/season/weekend/result/ResultList'
-import SeasonInfoModel from '../../../../../model/season/weekend/result/info/SeasonInfo'
 
 // icons
 import { CircularProgress } from '@mui/material'
@@ -21,30 +20,23 @@ import '../ListingStyles.css'
 
 const SeasonListing = () => {
   const params = useParams()
-  const { season, loading, error, dispatch } = useResultsListingContext()
-  const [seasonInfo, setSeasonInfo] = useState(null)
+  const { data, info, loading, error, dispatch } = useSeasonListingContext()
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_SEASON_START' })
+    dispatch({ type: 'FETCH_START' })
     ResultListModel.fetchResults(params.year)
-      .then(data => dispatch({ type: 'FETCH_SEASON_SUCCESS', payload: data }))
-      .catch(err => dispatch({ type: 'FETCH_SEASON_ERROR', payload: err }))
+      .then(data => dispatch({ type: 'FETCH_SUCCESS', payload: data }))
+      .catch(err => dispatch({ type: 'FETCH_ERROR', payload: err }))
   }, [params.year, dispatch])
-
-  useEffect(() => {
-    if (!season) return
-    const info = new SeasonInfoModel(season)
-    setSeasonInfo(info)
-  }, [season])
 
   return (
     <div className="season listing__container">
       {loading && <CircularProgress />}
       {error && <Error error={error} />}
 
-      {season && seasonInfo && (
+      {data && info && (
         <>
-          <ListingInfo info={seasonInfo} />
+          <ListingInfo info={info} />
           <ListingTable />
         </>
       )}

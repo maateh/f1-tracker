@@ -34,7 +34,7 @@
   box-shadow: 4px 4px 6px rgba(100, 100, 100, 0.5);
 }
 .listing-category__container > .category-card .category-title {
-  margin: 1rem 0;
+  margin: 1rem;
   color: var(--text-color-light);
   font-size: 1.7rem;
   font-weight: 600;
