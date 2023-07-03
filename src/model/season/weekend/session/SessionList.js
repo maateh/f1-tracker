@@ -38,7 +38,7 @@ class SessionList {
 			return this.qualifying
 		}
 
-    const sprint = this.sprint.find(s => s.active)
+    const sprint = this.sprint?.find(s => s.active)
     if (sprint) {
       return sprint
     }
