@@ -7,10 +7,8 @@ import Main from './layouts/Main'
 import Homepage from './pages/home/Homepage'
 import SchedulePage from './pages/schedule/SchedulePage'
 import ResultsPage from './pages/results/ResultsPage'
-import SeasonListing from './pages/results/content/listing/season/SeasonListing'
-import SeasonSessionListing from './pages/results/content/listing/season-session/SeasonSessionListing'
-import WeekendListing from './pages/results/content/listing/weekend/WeekendListing'
-import WeekendSessionListing from './pages/results/content/listing/weekend-session/WeekendSessionListing'
+import ResultsListing from './pages/results/content/listing/ResultsListing'
+
 import HistoryPage from './pages/history/HistoryPage'
 import LapsHistory from './pages/history/content/laps/LapsHistory'
 import DriversHistory from './pages/history/content/drivers/DriversHistory'
@@ -18,11 +16,8 @@ import ConstructorsHistory from './pages/history/content/constructors/Constructo
 import PitsHistory from './pages/history/content/pits/PitsHistory'
 import NotFound from './pages/error/NotFound'
 
-// context
-import { SeasonListingContextProvider } from './pages/results/content/listing/season/context/SeasonListingContext'
-import { SeasonSessionListingContextProvider } from './pages/results/content/listing/season-session/context/SeasonSessionListingContext'
-import { WeekendListingContextProvider } from './pages/results/content/listing/weekend/context/WeekendListingContext'
-import { WeekendSessionListingContextProvider } from './pages/results/content/listing/weekend-session/context/WeekendSessionListingContext'
+// loaders
+import { seasonLoader } from './pages/results/content/listing/loader/SeasonLoader'
 
 const router = createBrowserRouter([
   {
@@ -42,34 +37,46 @@ const router = createBrowserRouter([
         element: <ResultsPage />,
         children: [
           {
-            path: ":year/all/summary",
-            element:
-              <SeasonListingContextProvider>
-                <SeasonListing />
-              </SeasonListingContextProvider>
+            path: ":year/races/all",
+            element: <ResultsListing />,
+            loader: seasonLoader
           },
           {
-            path: ":year/all/:session",
-            element: 
-              <SeasonSessionListingContextProvider>
-                <SeasonSessionListing />
-              </SeasonSessionListingContextProvider>
+            path: ":year/races/all/session/:session", // :session -> summary, qualifying, race, sprint
+            element: <ResultsListing />,
+            // loader: seasonSessionLoader
           },
           {
-            path: ":year/:weekend/summary",
-            element: 
-              <WeekendListingContextProvider>
-                <WeekendListing />
-              </WeekendListingContextProvider>
+            path: ":year/races/:round",
+            element: <ResultsListing />,
+            // loader: weekendLoader
           },
           {
-            path: ":year/:weekend/:session",
-            element: 
-              <WeekendSessionListingContextProvider>
-                <WeekendSessionListing />
-              </WeekendSessionListingContextProvider>
-          }
-        ]
+            path: ":year/races/:round/session/:session", // :session -> summary, qualifying, race, sprint
+            element: <ResultsListing />,
+            // loader: weekendSessionLoader
+          },
+          {
+            path: ":year/drivers/all",
+            element: <ResultsListing />,
+            // loader: driversLoader
+          },
+          {
+            path: ":year/drivers/:driverId",
+            element: <ResultsListing />,
+            // loader: driverLoader
+          },
+          {
+            path: ":year/constructors/all",
+            element: <ResultsListing />,
+            // loader: constructorsLoader
+          },
+          {
+            path: ":year/constructors/:constructorId",
+            element: <ResultsListing />,
+            // loader: constructorLoader
+          },
+        ],
       },
       {
         path: "history",

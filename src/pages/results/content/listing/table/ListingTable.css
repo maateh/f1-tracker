@@ -1,0 +1,92 @@
+/* LISTING TABLE */
+.results-content .listing-table__container {
+  margin: 0 4rem;
+  display: flex;
+  justify-content: center;
+}
+
+.results-content .listing-table__container table {
+  width: 100%;
+  border-spacing: 0;
+  border: 3px solid var(--secondary);
+  border-radius: 10px;
+}
+
+/* table background & borders */
+.results-content .listing-table__container tbody tr:nth-child(2n+1) {
+  background: #fff;
+}
+.results-content .listing-table__container td,
+.results-content .listing-table__container th {
+  text-shadow: 1px 1px 2px rgba(50, 50, 50, 0.5);
+  border-right: 1px dashed var(--secondary);
+}
+.results-content .listing-table__container td:last-child,
+.results-content .listing-table__container th:last-child {
+  border-right: none;
+}
+
+/* table header */
+.results-content .listing-table__container thead {
+  background: var(--secondary);
+}
+.results-content .listing-table__container thead th {
+  padding: 0.8rem;
+  color: var(--text-color-light);
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* table data */
+.results-content .listing-table__container td {
+  font-size: 1.1rem;
+  padding: 0.6rem 1.3rem;
+}
+
+/* custom table data styles */
+.listing-table__container > table td.round {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.listing-table__container > table td.weekend {
+  font-weight: 600;
+}
+
+.listing-table__container > table td.circuit {
+  font-weight: 500;
+}
+
+.listing-table__container > table td.pole > p.pole-time {
+  font-weight: 500;
+}
+.listing-table__container > table td.pole > p.pole-driver {
+  font-weight: 300;
+  font-size: 0.9rem;
+}
+
+.listing-table__container > table td.winner > p.winner-driver {
+  font-weight: 600;
+}
+.listing-table__container > table td.winner > p.winner-constructor {
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+.listing-table__container > table td.fl > p.fl-time {
+  font-weight: 500;
+}
+.listing-table__container > table td.fl > p.fl-driver {
+  font-weight: 300;
+  font-size: 0.9rem;
+}
+
+.listing-table__container > table td.laps {
+  font-weight: 600;
+}
+
+.listing-table__container > table td.duration {
+  font-weight: 400;
+}

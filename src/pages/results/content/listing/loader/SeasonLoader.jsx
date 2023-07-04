@@ -16,10 +16,24 @@ import WarningIcon from '@mui/icons-material/Warning';
 import FlashOnIcon from '@mui/icons-material/FlashOn';
 import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
 
-class SeasonInfo {
+// model
+import ResultListModel from '../../../../../model/season/weekend/result/ResultList';
+
+export const seasonLoader = ({ params }) => {
+  return ResultListModel.fetchResults(params.year)
+    .then(data => {
+      console.log('fetchedData: ', data)
+      return new SeasonLoader(data)
+    })
+    .catch(err => {
+      throw new Error(err)
+    })
+}
+
+class SeasonLoader {
   constructor(season) {
     console.log('season-DATA: ', season)
-    return [
+    this.info = [
       {
         category: 'General Information',
         data: [
@@ -56,6 +70,38 @@ class SeasonInfo {
         ]
       },
     ]
+    this.header = [
+      { key: 'round', placeholder: 'Round' },
+      { key: 'weekend', placeholder: 'Weekend' },
+      { key: 'circuit', placeholder: 'Circuit name' },
+      { key: 'pole', placeholder: 'Pole Lap' },
+      { key: 'winner', placeholder: 'Winner' },
+      { key: 'fl', placeholder: 'Fastest Lap' },
+      { key: 'laps', placeholder: 'Laps' },
+      { key: 'duration', placeholder: 'Race duration' },
+    ]
+    this.table = season.weekends.map((w, index) => ({
+      key: index,
+      data: [
+        { key: 'round', data: w.round },
+        { key: 'weekend', data: w.name },
+        { key: 'circuit', data: w.circuit.name },
+        { key: 'pole', data: [
+          { key: 'pole-time', data: w.result.pole.time },
+          { key: 'pole-driver', data: w.result.pole.time },
+       ]},
+        { key: 'winner', data: [
+          { key: 'winner-driver', data: w.result.raceWinner },
+          { key: 'winner-constructor', data: w.result.raceWinnerConstructor }
+        ]},
+        { key: 'fl', data: [
+          { key: 'fl-time', data: w.result.fastestDriver?.fastestLap.Time.time },
+          { key: 'fl-driver', data: w.result.fastestDriver?.fastestLap.Time.time }
+        ]},
+        { key: 'laps', data: w.result.laps },
+        { key: 'duration', data: w.result.raceDuration }
+      ]
+    }))
   }
 
   // General information
@@ -154,5 +200,3 @@ class SeasonInfo {
 
   sprintPointScorers(season) { return 'test_data' }
 }
-
-export default SeasonInfo

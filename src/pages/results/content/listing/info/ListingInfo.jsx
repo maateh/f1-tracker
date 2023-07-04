@@ -1,6 +1,9 @@
 // components
 import InfoCard from "./card/InfoCard"
 
+// styles
+import './ListingInfo.css'
+
 const ListingInfo = ({ info }) => {
   return (
     <div className="listing-info__container">
