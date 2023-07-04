@@ -12,7 +12,7 @@ import { useScheduleContext } from '../context/hooks/useScheduleContext'
 // model
 import SeasonModel from '../../../model/season/Season'
 
-const Content = () => {
+const ScheduleContent = () => {
   const { schedule, year, loading, error, dispatch } = useScheduleContext()
   
   useEffect(() => {
@@ -37,7 +37,7 @@ const Content = () => {
   )
 }
 
-export default Content
+export default ScheduleContent
 
 
 // versenyhétvégék felsorolása, kiemelve a jelenlegi aktuálisat

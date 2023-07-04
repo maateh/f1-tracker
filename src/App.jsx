@@ -6,6 +6,7 @@ import Main from './layouts/Main'
 // pages
 import Homepage from './pages/home/Homepage'
 import SchedulePage from './pages/schedule/SchedulePage'
+
 import ResultsPage from './pages/results/ResultsPage'
 import ResultsListing from './pages/results/content/listing/ResultsListing'
 
@@ -14,10 +15,19 @@ import LapsHistory from './pages/history/content/laps/LapsHistory'
 import DriversHistory from './pages/history/content/drivers/DriversHistory'
 import ConstructorsHistory from './pages/history/content/constructors/ConstructorsHistory'
 import PitsHistory from './pages/history/content/pits/PitsHistory'
+
+import ListingError from './pages/results/content/listing/error/ListingError'
 import NotFound from './pages/error/NotFound'
 
 // loaders
-import { seasonLoader } from './pages/results/content/listing/loader/SeasonLoader'
+import { seasonLoader } from './pages/results/content/listing/loader/races/SeasonLoader'
+import { seasonSessionLoader } from './pages/results/content/listing/loader/races/SeasonSessionLoader'
+import { weekendLoader } from './pages/results/content/listing/loader/races/WeekendLoader'
+import { weekendSessionLoader } from './pages/results/content/listing/loader/races/WeekendSessionLoader'
+import { driversLoader } from './pages/results/content/listing/loader/drivers/DriversLoader'
+import { driverLoader } from './pages/results/content/listing/loader/drivers/DriverLoader'
+import { constructorsLoader } from './pages/results/content/listing/loader/constructors/ConstructorsLoader'
+import { constructorLoader } from './pages/results/content/listing/loader/constructors/ConstructorLoader'
 
 const router = createBrowserRouter([
   {
@@ -39,42 +49,50 @@ const router = createBrowserRouter([
           {
             path: ":year/races/all",
             element: <ResultsListing />,
+            errorElement: <ListingError />,
             loader: seasonLoader
           },
           {
             path: ":year/races/all/session/:session", // :session -> summary, qualifying, race, sprint
             element: <ResultsListing />,
-            // loader: seasonSessionLoader
+            errorElement: <ListingError />,
+            loader: seasonSessionLoader
           },
           {
             path: ":year/races/:round",
             element: <ResultsListing />,
-            // loader: weekendLoader
+            errorElement: <ListingError />,
+            loader: weekendLoader
           },
           {
             path: ":year/races/:round/session/:session", // :session -> summary, qualifying, race, sprint
             element: <ResultsListing />,
-            // loader: weekendSessionLoader
+            errorElement: <ListingError />,
+            loader: weekendSessionLoader
           },
           {
             path: ":year/drivers/all",
             element: <ResultsListing />,
-            // loader: driversLoader
+            errorElement: <ListingError />,
+            loader: driversLoader
           },
           {
             path: ":year/drivers/:driverId",
             element: <ResultsListing />,
-            // loader: driverLoader
+            errorElement: <ListingError />,
+            loader: driverLoader
           },
           {
             path: ":year/constructors/all",
             element: <ResultsListing />,
-            // loader: constructorsLoader
+            errorElement: <ListingError />,
+            loader: constructorsLoader
           },
           {
             path: ":year/constructors/:constructorId",
             element: <ResultsListing />,
-            // loader: constructorLoader
+            errorElement: <ListingError />,
+            loader: constructorLoader
           },
         ],
       },

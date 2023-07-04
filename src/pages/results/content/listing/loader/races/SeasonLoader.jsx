@@ -17,16 +17,16 @@ import FlashOnIcon from '@mui/icons-material/FlashOn';
 import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
 
 // model
-import ResultListModel from '../../../../../model/season/weekend/result/ResultList';
+import ResultListModel from '../../../../../../model/season/weekend/result/ResultList';
 
-export const seasonLoader = ({ params }) => {
-  return ResultListModel.fetchResults(params.year)
+export const seasonLoader = ({ params: { year } }) => {
+  return ResultListModel.fetchResults(year)
     .then(data => {
       console.log('fetchedData: ', data)
       return new SeasonLoader(data)
     })
     .catch(err => {
-      throw new Error(err)
+      throw new Response(err.message, { status: 400 })
     })
 }
 
