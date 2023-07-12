@@ -1,9 +1,10 @@
-import { useEffect } from "react"
+import { useQuery } from "react-query"
 
 // components
 import RelevantWeekend from "./weekend/RelevantWeekend"
 import RelevantSession from "./session/RelevantSession"
 import Error from "../../error/Error"
+import SkeletonGrid from "../../../components/skeleton/SkeletonGrid"
 
 // context
 import { useWeekendContext } from "../context/hooks/useWeekendContext"
@@ -13,22 +14,19 @@ import WeekendModel from "../../../model/season/weekend/Weekend"
 
 // styles
 import './HomeContent.css'
-import SkeletonGrid from "../../../components/skeleton/SkeletonGrid"
 
 const HomeContent = () => {
-  const { weekend, loading, error, dispatch } = useWeekendContext()
-
-  useEffect(() => {
-    dispatch({ type: 'FETCH_START' })
-    WeekendModel.fetch('/current/next')
-      .then(data => dispatch({ type: 'FETCH_SUCCESS', payload: data }))
-      .catch(err => dispatch({ type: 'FETCH_ERROR', payload: err.message }))
-  }, [dispatch])
+  const { weekend, dispatch } = useWeekendContext()
+  const weekendQuery = useQuery({
+    queryKey: ['nextRound'],
+    queryFn: WeekendModel.query,
+    onSuccess: data => dispatch({ type: 'SET', payload: data })
+  })
 
   return (
     <div className="home-content">
-      {loading && <SkeletonGrid counter={2} />}
-      {error && <Error error={error} />}
+      {weekendQuery.isLoading && <SkeletonGrid counter={2} />}
+      {weekendQuery.isError && <Error error={weekendQuery.error} />}
 
       {weekend && (
         <>

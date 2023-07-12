@@ -1,5 +1,5 @@
 // api
-import { fetchData } from "../../api/fetchData"
+import { season } from "../../api/season"
 
 // model
 import WeekendList from "../season/weekend/WeekendList"
@@ -11,8 +11,8 @@ class Season {
     this.parseWeekends(data)
   }
 
-  static async fetch(url) {
-    return fetchData(url, 'RaceTable')
+  static async query(year) {
+    return season(year)
       .then(data => new Season(data))
       .catch(err => {
         throw new Error(err)

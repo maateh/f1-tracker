@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useQuery } from 'react-query'
 
 // components
 import SeasonSelector from './selector/SeasonSelector'
@@ -13,19 +13,17 @@ import { useScheduleContext } from '../context/hooks/useScheduleContext'
 import SeasonModel from '../../../model/season/Season'
 
 const ScheduleContent = () => {
-  const { schedule, year, loading, error, dispatch } = useScheduleContext()
-  
-  useEffect(() => {
-    dispatch({ type: 'FETCH_SCHEDULE_START' })
-    SeasonModel.fetch(`/${year}`)
-    .then(data => dispatch({ type: 'FETCH_SCHEDULE_SUCCESS', payload: data }))
-    .catch(err => dispatch({ type: 'FETCH_SCHEDULE_ERROR', payload: err.message }))
-  }, [year, dispatch])
+  const { schedule, year, dispatch } = useScheduleContext()
+  const scheduleQuery = useQuery({
+    queryKey: ['season', year],
+    queryFn: () => SeasonModel.query(year),
+    onSuccess: data => dispatch({ type: 'SET_SCHEDULE', payload: data })
+  })
 
   return (
     <div className="schedule-content">
-      {loading && !schedule && <SkeletonGrid counter={9} />}
-      {error && <Error error={error} />}
+      {scheduleQuery.isLoading && <SkeletonGrid counter={9} />}
+      {scheduleQuery.isError && <Error error={scheduleQuery.error} />}
 
       {schedule && (
         <>

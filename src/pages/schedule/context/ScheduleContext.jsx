@@ -1,8 +1,6 @@
 import { createContext, useReducer } from "react";
 
 const INITIAL_SCHEDULE_STATE = {
-  loading: false,
-  error: null,
   schedule: null,
   seasons: null,
   year: new Date().getFullYear()
@@ -10,18 +8,10 @@ const INITIAL_SCHEDULE_STATE = {
 
 const scheduleReducer = (state, action) => {
   switch (action.type) {
-    case 'FETCH_SCHEDULE_START':
-      return { ...state, loading: true, error: null, schedule: null }
-    case 'FETCH_SCHEDULE_SUCCESS':
-      return { ...state, loading: false, error: null, schedule: action.payload }
-    case 'FETCH_SCHEDULE_ERROR':
-      return { ...state, loading: false, error: action.payload, schedule: null }
-    case 'FETCH_SEASONS_START':
-      return { ...state, loading: true, error: null, seasons: null }
-    case 'FETCH_SEASONS_SUCCESS':
-      return { ...state, loading: false, error: null, seasons: action.payload }
-    case 'FETCH_SEASONS_ERROR':
-      return { ...state, loading: false, error: action.payload, seasons: null }
+    case 'SET_SCHEDULE':
+      return { ...state, schedule: action.payload }
+    case 'SET_SEASONS':
+      return { ...state, seasons: action.payload }
     case 'SET_YEAR':
       return { ...state, year: action.payload }
     default:

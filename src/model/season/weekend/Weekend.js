@@ -1,5 +1,5 @@
 // api
-import { fetchData } from '../../../api/fetchData'
+import { nextRound } from '../../../api/season'
 
 // model
 import Circuit from './circuit/Circuit'
@@ -19,8 +19,8 @@ class Weekend {
 		this.parseResult(data)
 	}
 
-	static async fetch(url) {
-		return fetchData(url, 'RaceTable')
+	static async query() {
+		return nextRound()
 			.then(data => new Weekend(data.Races[0]))
 			.catch(err => {
 				throw new Error(err)

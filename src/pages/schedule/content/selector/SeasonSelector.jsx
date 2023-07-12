@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useQuery } from 'react-query'
 
 // components
 import SeasonPicker from "./picker/SeasonPicker"
@@ -14,19 +14,17 @@ import SeasonListModel from "../../../../model/season/SeasonList"
 import './SeasonSelector.css'
 
 const SeasonSelector = () => {
-  const { seasons, loading, error, dispatch } = useScheduleContext()
-
-  useEffect(() => {
-    dispatch({ type: 'FETCH_SEASONS_START' })
-    SeasonListModel.fetch('/seasons')
-    .then(data => dispatch({ type: 'FETCH_SEASONS_SUCCESS', payload: data }))
-    .catch(err => dispatch({ type: 'FETCH_SEASONS_ERROR', payload: err.message }))
-  }, [dispatch])
+  const { seasons, dispatch } = useScheduleContext()
+  const seasonsQuery = useQuery({
+    queryKey: ['seasonList'],
+    queryFn: SeasonListModel.query,
+    onSuccess: data => dispatch({ type: 'SET_SEASONS', payload: data })
+  })
 
   return (
     <div className="season-selector">
-      {loading && !seasons && <SkeletonSelector />}
-      {error && <p className="error__element">{error}</p>}
+      {seasonsQuery.isLoading && <SkeletonSelector />}
+      {seasonsQuery.isError && <p className="error__element">{seasonsQuery.error}</p>}
 
       {seasons && <SeasonPicker />}
     </div>

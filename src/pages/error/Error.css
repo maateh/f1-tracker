@@ -3,6 +3,7 @@
 /* globals */
 .error-page__container,
 .not-found-page__container {
+  margin: auto;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;

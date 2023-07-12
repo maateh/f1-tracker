@@ -2,6 +2,7 @@
 import './Error.css'
 
 const Error = ({ error }) => {
+  console.log('ERROR: ', error)
   // error = {
   //   details: 'Error details',
   //   code: 400

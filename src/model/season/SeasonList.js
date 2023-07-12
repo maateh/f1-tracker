@@ -1,5 +1,5 @@
 // api
-import { fetchData } from '../../api/fetchData'
+import { seasonList } from '../../api/season'
 
 // model
 import Season from './Season'
@@ -13,8 +13,8 @@ class SeasonList {
 		})
 	}
 
-	static async fetch(url) {
-		return fetchData(url, 'SeasonTable', '?limit=100')
+	static async query() {
+		return seasonList()
 			.then(data => new SeasonList(data))
 			.catch(err => {
 				throw new Error(err)
