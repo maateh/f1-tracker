@@ -1,19 +1,32 @@
 import { createContext, useReducer } from 'react'
 
-const INITIAL_RESULTS_FILTER_STATE = {
-  loading: false,
-  error: null,
-  options: null
+// model
+import FilterOptionsModel from '../../../../../model/filter/FilterOptions'
+
+const INITIAL_STATE = {
+	loading: false,
+	error: null,
+	years: null,
+	standings: FilterOptionsModel.STANDINGS,
+	ids: null
 }
 
-const resultsFilterReducer = (state, action) => {
+const dataReducer = (state, action) => {
 	switch (action.type) {
-    case 'FETCH_OPTIONS_START':
-      return { ...state, loading: true, error: null, options: null }
-    case 'FETCH_OPTIONS_SUCCESS':
-      return { ...state, loading: false, error: null, options: action.payload }
-    case 'FETCH_OPTIONS_ERROR':
-      return { ...state, loading: false, error: action.payload, options: null }
+		case 'FETCH_YEARS_START':
+			return { ...state, loading: true, error: null, years: null }
+		case 'FETCH_YEARS_SUCCESS':
+			return { ...state, loading: false, error: null, years: action.payload }
+		case 'FETCH_YEARS_ERROR':
+			return { ...state, loading: false, error: action.payload, years: null }
+
+		case 'FETCH_ID_LIST_START':
+			return { ...state, loading: true, error: null, ids: null }
+		case 'FETCH_ID_LIST_SUCCESS':
+			return { ...state, loading: false, error: null, ids: action.payload }
+		case 'FETCH_ID_LIST_ERROR':
+			return { ...state, loading: false, error: action.payload, ids: null }
+
 		default:
 			return state
 	}
@@ -22,11 +35,11 @@ const resultsFilterReducer = (state, action) => {
 export const ResultsFilterContext = createContext()
 
 export const ResultsFilterContextProvider = ({ children }) => {
-	const [state, dispatch] = useReducer(resultsFilterReducer, INITIAL_RESULTS_FILTER_STATE)
+	const [state, dispatch] = useReducer(dataReducer, INITIAL_STATE)
 
 	return (
 		<ResultsFilterContext.Provider value={{ ...state, dispatch }}>
-			{children}
+			{ children }
 		</ResultsFilterContext.Provider>
 	)
 }

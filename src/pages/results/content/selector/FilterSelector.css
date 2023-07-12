@@ -14,8 +14,9 @@
 	align-items: center;
 }
 
-.results-filter-selector .filter-picker > label {
-	margin: 0 3rem 3rem;
+.results-filter-selector .filter-picker > label,
+.results-filter-selector .filter-picker > div {
+	margin: 0 3rem;
 	min-width: 12rem;
 }
 

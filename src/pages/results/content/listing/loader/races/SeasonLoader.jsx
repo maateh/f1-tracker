@@ -22,7 +22,7 @@ import ResultListModel from '../../../../../../model/season/weekend/result/Resul
 export const seasonLoader = ({ params: { year } }) => {
   return ResultListModel.fetchResults(year)
     .then(data => {
-      console.log('fetchedData: ', data)
+      // console.log('fetchedData: ', data)
       return new SeasonLoader(data)
     })
     .catch(err => {
@@ -32,7 +32,7 @@ export const seasonLoader = ({ params: { year } }) => {
 
 class SeasonLoader {
   constructor(season) {
-    console.log('season-DATA: ', season)
+    // console.log('season-DATA: ', season)
     this.info = [
       {
         category: 'General Information',

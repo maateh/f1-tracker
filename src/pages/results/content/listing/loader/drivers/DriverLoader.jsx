@@ -1,5 +1,5 @@
-export const driverLoader = ({ params: { year, driverId } }) => {
-  return new DriverLoader({ year, driverId })
+export const driverLoader = ({ params: { year, id } }) => {
+  return new DriverLoader({ year, id })
 }
 
 class DriverLoader {
@@ -20,7 +20,7 @@ class DriverLoader {
     this.table = [0].map((w, index) => ({
       key: index,
       data: [
-        { key: w, data: `${data.year}/drivers/${data.driverId}` },
+        { key: w, data: `${data.year}/drivers/${data.id}` },
       ]
     }))
   }

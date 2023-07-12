@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
 
 // components
 import FilterPicker from './picker/FilterPicker'
@@ -15,24 +14,21 @@ import FilterOptionsModel from '../../../../model/filter/FilterOptions'
 import './FilterSelector.css'
 
 const FilterSelector = () => {
-  const params = useParams()
-  const { options, loading, error, dispatch } = useResultsFilterContext()
+  const { years, loading, error, dispatch } = useResultsFilterContext()
 
   useEffect(() => {
-    const year = params.year ? params.year : new Date().getFullYear()
-    
-		dispatch({ type: 'FETCH_OPTIONS_START' })
-		FilterOptionsModel.fetch(year)
-			.then(data => dispatch({ type: 'FETCH_OPTIONS_SUCCESS', payload: data }))
-			.catch(err => dispatch({ type: 'FETCH_OPTIONS_ERROR', payload: err }))
-	}, [params.year, dispatch])
+		dispatch({ type: 'FETCH_YEARS_START' })
+		FilterOptionsModel.fetchYears()
+			.then(data => dispatch({ type: 'FETCH_YEARS_SUCCESS', payload: data }))
+			.catch(err => dispatch({ type: 'FETCH_YEARS_ERROR', payload: err }))
+	}, [dispatch])
 
   return (
     <div className="results-filter-selector">
-      {loading && <SkeletonSelector />}
+      {!years && loading && <SkeletonSelector />}
       {error && <p className="error__element">{error.message}</p>}
 
-      {options && <FilterPicker />}
+      {years && <FilterPicker />}
     </div>
   )
 }

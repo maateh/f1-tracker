@@ -1,73 +1,88 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import Select from 'react-select'
+
+// compopnents
+import SkeletonSelector from '../../../../../components/skeleton/SkeletonSelector'
 
 // context
 import { useResultsFilterContext } from '../context/hooks/useResultsFilterContext'
 
+// model
+import FilterOptionsModel from '../../../../../model/filter/FilterOptions'
+
 const FilterPicker = () => {
 	const params = useParams()
-	const navigate = useNavigate()
-
-	const { options } = useResultsFilterContext()
+	const { pathname } = useLocation()
+	
+	const { years, standings, ids, loading, dispatch } = useResultsFilterContext()
 	const [filter, setFilter] = useState({
-		year: params.year ? params.year : 2023,
-		weekend: params.weekend ? params.weekend : 'all',
-		session: params.session ? params.session : 'summary',
+		year: params.year ? years.get(params.year) : years.data[0],
+		standings: standings.data.find(s => pathname.includes(s.value)) || standings.data[0]
 	})
-
+	
+	const navigate = useNavigate()
 	useEffect(() => {
-		navigate(`./${filter.year}/${filter.weekend}/${filter.session}`, {
-			replace: true,
+		navigate(`./${filter.year.value}/${filter.standings.value}/${filter.id ? filter.id.value : 'all'}`, {
+			replace: true
 		})
 	}, [navigate, filter])
 
+	useEffect(() => {
+		dispatch({ type: 'FETCH_ID_LIST_START' })
+		FilterOptionsModel.fetchIds(filter.standings.value, filter.year.value)
+			.then(data => {
+				dispatch({ type: 'FETCH_ID_LIST_SUCCESS', payload: data })
+				setFilter(prev => ({ ...prev, id: data.data[0] }))
+			})
+			.catch(err => dispatch({ type: 'FETCH_ID_LIST_ERROR', payload: err }))
+	}, [filter.year, filter.standings, dispatch])
+	
+
 	return (
 		<div className="filter-picker">
-			<label className="year">
-				<span>Year</span>
+			<label className={years.key}>
+				<span>{years.label}</span>
 				<Select
-					onChange={option =>
-						setFilter(
-							prev => {
-								return prev.year === option.value ? { ...prev } : {
-									year: option.value,
-									weekend: 'all',
-									session: 'summary',
-								}
-							}
-						)
+					onChange={option => 
+						setFilter(prev => ({ year: option, standings: prev.standings }))
 					}
-					placeholder={filter.year}
-					value={filter.year}
-					options={options.years}
+					placeholder={filter.year.label}
+					value={filter.year.value}
+					options={years.data}
 					isSearchable={true}
 				/>
 			</label>
-			<label className="weekend">
-				<span>Weekend</span>
+
+			<label className={standings.key}>
+				<span>{standings.label}</span>
 				<Select
 					onChange={option =>
-						setFilter(prev => ({ ...prev, weekend: option.value }))
+						setFilter(prev => ({ year: prev.year, standings: option }))
 					}
-					placeholder={options.getWeekendName(filter.weekend)}
-					value={filter.weekend}
-					options={options.weekends}
+					placeholder={filter.standings.label}
+					value={filter.standings.value}
+					options={standings.data}
 					isSearchable={true}
 				/>
 			</label>
-			<label className="session">
-				<span>Session</span>
-				<Select
-					onChange={option =>
-						setFilter(prev => ({ ...prev, session: option.value }))
-					}
-					placeholder={options.getSessionLabel(filter.session)}
-					value={filter.session}
-					options={options.sessions}
-					isSearchable={false}
-				/>
-			</label>
+
+
+			{loading && <SkeletonSelector />}
+			{ids && (
+				<label className={ids.key}>
+					<span>{ids.label}</span> 
+					<Select
+						onChange={option =>
+							setFilter(prev => ({ ...prev, id: option }))
+						}
+						placeholder={filter.id ? filter.id.label : 'ALL'}
+						value={filter.id ? filter.id.value : 'all'}
+						options={ids.data}
+						isSearchable={true}
+					/>
+				</label>
+			)}
 		</div>
 	)
 }

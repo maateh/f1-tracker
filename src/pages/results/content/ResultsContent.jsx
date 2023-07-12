@@ -9,9 +9,9 @@ import { ResultsFilterContextProvider } from "./selector/context/ResultsFilterCo
 const ResultsContent = () => {
   return (
     <div className="results-content">
-      {/* <ResultsFilterContextProvider>
+      <ResultsFilterContextProvider>
         <FilterSelector />
-      </ResultsFilterContextProvider> */}
+      </ResultsFilterContextProvider>
 
       <Outlet />
     </div>

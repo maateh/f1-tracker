@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 // layouts
 import Main from './layouts/Main'
@@ -9,6 +9,7 @@ import SchedulePage from './pages/schedule/SchedulePage'
 
 import ResultsPage from './pages/results/ResultsPage'
 import ResultsListing from './pages/results/content/listing/ResultsListing'
+import ListingError from './pages/results/content/listing/error/ListingError'
 
 import HistoryPage from './pages/history/HistoryPage'
 import LapsHistory from './pages/history/content/laps/LapsHistory'
@@ -16,7 +17,6 @@ import DriversHistory from './pages/history/content/drivers/DriversHistory'
 import ConstructorsHistory from './pages/history/content/constructors/ConstructorsHistory'
 import PitsHistory from './pages/history/content/pits/PitsHistory'
 
-import ListingError from './pages/results/content/listing/error/ListingError'
 import NotFound from './pages/error/NotFound'
 
 // loaders
@@ -59,13 +59,13 @@ const router = createBrowserRouter([
             loader: seasonSessionLoader
           },
           {
-            path: ":year/races/:round",
+            path: ":year/races/:id",
             element: <ResultsListing />,
             errorElement: <ListingError />,
             loader: weekendLoader
           },
           {
-            path: ":year/races/:round/session/:session", // :session -> summary, qualifying, race, sprint
+            path: ":year/races/:id/session/:session", // :session -> summary, qualifying, race, sprint
             element: <ResultsListing />,
             errorElement: <ListingError />,
             loader: weekendSessionLoader
@@ -77,7 +77,7 @@ const router = createBrowserRouter([
             loader: driversLoader
           },
           {
-            path: ":year/drivers/:driverId",
+            path: ":year/drivers/:id",
             element: <ResultsListing />,
             errorElement: <ListingError />,
             loader: driverLoader
@@ -89,11 +89,15 @@ const router = createBrowserRouter([
             loader: constructorsLoader
           },
           {
-            path: ":year/constructors/:constructorId",
+            path: ":year/constructors/:id",
             element: <ResultsListing />,
             errorElement: <ListingError />,
             loader: constructorLoader
           },
+          {
+            path: "*",
+            element: <Navigate to="./" />
+          }
         ],
       },
       {

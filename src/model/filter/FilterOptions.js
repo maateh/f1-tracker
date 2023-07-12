@@ -2,60 +2,112 @@
 import { fetchData } from '../../api/fetchData'
 
 // model
-import SeasonList from '../season/SeasonList'
-import WeekendList from '../season/weekend/WeekendList'
+import FilterOption from './FilterOption'
 
-class FilterTypes {
-	#years = []
-	#weekends = []
-	#sessions = []
+class FilterOptions {
+	constructor(key, label, data) {
+		this.key = key
+		this.label = label
+		this.data = this.parseData(data)
+	}
 
-	constructor(years, weekends) {
-		this.#years = new SeasonList(years)
-		this.#weekends = [
-			{ round: 'all', name: 'ALL' },
-			...new WeekendList(weekends)
-		]
-		this.#sessions = [
-			{ value: 'summary', label: 'SUMMARY' },
-			{ value: 'qualifying', label: 'Qualifying' },
-			{ value: 'race', label: 'Race' }
+	get(value) {
+		return this.data?.find(option => option.value === value)
+	}
+
+	parseData(data) {
+		if (this.key === 'years' || this.key === 'standings') {
+			return data.map(option => new FilterOption(option.value, option.label))
+		}
+
+		return [
+			new FilterOption('all', 'ALL'),
+			...data.map(option => new FilterOption(option.value, option.label)),
 		]
 	}
 
-	static async fetch(year) {
-		const fetchYears = fetchData('/seasons', 'SeasonTable', '?limit=100')
-		const fetchWeekends = fetchData(`/${year}`, 'RaceTable')
+	static STANDINGS = new FilterOptions(
+    'standings',
+    'Standings',
+    [
+      new FilterOption('races', 'Races'),
+      new FilterOption('drivers', 'Drivers'),
+      new FilterOption('constructors', 'Constructors'),
+    ]
+  )
 
-		return Promise.all([fetchYears, fetchWeekends])
-			.then(data => {
-				return new FilterTypes(data[0], data[1])
-			})
+
+	static async fetchYears() {
+		console.log('fetchYears()')
+		return fetchData('/seasons', 'SeasonTable', '?limit=100')
+			.then(data => new FilterOptions(
+        'years',
+        'Years',
+        data.Seasons.map(d => ({ value: d.season, label: d.season })).reverse()
+      ))
 			.catch(err => {
 				throw new Error(err)
 			})
 	}
 
-
-	get years() {
-		return this.#years.seasons.map(season => ({ value: season.year, label: season.year })).reverse()
+	static async fetchRounds(year) {
+		console.log('fetchRounds()')
+		return fetchData(`/${year}`, 'RaceTable')
+			.then(data => new FilterOptions(
+        'rounds',
+        'Rounds',
+        data.Races.map(w => ({ value: w.round, label: w.raceName }))
+      ))
+			.catch(err => {
+				throw new Error(err)
+			})
 	}
 
-	get weekends() {
-		return this.#weekends.map(weekend => ({ value: weekend.round, label: weekend.name }))
-	}
-	
-	get sessions() {
-		return this.#sessions
-	}
-	
-	getWeekendName(round) {
-		return this.#weekends.find(w => w.round === round).name
+	static async fetchDrivers(year) {
+		console.log('fetchDrivers()')
+		return fetchData(`/${year}/driverStandings`, 'StandingsTable')
+			.then(data => new FilterOptions(
+        'drivers',
+        'Drivers',
+        data.StandingsLists[0].DriverStandings.map(standings => ({
+          value: standings.Driver.driverId,
+          label: `${standings.Driver.givenName} ${standings.Driver.familyName}`,
+        }))
+      ))
+			.catch(err => {
+				throw new Error(err)
+			})
 	}
 
-	getSessionLabel(session) {
-		return this.#sessions.find(s => s.value === session).label
+	static async fetchConstructors(year) {
+		console.log('fetchConstructors()')
+		return fetchData(`/${year}/constructorStandings`, 'StandingsTable')
+			.then(data => new FilterOptions(
+        'constructors',
+        'Constructors',
+        data.StandingsLists[0].ConstructorStandings.map(standings => ({
+          value: standings.Constructor.constructorId,
+          label: standings.Constructor.name
+        }))
+      ))
+			.catch(err => {
+				throw new Error(err)
+			})
 	}
+
+  static async fetchIds(key, year) {
+    if (key === 'races') {
+      return FilterOptions.fetchRounds(year)
+    }
+
+    if (key === 'drivers') {
+      return FilterOptions.fetchDrivers(year)
+    }
+
+    if (key === 'constructors') {
+      return FilterOptions.fetchConstructors(year)
+    }
+  }
 }
 
-export default FilterTypes
+export default FilterOptions

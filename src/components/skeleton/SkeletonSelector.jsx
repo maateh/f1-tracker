@@ -5,7 +5,7 @@ const SkeletonSelector = () => {
   return (
     <div className="skeleton-selector__wrapper">
       <Skeleton type="text" />
-      <Skeleton type="title" />
+      <Skeleton type="text" />
     </div>
   )
 }

@@ -1,5 +1,5 @@
-export const constructorLoader = ({ params: { year, constructorId } }) => {
-  return new ConstructorLoader({ year, constructorId })
+export const constructorLoader = ({ params: { year, id } }) => {
+  return new ConstructorLoader({ year, id })
 }
 
 class ConstructorLoader {
@@ -20,7 +20,7 @@ class ConstructorLoader {
     this.table = [0].map((w, index) => ({
       key: index,
       data: [
-        { key: w, data: `${data.year}/constructors/${data.constructorId}` },
+        { key: w, data: `${data.year}/constructors/${data.id}` },
       ]
     }))
   }

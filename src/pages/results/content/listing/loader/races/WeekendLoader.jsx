@@ -1,5 +1,5 @@
-export const weekendLoader = ({ params: { year, round }}) => {
-  return new WeekendLoader({ year, round })
+export const weekendLoader = ({ params: { year, id }}) => {
+  return new WeekendLoader({ year, id })
 }
 
 class WeekendLoader {
@@ -20,7 +20,7 @@ class WeekendLoader {
     this.table = [0].map((w, index) => ({
       key: index,
       data: [
-        { key: w, data: `${data.year}/races/${data.round}` },
+        { key: w, data: `${data.year}/races/${data.id}` },
       ]
     }))
   }
