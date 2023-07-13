@@ -1,5 +1,6 @@
 // api
-import { fetchData } from '../../api/fetchData'
+import { season, seasonList } from '../../api/season'
+import { constructorStandings, driverStandings } from '../../api/standings'
 
 // model
 import FilterOption from './FilterOption'
@@ -30,16 +31,14 @@ class FilterOptions {
     'standings',
     'Standings',
     [
-      new FilterOption('races', 'Races'),
+      new FilterOption('rounds', 'Rounds'),
       new FilterOption('drivers', 'Drivers'),
       new FilterOption('constructors', 'Constructors'),
     ]
   )
 
-
-	static async fetchYears() {
-		console.log('fetchYears()')
-		return fetchData('/seasons', 'SeasonTable', '?limit=100')
+	static async querySeasons() {
+		return seasonList()
 			.then(data => new FilterOptions(
         'years',
         'Years',
@@ -50,9 +49,8 @@ class FilterOptions {
 			})
 	}
 
-	static async fetchRounds(year) {
-		console.log('fetchRounds()')
-		return fetchData(`/${year}`, 'RaceTable')
+	static async queryRounds(year) {
+		return season(year)
 			.then(data => new FilterOptions(
         'rounds',
         'Rounds',
@@ -63,9 +61,8 @@ class FilterOptions {
 			})
 	}
 
-	static async fetchDrivers(year) {
-		console.log('fetchDrivers()')
-		return fetchData(`/${year}/driverStandings`, 'StandingsTable')
+	static async queryDrivers(year) {
+		return driverStandings(year)
 			.then(data => new FilterOptions(
         'drivers',
         'Drivers',
@@ -79,9 +76,8 @@ class FilterOptions {
 			})
 	}
 
-	static async fetchConstructors(year) {
-		console.log('fetchConstructors()')
-		return fetchData(`/${year}/constructorStandings`, 'StandingsTable')
+	static async queryConstructors(year) {
+		return constructorStandings(year)
 			.then(data => new FilterOptions(
         'constructors',
         'Constructors',
@@ -94,20 +90,6 @@ class FilterOptions {
 				throw new Error(err)
 			})
 	}
-
-  static async fetchIds(key, year) {
-    if (key === 'races') {
-      return FilterOptions.fetchRounds(year)
-    }
-
-    if (key === 'drivers') {
-      return FilterOptions.fetchDrivers(year)
-    }
-
-    if (key === 'constructors') {
-      return FilterOptions.fetchConstructors(year)
-    }
-  }
 }
 
 export default FilterOptions

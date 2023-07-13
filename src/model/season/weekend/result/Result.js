@@ -1,6 +1,3 @@
-// api
-import { fetchData } from '../../../../api/fetchData'
-
 // models
 import Weekend from '../Weekend'
 import Qualifying from './qualifying/Qualifying'
@@ -12,35 +9,35 @@ class Result {
 		this.parseRace(data)
 	}
 
-	static async fetchResult(year, weekend) {
-		return Promise.all([
-			this.fetchQualifying(year, weekend),
-			this.fetchRace(year, weekend),
-		])
-			.then(data => {
-        data[1].result.qualifying = data[0].result.qualifying
-        return data[1]
-      })
-			.catch(err => {
-				throw new Error(err)
-			})
-	}
+	// static async fetchResult(year, weekend) {
+	// 	return Promise.all([
+	// 		this.fetchQualifying(year, weekend),
+	// 		this.fetchRace(year, weekend),
+	// 	])
+	// 		.then(data => {
+  //       data[1].result.qualifying = data[0].result.qualifying
+  //       return data[1]
+  //     })
+	// 		.catch(err => {
+	// 			throw new Error(err)
+	// 		})
+	// }
 
-	static async fetchQualifying(year, weekend) {
-		return fetchData(`/${year}/${weekend}/qualifying`, 'RaceTable')
-			.then(data => new Weekend(data.Races[0]))
-			.catch(err => {
-				throw new Error(err)
-			})
-	}
+	// static async fetchQualifying(year, weekend) {
+	// 	return fetchData(`/${year}/${weekend}/qualifying`, 'RaceTable')
+	// 		.then(data => new Weekend(data.Races[0]))
+	// 		.catch(err => {
+	// 			throw new Error(err)
+	// 		})
+	// }
 
-	static async fetchRace(year, weekend) {
-		return fetchData(`/${year}/${weekend}/results`, 'RaceTable')
-			.then(data => new Weekend(data.Races[0]))
-			.catch(err => {
-				throw new Error(err)
-			})
-	}
+	// static async fetchRace(year, weekend) {
+	// 	return fetchData(`/${year}/${weekend}/results`, 'RaceTable')
+	// 		.then(data => new Weekend(data.Races[0]))
+	// 		.catch(err => {
+	// 			throw new Error(err)
+	// 		})
+	// }
 
 	parseQualifying(data) {
 		if (data.QualifyingResults) {

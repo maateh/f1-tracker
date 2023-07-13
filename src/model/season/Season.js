@@ -27,7 +27,7 @@ class Season {
 
   parseWeekends(data) {
     if (data.Races) {
-      this.weekends = new WeekendList(data)
+      this.weekends = new WeekendList(data.Races)
     }
   }
 }

@@ -20,19 +20,14 @@ import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
 import ResultListModel from '../../../../../../model/season/weekend/result/ResultList';
 
 export const seasonLoader = ({ params: { year } }) => {
-  return ResultListModel.fetchResults(year)
-    .then(data => {
-      // console.log('fetchedData: ', data)
-      return new SeasonLoader(data)
-    })
-    .catch(err => {
-      throw new Response(err.message, { status: 400 })
-    })
+  return {
+    queryKey: ['results', year], 
+    queryFn: () => ResultListModel.queryResults(year)
+  }
 }
 
-class SeasonLoader {
+export class SeasonLoader {
   constructor(season) {
-    // console.log('season-DATA: ', season)
     this.info = [
       {
         category: 'General Information',

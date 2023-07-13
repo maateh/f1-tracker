@@ -1,5 +1,6 @@
 /* filter selector layout */
 .results-filter-selector {
+	margin: 2rem auto;
   display: flex;
   flex-direction: column;
   justify-content: center;

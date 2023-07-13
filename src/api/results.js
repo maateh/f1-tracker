@@ -1,6 +1,6 @@
 import { ergast } from "./ergast"
 
-export const seasonQualifyingResults = (year) => {
+export const qualifyingsResults = (year) => {
   return ergast(`/${year}/qualifying`, 'RaceTable', {
     limit: 500
   })
@@ -10,7 +10,7 @@ export const seasonQualifyingResults = (year) => {
     })
 }
 
-export const seasonRaceResults = (year) => {
+export const racesResults = (year) => {
   return ergast(`/${year}/results`, 'RaceTable', {
     limit: 500
   })
@@ -20,7 +20,7 @@ export const seasonRaceResults = (year) => {
     })
 }
 
-export const roundQualifyingResults = (year, round) => {
+export const qualifyingResults = (year, round) => {
   return ergast(`/${year}/${round}/qualifying`, 'RaceTable')
     .then(data => data)
     .catch(err => {
@@ -28,7 +28,7 @@ export const roundQualifyingResults = (year, round) => {
     })
 }
 
-export const roundRaceResults = (year, round) => {
+export const raceResults = (year, round) => {
   return ergast(`/${year}/${round}/results`, 'RaceTable')
     .then(data => data)
     .catch(err => {

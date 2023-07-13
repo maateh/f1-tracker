@@ -8,23 +8,23 @@ import SkeletonSelector from "../../../../components/skeleton/SkeletonSelector"
 import { useScheduleContext } from "../../context/hooks/useScheduleContext"
 
 // model
-import SeasonListModel from "../../../../model/season/SeasonList"
+import FilterOptionsModel from '../../../../model/filter/FilterOptions'
 
 // styles
 import './SeasonSelector.css'
 
 const SeasonSelector = () => {
   const { seasons, dispatch } = useScheduleContext()
-  const seasonsQuery = useQuery({
+  const { isLoading, isError, error } = useQuery({
     queryKey: ['seasonList'],
-    queryFn: SeasonListModel.query,
+    queryFn: FilterOptionsModel.querySeasons,
     onSuccess: data => dispatch({ type: 'SET_SEASONS', payload: data })
   })
 
   return (
     <div className="season-selector">
-      {seasonsQuery.isLoading && <SkeletonSelector />}
-      {seasonsQuery.isError && <p className="error__element">{seasonsQuery.error}</p>}
+      {isLoading && <SkeletonSelector />}
+      {isError && <p className="error__element">{error}</p>}
 
       {seasons && <SeasonPicker />}
     </div>

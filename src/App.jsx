@@ -9,7 +9,6 @@ import SchedulePage from './pages/schedule/SchedulePage'
 
 import ResultsPage from './pages/results/ResultsPage'
 import ResultsListing from './pages/results/content/listing/ResultsListing'
-import ListingError from './pages/results/content/listing/error/ListingError'
 
 import HistoryPage from './pages/history/HistoryPage'
 import LapsHistory from './pages/history/content/laps/LapsHistory'
@@ -47,51 +46,43 @@ const router = createBrowserRouter([
         element: <ResultsPage />,
         children: [
           {
-            path: ":year/races/all",
+            path: ":year/rounds/all",
             element: <ResultsListing />,
-            errorElement: <ListingError />,
             loader: seasonLoader
           },
           {
-            path: ":year/races/all/session/:session", // :session -> summary, qualifying, race, sprint
+            path: ":year/rounds/all/session/:session", // :session -> summary, qualifying, race, sprint
             element: <ResultsListing />,
-            errorElement: <ListingError />,
             loader: seasonSessionLoader
           },
           {
-            path: ":year/races/:id",
+            path: ":year/rounds/:id",
             element: <ResultsListing />,
-            errorElement: <ListingError />,
             loader: weekendLoader
           },
           {
-            path: ":year/races/:id/session/:session", // :session -> summary, qualifying, race, sprint
+            path: ":year/rounds/:id/session/:session", // :session -> summary, qualifying, race, sprint
             element: <ResultsListing />,
-            errorElement: <ListingError />,
             loader: weekendSessionLoader
           },
           {
             path: ":year/drivers/all",
             element: <ResultsListing />,
-            errorElement: <ListingError />,
             loader: driversLoader
           },
           {
             path: ":year/drivers/:id",
             element: <ResultsListing />,
-            errorElement: <ListingError />,
             loader: driverLoader
           },
           {
             path: ":year/constructors/all",
             element: <ResultsListing />,
-            errorElement: <ListingError />,
             loader: constructorsLoader
           },
           {
             path: ":year/constructors/:id",
             element: <ResultsListing />,
-            errorElement: <ListingError />,
             loader: constructorLoader
           },
           {

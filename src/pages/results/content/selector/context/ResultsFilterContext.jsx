@@ -4,29 +4,17 @@ import { createContext, useReducer } from 'react'
 import FilterOptionsModel from '../../../../../model/filter/FilterOptions'
 
 const INITIAL_STATE = {
-	loading: false,
-	error: null,
-	years: null,
+	seasons: null,
 	standings: FilterOptionsModel.STANDINGS,
 	ids: null
 }
 
 const dataReducer = (state, action) => {
 	switch (action.type) {
-		case 'FETCH_YEARS_START':
-			return { ...state, loading: true, error: null, years: null }
-		case 'FETCH_YEARS_SUCCESS':
-			return { ...state, loading: false, error: null, years: action.payload }
-		case 'FETCH_YEARS_ERROR':
-			return { ...state, loading: false, error: action.payload, years: null }
-
-		case 'FETCH_ID_LIST_START':
-			return { ...state, loading: true, error: null, ids: null }
-		case 'FETCH_ID_LIST_SUCCESS':
-			return { ...state, loading: false, error: null, ids: action.payload }
-		case 'FETCH_ID_LIST_ERROR':
-			return { ...state, loading: false, error: action.payload, ids: null }
-
+		case 'SET_SEASONS':
+			return { ...state, seasons: action.payload }
+		case 'SET_IDS':
+			return { ...state, ids: action.payload }
 		default:
 			return state
 	}

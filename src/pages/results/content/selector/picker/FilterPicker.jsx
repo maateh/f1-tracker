@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
+import { useQuery } from 'react-query'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import Select from 'react-select'
 
-// compopnents
+// components
 import SkeletonSelector from '../../../../../components/skeleton/SkeletonSelector'
 
 // context
@@ -12,15 +13,37 @@ import { useResultsFilterContext } from '../context/hooks/useResultsFilterContex
 import FilterOptionsModel from '../../../../../model/filter/FilterOptions'
 
 const FilterPicker = () => {
-	const params = useParams()
+	const { seasons, standings, ids, dispatch } = useResultsFilterContext()
+
+	const { year } = useParams()
 	const { pathname } = useLocation()
-	
-	const { years, standings, ids, loading, dispatch } = useResultsFilterContext()
+
 	const [filter, setFilter] = useState({
-		year: params.year ? years.get(params.year) : years.data[0],
+		year: year ? seasons.get(year) : seasons.data[0],
 		standings: standings.data.find(s => pathname.includes(s.value)) || standings.data[0]
 	})
-	
+
+	const { isLoading: roundsLoading } = useQuery({
+		queryKey: ['season', filter.year.value],
+		queryFn: () => FilterOptionsModel.queryRounds(filter.year.value),
+		onSuccess: data => dispatch({ type: 'SET_IDS', payload: data }),
+		enabled: filter.standings.value === 'rounds'
+	})
+
+	const { isLoading: driversLoading } = useQuery({
+		queryKey: ['driverStandings', filter.year.value],
+		queryFn: () => FilterOptionsModel.queryDrivers(filter.year.value),
+		onSuccess: data => dispatch({ type: 'SET_IDS', payload: data }),
+		enabled: filter.standings.value === 'drivers'
+	})
+
+	const { isLoading: constructorsLoading } = useQuery({
+		queryKey: ['constructorStandings', filter.year.value],
+		queryFn: () => FilterOptionsModel.queryConstructors(filter.year.value),
+		onSuccess: data => dispatch({ type: 'SET_IDS', payload: data }),
+		enabled: filter.standings.value === 'constructors'
+	})
+
 	const navigate = useNavigate()
 	useEffect(() => {
 		navigate(`./${filter.year.value}/${filter.standings.value}/${filter.id ? filter.id.value : 'all'}`, {
@@ -28,28 +51,17 @@ const FilterPicker = () => {
 		})
 	}, [navigate, filter])
 
-	useEffect(() => {
-		dispatch({ type: 'FETCH_ID_LIST_START' })
-		FilterOptionsModel.fetchIds(filter.standings.value, filter.year.value)
-			.then(data => {
-				dispatch({ type: 'FETCH_ID_LIST_SUCCESS', payload: data })
-				setFilter(prev => ({ ...prev, id: data.data[0] }))
-			})
-			.catch(err => dispatch({ type: 'FETCH_ID_LIST_ERROR', payload: err }))
-	}, [filter.year, filter.standings, dispatch])
-	
-
 	return (
 		<div className="filter-picker">
-			<label className={years.key}>
-				<span>{years.label}</span>
+			<label className={seasons.key}>
+				<span>{seasons.label}</span>
 				<Select
 					onChange={option => 
 						setFilter(prev => ({ year: option, standings: prev.standings }))
 					}
 					placeholder={filter.year.label}
 					value={filter.year.value}
-					options={years.data}
+					options={seasons.data}
 					isSearchable={true}
 				/>
 			</label>
@@ -68,8 +80,9 @@ const FilterPicker = () => {
 			</label>
 
 
-			{loading && <SkeletonSelector />}
-			{ids && (
+			{roundsLoading || driversLoading || constructorsLoading 
+				? <SkeletonSelector /> 
+				: ids && (
 				<label className={ids.key}>
 					<span>{ids.label}</span> 
 					<Select

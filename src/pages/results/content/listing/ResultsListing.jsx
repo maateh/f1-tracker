@@ -1,18 +1,33 @@
+import { useQuery } from "react-query"
 import { useLoaderData } from "react-router-dom"
 
 // components
 import ListingInfo from "./info/ListingInfo"
 import ListingTable from "./table/ListingTable"
+import Error from "../../../error/Error"
+
+// icons
+import CircularProgress from '@mui/material/CircularProgress'
 
 const ResultsListing = () => {
-  const data = useLoaderData()
+  const { queryKey, queryFn } = useLoaderData()
 
-  if (!data) return <p>WIP</p>
+  const { isLoading, isError, error, data } = useQuery({
+    queryKey: queryKey, 
+    queryFn: queryFn
+  })
 
   return (
     <div className="results-listing__container">
-      <ListingInfo info={data.info} />
-      <ListingTable header={data.header} table={data.table} />
+      {isLoading && <CircularProgress />}
+      {isError && <Error error={error} />}
+
+      {!isLoading && !isError && data && (
+        <>
+          <ListingInfo info={data.info} />
+          <ListingTable header={data.header} table={data.table} />
+        </>
+      )}
     </div>
   )
 }

@@ -1,18 +1,43 @@
 // api
-import { fetchData } from "../../../../api/fetchData"
+import { qualifyingsResults, racesResults } from "../../../../api/results"
+
+// loader
+import { SeasonLoader } from "../../../../pages/results/content/listing/loader/races/SeasonLoader"
 
 // models
 import Season from "../../Season"
 
 class ResultList {
-  static async fetchResults(year) {
-    const fetchQualifyings = fetchData(`/${year}/qualifying`, 'RaceTable', '?limit=500')
-    const fetchRaces = fetchData(`/${year}/results`, 'RaceTable', '?limit=500')
-
-    return Promise.all([fetchQualifyings, fetchRaces])
+  static async queryResults(year) {
+    return Promise.all([qualifyingsResults(year), racesResults(year)])
       .then(data => {
         data[1].Races.forEach((w, index) => w.QualifyingResults = data[0].Races[index].QualifyingResults)
-        return new Season(data[1])
+        const season = new Season(data[1])
+        return new SeasonLoader(season)
+      })
+      .catch(err => {
+        throw new Error(err)
+      })
+  }
+
+  // NOT CURRENTLY IN USE
+  static async queryQualifyingsResults(year) {
+    return qualifyingsResults(year)
+      .then(data => {
+        const season = new Season(data)
+        // return new 
+      })
+      .catch(err => {
+        throw new Error(err)
+      })
+  }
+
+  // NOT CURRENTLY IN USE
+  static async queryRacesResults(year) {
+    return racesResults(year)
+      .then(data => {
+        const season = new Season(data)
+        // return new 
       })
       .catch(err => {
         throw new Error(err)

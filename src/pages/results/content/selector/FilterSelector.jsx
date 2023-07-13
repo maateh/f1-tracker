@@ -12,23 +12,22 @@ import FilterOptionsModel from '../../../../model/filter/FilterOptions'
 
 // styles
 import './FilterSelector.css'
+import { useQuery } from 'react-query'
 
 const FilterSelector = () => {
-  const { years, loading, error, dispatch } = useResultsFilterContext()
-
-  useEffect(() => {
-		dispatch({ type: 'FETCH_YEARS_START' })
-		FilterOptionsModel.fetchYears()
-			.then(data => dispatch({ type: 'FETCH_YEARS_SUCCESS', payload: data }))
-			.catch(err => dispatch({ type: 'FETCH_YEARS_ERROR', payload: err }))
-	}, [dispatch])
+  const { seasons, dispatch } = useResultsFilterContext()
+  const { isLoading, isError, error } = useQuery({
+    queryKey: ['seasonList'],
+    queryFn: FilterOptionsModel.querySeasons,
+    onSuccess: data => dispatch({ type: 'SET_SEASONS', payload: data })
+  })
 
   return (
     <div className="results-filter-selector">
-      {!years && loading && <SkeletonSelector />}
-      {error && <p className="error__element">{error.message}</p>}
+      {isLoading && <SkeletonSelector />}
+      {isError && <p className="error__element">{error.message}</p>}
 
-      {years && <FilterPicker />}
+      {seasons && <FilterPicker />}
     </div>
   )
 }
