@@ -1,11 +1,19 @@
+import { Fragment } from "react"
+
 // skeleton loading component
 import Skeleton from "./Skeleton"
 
-const SkeletonSelector = () => {
+const SkeletonSelector = ({ counter }) => {
   return (
     <div className="skeleton-selector__wrapper">
-      <Skeleton type="text" />
-      <Skeleton type="text" />
+			{Array(counter)
+				.fill()
+				.map((_, index) => (
+					<Fragment key={index}>
+            <Skeleton type="text" />
+            <Skeleton type="text" />
+          </Fragment>
+				))}
     </div>
   )
 }

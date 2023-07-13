@@ -27,7 +27,6 @@ import { driversLoader } from './pages/results/content/listing/loader/drivers/Dr
 import { driverLoader } from './pages/results/content/listing/loader/drivers/DriverLoader'
 import { constructorsLoader } from './pages/results/content/listing/loader/constructors/ConstructorsLoader'
 import { constructorLoader } from './pages/results/content/listing/loader/constructors/ConstructorLoader'
-import { useScheduleContext } from './pages/schedule/context/hooks/useScheduleContext'
 
 const router = createBrowserRouter([
   {

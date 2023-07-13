@@ -24,10 +24,11 @@ const FilterSelector = () => {
 
   return (
     <div className="results-filter-selector">
-      {isLoading && <SkeletonSelector />}
-      {isError && <p className="error__element">{error.message}</p>}
+      {isLoading && <SkeletonSelector counter={1} />}
 
       {seasons && <FilterPicker />}
+
+      {isError && <p className="error__element">{error.message}</p>}
     </div>
   )
 }

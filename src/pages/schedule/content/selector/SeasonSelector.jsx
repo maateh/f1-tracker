@@ -23,7 +23,7 @@ const SeasonSelector = () => {
 
   return (
     <div className="season-selector">
-      {isLoading && <SkeletonSelector />}
+      {isLoading && <SkeletonSelector counter={3} />}
       {isError && <p className="error__element">{error}</p>}
 
       {seasons && <SeasonPicker />}

@@ -81,7 +81,7 @@ const FilterPicker = () => {
 
 
 			{roundsLoading || driversLoading || constructorsLoading 
-				? <SkeletonSelector /> 
+				? <SkeletonSelector counter={1} /> 
 				: ids && (
 				<label className={ids.key}>
 					<span>{ids.label}</span> 
