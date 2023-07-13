@@ -5,6 +5,7 @@ import { nextRound } from '../../../api/season'
 import Circuit from './circuit/Circuit'
 import SessionList from './session/SessionList'
 import Result from './result/Result'
+import QueryError from '../../error/QueryError'
 
 class Weekend {
 	constructor(data) {
@@ -23,7 +24,7 @@ class Weekend {
 		return nextRound()
 			.then(data => new Weekend(data.Races[0]))
 			.catch(err => {
-				throw new Error(err)
+				throw new QueryError(err.message)
 			})
 	}
 

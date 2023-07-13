@@ -4,6 +4,7 @@ import { constructorStandings, driverStandings } from '../../api/standings'
 
 // model
 import FilterOption from './FilterOption'
+import QueryError from '../error/QueryError'
 
 class FilterOptions {
 	constructor(key, label, data) {
@@ -45,7 +46,7 @@ class FilterOptions {
         data.Seasons.map(d => ({ value: d.season, label: d.season })).reverse()
       ))
 			.catch(err => {
-				throw new Error(err)
+				throw new QueryError(err.message)
 			})
 	}
 
@@ -57,7 +58,7 @@ class FilterOptions {
         data.Races.map(w => ({ value: w.round, label: w.raceName }))
       ))
 			.catch(err => {
-				throw new Error(err)
+				throw new QueryError(err.message)
 			})
 	}
 
@@ -72,7 +73,7 @@ class FilterOptions {
         }))
       ))
 			.catch(err => {
-				throw new Error(err)
+				throw new QueryError(err.message)
 			})
 	}
 
@@ -87,7 +88,7 @@ class FilterOptions {
         }))
       ))
 			.catch(err => {
-				throw new Error(err)
+				throw new QueryError(err.message)
 			})
 	}
 }

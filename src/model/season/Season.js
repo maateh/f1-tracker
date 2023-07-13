@@ -3,6 +3,7 @@ import { season } from "../../api/season"
 
 // model
 import WeekendList from "../season/weekend/WeekendList"
+import QueryError from "../error/QueryError"
 
 class Season {
   constructor(data) {
@@ -15,7 +16,7 @@ class Season {
     return season(year)
       .then(data => new Season(data))
       .catch(err => {
-        throw new Error(err)
+        throw new QueryError(err.message)
       })
   }
 

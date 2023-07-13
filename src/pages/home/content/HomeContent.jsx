@@ -3,8 +3,8 @@ import { useQuery } from "react-query"
 // components
 import RelevantWeekend from "./weekend/RelevantWeekend"
 import RelevantSession from "./session/RelevantSession"
-import Error from "../../error/Error"
 import SkeletonGrid from "../../../components/skeleton/SkeletonGrid"
+import Error from "../../../components/error/Error"
 
 // context
 import { useWeekendContext } from "../context/hooks/useWeekendContext"

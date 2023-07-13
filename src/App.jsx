@@ -3,7 +3,7 @@ import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 // layouts
 import Main from './layouts/Main'
 
-// pages
+// pages & components
 import Homepage from './pages/home/Homepage'
 import SchedulePage from './pages/schedule/SchedulePage'
 
@@ -16,7 +16,7 @@ import DriversHistory from './pages/history/content/drivers/DriversHistory'
 import ConstructorsHistory from './pages/history/content/constructors/ConstructorsHistory'
 import PitsHistory from './pages/history/content/pits/PitsHistory'
 
-import NotFound from './pages/error/NotFound'
+import NotFound from './components/error/NotFound'
 
 // loaders
 import { seasonLoader } from './pages/results/content/listing/loader/races/SeasonLoader'
@@ -27,6 +27,7 @@ import { driversLoader } from './pages/results/content/listing/loader/drivers/Dr
 import { driverLoader } from './pages/results/content/listing/loader/drivers/DriverLoader'
 import { constructorsLoader } from './pages/results/content/listing/loader/constructors/ConstructorsLoader'
 import { constructorLoader } from './pages/results/content/listing/loader/constructors/ConstructorLoader'
+import { useScheduleContext } from './pages/schedule/context/hooks/useScheduleContext'
 
 const router = createBrowserRouter([
   {
@@ -121,8 +122,6 @@ const router = createBrowserRouter([
   }
 ])
 
-const App = () => {
-  return <RouterProvider router={router} />
-}
+const App = () => <RouterProvider router={router} />
 
 export default App

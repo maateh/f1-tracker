@@ -4,7 +4,7 @@ import { useLoaderData } from "react-router-dom"
 // components
 import ListingInfo from "./info/ListingInfo"
 import ListingTable from "./table/ListingTable"
-import Error from "../../../error/Error"
+import Error from "../../../../components/error/Error"
 
 // icons
 import CircularProgress from '@mui/material/CircularProgress'

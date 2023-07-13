@@ -4,7 +4,7 @@ import { useQuery } from 'react-query'
 import SeasonSelector from './selector/SeasonSelector'
 import WeekendList from './weekends/WeekendList'
 import SkeletonGrid from '../../../components/skeleton/SkeletonGrid'
-import Error from '../../error/Error'
+import Error from '../../../components/error/Error'
 
 // context
 import { useScheduleContext } from '../context/hooks/useScheduleContext'

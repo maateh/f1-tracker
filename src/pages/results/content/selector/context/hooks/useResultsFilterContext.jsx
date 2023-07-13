@@ -2,12 +2,13 @@ import { useContext } from "react"
 
 // context
 import { ResultsFilterContext } from "../ResultsFilterContext"
+import ContextError from "../../../../../../model/error/ContextError"
 
 export const useResultsFilterContext = () => {
   const context = useContext(ResultsFilterContext)
-  
+
   if (!context) {
-    throw new Error('useResultsFilterContext must be inside a ResultsFilterContextProvider')
+    throw new ContextError('ResultsFilterContext')
   }
   
   return context
