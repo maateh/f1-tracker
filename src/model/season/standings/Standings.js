@@ -1,5 +1,6 @@
-import Constructor from "../season/weekend/result/constructor/Constructor"
-import Driver from "../season/weekend/result/driver/Driver"
+// models
+import Driver from "../weekend/result/driver/Driver"
+import Constructor from "../weekend/result/constructor/Constructor"
 
 class Standings {
   constructor(data) {
@@ -27,3 +28,5 @@ class Standings {
     }
   }
 }
+
+export default Standings

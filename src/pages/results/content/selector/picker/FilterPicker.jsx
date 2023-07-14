@@ -24,21 +24,21 @@ const FilterPicker = () => {
 	})
 
 	const { isLoading: roundsLoading } = useQuery({
-		queryKey: ['season', filter.year.value],
+		queryKey: ['filter', 'season', filter.year.value],
 		queryFn: () => FilterOptionsModel.queryRounds(filter.year.value),
 		onSuccess: data => dispatch({ type: 'SET_IDS', payload: data }),
 		enabled: filter.standings.value === 'rounds'
 	})
 
 	const { isLoading: driversLoading } = useQuery({
-		queryKey: ['driverStandings', filter.year.value],
+		queryKey: ['filter', 'driverStandings', filter.year.value],
 		queryFn: () => FilterOptionsModel.queryDrivers(filter.year.value),
 		onSuccess: data => dispatch({ type: 'SET_IDS', payload: data }),
 		enabled: filter.standings.value === 'drivers'
 	})
 
 	const { isLoading: constructorsLoading } = useQuery({
-		queryKey: ['constructorStandings', filter.year.value],
+		queryKey: ['filter', 'constructorStandings', filter.year.value],
 		queryFn: () => FilterOptionsModel.queryConstructors(filter.year.value),
 		onSuccess: data => dispatch({ type: 'SET_IDS', payload: data }),
 		enabled: filter.standings.value === 'constructors'
@@ -75,7 +75,7 @@ const FilterPicker = () => {
 					placeholder={filter.standings.label}
 					value={filter.standings.value}
 					options={standings.data}
-					isSearchable={true}
+					isSearchable={false}
 				/>
 			</label>
 

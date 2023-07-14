@@ -19,14 +19,14 @@ import PitsHistory from './pages/history/content/pits/PitsHistory'
 import NotFound from './components/error/NotFound'
 
 // loaders
-import { seasonLoader } from './pages/results/content/listing/loader/races/SeasonLoader'
-import { seasonSessionLoader } from './pages/results/content/listing/loader/races/SeasonSessionLoader'
-import { weekendLoader } from './pages/results/content/listing/loader/races/WeekendLoader'
-import { weekendSessionLoader } from './pages/results/content/listing/loader/races/WeekendSessionLoader'
-import { driversLoader } from './pages/results/content/listing/loader/drivers/DriversLoader'
-import { driverLoader } from './pages/results/content/listing/loader/drivers/DriverLoader'
-import { constructorsLoader } from './pages/results/content/listing/loader/constructors/ConstructorsLoader'
-import { constructorLoader } from './pages/results/content/listing/loader/constructors/ConstructorLoader'
+import seasonLoader from './pages/results/content/listing/loader/rounds/SeasonLoader'
+import { seasonSessionLoader } from './pages/results/content/listing/loader/rounds/SeasonSessionLoader'
+import weekendRaceLoader from './pages/results/content/listing/loader/rounds/WeekendRaceLoader'
+import { weekendSessionLoader } from './pages/results/content/listing/loader/rounds/WeekendSessionLoader'
+import driversLoader from './pages/results/content/listing/loader/drivers/DriversLoader'
+import driverRacesLoader from './pages/results/content/listing/loader/drivers/DriverRacesLoader'
+import constructorsLoader from './pages/results/content/listing/loader/constructors/ConstructorsLoader'
+import constructorRacesLoader from './pages/results/content/listing/loader/constructors/ConstructorRacesLoader'
 
 const router = createBrowserRouter([
   {
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
           {
             path: ":year/rounds/:id",
             element: <ResultsListing />,
-            loader: weekendLoader
+            loader: weekendRaceLoader
           },
           {
             path: ":year/rounds/:id/session/:session", // :session -> summary, qualifying, race, sprint
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
           {
             path: ":year/drivers/:id",
             element: <ResultsListing />,
-            loader: driverLoader
+            loader: driverRacesLoader
           },
           {
             path: ":year/constructors/all",
@@ -83,7 +83,7 @@ const router = createBrowserRouter([
           {
             path: ":year/constructors/:id",
             element: <ResultsListing />,
-            loader: constructorLoader
+            loader: constructorRacesLoader
           },
           {
             path: "*",

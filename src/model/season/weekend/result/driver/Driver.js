@@ -1,11 +1,14 @@
+import { format, parseISO } from "date-fns"
+
 class Driver {
   constructor(data) {
     this.id = data.driverId
-    this.number = data.permamentNumber
+    this.number = data.permanentNumber
     this.code = data.code
     this.wiki = data.url
     this.givenName = data.givenName
     this.familyName = data.familyName
+    this.dateOfBirth = format(parseISO(data.dateOfBirth), 'yyyy. MM. dd.')
     this.nationality = data.nationality
   }
 

@@ -17,7 +17,7 @@ import { useQuery } from 'react-query'
 const FilterSelector = () => {
   const { seasons, dispatch } = useResultsFilterContext()
   const { isLoading, isError, error } = useQuery({
-    queryKey: ['seasonList'],
+    queryKey: ['filter', 'seasonList'],
     queryFn: FilterOptionsModel.querySeasons,
     onSuccess: data => dispatch({ type: 'SET_SEASONS', payload: data })
   })

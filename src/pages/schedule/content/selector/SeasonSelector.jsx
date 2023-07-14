@@ -16,7 +16,7 @@ import './SeasonSelector.css'
 const SeasonSelector = () => {
   const { seasons, dispatch } = useScheduleContext()
   const { isLoading, isError, error } = useQuery({
-    queryKey: ['seasonList'],
+    queryKey: ['filter', 'seasonList'],
     queryFn: FilterOptionsModel.querySeasons,
     onSuccess: data => dispatch({ type: 'SET_SEASONS', payload: data })
   })

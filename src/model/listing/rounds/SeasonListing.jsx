@@ -1,32 +1,44 @@
 // icons
-import EventIcon from '@mui/icons-material/Event';
-import SportsMotorsportsIcon from '@mui/icons-material/SportsMotorsports';
-import EngineeringIcon from '@mui/icons-material/Engineering';
+import EventIcon from '@mui/icons-material/Event'
+import SportsMotorsportsIcon from '@mui/icons-material/SportsMotorsports'
+import EngineeringIcon from '@mui/icons-material/Engineering'
 
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
-import CelebrationIcon from '@mui/icons-material/Celebration';
-import PlusOneIcon from '@mui/icons-material/PlusOne';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium'
+import CelebrationIcon from '@mui/icons-material/Celebration'
+import PlusOneIcon from '@mui/icons-material/PlusOne'
 
-import SportsScoreIcon from '@mui/icons-material/SportsScore';
-import Timer10SelectIcon from '@mui/icons-material/Timer10Select';
-import ErrorIcon from '@mui/icons-material/Error';
-import WarningIcon from '@mui/icons-material/Warning';
+import SportsScoreIcon from '@mui/icons-material/SportsScore'
+import Timer10SelectIcon from '@mui/icons-material/Timer10Select'
+import ErrorIcon from '@mui/icons-material/Error'
+import WarningIcon from '@mui/icons-material/Warning'
 
-import FlashOnIcon from '@mui/icons-material/FlashOn';
-import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
+import FlashOnIcon from '@mui/icons-material/FlashOn'
+import MilitaryTechIcon from '@mui/icons-material/MilitaryTech'
 
-// model
-import ResultListModel from '../../../../../../model/season/weekend/result/ResultList';
+// api
+import { qualifyingsResults, racesResults } from '../../../api/results'
 
-export const seasonLoader = ({ params: { year } }) => {
-  return {
-    queryKey: ['results', year], 
-    queryFn: () => ResultListModel.queryResults(year)
-  }
-}
+// models
+import Season from '../../season/Season'
+import QueryError from '../../error/QueryError'
 
-export class SeasonLoader {
+class SeasonListing {
+  static async query(year) {
+		return Promise.all([qualifyingsResults(year), racesResults(year)])
+			.then(data => {
+				data[1].Races.forEach(
+					(w, index) =>
+						(w.QualifyingResults = data[0].Races[index].QualifyingResults)
+				)
+				const season = new Season(data[1])
+				return new SeasonListing(season)
+			})
+			.catch(err => {
+				throw new QueryError(err.message)
+			})
+	}
+
   constructor(season) {
     this.info = [
       {
@@ -65,6 +77,7 @@ export class SeasonLoader {
         ]
       },
     ]
+    
     this.header = [
       { key: 'round', placeholder: 'Round' },
       { key: 'weekend', placeholder: 'Weekend' },
@@ -75,6 +88,7 @@ export class SeasonLoader {
       { key: 'laps', placeholder: 'Laps' },
       { key: 'duration', placeholder: 'Race duration' },
     ]
+
     this.table = season.weekends.map((w, index) => ({
       key: index,
       data: [
@@ -83,15 +97,15 @@ export class SeasonLoader {
         { key: 'circuit', data: w.circuit.name },
         { key: 'pole', data: [
           { key: 'pole-time', data: w.result.pole.time },
-          { key: 'pole-driver', data: w.result.pole.time },
+          { key: 'pole-driver', data: w.result.pole.driver.code },
        ]},
         { key: 'winner', data: [
           { key: 'winner-driver', data: w.result.raceWinner },
           { key: 'winner-constructor', data: w.result.raceWinnerConstructor }
         ]},
         { key: 'fl', data: [
-          { key: 'fl-time', data: w.result.fastestDriver?.fastestLap.Time.time },
-          { key: 'fl-driver', data: w.result.fastestDriver?.fastestLap.Time.time }
+          { key: 'fl-time', data: w.result.fastest?.fastestLap.time },
+          { key: 'fl-driver', data: w.result.fastest?.driver.code }
         ]},
         { key: 'laps', data: w.result.laps },
         { key: 'duration', data: w.result.raceDuration }
@@ -195,3 +209,5 @@ export class SeasonLoader {
 
   sprintPointScorers(season) { return 'test_data' }
 }
+
+export default SeasonListing
