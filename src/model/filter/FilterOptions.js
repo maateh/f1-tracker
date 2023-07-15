@@ -23,7 +23,7 @@ class FilterOptions {
 		}
 
 		return [
-			new FilterOption('all', 'ALL'),
+			FilterOption.DEFAULT,
 			...data.map(option => new FilterOption(option.value, option.label)),
 		]
 	}

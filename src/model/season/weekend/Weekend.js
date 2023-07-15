@@ -1,5 +1,5 @@
 // api
-import { nextRound } from '../../../api/season'
+import { lastRound, nextRound } from '../../../api/season'
 
 // model
 import Circuit from './circuit/Circuit'
@@ -20,7 +20,15 @@ class Weekend {
 		this.parseResult(data)
 	}
 
-	static async query() {
+	static async queryLast() {
+		return lastRound()
+			.then(data => new Weekend(data.Races[0]))
+			.catch(err => {
+				throw new QueryError(err.message)
+			})
+	}
+
+	static async queryNext() {
 		return nextRound()
 			.then(data => new Weekend(data.Races[0]))
 			.catch(err => {

@@ -32,10 +32,10 @@ class DriverRacesListing {
       {
         category: 'Driver Information',
         data: [
-          { title: 'Full Name', desc: this.driver.fullName },
-          { title: 'Nationality', desc: this.driver.nationality },
-          { title: 'Date of Birth', desc: this.driver.dateOfBirth },
-          { title: 'Driver code, number', desc: `${this.driver.code} #${this.driver.number}` },
+          { title: 'Full Name', desc: this.driver?.fullName },
+          { title: 'Nationality', desc: this.driver?.nationality },
+          { title: 'Date of Birth', desc: this.driver?.dateOfBirth },
+          { title: 'Driver code, number', desc: `${this.driver?.code} #${this.driver?.number}` },
         ]
       },
     ]
@@ -43,7 +43,7 @@ class DriverRacesListing {
     this.header = [
       { key: 'round', placeholder: 'Round' },
       { key: 'weekend', placeholder: 'Weekend' },
-      { key: 'circuit', placeholder: 'Circuit' },
+      { key: 'circuit', placeholder: 'Circuit Name' },
       { key: 'grid', placeholder: 'Grid' },
       { key: 'fl', placeholder: 'Fastest Lap' },
       { key: 'position', placeholder: 'Position' },
@@ -72,7 +72,7 @@ class DriverRacesListing {
   }
 
   get driver() {
-    return this.season.weekends[0].result.race[0].driver
+    return this.season.weekends[0]?.result.race[0].driver
   }
 }
 

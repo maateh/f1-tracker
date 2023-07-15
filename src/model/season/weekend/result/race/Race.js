@@ -35,10 +35,10 @@ class Race {
 	parseFastestLap(data) {
 		if (data.FastestLap) {
 			this.fastestLap = {
-				rank: data.FastestLap.rank,
-				lap: data.FastestLap.lap,
 				time: data.FastestLap.Time.time,
 				avgSpeed: `${data.FastestLap.AverageSpeed.speed} ${data.FastestLap.AverageSpeed.units}`,
+				rank: data.FastestLap.rank,
+				lap: data.FastestLap.lap,
 			}
 			return
 		}

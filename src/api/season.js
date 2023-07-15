@@ -28,6 +28,14 @@ export const round = (year, round) => {
     })
 }
 
+export const lastRound = () => {
+  return ergast('/current/last', 'RaceTable')
+    .then(data => data)
+    .catch(err => {
+      throw new Error(err)
+    })
+}
+
 export const nextRound = () => {
   return ergast('/current/next', 'RaceTable')
     .then(data => data)

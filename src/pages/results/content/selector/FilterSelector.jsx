@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useQuery } from 'react-query'
 
 // components
 import FilterPicker from './picker/FilterPicker'
@@ -12,7 +12,6 @@ import FilterOptionsModel from '../../../../model/filter/FilterOptions'
 
 // styles
 import './FilterSelector.css'
-import { useQuery } from 'react-query'
 
 const FilterSelector = () => {
   const { seasons, dispatch } = useResultsFilterContext()

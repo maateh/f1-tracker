@@ -32,8 +32,8 @@ class ConstructorRacesListing {
 			{
 				category: 'Constructor Information',
 				data: [
-					{ title: 'Team Name', desc: this.team.name },
-					{ title: 'Nationality', desc: this.team.nationality },
+					{ title: 'Team Name', desc: this.team?.name },
+					{ title: 'Nationality', desc: this.team?.nationality },
 				],
 			},
 		]
@@ -41,7 +41,7 @@ class ConstructorRacesListing {
 		this.header = [
 			{ key: 'round', placeholder: 'Round' },
 			{ key: 'weekend', placeholder: 'Weekend' },
-			{ key: 'circuit', placeholder: 'Circuit' },
+			{ key: 'circuit', placeholder: 'Circuit Name' },
 			{ key: 'driver', placeholder: 'Driver' },
 			{ key: 'grid', placeholder: 'Grid' },
 			{ key: 'fl', placeholder: 'Fastest Lap' },
@@ -78,7 +78,7 @@ class ConstructorRacesListing {
 	}
 
 	get team() {
-		return this.season.weekends[0].result.race[0].constructor
+		return this.season.weekends[0]?.result.race[0].constructor
 	}
 }
 

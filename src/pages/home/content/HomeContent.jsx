@@ -19,7 +19,7 @@ const HomeContent = () => {
   const { weekend, dispatch } = useWeekendContext()
   const weekendQuery = useQuery({
     queryKey: ['nextRound'],
-    queryFn: WeekendModel.query,
+    queryFn: WeekendModel.queryNext,
     onSuccess: data => dispatch({ type: 'SET', payload: data })
   })
 

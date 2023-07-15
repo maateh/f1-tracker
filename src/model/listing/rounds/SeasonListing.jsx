@@ -21,17 +21,16 @@ import { qualifyingsResults, racesResults } from '../../../api/results'
 
 // models
 import Season from '../../season/Season'
+import Result from '../../season/weekend/result/Result'
 import QueryError from '../../error/QueryError'
 
 class SeasonListing {
   static async query(year) {
 		return Promise.all([qualifyingsResults(year), racesResults(year)])
 			.then(data => {
-				data[1].Races.forEach(
-					(w, index) =>
-						(w.QualifyingResults = data[0].Races[index].QualifyingResults)
-				)
 				const season = new Season(data[1])
+        const qResults = data[0].Races.map(w => new Result(w))
+        season.weekends.forEach((w, index) => w.result.qualifying = qResults[index].qualifying)
 				return new SeasonListing(season)
 			})
 			.catch(err => {
@@ -81,12 +80,12 @@ class SeasonListing {
     this.header = [
       { key: 'round', placeholder: 'Round' },
       { key: 'weekend', placeholder: 'Weekend' },
-      { key: 'circuit', placeholder: 'Circuit name' },
+      { key: 'circuit', placeholder: 'Circuit Name' },
       { key: 'pole', placeholder: 'Pole Lap' },
       { key: 'winner', placeholder: 'Winner' },
       { key: 'fl', placeholder: 'Fastest Lap' },
       { key: 'laps', placeholder: 'Laps' },
-      { key: 'duration', placeholder: 'Race duration' },
+      { key: 'duration', placeholder: 'Race Duration' },
     ]
 
     this.table = season.weekends.map((w, index) => ({

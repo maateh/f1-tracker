@@ -3,19 +3,17 @@ import { useQuery } from 'react-query'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import Select from 'react-select'
 
-// components
-import SkeletonSelector from '../../../../../components/skeleton/SkeletonSelector'
-
 // context
 import { useResultsFilterContext } from '../context/hooks/useResultsFilterContext'
 
 // model
 import FilterOptionsModel from '../../../../../model/filter/FilterOptions'
+import FilterOption from '../../../../../model/filter/FilterOption'
+import SkeletonSelector from '../../../../../components/skeleton/SkeletonSelector'
 
 const FilterPicker = () => {
 	const { seasons, standings, ids, dispatch } = useResultsFilterContext()
-
-	const { year } = useParams()
+	const { year, id } = useParams()
 	const { pathname } = useLocation()
 
 	const [filter, setFilter] = useState({
@@ -42,11 +40,17 @@ const FilterPicker = () => {
 		queryFn: () => FilterOptionsModel.queryConstructors(filter.year.value),
 		onSuccess: data => dispatch({ type: 'SET_IDS', payload: data }),
 		enabled: filter.standings.value === 'constructors'
-	})
+	})	
+
+	useEffect(() => {
+		if (filter.id) return
+		setFilter(prev => ({ ...prev, id: ids?.get(id || 'all') }))
+	}, [filter.id, ids, id])
 
 	const navigate = useNavigate()
 	useEffect(() => {
-		navigate(`./${filter.year.value}/${filter.standings.value}/${filter.id ? filter.id.value : 'all'}`, {
+		if (!filter.id) return
+		navigate(`./${filter.year.value}/${filter.standings.value}/${filter.id.value}`, {
 			replace: true
 		})
 	}, [navigate, filter])
@@ -56,9 +60,7 @@ const FilterPicker = () => {
 			<label className={seasons.key}>
 				<span>{seasons.label}</span>
 				<Select
-					onChange={option => 
-						setFilter(prev => ({ year: option, standings: prev.standings }))
-					}
+					onChange={option => setFilter(prev => ({ year: option, standings: prev.standings, id: FilterOption.DEFAULT }))}
 					placeholder={filter.year.label}
 					value={filter.year.value}
 					options={seasons.data}
@@ -69,9 +71,7 @@ const FilterPicker = () => {
 			<label className={standings.key}>
 				<span>{standings.label}</span>
 				<Select
-					onChange={option =>
-						setFilter(prev => ({ year: prev.year, standings: option }))
-					}
+					onChange={option => setFilter(prev => ({ year: prev.year, standings: option, id: FilterOption.DEFAULT }))}
 					placeholder={filter.standings.label}
 					value={filter.standings.value}
 					options={standings.data}
@@ -80,22 +80,19 @@ const FilterPicker = () => {
 			</label>
 
 
-			{roundsLoading || driversLoading || constructorsLoading 
-				? <SkeletonSelector counter={1} /> 
-				: ids && (
+			{ids ? (
 				<label className={ids.key}>
 					<span>{ids.label}</span> 
 					<Select
-						onChange={option =>
-							setFilter(prev => ({ ...prev, id: option }))
-						}
-						placeholder={filter.id ? filter.id.label : 'ALL'}
-						value={filter.id ? filter.id.value : 'all'}
+						onChange={option => setFilter(prev => ({ ...prev, id: option }))}
+						placeholder={filter.id?.label}
+						value={filter.id?.value}
 						options={ids.data}
 						isSearchable={true}
+						isLoading={roundsLoading || driversLoading || constructorsLoading}
 					/>
 				</label>
-			)}
+			) : <SkeletonSelector counter={1} />}
 		</div>
 	)
 }
