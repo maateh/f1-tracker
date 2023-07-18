@@ -4,13 +4,13 @@ import InfoCard from "./card/InfoCard"
 // styles
 import './ListingInfo.css'
 
-const ListingInfo = ({ info }) => {
+const ListingInfo = ({ title, info }) => {
   return (
     <div className="listing-info__container">
-      <h2>Additional information</h2>
+      <h2>{title}</h2>
 
       <div className="listing-category__container">
-        {info.map(info => <InfoCard info={info} key={info.category} />)}
+        {info?.map(info => <InfoCard info={info} key={info.category} />)}
       </div>
     </div>
   )

@@ -24,7 +24,7 @@ const ResultsListing = () => {
 
       {!isLoading && !isError && data && (
         <>
-          <ListingInfo info={data.info} />
+          <ListingInfo title={data.title} info={data.info} />
           <ListingTable header={data.header} table={data.table} />
         </>
       )}

@@ -6,7 +6,8 @@ import FilterOptionsModel from '../../../../../model/filter/FilterOptions'
 const INITIAL_STATE = {
 	seasons: null,
 	standings: FilterOptionsModel.STANDINGS,
-	ids: null
+	ids: null,
+	sessions: FilterOptionsModel.SESSIONS
 }
 
 const dataReducer = (state, action) => {

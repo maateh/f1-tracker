@@ -21,6 +21,7 @@ class ConstructorRacesListing {
 		console.log('ConstructorRacesListing - season: ', season)
 		this.season = season
 
+		this.title = `${this.team.name} ${season.year} Race Results`
 		this.info = [
 			{
 				category: 'General Information',

@@ -21,6 +21,7 @@ class DriverRacesListing {
     console.log('DriverRacesListing - season: ', season)
     this.season = season
 
+    this.title = `${this.driver?.fullName} ${season.year} Race Results`
     this.info = [
       {
         category: 'General Information',

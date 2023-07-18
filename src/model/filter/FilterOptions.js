@@ -18,7 +18,7 @@ class FilterOptions {
 	}
 
 	parseData(data) {
-		if (this.key === 'years' || this.key === 'standings') {
+		if (this.key === 'years' || this.key === 'standings' || this.key === 'sessions') {
 			return data.map(option => new FilterOption(option.value, option.label))
 		}
 
@@ -37,6 +37,15 @@ class FilterOptions {
       new FilterOption('constructors', 'Constructors'),
     ]
   )
+
+	static SESSIONS = new FilterOptions(
+		'sessions',
+		'Sessions',
+		[
+			new FilterOption('race', 'Race'),
+			new FilterOption('qualifying', 'Qualifying'),
+		]
+	)
 
 	static async querySeasons() {
 		return seasonList()

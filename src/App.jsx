@@ -20,12 +20,11 @@ import NotFound from './components/error/NotFound'
 
 // loaders
 import seasonLoader from './pages/results/content/listing/loader/rounds/SeasonLoader'
-import { seasonSessionLoader } from './pages/results/content/listing/loader/rounds/SeasonSessionLoader'
 import weekendRaceLoader from './pages/results/content/listing/loader/rounds/WeekendRaceLoader'
-import { weekendSessionLoader } from './pages/results/content/listing/loader/rounds/WeekendSessionLoader'
-import driversLoader from './pages/results/content/listing/loader/drivers/DriversLoader'
+import weekendQualifyingLoader from './pages/results/content/listing/loader/rounds/WeekendQualifyingLoader'
+import driverStandingsLoader from './pages/results/content/listing/loader/drivers/DriverStandingsLoader'
 import driverRacesLoader from './pages/results/content/listing/loader/drivers/DriverRacesLoader'
-import constructorsLoader from './pages/results/content/listing/loader/constructors/ConstructorsLoader'
+import constructorStandingsLoader from './pages/results/content/listing/loader/constructors/ConstructorStandingsLoader'
 import constructorRacesLoader from './pages/results/content/listing/loader/constructors/ConstructorRacesLoader'
 
 const router = createBrowserRouter([
@@ -46,41 +45,43 @@ const router = createBrowserRouter([
         element: <ResultsPage />,
         children: [
           {
+            // Season Results
             path: ":year/rounds/all",
             element: <ResultsListing />,
             loader: seasonLoader
           },
           {
-            path: ":year/rounds/all/session/:session", // :session -> summary, qualifying, race, sprint
-            element: <ResultsListing />,
-            loader: seasonSessionLoader
-          },
-          {
-            path: ":year/rounds/:id",
+            // Weekend Race Results
+            path: ":year/rounds/:id/race",
             element: <ResultsListing />,
             loader: weekendRaceLoader
           },
           {
-            path: ":year/rounds/:id/session/:session", // :session -> summary, qualifying, race, sprint
+            // Weekend Qualifying Results
+            path: ":year/rounds/:id/qualifying",
             element: <ResultsListing />,
-            loader: weekendSessionLoader
+            loader: weekendQualifyingLoader
           },
           {
+            // Driver Standings
             path: ":year/drivers/all",
             element: <ResultsListing />,
-            loader: driversLoader
+            loader: driverStandingsLoader
           },
           {
+            // Driver Results
             path: ":year/drivers/:id",
             element: <ResultsListing />,
             loader: driverRacesLoader
           },
           {
+            // Constructor Standings
             path: ":year/constructors/all",
             element: <ResultsListing />,
-            loader: constructorsLoader
+            loader: constructorStandingsLoader
           },
           {
+            // Constructor Results
             path: ":year/constructors/:id",
             element: <ResultsListing />,
             loader: constructorRacesLoader

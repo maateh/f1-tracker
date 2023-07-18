@@ -7,13 +7,13 @@ const ListingTable = ({ header, table }) => {
 			<table>
 				<thead>
 					<tr>
-						{header.map(elem => (
+						{header?.map(elem => (
 							<th key={elem.key}>{elem.placeholder}</th>
 						))}
 					</tr>
 				</thead>
 				<tbody>
-					{table.map(row => (
+					{table?.map(row => (
 						<tr key={row.key}>
 							{row.data.map(cell => (
 								<td className={cell.key} key={cell.key}>

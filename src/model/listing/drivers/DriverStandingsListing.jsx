@@ -1,16 +1,16 @@
 // api
-import { constructorStandings } from "../../../api/standings"
+import { driverStandings } from "../../../api/standings"
 
-// models
+// model
 import Season from "../../season/Season"
 import QueryError from "../../error/QueryError"
 
-class ConstructorsListing {
+class DriverStandingsListing {
   static async query(year) {
-    return constructorStandings(year)
+    return driverStandings(year)
       .then(data => {
         const season = new Season(data)
-        return new ConstructorsListing(season)
+        return new DriverStandingsListing(season)
       })
       .catch(err => {
         throw new QueryError(err.message)
@@ -18,8 +18,9 @@ class ConstructorsListing {
   }
 
   constructor(season) {
-    console.log('ConstructorRacesListing - season: ', season)
-
+    console.log('DriversListing - season: ', season)
+    
+    this.title = `${season.year} Driver Standings`
     this.info = [
       {
         category: 'General Information',
@@ -32,18 +33,20 @@ class ConstructorsListing {
 
     this.header = [
       { key: 'pos', placeholder: 'Position' },
+      { key: 'driver', placeholder: 'Driver' },
       { key: 'constructor', placeholder: 'Constructor' },
       { key: 'nationality', placeholder: 'Nationality' },
       { key: 'wins', placeholder: 'Wins' },
       { key: 'points', placeholder: 'Points' },
     ]
 
-    this.table = season.standings.constructors.map((result, index) => ({
+    this.table = season.standings.drivers.map((result, index) => ({
       key: index,
       data: [
         { key: 'pos', data: result.position },
-        { key: 'constructor', data: result.constructor.name },
-        { key: 'nationality', data: result.constructor.nationality },
+        { key: 'driver', data: `${result.driver.fullName} #${result.driver.number}` },
+        { key: 'constructor', data: result.constructors[0].name },
+        { key: 'nationality', data: result.driver.nationality },
         { key: 'wins', data: result.wins },
         { key: 'points', data: result.points },
       ]
@@ -51,4 +54,4 @@ class ConstructorsListing {
   }
 }
 
-export default ConstructorsListing
+export default DriverStandingsListing

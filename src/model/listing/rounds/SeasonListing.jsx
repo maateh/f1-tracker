@@ -39,6 +39,7 @@ class SeasonListing {
 	}
 
   constructor(season) {
+    this.title = `${season.year} Season Results`
     this.info = [
       {
         category: 'General Information',

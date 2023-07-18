@@ -1,16 +1,16 @@
 // api
-import { raceResults } from "../../../api/results"
+import { qualifyingResults } from "../../../api/results"
 
 // model
 import Weekend from "../../season/weekend/Weekend"
 import QueryError from "../../error/QueryError"
 
-class WeekendRaceListing {
+class WeekendQualifyingListing {
   static async query(year, round) {
-    return raceResults(year, round)
+    return qualifyingResults(year, round)
       .then(data => {
         const weekend = new Weekend(data.Races[0])
-        return new WeekendRaceListing(weekend)
+        return new WeekendQualifyingListing(weekend)
       })
       .catch(err => {
         throw new QueryError(err.message)
@@ -18,9 +18,9 @@ class WeekendRaceListing {
   }
 
   constructor(weekend) {
-    console.log('WeekendRaceListing - weekend: ', weekend)
+    console.log('WeekendQualifyingListing - weekend: ', weekend)
 
-    this.title = `${weekend.name} Race Results`
+    this.title = `${weekend.name} Qualifying Results`
     this.info = [
       {
         category: 'General Information',
@@ -68,4 +68,4 @@ class WeekendRaceListing {
   }
 }
 
-export default WeekendRaceListing
+export default WeekendQualifyingListing
