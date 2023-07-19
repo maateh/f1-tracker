@@ -11,7 +11,7 @@ const SeasonPicker = () => {
       <h2 className="page__subtitle">Select a Season</h2>
       <Select
         onChange={season => dispatch({ type: 'SET_YEAR', payload: season.value })}
-        options={seasons.data}
+        options={seasons.options}
         isSearchable={true}
       />
     </div>

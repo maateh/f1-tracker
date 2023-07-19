@@ -1,16 +1,16 @@
 // api
-import { driverRacesResults } from "../../../api/results"
+import { driverQualifyingsResults } from "../../../api/results"
 
 // model
 import Season from "../../season/Season"
 import QueryError from "../../error/QueryError"
 
-class DriverRacesListing {
+class DriverQualifyingsListing {
   static async query(year, driverId) {
-    return driverRacesResults(year, driverId)
+    return driverQualifyingsResults(year, driverId)
       .then(data => {
         const season = new Season(data)
-        return new DriverRacesListing(season)
+        return new DriverQualifyingsListing(season)
       })
       .catch(err => {
         throw new QueryError(err.message)
@@ -18,10 +18,10 @@ class DriverRacesListing {
   }
 
   constructor(season) {
-    console.log('DriverRacesListing - season: ', season)
+    console.log('DriverQualifyingsListing - season: ', season)
     this.season = season
 
-    this.title = `${season.year} Race Results - ${this.driver?.fullName} #${this.driver?.number}`
+    this.title = `${season.year} Qualifying Results - ${this.driver?.fullName} #${this.driver?.number}`
     this.info = [
       {
         category: 'General Information',
@@ -46,12 +46,10 @@ class DriverRacesListing {
       { key: 'weekend', placeholder: 'Weekend' },
       { key: 'date', placeholder: 'Date' },
       { key: 'circuit', placeholder: 'Circuit Name' },
-      { key: 'grid', placeholder: 'Grid' },
-      { key: 'fl', placeholder: 'Fastest Lap' },
-      { key: 'laps', placeholder: 'Completed Laps' },
-      { key: 'duration', placeholder: 'Race Gap' },
-      { key: 'position', placeholder: 'Position' },
-      { key: 'points', placeholder: 'Points' },
+      { key: 'q1', placeholder: 'Q1' },
+      { key: 'q2', placeholder: 'Q2' },
+      { key: 'q3', placeholder: 'Q3' },
+      { key: 'pos', placeholder: 'Position' },
     ]
 
     this.table = season.weekends.map((w, index) => ({
@@ -61,22 +59,17 @@ class DriverRacesListing {
         { key: 'weekend', data: w.name },
         { key: 'date', data: w.getFormattedDate('MMM dd.') },
         { key: 'circuit', data: w.circuit.name },
-        { key: 'grid', data: w.result.race[0].grid },
-        { key: 'fl', data: [
-          { key: 'fl-time', data: w.result.race[0].fastestLap.time },
-          { key: 'fl-speed', data: w.result.race[0].fastestLap?.avgSpeed },
-        ] },
-        { key: 'laps', data: w.result.race[0].laps },
-        { key: 'duration', data: w.result.race[0].raceTime },
-        { key: 'position', data: w.result.race[0].position },
-        { key: 'points', data: w.result.race[0].points },
+        { key: 'q1', data: w.result.qualifying[0].q1 },
+        { key: 'q2', data: w.result.qualifying[0].q2 },
+        { key: 'q3', data: w.result.qualifying[0].q3 },
+        { key: 'pos', data: w.result.qualifying[0].position }
       ]
     }))
   }
 
   get driver() {
-    return this.season.weekends[0]?.result.race[0].driver
+    return this.season.weekends[0]?.result.qualifying[0].driver
   }
 }
 
-export default DriverRacesListing
+export default DriverQualifyingsListing

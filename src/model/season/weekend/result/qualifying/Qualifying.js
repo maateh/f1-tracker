@@ -7,9 +7,9 @@ class Qualifying {
     this.number = data.number
     this.position = data.position
 
-    this.q1 = data.Q1
-    this.q2 = data.Q2
-    this.q3 = data.Q3
+    this.q1 = data.Q1 || '-'
+    this.q2 = data.Q2 || '-'
+    this.q3 = data.Q3 || '-'
 
     this.driver = new Driver(data.Driver)
     this.constructor = new Constructor(data.Constructor)

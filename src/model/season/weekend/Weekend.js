@@ -6,6 +6,7 @@ import Circuit from './circuit/Circuit'
 import SessionList from './session/SessionList'
 import Result from './result/Result'
 import QueryError from '../../error/QueryError'
+import { format } from 'date-fns'
 
 class Weekend {
 	constructor(data) {
@@ -15,6 +16,9 @@ class Weekend {
 		this.name = data.raceName
 		this.wikiUrl = data.url
 		this.circuit = new Circuit(data.Circuit)
+
+		this.date = data.date
+		this.time = data.time
 
 		this.parseSessions(data)
 		this.parseResult(data)
@@ -57,6 +61,11 @@ class Weekend {
 
 	get active() {
 		return this.sessions.practices[0].start < Date.now()
+	}
+
+	getFormattedDate(pattern) {
+		let date = new Date(`${this.date}`)
+		return format(date, pattern)
 	}
 }
 

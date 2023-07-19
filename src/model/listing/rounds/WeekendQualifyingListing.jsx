@@ -20,7 +20,7 @@ class WeekendQualifyingListing {
   constructor(weekend) {
     console.log('WeekendQualifyingListing - weekend: ', weekend)
 
-    this.title = `${weekend.name} Qualifying Results`
+    this.title = `${weekend.year} ${weekend.name} Qualifying Results`
     this.info = [
       {
         category: 'General Information',
@@ -44,25 +44,20 @@ class WeekendQualifyingListing {
       { key: 'pos', placeholder: 'Position' },
       { key: 'driver', placeholder: 'Driver' },
       { key: 'constructor', placeholder: 'Constructor' },
-      { key: 'grid', placeholder: 'Grid' },
-      { key: 'fl', placeholder: 'Fastest Lap' },
-      { key: 'duration', placeholder: 'Race gap' },
-      { key: 'points', placeholder: 'Points' },
+      { key: 'q1', placeholder: 'Q1' },
+      { key: 'q2', placeholder: 'Q2' },
+      { key: 'q3', placeholder: 'Q3' },
     ]
     
-    this.table = weekend.result.race.map((r, index) => ({
+    this.table = weekend.result.qualifying.map((r, index) => ({
       key: index,
       data: [
         { key: 'pos', data: r.position },
         { key: 'driver', data: `${r.driver.fullName} #${r.driver.number}` },
         { key: 'constructor', data: r.constructor.name },
-        { key: 'grid', data: r.grid },
-        { key: 'fl', data: [
-          { key: 'fl-time', data: r.fastestLap.time },
-          { key: 'fl-speed', data: r.fastestLap?.avgSpeed },
-        ] },
-        { key: 'duration', data: r.raceTime },
-        { key: 'points', data: r.points },
+        { key: 'q1', data: r.q1 },
+        { key: 'q2', data: r.q2 },
+        { key: 'q3', data: r.q3 },
       ]
     }))
   }

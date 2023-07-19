@@ -24,6 +24,7 @@ import weekendRaceLoader from './pages/results/content/listing/loader/rounds/Wee
 import weekendQualifyingLoader from './pages/results/content/listing/loader/rounds/WeekendQualifyingLoader'
 import driverStandingsLoader from './pages/results/content/listing/loader/drivers/DriverStandingsLoader'
 import driverRacesLoader from './pages/results/content/listing/loader/drivers/DriverRacesLoader'
+import driverQualifyingsLoader from './pages/results/content/listing/loader/drivers/DriverQualifyingsLoader'
 import constructorStandingsLoader from './pages/results/content/listing/loader/constructors/ConstructorStandingsLoader'
 import constructorRacesLoader from './pages/results/content/listing/loader/constructors/ConstructorRacesLoader'
 
@@ -69,10 +70,16 @@ const router = createBrowserRouter([
             loader: driverStandingsLoader
           },
           {
-            // Driver Results
-            path: ":year/drivers/:id",
+            // Driver Races Results
+            path: ":year/drivers/:id/race",
             element: <ResultsListing />,
             loader: driverRacesLoader
+          },
+          {
+            // Driver Qualifyings Results
+            path: ":year/drivers/:id/qualifying",
+            element: <ResultsListing />,
+            loader: driverQualifyingsLoader
           },
           {
             // Constructor Standings

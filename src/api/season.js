@@ -10,6 +10,22 @@ export const seasonList = () => {
     })
 }
 
+export const driverList = (year) => {
+  return ergast(`/${year}/drivers`, 'DriverTable')
+    .then(data => data)
+    .catch(err => {
+      throw new Error(err)
+    })
+}
+
+export const constructorList = (year) => {
+  return ergast(`/${year}/constructors`, 'ConstructorTable')
+    .then(data => data)
+    .catch(err => {
+      throw new Error(err)
+    })
+}
+
 export const season = (year) => {
   return ergast(`/${year}`, 'RaceTable')
     .then(data => data)

@@ -21,7 +21,7 @@ class ConstructorRacesListing {
 		console.log('ConstructorRacesListing - season: ', season)
 		this.season = season
 
-		this.title = `${this.team.name} ${season.year} Race Results`
+		this.title = `${season.year} Race Results - ${this.team.name}`
 		this.info = [
 			{
 				category: 'General Information',
@@ -42,44 +42,61 @@ class ConstructorRacesListing {
 		this.header = [
 			{ key: 'round', placeholder: 'Round' },
 			{ key: 'weekend', placeholder: 'Weekend' },
+			{ key: 'date', placeholder: 'Date' },
 			{ key: 'circuit', placeholder: 'Circuit Name' },
-			{ key: 'driver', placeholder: 'Driver' },
-			{ key: 'grid', placeholder: 'Grid' },
+			
 			{ key: 'fl', placeholder: 'Fastest Lap' },
-			{ key: 'position', placeholder: 'Position' },
-			{ key: 'points', placeholder: 'Points' },
 			{ key: 'laps', placeholder: 'Completed Laps' },
-			{ key: 'duration', placeholder: 'Race Gap' },
+			{ key: 'points', placeholder: 'Points' },
 		]
 
-		this.table = season.weekends
-			.map((w, index) =>
-				w.result.race.map(r => ({
-					key: index + r.number,
-					data: [
-						{ key: 'round', data: w.round },
-						{ key: 'weekend', data: w.name },
-						{ key: 'circuit', data: w.circuit.name },
-						{ key: 'driver', data: r.driver.fullName },
-						{ key: 'grid', data: r.grid },
-						{
-							key: 'fl',
-							data: [
-								{ key: 'fl-time', data: r.fastestLap.time },
-								{ key: 'fl-speed', data: r.fastestLap?.avgSpeed },
-							],
-						},
-						{ key: 'position', data: r.position },
-						{ key: 'points', data: r.points },
-						{ key: 'laps', data: r.laps },
-						{ key: 'duration', data: r.raceTime },
-					],
-				}))
-			).flat(1)
+		this.table = season.weekends.map((w, index) => ({
+			key: index,
+			data: [
+				{ key: 'round', data: w.round },
+				{ key: 'weekend', data: w.name },
+				{ key: 'date', data: w.getFormattedDate('MMM dd.') },
+				{ key: 'circuit', data: w.circuit.name },
+
+				{ key: 'fl', data: [
+					{ key: 'fl-time', data: this.fastest(w).fastestLap.time },
+					{ key: 'fl-driver', data: this.fastest(w).driver.code },
+				] },
+				{ key: 'laps', data: `${this.completedLaps(w)} laps` },
+				{ key: 'points', data: [
+					{ key: 'points-amount', data: `${this.points(w)} points` },
+					{ key: 'points-drivers', data: this.scorers(w) },
+				] },
+			]
+		}))
 	}
 
 	get team() {
 		return this.season.weekends[0]?.result.race[0].constructor
+	}
+
+	fastest(weekend) {
+		return weekend.result.race
+			.sort((acc, curr) => Math.min(acc.fastestLap.rank, curr.fastestLap.rank))[0]
+	}
+
+	completedLaps(weekend) {
+		return weekend.result.race.length > 1 ?
+			weekend.result.race
+				.reduce((acc, curr) => +acc.laps || acc + +curr.laps) :
+			weekend.result.race[0].laps
+	}
+
+	points(weekend) {
+		return weekend.result.race
+			.reduce((acc, curr) => +acc.points || acc + +curr.points, 0)
+	}
+
+	scorers(weekend) {
+		const result = weekend.result.race
+		return result
+			.reduce((acc, curr) => `${acc} ${curr.driver.code}: ${curr.points} - `, '')
+			.slice(0, -3)
 	}
 }
 

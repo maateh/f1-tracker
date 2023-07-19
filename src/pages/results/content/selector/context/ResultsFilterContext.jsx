@@ -1,13 +1,13 @@
 import { createContext, useReducer } from 'react'
 
 // model
-import FilterOptionsModel from '../../../../../model/filter/FilterOptions'
+import FilterModel from '../../../../../model/filter/Filter'
 
 const INITIAL_STATE = {
 	seasons: null,
-	standings: FilterOptionsModel.STANDINGS,
+	standings: FilterModel.STANDINGS,
 	ids: null,
-	sessions: FilterOptionsModel.SESSIONS
+	sessions: FilterModel.SESSIONS
 }
 
 const dataReducer = (state, action) => {

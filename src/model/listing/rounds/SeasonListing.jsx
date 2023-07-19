@@ -81,6 +81,7 @@ class SeasonListing {
     this.header = [
       { key: 'round', placeholder: 'Round' },
       { key: 'weekend', placeholder: 'Weekend' },
+      { key: 'date', placeholder: 'Date' },
       { key: 'circuit', placeholder: 'Circuit Name' },
       { key: 'pole', placeholder: 'Pole Lap' },
       { key: 'winner', placeholder: 'Winner' },
@@ -94,6 +95,7 @@ class SeasonListing {
       data: [
         { key: 'round', data: w.round },
         { key: 'weekend', data: w.name },
+        { key: 'date', data: w.getFormattedDate('MMM dd.') },
         { key: 'circuit', data: w.circuit.name },
         { key: 'pole', data: [
           { key: 'pole-time', data: w.result.pole.time },

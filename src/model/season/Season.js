@@ -5,6 +5,7 @@ import { season } from '../../api/season'
 import Weekend from './weekend/Weekend'
 import QueryError from '../error/QueryError'
 import StandingsLists from './standings/StandingsList'
+import Driver from './weekend/result/driver/Driver'
 
 class Season {
 	constructor(data) {
@@ -12,6 +13,8 @@ class Season {
 		this.parseWiki(data)
 		this.parseWeekends(data)
 		this.parseStandings(data)
+		this.parseDrivers(data)
+		this.parseConstructors(data)
 	}
 
 	static async query(year) {
@@ -38,6 +41,18 @@ class Season {
     if (data.StandingsLists) {
       this.standings = new StandingsLists(data.StandingsLists[0])
     }
+	}
+
+	parseDrivers(data) {
+		if (data.Drivers) {
+			this.drivers = data.Drivers.map(driver => new Driver(driver))
+		}
+	}
+
+	parseConstructors(data) {
+		if (data.Constructors) {
+			this.constructors = data.Constructors.map(constructor => new Driver(constructor))
+		}
 	}
 }
 

@@ -20,7 +20,7 @@ class WeekendRaceListing {
   constructor(weekend) {
     console.log('WeekendRaceListing - weekend: ', weekend)
 
-    this.title = `${weekend.name} Race Results`
+    this.title = `${weekend.year} ${weekend.name} Race Results`
     this.info = [
       {
         category: 'General Information',
