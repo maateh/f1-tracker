@@ -32,25 +32,25 @@ class Season {
 	}
 
 	parseWeekends(data) {
-		if (data.Races) {
+		if (data.Races && data.Races.length) {
 		  this.weekends = data.Races.map(weekend => new Weekend(weekend))
 		}
 	}
 
 	parseStandings(data) {
-    if (data.StandingsLists) {
+    if (data.StandingsLists && data.StandingsLists.length) {
       this.standings = new StandingsLists(data.StandingsLists[0])
     }
 	}
 
 	parseDrivers(data) {
-		if (data.Drivers) {
+		if (data.Drivers && data.Drivers.length) {
 			this.drivers = data.Drivers.map(driver => new Driver(driver))
 		}
 	}
 
 	parseConstructors(data) {
-		if (data.Constructors) {
+		if (data.Constructors && data.Constructors.length) {
 			this.constructors = data.Constructors.map(constructor => new Driver(constructor))
 		}
 	}

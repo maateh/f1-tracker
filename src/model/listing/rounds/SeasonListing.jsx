@@ -29,12 +29,15 @@ class SeasonListing {
 		return Promise.all([qualifyingsResults(year), racesResults(year)])
 			.then(data => {
 				const season = new Season(data[1])
+        if (!season.weekends) {
+          throw new QueryError('No data found!', 404)
+        }
         const qResults = data[0].Races.map(w => new Result(w))
         season.weekends.forEach((w, index) => w.result.qualifying = qResults[index].qualifying)
 				return new SeasonListing(season)
 			})
 			.catch(err => {
-				throw new QueryError(err.message)
+				throw new QueryError(err.message, err.code)
 			})
 	}
 

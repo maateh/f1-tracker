@@ -15,5 +15,3 @@ export const constructorStandings = (year) => {
       throw new Error(err)
     })
 }
-
-// http://ergast.com/api/f1/2022/drivers/alonso/driverStandings.json

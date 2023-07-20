@@ -10,10 +10,13 @@ class DriverRacesListing {
     return driverRacesResults(year, driverId)
       .then(data => {
         const season = new Season(data)
+        if (!season.weekends) {
+          throw new QueryError('No data found!', 404)
+        }
         return new DriverRacesListing(season)
       })
       .catch(err => {
-        throw new QueryError(err.message)
+        throw new QueryError(err.message, err.code)
       })
   }
 
@@ -21,7 +24,7 @@ class DriverRacesListing {
     console.log('DriverRacesListing - season: ', season)
     this.season = season
 
-    this.title = `${season.year} Race Results - ${this.driver?.fullName} #${this.driver?.number}`
+    this.title = `${season.year} Race Results - ${this.driver?.fullName} ${this.driver?.formattedNumber}`
     this.info = [
       {
         category: 'General Information',
@@ -36,7 +39,7 @@ class DriverRacesListing {
           { title: 'Full Name', desc: this.driver?.fullName },
           { title: 'Nationality', desc: this.driver?.nationality },
           { title: 'Date of Birth', desc: this.driver?.dateOfBirth },
-          { title: 'Driver code, number', desc: `${this.driver?.code} #${this.driver?.number}` },
+          { title: 'Driver code, number', desc: `${this.driver?.code} ${this.driver?.formattedNumber}` },
         ]
       },
     ]

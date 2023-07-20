@@ -9,7 +9,7 @@ class Result {
 	}
 
 	parseQualifying(data) {
-		if (data.QualifyingResults) {
+		if (data.QualifyingResults && data.QualifyingResults.length) {
 			this.qualifying = data.QualifyingResults.map(
 				result => new Qualifying(result)
 			)
@@ -17,7 +17,7 @@ class Result {
 	}
 
 	parseRace(data) {
-		if (data.Results) {
+		if (data.Results && data.Results.length) {
 			this.race = data.Results.map(result => new Race(result))
 		}
 	}

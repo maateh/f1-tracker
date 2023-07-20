@@ -1,8 +1,7 @@
-/* Error page styles */
-
 /* container */
 .error-page__container {
   margin: 2rem auto;
+  padding: 0 4rem;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -24,6 +23,7 @@ p.error-details {
   font-size: 1.8rem;
   font-weight: 500;
   margin-bottom: 1rem;
+  max-width: 40rem;
 }
 p.error-code {
   font-size: 2.5rem;

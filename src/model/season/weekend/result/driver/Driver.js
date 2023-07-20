@@ -4,7 +4,7 @@ class Driver {
   constructor(data) {
     this.id = data.driverId
     this.number = data.permanentNumber
-    this.code = data.code || data.familyName.substring(0, 3).toUpperCase()
+    this.code = data.code || data.familyName.substring(0, 4).toUpperCase()
     this.wiki = data.url
     this.givenName = data.givenName
     this.familyName = data.familyName
@@ -14,6 +14,10 @@ class Driver {
 
   get fullName() {
     return `${this.givenName} ${this.familyName}`
+  }
+
+  get formattedNumber() {
+    return this.number ? `#${this.number}` : ''
   }
 }
 

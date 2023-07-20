@@ -9,11 +9,14 @@ class WeekendQualifyingListing {
   static async query(year, round) {
     return qualifyingResults(year, round)
       .then(data => {
+        if (!data.Races || !data.Races.length) {
+          throw new QueryError('No data found!', 404)
+        }
         const weekend = new Weekend(data.Races[0])
         return new WeekendQualifyingListing(weekend)
       })
       .catch(err => {
-        throw new QueryError(err.message)
+        throw new QueryError(err.message, err.code)
       })
   }
 
@@ -53,7 +56,7 @@ class WeekendQualifyingListing {
       key: index,
       data: [
         { key: 'pos', data: r.position },
-        { key: 'driver', data: `${r.driver.fullName} #${r.driver.number}` },
+        { key: 'driver', data: `${r.driver.fullName} ${r.driver.formattedNumber}` },
         { key: 'constructor', data: r.constructor.name },
         { key: 'q1', data: r.q1 },
         { key: 'q2', data: r.q2 },

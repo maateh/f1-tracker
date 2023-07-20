@@ -10,15 +10,18 @@ class ConstructorStandingsListing {
     return constructorStandings(year)
       .then(data => {
         const season = new Season(data)
+        if (!season.standings) {
+          throw new QueryError('No data found!', 404)
+        }
         return new ConstructorStandingsListing(season)
       })
       .catch(err => {
-        throw new QueryError(err.message)
+        throw new QueryError(err.message, err.code)
       })
   }
 
   constructor(season) {
-    console.log('ConstructorRacesListing - season: ', season)
+    console.log('ConstructorStandingsListing - season: ', season)
 
     this.title = `${season.year} Constructor Standings`
     this.info = [

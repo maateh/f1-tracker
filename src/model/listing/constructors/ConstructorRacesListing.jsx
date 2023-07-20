@@ -10,10 +10,13 @@ class ConstructorRacesListing {
 		return constructorRacesResults(year, constructorId)
 			.then(data => {
 				const season = new Season(data)
+				if (!season.weekends) {
+					throw new QueryError('No data found!', 404)
+				}
 				return new ConstructorRacesListing(season)
 			})
 			.catch(err => {
-				throw new QueryError(err.message)
+				throw new QueryError(err.message, err.code)
 			})
 	}
 
@@ -59,8 +62,8 @@ class ConstructorRacesListing {
 				{ key: 'circuit', data: w.circuit.name },
 
 				{ key: 'fl', data: [
-					{ key: 'fl-time', data: this.fastest(w).fastestLap.time },
-					{ key: 'fl-driver', data: this.fastest(w).driver.code },
+					{ key: 'fl-time', data: this.faster(w).fastestLap.time },
+					{ key: 'fl-driver', data: this.fasterDriver(w) },
 				] },
 				{ key: 'laps', data: `${this.completedLaps(w)} laps` },
 				{ key: 'points', data: [
@@ -75,9 +78,15 @@ class ConstructorRacesListing {
 		return this.season.weekends[0]?.result.race[0].constructor
 	}
 
-	fastest(weekend) {
+	faster(weekend) {
 		return weekend.result.race
 			.sort((acc, curr) => Math.min(acc.fastestLap.rank, curr.fastestLap.rank))[0]
+	}
+
+	fasterDriver(weekend) {
+		const faster = this.faster(weekend)
+		return faster.fastestLap.time === '-' ? 
+			'' : faster.driver.code
 	}
 
 	completedLaps(weekend) {

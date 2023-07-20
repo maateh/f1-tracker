@@ -10,10 +10,13 @@ class DriverStandingsListing {
     return driverStandings(year)
       .then(data => {
         const season = new Season(data)
+        if (!season.standings) {
+          throw new QueryError('No data found!', 404)
+        }
         return new DriverStandingsListing(season)
       })
       .catch(err => {
-        throw new QueryError(err.message)
+        throw new QueryError(err.message, err.code)
       })
   }
 
@@ -44,7 +47,7 @@ class DriverStandingsListing {
       key: index,
       data: [
         { key: 'pos', data: result.position },
-        { key: 'driver', data: `${result.driver.fullName} #${result.driver.number}` },
+        { key: 'driver', data: `${result.driver.fullName} ${result.driver.formattedNumber}` },
         { key: 'constructor', data: result.constructors[0].name },
         { key: 'nationality', data: result.driver.nationality },
         { key: 'wins', data: result.wins },

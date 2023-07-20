@@ -54,7 +54,12 @@ class Weekend {
 	}
 
 	parseResult(data) {
-		if (data.QualifyingResults || data.Results) {
+		if (
+			data.QualifyingResults && 
+			data.QualifyingResults.length || 
+			data.Results && 
+			data.Results.length
+		) {
 			this.result = new Result(data)
 		}
 	}
