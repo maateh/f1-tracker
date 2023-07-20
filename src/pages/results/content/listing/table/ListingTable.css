@@ -31,7 +31,7 @@
   background: var(--secondary);
 }
 .results-content .listing-table__container thead th {
-  padding: 0.8rem;
+  padding: 0.8rem 0.2rem;
   color: var(--text-color-light);
   font-weight: 500;
   font-size: 1.1rem;
@@ -42,7 +42,7 @@
 /* table data */
 .results-content .listing-table__container td {
   font-size: 1.1rem;
-  padding: 0.6rem 1.3rem;
+  padding: 0.6rem 0.2rem;
 }
 
 /* custom table data styles */
@@ -50,13 +50,24 @@
   font-weight: 700;
   font-size: 1.2rem;
 }
+.listing-table__container > table td.pos {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
 
 .listing-table__container > table td.weekend {
   font-weight: 600;
 }
-
-.listing-table__container > table td.circuit {
+.listing-table__container > table td.circuit,
+.listing-table__container > table td.driver,
+.listing-table__container > table td.constructor {
   font-weight: 500;
+}
+
+.listing-table__container > table td.nationality,
+.listing-table__container > table td.date {
+  font-weight: 400;
+  font-size: 1rem;
 }
 
 .listing-table__container > table td.pole > p.pole-time {
@@ -78,13 +89,40 @@
 .listing-table__container > table td.fl > p.fl-time {
   font-weight: 500;
 }
-.listing-table__container > table td.fl > p.fl-driver {
+.listing-table__container > table td.fl > p.fl-driver,
+.listing-table__container > table td.fl > p.fl-speed {
   font-weight: 300;
   font-size: 0.9rem;
 }
 
-.listing-table__container > table td.laps {
+.listing-table__container > table td.grid {
   font-weight: 600;
+  font-size: 1rem;
+}
+
+.listing-table__container > table td.q1,
+.listing-table__container > table td.q2,
+.listing-table__container > table td.q3 {
+  font-weight: 400;
+}
+
+.listing-table__container > table td.wins {
+  font-weight: 500;
+}
+
+.listing-table__container > table td.laps,
+.listing-table__container > table td.points {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.listing-table__container > table td.points > p.points-amount {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.listing-table__container > table td.points > p.points-drivers {
+  font-weight: 300;
+  font-size: 0.9rem;
 }
 
 .listing-table__container > table td.duration {
