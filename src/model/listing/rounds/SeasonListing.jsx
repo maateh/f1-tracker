@@ -32,8 +32,12 @@ class SeasonListing {
         if (!season.weekends) {
           throw new QueryError('No data found!', 404)
         }
+
         const qResults = data[0].Races.map(w => new Result(w))
-        season.weekends.forEach((w, index) => w.result.qualifying = qResults[index].qualifying)
+        if (qResults && qResults.length) {
+          season.weekends.forEach((w, index) => w.result.qualifying = qResults[index].qualifying)
+        }
+
 				return new SeasonListing(season)
 			})
 			.catch(err => {
@@ -101,16 +105,16 @@ class SeasonListing {
         { key: 'date', data: w.getFormattedDate('MMM dd.') },
         { key: 'circuit', data: w.circuit.name },
         { key: 'pole', data: [
-          { key: 'pole-time', data: w.result.pole.time },
-          { key: 'pole-driver', data: w.result.pole.driver.code },
+          { key: 'pole-time', data: w.result.pole?.time },
+          { key: 'pole-driver', data: w.result.pole.driver?.code },
        ]},
         { key: 'winner', data: [
           { key: 'winner-driver', data: w.result.raceWinner },
           { key: 'winner-constructor', data: w.result.raceWinnerConstructor }
         ]},
         { key: 'fl', data: [
-          { key: 'fl-time', data: w.result.fastest?.fastestLap.time },
-          { key: 'fl-driver', data: w.result.fastest?.driver.code }
+          { key: 'fl-time', data: w.result.fastest? w.result.fastest.fastestLap.time : '-' },
+          { key: 'fl-driver', data: w.result.fastest? w.result.fastest.driver.code : '' }
         ]},
         { key: 'laps', data: w.result.laps },
         { key: 'duration', data: w.result.raceDuration }
@@ -146,8 +150,10 @@ class SeasonListing {
   }
 
   poleSitters(season) {
-    const poleSitters = season.weekends.map(w => w.result.qualifying[0].driver.code)
-    return `${new Set(poleSitters).size} different drivers`
+    const poleSitters = season.weekends.find(w => w.result.qualifying) ? 
+      season.weekends.map(w => w.result.qualifying[0].driver.code) :
+      []
+    return poleSitters.length ? `${new Set(poleSitters).size} different drivers` : '-'
   }
 
   driversOnPodium(season) {
@@ -156,7 +162,7 @@ class SeasonListing {
       w.result.race[1].driver.code,
       w.result.race[2].driver.code
     ])).flat(1)
-    return`${new Set(driversOnPodium).size} different drivers`
+    return `${new Set(driversOnPodium).size} different drivers`
   }
 
   pointScorers(season) {
@@ -165,7 +171,7 @@ class SeasonListing {
         .filter(r => r.points > 0)
         .map(r => r.driver.code)
     )).flat(1)
-    return`${new Set(pointScorers).size} different drivers`
+    return `${new Set(pointScorers).size} different drivers`
   }
 
 

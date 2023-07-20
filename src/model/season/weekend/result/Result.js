@@ -23,7 +23,7 @@ class Result {
 	}
 
 	get pole() {
-		return this.qualifying[0]
+		return this.qualifying ? this.qualifying[0] : new Qualifying()
 	}
 
 	get raceWinner() {

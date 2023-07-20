@@ -31,7 +31,7 @@
   background: var(--secondary);
 }
 .results-content .listing-table__container thead th {
-  padding: 0.8rem 0.2rem;
+  padding: 0.8rem 0.4rem;
   color: var(--text-color-light);
   font-weight: 500;
   font-size: 1.1rem;
@@ -42,7 +42,7 @@
 /* table data */
 .results-content .listing-table__container td {
   font-size: 1.1rem;
-  padding: 0.6rem 0.2rem;
+  padding: 0.6rem 0.4rem;
 }
 
 /* custom table data styles */
