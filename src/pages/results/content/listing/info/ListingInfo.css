@@ -1,7 +1,9 @@
-/* LISTING INFO */
+/* listing info container */
 .results-content .listing-info__container {
   margin: 2rem 0;
 }
+
+/* filter info title */
 .results-content .listing-info__container > h2 {
   width: 100%;
   margin: 2rem auto;
@@ -16,18 +18,21 @@
   text-shadow: 2px 2px 3px rgba(170, 170, 170, 0.8);
   letter-spacing: 2px;
 }
-.results-content .listing-info__container > .listing-category__container {
-  margin: 0 6rem;
 
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  justify-content: center;
+/* category cards container */
+.results-content .listing-info__container > .listing-category__container {
+  margin: 0 2rem;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
   gap: 2.5rem;
 }
+
+
+/* category card */
 .listing-category__container > .category-card {
-  width: 100%;
   max-width: 35rem;
-  margin: 0 auto;
   background: var(--secondary);
   border: 2px solid var(--secondary);
   border-radius: 8px;
@@ -65,4 +70,22 @@
 .listing-category__container > .category-card .category-data .category-data-desc {
   font-size: 1.1rem;
   font-weight: 300;
+}
+
+@media (max-width: 30rem) {
+  .results-content .listing-info__container > h2 {
+    font-size: 1.8rem;
+  }
+
+  .listing-category__container > .category-card .category-title {
+    font-size: 1.4rem;
+  }
+
+  .listing-category__container > .category-card .category-data .category-data-title {
+    font-size: 1.1rem;
+  }
+
+  .listing-category__container > .category-card .category-data .category-data-desc {
+    font-size: 1rem;
+  }
 }

@@ -22,6 +22,7 @@ h2.error-page__title {
 p.error-details {
   font-size: 1.8rem;
   font-weight: 500;
+  letter-spacing: 2px;
   margin-bottom: 1rem;
   max-width: 40rem;
 }

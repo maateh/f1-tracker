@@ -1,3 +1,14 @@
+// icons
+import LabelIcon from '@mui/icons-material/Label'
+import PublicIcon from '@mui/icons-material/Public'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
+import ContactSupportIcon from '@mui/icons-material/ContactSupport'
+
+import SportsScoreIcon from '@mui/icons-material/SportsScore'
+import Timer10SelectIcon from '@mui/icons-material/Timer10Select'
+import ErrorIcon from '@mui/icons-material/Error'
+import WarningIcon from '@mui/icons-material/Warning'
+
 // api
 import { raceResults } from "../../../api/results"
 
@@ -21,24 +32,25 @@ class WeekendRaceListing {
   }
 
   constructor(weekend) {
-    console.log('WeekendRaceListing - weekend: ', weekend)
-
     this.title = `${weekend.year} ${weekend.name} Race Results`
+
     this.info = [
-      {
-        category: 'General Information',
-        data: [
-          { title: 'Weekend', desc: weekend.name },
-          { title: 'Round of the Season', desc: weekend.round },
-        ]
-      },
       {
         category: 'Circuit Information',
         data: [
-          { title: 'Circuit Name', desc: weekend.circuit.name },
-          { title: 'Country', desc: weekend.circuit.location.country },
-          { title: 'Locality', desc: weekend.circuit.location.locality },
-          { title: 'More info', desc: 'link to wiki' },
+          { title: 'Circuit Name', desc: weekend.circuit.name, icon: <LabelIcon /> },
+          { title: 'Country', desc: weekend.circuit.location.country, icon: <PublicIcon /> },
+          { title: 'Locality', desc: weekend.circuit.location.locality, icon: <LocationOnIcon /> },
+          { title: 'More info', desc: 'link to wiki', icon: <ContactSupportIcon /> },
+        ]
+      },
+      {
+        category: 'Drivers Race Status',
+        data: [
+          { title: 'Finished the Race', desc: this.finished(weekend), icon: <SportsScoreIcon /> },
+          { title: 'Drivers got a Lap', desc: this.gotALap(weekend), icon: <Timer10SelectIcon /> },
+          { title: 'Crashed in Race', desc: this.crashed(weekend), icon: <ErrorIcon /> },
+          { title: 'Mechanical Failures', desc: this.failures(weekend), icon: <WarningIcon /> }
         ]
       },
     ]
@@ -68,6 +80,36 @@ class WeekendRaceListing {
         { key: 'points', data: r.points },
       ]
     }))
+  }
+
+  // Drivers Race Status
+  finished(weekend) {
+    return weekend.result.race
+      .filter(r => r.status.includes('Finished') || r.status.includes('+'))
+      .length + ' drivers in this race'
+  }
+
+  gotALap(weekend) {
+    return weekend.result.race
+      .filter(r => r.status.includes('+'))
+      .length + ' drivers in this race'
+  }
+
+  crashed(weekend) {
+    return weekend.result.race
+      .filter(r => r.status.includes('Accident') || r.status.includes('Collision'))
+      .length + ' drivers in this race'
+  }
+
+  failures(weekend) {
+    return weekend.result.race
+      .filter(r => 
+        !r.status.includes('Finished') || 
+        !r.status.includes('+') || 
+        !r.status.includes('Accident') || 
+        !r.status.includes('Collision')
+      )
+      .length + ' drivers in this race'
   }
 }
 

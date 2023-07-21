@@ -74,15 +74,6 @@ class SeasonListing {
           { title: 'Mechanical Failures', desc: this.failures(season), icon: <WarningIcon /> }
         ]
       },
-      {
-        category: 'Sprint Races',
-        data: [
-          { title: 'Amount of Sprints', desc: this.sprintsAmount(season), icon: <FlashOnIcon /> },
-          { title: 'Sprint Race Winners', desc: this.sprintRaceWinners(season), icon: <MilitaryTechIcon /> },
-          { title: 'Shootout Winners', desc: this.shootoutWinners(season), icon: <WorkspacePremiumIcon /> },
-          { title: 'Point Scorers', desc: this.sprintPointScorers(season), icon: <PlusOneIcon /> },
-        ]
-      },
     ]
     
     this.header = [
@@ -179,7 +170,7 @@ class SeasonListing {
   finished(season) {
     return season.weekends.map(w => (
       w.result.race
-        .filter(r => r.status.includes('Finished' || '+'))
+        .filter(r => r.status.includes('Finished') || r.status.includes('+'))
         .map(r => r.driver.code)
     )).flat(1).length + ' times in this season'
   }
@@ -195,7 +186,7 @@ class SeasonListing {
   crashed(season) {
     return season.weekends.map(w => (
       w.result.race
-        .filter(r => r.status.includes('Accident' || 'Collision'))
+        .filter(r => r.status.includes('Accident') || r.status.includes('Collision'))
         .map(r => r.driver.code)
     )).flat(1).length + ' times in this season'
   }
@@ -203,22 +194,15 @@ class SeasonListing {
   failures(season) {
     return season.weekends.map(w => (
       w.result.race
-        .filter(r => !r.status.includes('Finished' || '+' || 'Accident' || 'Collision'))
+        .filter(r => 
+          !r.status.includes('Finished') || 
+          !r.status.includes('+') || 
+          !r.status.includes('Accident') || 
+          !r.status.includes('Collision')
+        )
         .map(r => r.driver.code)
     )).flat(1).length + ' times in this season'
   }
-
-
-  // Sprint Races
-  sprintsAmount(season) { return 'test_data' }
-
-  sprintRaceWinners(season) { return 'test_data' }
-
-  shootoutWinners(season) { return 'test_data' }
-
-  driversInTopThree(season) { return 'test_data' }
-
-  sprintPointScorers(season) { return 'test_data' }
 }
 
 export default SeasonListing

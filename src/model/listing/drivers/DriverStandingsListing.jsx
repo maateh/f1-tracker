@@ -20,19 +20,8 @@ class DriverStandingsListing {
       })
   }
 
-  constructor(season) {
-    console.log('DriversListing - season: ', season)
-    
+  constructor(season) {    
     this.title = `${season.year} Driver Standings`
-    this.info = [
-      {
-        category: 'General Information',
-        data: [
-          { title: 'Season', desc: season.year },
-          { title: 'Rounds', desc: season.standings.rounds },
-        ]
-      },
-    ]
 
     this.header = [
       { key: 'pos', placeholder: 'Position' },

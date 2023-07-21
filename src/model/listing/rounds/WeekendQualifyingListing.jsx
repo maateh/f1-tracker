@@ -1,3 +1,9 @@
+// icons
+import LabelIcon from '@mui/icons-material/Label'
+import PublicIcon from '@mui/icons-material/Public'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
+import ContactSupportIcon from '@mui/icons-material/ContactSupport'
+
 // api
 import { qualifyingResults } from "../../../api/results"
 
@@ -21,24 +27,16 @@ class WeekendQualifyingListing {
   }
 
   constructor(weekend) {
-    console.log('WeekendQualifyingListing - weekend: ', weekend)
-
     this.title = `${weekend.year} ${weekend.name} Qualifying Results`
+    
     this.info = [
-      {
-        category: 'General Information',
-        data: [
-          { title: 'Weekend', desc: weekend.name },
-          { title: 'Round of the Season', desc: weekend.round },
-        ]
-      },
       {
         category: 'Circuit Information',
         data: [
-          { title: 'Circuit Name', desc: weekend.circuit.name },
-          { title: 'Country', desc: weekend.circuit.location.country },
-          { title: 'Locality', desc: weekend.circuit.location.locality },
-          { title: 'More info', desc: 'link to wiki' },
+          { title: 'Circuit Name', desc: weekend.circuit.name, icon: <LabelIcon /> },
+          { title: 'Country', desc: weekend.circuit.location.country, icon: <PublicIcon /> },
+          { title: 'Locality', desc: weekend.circuit.location.locality, icon: <LocationOnIcon /> },
+          { title: 'More info', desc: 'link to wiki', icon: <ContactSupportIcon /> },
         ]
       },
     ]

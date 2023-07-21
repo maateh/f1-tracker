@@ -53,7 +53,9 @@ export const driverQualifyingsResults = (year, driverId) => {
 }
 
 export const constructorRacesResults = (year, constructorId) => {
-  return ergast(`/${year}/constructors/${constructorId}/results`, 'RaceTable')
+  return ergast(`/${year}/constructors/${constructorId}/results`, 'RaceTable', {
+    limit: 60
+  })
     .then(data => data)
     .catch(err => {
       throw new Error(err)
@@ -61,7 +63,9 @@ export const constructorRacesResults = (year, constructorId) => {
 }
 
 export const constructorQualifyingsResults = (year, constructorId) => {
-  return ergast(`/${year}/constructors/${constructorId}/qualifying`, 'RaceTable')
+  return ergast(`/${year}/constructors/${constructorId}/qualifying`, 'RaceTable', {
+    limit: 60
+  })
     .then(data => data)
     .catch(err => {
       throw new Error(err)
