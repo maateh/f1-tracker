@@ -60,7 +60,7 @@ class SessionList {
 			return this.qualifying
 		}
 
-    const sprint = this.sprint.find(s => !s.active && !s.over)
+    const sprint = this.sprint?.find(s => !s.active && !s.over)
     if (sprint) {
       return sprint
     }

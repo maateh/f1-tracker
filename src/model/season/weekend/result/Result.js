@@ -21,30 +21,6 @@ class Result {
 			this.race = data.Results.map(result => new Race(result))
 		}
 	}
-
-	get pole() {
-		return this.qualifying ? this.qualifying[0] : new Qualifying()
-	}
-
-	get raceWinner() {
-		return this.race[0].driver.fullName
-	}
-
-	get raceWinnerConstructor() {
-		return this.race[0].constructor.name
-	}
-
-	get fastest() {
-		return this.race.find(r => +r.fastestLap?.rank === 1)
-	}
-
-	get laps() {
-		return this.race[0].laps
-	}
-
-	get raceDuration() {
-		return this.race[0].raceTime
-	}
 }
 
 export default Result
