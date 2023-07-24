@@ -14,13 +14,13 @@ import ErrorIcon from '@mui/icons-material/Error'
 import WarningIcon from '@mui/icons-material/Warning'
 
 // api
-import { qualifyingsResults, racesResults } from '../../../api/results'
+import { qualifyingsResults, racesResults } from '../../../../api/results'
 
 // models
-import Season from '../../season/Season'
-import Result from '../../season/weekend/result/Result'
-import Qualifying from '../../season/weekend/result/qualifying/Qualifying'
-import QueryError from '../../error/QueryError'
+import Season from '../../../season/Season'
+import Result from '../../../season/weekend/result/Result'
+import Qualifying from '../../../season/weekend/result/qualifying/Qualifying'
+import QueryError from '../../../error/QueryError'
 
 class SeasonListing {
   static async query(year) {

@@ -1,5 +1,5 @@
 // model
-import SeasonListing from '../../../../../../model/listing/rounds/SeasonListing'
+import SeasonListing from '../../../../model/listing/results/rounds/SeasonListing'
 
 const seasonLoader = ({ params: { year } }) => {
   return {

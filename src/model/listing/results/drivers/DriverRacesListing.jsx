@@ -15,11 +15,11 @@ import ErrorIcon from '@mui/icons-material/Error'
 import WarningIcon from '@mui/icons-material/Warning'
 
 // api
-import { driverRacesResults } from "../../../api/results"
+import { driverRacesResults } from "../../../../api/results"
 
 // model
-import Season from "../../season/Season"
-import QueryError from "../../error/QueryError"
+import Season from "../../../season/Season"
+import QueryError from "../../../error/QueryError"
 
 class DriverRacesListing {
   static async query(year, driverId) {

@@ -1,5 +1,5 @@
 // model
-import ConstructorStandingsListing from "../../../../../../model/listing/constructors/ConstructorStandingsListing"
+import ConstructorStandingsListing from "../../../../model/listing/results/constructors/ConstructorStandingsListing"
 
 const constructorStandingsLoader = ({ params: { year } }) => {
   return {

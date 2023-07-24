@@ -1,5 +1,5 @@
 // model
-import DriverQualifyingsListing from "../../../../../../model/listing/drivers/DriverQualifyingsListing"
+import DriverQualifyingsListing from "../../../../model/listing/results/drivers/DriverQualifyingsListing"
 
 const driverQualifyingsLoader = ({ params: { year, id: driverId } }) => {
   return {

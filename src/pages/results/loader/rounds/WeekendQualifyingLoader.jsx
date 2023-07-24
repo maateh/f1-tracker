@@ -1,5 +1,5 @@
 // models
-import WeekendQualifyingListing from "../../../../../../model/listing/rounds/WeekendQualifyingListing"
+import WeekendQualifyingListing from "../../../../model/listing/results/rounds/WeekendQualifyingListing"
 
 const weekendQualifyingLoader = ({ params: { year, id: round }}) => {
   return {

@@ -1,5 +1,5 @@
 // model
-import ConstructorRacesListing from "../../../../../../model/listing/constructors/ConstructorRacesListing"
+import ConstructorRacesListing from "../../../../model/listing/results/constructors/ConstructorRacesListing"
 
 const constructorRacesLoader = ({ params: { year, id: constructorId } }) => {
   return {

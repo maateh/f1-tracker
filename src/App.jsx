@@ -8,9 +8,10 @@ import Homepage from './pages/home/Homepage'
 import SchedulePage from './pages/schedule/SchedulePage'
 
 import ResultsPage from './pages/results/ResultsPage'
-import ResultsListing from './pages/results/content/listing/ResultsListing'
+import ResultsListing from './components/listing/Listing'
 
 import HistoryPage from './pages/history/HistoryPage'
+import HistoryListing from './components/listing/Listing'
 import LapsHistory from './pages/history/content/laps/LapsHistory'
 import DriversHistory from './pages/history/content/drivers/DriversHistory'
 import ConstructorsHistory from './pages/history/content/constructors/ConstructorsHistory'
@@ -18,15 +19,15 @@ import PitsHistory from './pages/history/content/pits/PitsHistory'
 
 import NotFound from './components/error/NotFound'
 
-// loaders
-import seasonLoader from './pages/results/content/listing/loader/rounds/SeasonLoader'
-import weekendRaceLoader from './pages/results/content/listing/loader/rounds/WeekendRaceLoader'
-import weekendQualifyingLoader from './pages/results/content/listing/loader/rounds/WeekendQualifyingLoader'
-import driverStandingsLoader from './pages/results/content/listing/loader/drivers/DriverStandingsLoader'
-import driverRacesLoader from './pages/results/content/listing/loader/drivers/DriverRacesLoader'
-import driverQualifyingsLoader from './pages/results/content/listing/loader/drivers/DriverQualifyingsLoader'
-import constructorStandingsLoader from './pages/results/content/listing/loader/constructors/ConstructorStandingsLoader'
-import constructorRacesLoader from './pages/results/content/listing/loader/constructors/ConstructorRacesLoader'
+// results loaders
+import seasonLoader from './pages/results/loader/rounds/SeasonLoader'
+import weekendRaceLoader from './pages/results/loader/rounds/WeekendRaceLoader'
+import weekendQualifyingLoader from './pages/results/loader/rounds/WeekendQualifyingLoader'
+import driverStandingsLoader from './pages/results/loader/drivers/DriverStandingsLoader'
+import driverRacesLoader from './pages/results/loader/drivers/DriverRacesLoader'
+import driverQualifyingsLoader from './pages/results/loader/drivers/DriverQualifyingsLoader'
+import constructorStandingsLoader from './pages/results/loader/constructors/ConstructorStandingsLoader'
+import constructorRacesLoader from './pages/results/loader/constructors/ConstructorRacesLoader'
 
 const router = createBrowserRouter([
   {
@@ -105,7 +106,35 @@ const router = createBrowserRouter([
         children: [
           {
             path: "laps",
-            element: <LapsHistory />
+            element: <LapsHistory />,
+            children: [
+              {
+                path: ":year/:round",
+                // loader: ,
+                element: <HistoryListing />
+              },
+              {
+                path: ":year/:round/:driverId",
+                // loader: ,
+                element: <HistoryListing />
+              },
+            ]
+          },
+          {
+            path: "pitstops",
+            element: <PitsHistory />,
+            children: [
+              {
+                path: ":year/:round",
+                // loader: ,
+                element: <HistoryListing /> 
+              },
+              {
+                path: ":year/:round/:id", // :id -> driver/constructor
+                // loader: ,
+                element: <HistoryListing /> 
+              }
+            ]
           },
           {
             path: "drivers",
@@ -114,10 +143,6 @@ const router = createBrowserRouter([
           {
             path: "constructors",
             element: <ConstructorsHistory />
-          },
-          {
-            path: "pits",
-            element: <PitsHistory />
           },
         ]
       },

@@ -1,5 +1,5 @@
 // models
-import WeekendRaceListing from "../../../../../../model/listing/rounds/WeekendRaceListing"
+import WeekendRaceListing from "../../../../model/listing/results/rounds/WeekendRaceListing"
 
 const weekendRaceLoader = ({ params: { year, id: round }}) => {
   return {

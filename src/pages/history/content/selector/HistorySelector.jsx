@@ -5,9 +5,9 @@ import './HistorySelector.css'
 
 const options = [
   { placeholder: 'Laps', value: 'laps' },
-  { placeholder: 'Drivers', value: 'drivers' },
-  { placeholder: 'Constructors', value: 'constructors' },
-  { placeholder: 'Pit Stops', value: 'pits' }
+  { placeholder: 'Pit Stops', value: 'pits' },
+  { placeholder: 'Drivers (?)', value: 'drivers' },
+  { placeholder: 'Constructors (?)', value: 'constructors' },
 ]
 
 const HistorySelector = () => {

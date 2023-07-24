@@ -15,11 +15,11 @@ import ErrorIcon from '@mui/icons-material/Error'
 import WarningIcon from '@mui/icons-material/Warning'
 
 // api
-import { constructorRacesResults } from '../../../api/results'
+import { constructorRacesResults } from '../../../../api/results'
 
 // model
-import Season from '../../season/Season'
-import QueryError from '../../error/QueryError'
+import Season from '../../../season/Season'
+import QueryError from '../../../error/QueryError'
 
 class ConstructorRacesListing {
 	static async query(year, constructorId) {

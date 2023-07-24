@@ -1,5 +1,5 @@
 // model
-import DriverStandingsListing from "../../../../../../model/listing/drivers/DriverStandingsListing"
+import DriverStandingsListing from "../../../../model/listing/results/drivers/DriverStandingsListing"
 
 const driverStandingsLoader = ({ params: { year } }) => {
   return {

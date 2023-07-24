@@ -5,11 +5,11 @@ import LocationOnIcon from '@mui/icons-material/LocationOn'
 import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 
 // api
-import { qualifyingResults } from "../../../api/results"
+import { qualifyingResults } from "../../../../api/results"
 
 // model
-import Weekend from "../../season/weekend/Weekend"
-import QueryError from "../../error/QueryError"
+import Weekend from "../../../season/weekend/Weekend"
+import QueryError from "../../../error/QueryError"
 
 class WeekendQualifyingListing {
   static async query(year, round) {

@@ -10,11 +10,11 @@ import ErrorIcon from '@mui/icons-material/Error'
 import WarningIcon from '@mui/icons-material/Warning'
 
 // api
-import { raceResults } from "../../../api/results"
+import { raceResults } from "../../../../api/results"
 
 // model
-import Weekend from "../../season/weekend/Weekend"
-import QueryError from "../../error/QueryError"
+import Weekend from "../../../season/weekend/Weekend"
+import QueryError from "../../../error/QueryError"
 
 class WeekendRaceListing {
   static async query(year, round) {

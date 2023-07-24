@@ -4,12 +4,12 @@ import { useLoaderData } from "react-router-dom"
 // components
 import ListingInfo from "./info/ListingInfo"
 import ListingTable from "./table/ListingTable"
-import Error from "../../../../components/error/Error"
+import Error from "../error/Error"
 
 // icons
 import CircularProgress from '@mui/material/CircularProgress'
 
-const ResultsListing = () => {
+const Listing = () => {
   const { queryKey, queryFn } = useLoaderData()
 
   const { isLoading, isError, error, data } = useQuery({
@@ -32,4 +32,4 @@ const ResultsListing = () => {
   )
 }
 
-export default ResultsListing
+export default Listing

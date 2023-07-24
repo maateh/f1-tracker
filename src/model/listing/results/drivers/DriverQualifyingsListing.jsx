@@ -10,11 +10,11 @@ import StarHalfIcon from '@mui/icons-material/StarHalf'
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt'
 
 // api
-import { driverQualifyingsResults } from "../../../api/results"
+import { driverQualifyingsResults } from "../../../../api/results"
 
 // model
-import Season from "../../season/Season"
-import QueryError from "../../error/QueryError"
+import Season from "../../../season/Season"
+import QueryError from "../../../error/QueryError"
 
 class DriverQualifyingsListing {
   static async query(year, driverId) {
