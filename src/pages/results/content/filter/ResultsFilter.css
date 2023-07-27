@@ -1,5 +1,5 @@
-/* filter selector layout */
-.results-filter-selector {
+/* results filter layout */
+.results-filter {
 	margin: 2rem auto;
   display: flex;
   flex-direction: column;
@@ -7,21 +7,21 @@
   align-items: center;
 }
 
-/* filter picker layout */
-.results-filter-selector .filter-picker {
+/* filter selector layout */
+.results-filter .filter-selector {
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-around;
 	align-items: center;
 }
 
-.results-filter-selector .filter-picker > label,
-.results-filter-selector .filter-picker > div {
+.results-filter .filter-selector > label,
+.results-filter .filter-selector > div {
 	margin: 0 3rem;
 	min-width: 12rem;
 }
 
-.results-filter-selector .filter-picker > label > span {
+.results-filter .filter-selector > label > span {
 	text-align: start;
 	font-size: 1.2rem;
 	font-weight: bold;

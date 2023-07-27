@@ -6,53 +6,28 @@ import FilterOption from './FilterOption'
 import QueryError from '../error/QueryError'
 
 class Filter {
-	constructor(key, label, options) {
+	constructor({ key, label, options }) {
 		this.key = key
 		this.label = label
-		this.options = this.parseOptions(options)
+		this.options = options
 	}
 
 	get(value) {
 		return this.options?.find(option => option.value === value)
 	}
 
-	parseOptions(options) {
-		if (this.key === 'years' || this.key === 'standings' || this.key === 'sessions') {
-			return options.map(option => new FilterOption(option.value, option.label))
-		}
-
-		return [
-			FilterOption.DEFAULT,
-			...options.map(option => new FilterOption(option.value, option.label)),
-		]
-	}
-
-	static STANDINGS = new Filter(
-    'standings',
-    'Standings',
-    [
-      new FilterOption('rounds', 'Rounds'),
-      new FilterOption('drivers', 'Drivers'),
-      new FilterOption('constructors', 'Constructors'),
-    ]
-  )
-
-	static SESSIONS = new Filter(
-		'sessions',
-		'Sessions',
-		[
-			new FilterOption('race', 'Race'),
-			new FilterOption('qualifying', 'Qualifying'),
-		]
-	)
-
 	static async querySeasons() {
 		return seasonList()
-			.then(data => new Filter(
-        'years',
-        'Years',
-        data.Seasons.map(d => ({ value: d.season, label: d.season })).reverse()
-      ))
+			.then(data => new Filter({
+        key: 'years',
+        label: 'Years',
+        options: data.Seasons
+					.map(({ season }) => new FilterOption({ 
+						value: season, 
+						label: season 
+					}))
+					.reverse()
+      }))
 			.catch(err => {
 				throw new QueryError(err.message)
 			})
@@ -60,11 +35,18 @@ class Filter {
 
 	static async queryRounds(year) {
 		return season(year)
-			.then(data => new Filter(
-        'rounds',
-        'Rounds',
-        data.Races.map(w => ({ value: w.round, label: w.raceName }))
-      ))
+			.then(data => new Filter({
+				key: 'rounds',
+				label: 'Rounds',
+				options: [
+					FilterOption.DEFAULT,
+					...data.Races
+						.map(({ round, raceName }) => new FilterOption({ 
+							value: round, 
+							label: raceName 
+						}))
+				]
+			}))
 			.catch(err => {
 				throw new QueryError(err.message)
 			})
@@ -72,15 +54,18 @@ class Filter {
 
 	static async queryDrivers(year) {
 		return driverList(year)
-			.then(data => new Filter(
-        'drivers',
-        'Drivers',
-				data.Drivers.map(d => ({ value: d.driverId, label: `${d.givenName} ${d.familyName}` }))
-        // data.StandingsLists[0].DriverStandings.map(standings => ({
-        //   value: standings.Driver.driverId,
-        //   label: `${standings.Driver.givenName} ${standings.Driver.familyName}`,
-        // }))
-      ))
+			.then(data => new Filter({
+        key: 'drivers',
+        label: 'Drivers',
+				options: [
+					FilterOption.DEFAULT,
+					...data.Drivers
+						.map(({ driverId, givenName, familyName }) => new FilterOption({ 
+							value: driverId, 
+							label: `${givenName} ${familyName}` 
+						}))
+				]
+      }))
 			.catch(err => {
 				throw new QueryError(err.message)
 			})
@@ -88,15 +73,18 @@ class Filter {
 
 	static async queryConstructors(year) {
 		return constructorList(year)
-			.then(data => new Filter(
-        'constructors',
-        'Constructors',
-				data.Constructors.map(c => ({ value: c.constructorId, label: c.name }))
-        // data.StandingsLists[0].ConstructorStandings.map(standings => ({
-        //   value: standings.Constructor.constructorId,
-        //   label: standings.Constructor.name
-        // }))
-      ))
+			.then(data => new Filter({
+        key: 'constructors',
+        label: 'Constructors',
+				options: [
+					FilterOption.DEFAULT,
+					...data.Constructors
+						.map(({ constructorId, name }) => new FilterOption({ 
+							value: constructorId, 
+							label: name 
+						}))
+				]
+      }))
 			.catch(err => {
 				throw new QueryError(err.message)
 			})

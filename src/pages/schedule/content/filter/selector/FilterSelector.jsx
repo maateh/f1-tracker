@@ -3,11 +3,11 @@ import Select from "react-select"
 // context
 import { useScheduleContext } from "../../../context/hooks/useScheduleContext"
 
-const SeasonPicker = () => {
+const SeasonSelector = () => {
   const { seasons, dispatch } = useScheduleContext()
   
   return (
-    <div className="season-picker">
+    <div className="filter-selector">
       <h2 className="page__subtitle">Select a Season</h2>
       <Select
         onChange={season => dispatch({ type: 'SET_YEAR', payload: season.value })}
@@ -18,4 +18,4 @@ const SeasonPicker = () => {
   )
 }
 
-export default SeasonPicker
+export default SeasonSelector

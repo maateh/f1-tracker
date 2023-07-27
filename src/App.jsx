@@ -19,15 +19,8 @@ import PitsHistory from './pages/history/content/pits/PitsHistory'
 
 import NotFound from './components/error/NotFound'
 
-// results loaders
-import seasonLoader from './pages/results/loader/rounds/SeasonLoader'
-import weekendRaceLoader from './pages/results/loader/rounds/WeekendRaceLoader'
-import weekendQualifyingLoader from './pages/results/loader/rounds/WeekendQualifyingLoader'
-import driverStandingsLoader from './pages/results/loader/drivers/DriverStandingsLoader'
-import driverRacesLoader from './pages/results/loader/drivers/DriverRacesLoader'
-import driverQualifyingsLoader from './pages/results/loader/drivers/DriverQualifyingsLoader'
-import constructorStandingsLoader from './pages/results/loader/constructors/ConstructorStandingsLoader'
-import constructorRacesLoader from './pages/results/loader/constructors/ConstructorRacesLoader'
+// loaders
+import { resultsLoader } from './pages/results/loader/ResultsLoader'
 
 const router = createBrowserRouter([
   {
@@ -47,52 +40,14 @@ const router = createBrowserRouter([
         element: <ResultsPage />,
         children: [
           {
-            // Season Results
-            path: ":year/rounds/all",
+            path: ":year/:standings/:id",
             element: <ResultsListing />,
-            loader: seasonLoader
+            loader: resultsLoader
           },
           {
-            // Weekend Race Results
-            path: ":year/rounds/:id/race",
+            path: ":year/:standings/:id/:session",
             element: <ResultsListing />,
-            loader: weekendRaceLoader
-          },
-          {
-            // Weekend Qualifying Results
-            path: ":year/rounds/:id/qualifying",
-            element: <ResultsListing />,
-            loader: weekendQualifyingLoader
-          },
-          {
-            // Driver Standings
-            path: ":year/drivers/all",
-            element: <ResultsListing />,
-            loader: driverStandingsLoader
-          },
-          {
-            // Driver Races Results
-            path: ":year/drivers/:id/race",
-            element: <ResultsListing />,
-            loader: driverRacesLoader
-          },
-          {
-            // Driver Qualifyings Results
-            path: ":year/drivers/:id/qualifying",
-            element: <ResultsListing />,
-            loader: driverQualifyingsLoader
-          },
-          {
-            // Constructor Standings
-            path: ":year/constructors/all",
-            element: <ResultsListing />,
-            loader: constructorStandingsLoader
-          },
-          {
-            // Constructor Results
-            path: ":year/constructors/:id",
-            element: <ResultsListing />,
-            loader: constructorRacesLoader
+            loader: resultsLoader
           },
           {
             path: "*",

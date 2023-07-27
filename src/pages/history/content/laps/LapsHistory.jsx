@@ -1,6 +1,13 @@
+import { Outlet } from "react-router-dom"
+import Select from 'react-select'
+
 const LapsHistory = () => {
   return (
-    <div>LapsHistory</div>
+    <div>
+      <Select />
+
+      <Outlet />
+    </div>
   )
 }
 

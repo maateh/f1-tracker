@@ -2,12 +2,28 @@ import { createContext, useReducer } from 'react'
 
 // model
 import FilterModel from '../../../../../model/filter/Filter'
+import FilterOptionModel from '../../../../../model/filter/FilterOption'
 
 const INITIAL_STATE = {
 	seasons: null,
-	standings: FilterModel.STANDINGS,
+	standings: new FilterModel({
+    key: 'standings',
+    label: 'Standings',
+    options: [
+      new FilterOptionModel({ value: 'rounds', label: 'Rounds' }),
+      new FilterOptionModel({ value: 'drivers', label: 'Drivers' }),
+      new FilterOptionModel({ value: 'constructors', label: 'Constructors' }),
+    ]
+  }),
 	ids: null,
-	sessions: FilterModel.SESSIONS
+	sessions: new FilterModel({
+		key: 'sessions',
+		label: 'Sessions',
+		options: [
+			new FilterOptionModel({ value: 'race', label: 'Race' }),
+			new FilterOptionModel({ value: 'qualifying', label: 'Qualifying' }),
+		]
+	})
 }
 
 const dataReducer = (state, action) => {

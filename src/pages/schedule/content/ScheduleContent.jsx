@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query'
 
 // components
-import SeasonSelector from './selector/SeasonSelector'
+import ScheduleFilter from './filter/ScheduleFilter'
 import WeekendList from './weekends/WeekendList'
 import SkeletonGrid from '../../../components/skeleton/SkeletonGrid'
 import Error from '../../../components/error/Error'
@@ -14,7 +14,7 @@ import SeasonModel from '../../../model/season/Season'
 
 const ScheduleContent = () => {
   const { schedule, year, dispatch } = useScheduleContext()
-  const scheduleQuery = useQuery({
+  const { isLoading, isError, error } = useQuery({
     queryKey: ['season', year],
     queryFn: () => SeasonModel.query(year),
     onSuccess: data => dispatch({ type: 'SET_SCHEDULE', payload: data })
@@ -22,12 +22,12 @@ const ScheduleContent = () => {
 
   return (
     <div className="schedule-content">
-      {scheduleQuery.isLoading && <SkeletonGrid counter={9} />}
-      {scheduleQuery.isError && <Error error={scheduleQuery.error} />}
+      {isLoading && <SkeletonGrid counter={9} />}
+      {isError && <Error error={error} />}
 
       {schedule && (
         <>
-          <SeasonSelector />
+          <ScheduleFilter />
           <WeekendList />
         </>
       )}

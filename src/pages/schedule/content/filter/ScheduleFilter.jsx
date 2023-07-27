@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query'
 
 // components
-import SeasonPicker from "./picker/SeasonPicker"
+import FilterSelector from "./selector/FilterSelector"
 import SkeletonSelector from "../../../../components/skeleton/SkeletonSelector"
 
 // context
@@ -11,9 +11,9 @@ import { useScheduleContext } from "../../context/hooks/useScheduleContext"
 import FilterModel from '../../../../model/filter/Filter'
 
 // styles
-import './SeasonSelector.css'
+import './ScheduleFilter.css'
 
-const SeasonSelector = () => {
+const ScheduleFilter = () => {
   const { seasons, dispatch } = useScheduleContext()
   const { isLoading, isError, error } = useQuery({
     queryKey: ['filter', 'seasonList'],
@@ -22,13 +22,14 @@ const SeasonSelector = () => {
   })
 
   return (
-    <div className="season-selector">
-      {isLoading && <SkeletonSelector counter={3} />}
-      {isError && <p className="error__element">{error}</p>}
+    <div className="schedule-filter">
+      {isLoading && <SkeletonSelector counter={1} />}
 
-      {seasons && <SeasonPicker />}
+      {seasons && <FilterSelector />}
+
+      {isError && <p className="error__element">{error}</p>}
     </div>
   )
 }
 
-export default SeasonSelector
+export default ScheduleFilter

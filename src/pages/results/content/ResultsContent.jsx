@@ -2,19 +2,22 @@ import { useQuery } from 'react-query'
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
 
 // components
-import FilterSelector from './selector/FilterSelector'
+import ResultsFilter from './filter/ResultsFilter'
 
 // context
-import { ResultsFilterContextProvider } from './selector/context/ResultsFilterContext'
+import { ResultsFilterContextProvider } from './filter/context/ResultsFilterContext'
 
 // model
 import Weekend from '../../../model/season/weekend/Weekend'
+
+// icons
+import CircularProgress from '@mui/material/CircularProgress'
 
 const ResultsContent = () => {
 	const { year, id } = useParams()
 	const navigate = useNavigate()
 
-	useQuery({
+	const { isLoading, isError, error } = useQuery({
 		queryKey: ['lastRound'],
 		queryFn: Weekend.queryLast,
 		onSuccess: weekend =>
@@ -24,9 +27,15 @@ const ResultsContent = () => {
 
 	return (
 		<div className="results-content">
-			<ResultsFilterContextProvider>
-				<FilterSelector />
-			</ResultsFilterContextProvider>
+			{isLoading && <CircularProgress />}
+
+			{year && id && (
+				<ResultsFilterContextProvider>
+					<ResultsFilter />
+				</ResultsFilterContextProvider>
+			)}
+
+			{isError && <p className="error__element">{error.message}</p>}
 
 			<Outlet />
 		</div>

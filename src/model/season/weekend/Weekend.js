@@ -69,7 +69,7 @@ class Weekend {
 	}
 
 	getFormattedDate(pattern) {
-		let date = new Date(`${this.date}`)
+		const date = new Date(`${this.date}`)
 		return format(date, pattern)
 	}
 }
