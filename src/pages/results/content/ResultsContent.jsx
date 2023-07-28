@@ -20,8 +20,8 @@ const ResultsContent = () => {
 	const { isLoading, isError, error } = useQuery({
 		queryKey: ['lastRound'],
 		queryFn: Weekend.queryLast,
-		onSuccess: weekend =>
-			navigate(`./${weekend.year}/rounds/all`, { replace: true }),
+		onSuccess: ({ year }) =>
+			navigate(`./${year}/rounds/all`, { replace: true }),
 		enabled: !year && !id,
 	})
 

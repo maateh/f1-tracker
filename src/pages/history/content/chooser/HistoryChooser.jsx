@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 
 // styles
-import './HistorySelector.css'
+import './HistoryChooser.css'
 
 const options = [
   { placeholder: 'Laps', value: 'laps' },
@@ -10,9 +10,9 @@ const options = [
   { placeholder: 'Constructors (?)', value: 'constructors' },
 ]
 
-const HistorySelector = () => {
+const HistoryChooser = () => {
   return (
-    <div className="history-selector">
+    <div className="history-chooser">
       <h2 className="page__subtitle">Choose a category</h2>
       <div className="category-container">
         {options.map(option => (
@@ -28,4 +28,4 @@ const HistorySelector = () => {
   )
 }
 
-export default HistorySelector
+export default HistoryChooser

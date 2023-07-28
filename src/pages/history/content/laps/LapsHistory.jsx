@@ -1,10 +1,44 @@
-import { Outlet } from "react-router-dom"
-import Select from 'react-select'
+import { Outlet, useNavigate, useParams } from "react-router-dom"
+import { useQuery } from "react-query"
+
+// components
+import LapsFilter from "./filter/LapsFilter"
+
+// context
+import { LapsFilterContextProvider } from "./filter/context/LapsFilterContext"
+
+// models
+import Weekend from "../../../../model/season/weekend/Weekend"
+import FilterOption from "../../../../model/filter/FilterOption"
+
+// icons
+import CircularProgress from '@mui/material/CircularProgress'
 
 const LapsHistory = () => {
+  const { year, round } = useParams()
+  const navigate = useNavigate()
+
+	const { isLoading, isError, error } = useQuery({
+		queryKey: ['lastRound'],
+		queryFn: Weekend.queryLast,
+		onSuccess: ({ year, round }) => {
+      const route = `./${year}/${round}/${FilterOption.DEFAULT.value}`
+      navigate(route, { replace: true })
+    },
+		enabled: !year && !round,
+	})
+
   return (
-    <div>
-      <Select />
+    <div className="history__container">
+      {isLoading && <CircularProgress />}
+      
+      {year && round && (
+        <LapsFilterContextProvider>
+          <LapsFilter />
+        </LapsFilterContextProvider>
+      )}
+
+      {isError && <p className="error__element">{error.message}</p>}
 
       <Outlet />
     </div>

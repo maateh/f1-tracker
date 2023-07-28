@@ -21,6 +21,8 @@ import NotFound from './components/error/NotFound'
 
 // loaders
 import { resultsLoader } from './pages/results/loader/ResultsLoader'
+import { lapsLoader } from './pages/history/content/laps/loader/LapsLoader'
+
 
 const router = createBrowserRouter([
   {
@@ -64,13 +66,8 @@ const router = createBrowserRouter([
             element: <LapsHistory />,
             children: [
               {
-                path: ":year/:round",
-                // loader: ,
-                element: <HistoryListing />
-              },
-              {
                 path: ":year/:round/:driverId",
-                // loader: ,
+                loader: lapsLoader,
                 element: <HistoryListing />
               },
             ]

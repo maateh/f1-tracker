@@ -1,9 +1,9 @@
-.history-selector {
+.history-chooser {
   display: flex;
   flex-direction: column;
 }
 
-.history-selector > .category-container {
+.history-chooser > .category-container {
   width: 50%;
   margin: 1.5rem auto;
   display: flex;
@@ -13,7 +13,7 @@
   align-items: center;
 }
 
-.history-selector > .category-container > .option {
+.history-chooser > .category-container > .option {
   cursor: pointer;
   padding: 0.4rem 0.6rem;
   font-size: 1.3rem;
@@ -24,9 +24,9 @@
   border-radius: 8px;
 }
 
-.history-selector > .category-container > .option:hover,
-.history-selector > .category-container > .option:active,
-.history-selector > .category-container > .option.active {
+.history-chooser > .category-container > .option:hover,
+.history-chooser > .category-container > .option:active,
+.history-chooser > .category-container > .option.active {
   color: var(--text-color-light);
   text-shadow: 3px 1px 2px rgba(50, 50, 50, 0.8);
   background: var(--highlight);

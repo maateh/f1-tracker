@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom"
 
 // components
-import HistorySelector from "./selector/HistorySelector"
+import HistoryChooser from "./chooser/HistoryChooser"
 
 const HistoryContent = () => {
   return (
     <div className="history-content">
-      <HistorySelector />
+      <HistoryChooser />
       <Outlet />
     </div>
   )

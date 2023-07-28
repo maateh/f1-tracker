@@ -1,0 +1,32 @@
+import { createContext, useReducer } from 'react'
+
+const INITIAL_STATE = {
+	seasons: null,
+	rounds: null,
+	drivers: null,
+}
+
+const dataReducer = (state, action) => {
+	switch (action.type) {
+		case 'SET_SEASONS':
+			return { ...state, seasons: action.payload }
+		case 'SET_ROUNDS':
+			return { ...state, rounds: action.payload }
+		case 'SET_DRIVERS':
+			return { ...state, drivers: action.payload }
+		default:
+			return state
+	}
+}
+
+export const LapsFilterContext = createContext()
+
+export const LapsFilterContextProvider = ({ children }) => {
+	const [state, dispatch] = useReducer(dataReducer, INITIAL_STATE)
+
+	return (
+		<LapsFilterContext.Provider value={{ ...state, dispatch }}>
+			{ children }
+		</LapsFilterContext.Provider>
+	)
+}
