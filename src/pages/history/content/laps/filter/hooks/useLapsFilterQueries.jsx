@@ -6,6 +6,7 @@ import { useLapsFilterContext } from "../context/hooks/useLapsFilterContext"
 
 export const useLapsFilterQueries = () => {
   const { selectors } = useLapsFilterContext()
+  
   const { isLoading: seasonsLoading, error: seasonsError } = useSeasonsQuery()
   const { isLoading: roundsLoading, error: roundsError } = useRoundsQuery()
   const { isLoading: driversLoading, error: driversError } = useDriversQuery()

@@ -23,8 +23,7 @@ export const useDriversQuery = () => {
         filter: filter.addOption(FilterOptionModel.DEFAULT),
         param: driverId,
         searchable: true,
-        setParam: (selector, { value }) => selector.param = value,
-        onChange: ({ value }, { year, round }) => navigate(`./${year}/${round}/${value}`, { replace: true })
+        onChange: (value, { year, round }) => navigate(`./${year}/${round}/${value}`, { replace: true })
       })
     })
 	})

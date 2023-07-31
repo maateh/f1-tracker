@@ -4,9 +4,9 @@ import Select from 'react-select'
 const FilterSelector = ({ selector, loading }) => {
   const params = useParams()
   
-  const handleChange = option => {
-    selector.setParam(selector, option)
-    selector.onChange(option, params)
+  const handleChange = ({ value }) => {
+    selector.param = value
+    selector.onChange(value, params)
   }
 
   return (

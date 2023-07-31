@@ -23,8 +23,7 @@ export const useSeasonsQuery = () => {
         filter: data,
         param: year,
         searchable: true,
-        setParam: (selector, { value }) => selector.param = value,
-        onChange: ({ value }) => navigate(`./${value}/${FilterOptionModel.DEFAULT.value}/${FilterOptionModel.DEFAULT.value}`, { replace: true })
+        onChange: value => navigate(`./${value}/${FilterOptionModel.DEFAULT.value}/${FilterOptionModel.DEFAULT.value}`, { replace: true })
       })
     })
 	})
