@@ -12,6 +12,11 @@ class Filter {
 		this.options = options
 	}
 
+	addOption(option) {
+		this.options.unshift(option)
+		return this
+	}
+
 	get(value) {
 		return this.options?.find(option => option.value === value)
 	}
@@ -38,14 +43,11 @@ class Filter {
 			.then(data => new Filter({
 				key: 'rounds',
 				label: 'Rounds',
-				options: [
-					FilterOption.DEFAULT,
-					...data.Races
-						.map(({ round, raceName }) => new FilterOption({ 
-							value: round, 
-							label: raceName 
-						}))
-				]
+				options: data.Races
+					.map(({ round, raceName }) => new FilterOption({ 
+						value: round, 
+						label: raceName 
+					}))
 			}))
 			.catch(err => {
 				throw new QueryError(err.message)
@@ -57,14 +59,11 @@ class Filter {
 			.then(data => new Filter({
         key: 'drivers',
         label: 'Drivers',
-				options: [
-					FilterOption.DEFAULT,
-					...data.Drivers
-						.map(({ driverId, givenName, familyName }) => new FilterOption({ 
-							value: driverId, 
-							label: `${givenName} ${familyName}` 
-						}))
-				]
+				options: data.Drivers
+					.map(({ driverId, givenName, familyName }) => new FilterOption({ 
+						value: driverId, 
+						label: `${givenName} ${familyName}` 
+					}))
       }))
 			.catch(err => {
 				throw new QueryError(err.message)
@@ -76,14 +75,11 @@ class Filter {
 			.then(data => new Filter({
         key: 'constructors',
         label: 'Constructors',
-				options: [
-					FilterOption.DEFAULT,
-					...data.Constructors
-						.map(({ constructorId, name }) => new FilterOption({ 
-							value: constructorId, 
-							label: name 
-						}))
-				]
+				options: data.Constructors
+					.map(({ constructorId, name }) => new FilterOption({ 
+						value: constructorId, 
+						label: name 
+					}))
       }))
 			.catch(err => {
 				throw new QueryError(err.message)
