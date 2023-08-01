@@ -15,7 +15,7 @@ export const useSeasonsQuery = () => {
   const navigate = useNavigate()
 
   return useQuery({
-    queryKey: ['results', 'filter', 'seasonList'],
+    queryKey: ['filter', 'seasonList'],
 		queryFn: FilterModel.querySeasons,
 		onSuccess: filter => dispatch({ 
       type: 'SET_SEASONS', 

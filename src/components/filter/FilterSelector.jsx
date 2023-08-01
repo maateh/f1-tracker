@@ -6,6 +6,8 @@ import './FilterSelector.css'
 
 const FilterSelector = ({ selector, loading }) => {
   const params = useParams()
+
+  console.log('selector: ', selector)
   
   const handleChange = ({ value }) => {
     selector.param = value

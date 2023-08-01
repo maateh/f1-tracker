@@ -22,6 +22,7 @@ import NotFound from './components/error/NotFound'
 // loaders
 import { resultsLoader } from './pages/results/loader/ResultsLoader'
 import { lapsLoader } from './pages/history/content/laps/loader/LapsLoader'
+import { pitsLoader } from './pages/history/content/pits/loader/PitsLoader'
 
 
 const router = createBrowserRouter([
@@ -73,17 +74,12 @@ const router = createBrowserRouter([
             ]
           },
           {
-            path: "pitstops",
+            path: "pits",
             element: <PitsHistory />,
             children: [
               {
-                path: ":year/:round",
-                // loader: ,
-                element: <HistoryListing /> 
-              },
-              {
-                path: ":year/:round/:id", // :id -> driver/constructor
-                // loader: ,
+                path: ":year/:round/:type/:id",
+                loader: pitsLoader,
                 element: <HistoryListing /> 
               }
             ]
