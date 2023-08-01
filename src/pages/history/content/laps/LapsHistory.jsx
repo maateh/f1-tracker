@@ -22,7 +22,7 @@ const LapsHistory = () => {
 		queryKey: ['lastRound'],
 		queryFn: Weekend.queryLast,
 		onSuccess: ({ year, round }) => {
-      const route = `./${year}/${round}/${FilterOption.DEFAULT.value}`
+      const route = `./${year}/${round}/${FilterOption.ALL.value}`
       navigate(route, { replace: true })
     },
 		enabled: !year && !round,

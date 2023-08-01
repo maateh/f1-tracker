@@ -22,14 +22,9 @@ export const useResultsFilterQueries = () => {
   const { isLoading: idsLoading, error: idsError } = useIdsQuery()
 
   useEffect(() => {
-    if (!selectors.standings) {
-      loadStandings(navigate, dispatch, standings)
-    }
-
-    if (!selectors.sessions) {
-      loadSessions(navigate, dispatch, session)
-    }
-  }, [navigate, dispatch, selectors.standings, selectors.sessions, standings, session])
+    selectors.standings || loadStandings(navigate, dispatch, standings)
+    selectors.sessions || loadSessions(navigate, dispatch, session)
+  }, [navigate, dispatch, standings, session, selectors.standings, selectors.sessions])
   
   return {
     preloading: Object.values(selectors).some(s => !s),
@@ -52,7 +47,8 @@ const loadStandings = (navigate, dispatch, standings) => dispatch({
     }),
     param: standings,
     searchable: false,
-    onChange: (value, { year }) => navigate(`./${year}/${value}/${FilterOptionModel.DEFAULT.value}`, { replace: true })
+    onChange: (value, { year }) => navigate(`./${year}/${value}/${FilterOptionModel.ALL.value}`, { replace: true }),
+    enabled: () => true
   })
 })
 
@@ -69,6 +65,7 @@ const loadSessions = (navigate, dispatch, session) => dispatch({
 		}),
     param: session || 'race',
     searchable: false,
-    onChange: (value, { year, standings, id }) => navigate(`./${year}/${standings}/${id}/${value}`, { replace: true })
+    onChange: (value, { year, standings, id }) => navigate(`./${year}/${standings}/${id}/${value}`, { replace: true }),
+    enabled: ({ standings, id }) => standings.match('^(drivers|rounds)$') && id !== 'all'
   })
 })

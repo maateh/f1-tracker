@@ -10,7 +10,7 @@ import FilterSelectorModel from "../../../../../model/filter/FilterSelector"
 import FilterOptionModel from "../../../../../model/filter/FilterOption"
 
 export const useIdsQuery = () => {
-  const { dispatch } = useResultsFilterContext()
+  const { selectors, dispatch } = useResultsFilterContext()
   const { year, standings, id } = useParams()
   const navigate = useNavigate()
 
@@ -19,10 +19,17 @@ export const useIdsQuery = () => {
     onSuccess: filter => dispatch({ 
       type: 'SET_IDS', 
       payload: new FilterSelectorModel({
-        filter: filter.addOption(FilterOptionModel.DEFAULT),
+        filter: filter.addOption(FilterOptionModel.ALL),
         param: id,
         searchable: true,
-        onChange: (value, { year, standings }) => navigate(`./${year}/${standings}/${value}`)
+        onChange: (value, { year, standings }) => {
+          let route = `./${year}/${standings}/${value}`
+          if (standings.match('^(drivers|rounds)$') && value !== 'all') {
+            route += `/${selectors.sessions.param}`
+          }
+          navigate(route, { replace: true })
+        },
+        enabled: () => true
       })
     }),
   })
@@ -50,4 +57,3 @@ const constructorsQuery = year => ({
 	queryKey: ['results', 'filter', 'constructorList', year],
 	queryFn: async () => FilterModel.queryConstructors(year),
 })
-

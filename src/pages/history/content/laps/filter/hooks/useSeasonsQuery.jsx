@@ -17,13 +17,13 @@ export const useSeasonsQuery = () => {
   return useQuery({
 		queryKey: ['history', 'laps', 'filter', 'seasonList'],
 		queryFn: FilterModel.querySeasons,
-		onSuccess: data => dispatch({ 
+		onSuccess: filter => dispatch({ 
       type: 'SET_SEASONS', 
       payload: new FilterSelectorModel({
-        filter: data,
+        filter,
         param: year,
         searchable: true,
-        onChange: value => navigate(`./${value}/${FilterOptionModel.DEFAULT.value}/${FilterOptionModel.DEFAULT.value}`, { replace: true })
+        onChange: value => navigate(`./${value}/1/${FilterOptionModel.ALL.value}`, { replace: true })
       })
     })
 	})

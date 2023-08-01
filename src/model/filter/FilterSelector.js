@@ -1,9 +1,10 @@
 class FilterSelector {
-  constructor({ filter, param, searchable, onChange }) {
+  constructor({ filter, param, searchable, onChange, enabled }) {
     this.filter = filter
     this.param = param
     this.searchable = searchable
     this.onChange = onChange
+    this.enabled = enabled
   }
 
   get current() {

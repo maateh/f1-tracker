@@ -16,10 +16,10 @@ export const useRoundsQuery = () => {
   return useQuery({
 		queryKey: ['filter', 'roundList', year],
 		queryFn: () => FilterModel.queryRounds(year),
-		onSuccess: data => dispatch({ 
+		onSuccess: filter => dispatch({ 
       type: 'SET_ROUNDS', 
       payload: new FilterSelectorModel({
-        filter: data,
+        filter,
         param: round,
         searchable: true,
         onChange: (value, { year, driverId }) => navigate(`./${year}/${value}/${driverId}`, { replace: true })

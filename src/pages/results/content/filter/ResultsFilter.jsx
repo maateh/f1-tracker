@@ -1,4 +1,5 @@
 // components
+import { useParams } from 'react-router-dom'
 import FilterSelector from '../../../../components/filter/FilterSelector'
 import SkeletonSelector from '../../../../components/skeleton/SkeletonSelector'
 
@@ -11,22 +12,27 @@ import { useResultsFilterQueries } from './hooks/useResultsFilterQueries'
 // styles
 import './ResultsFilter.css'
 
-
 const ResultsFilter = () => {
 	const { selectors } = useResultsFilterContext()
 	const { preloading, loading, error } = useResultsFilterQueries()
+	const params = useParams()
 
 	return (
 		<div className="results-filter">
 			{preloading ? (
 				<SkeletonSelector counter={3} />
-			) : Object.values(selectors).map(selector => (
-				<FilterSelector 
-					key={selector.filter.key}
-					selector={selector}
-					loading={loading}
-				/>
-			))}
+			) : (
+				Object.values(selectors).map(
+					selector =>
+						selector.enabled(params) && (
+							<FilterSelector
+								key={selector.filter.key}
+								selector={selector}
+								loading={loading}
+							/>
+						)
+				)
+			)}
 
 			{error && <p className="error__element">{error.message}</p>}
 		</div>

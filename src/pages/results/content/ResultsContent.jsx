@@ -7,8 +7,9 @@ import ResultsFilter from './filter/ResultsFilter'
 // context
 import { ResultsFilterContextProvider } from './filter/context/ResultsFilterContext'
 
-// model
-import Weekend from '../../../model/season/weekend/Weekend'
+// models
+import WeekendModel from '../../../model/season/weekend/Weekend'
+import FilterOptionModel from '../../../model/filter/FilterOption'
 
 // icons
 import CircularProgress from '@mui/material/CircularProgress'
@@ -19,9 +20,9 @@ const ResultsContent = () => {
 
 	const { isLoading, isError, error } = useQuery({
 		queryKey: ['lastRound'],
-		queryFn: Weekend.queryLast,
+		queryFn: WeekendModel.queryLast,
 		onSuccess: ({ year }) =>
-			navigate(`./${year}/rounds/all`, { replace: true }),
+			navigate(`./${year}/rounds/${FilterOptionModel.ALL.value}`, { replace: true }),
 		enabled: !year && !id,
 	})
 

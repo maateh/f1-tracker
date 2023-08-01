@@ -20,7 +20,7 @@ export const useDriversQuery = () => {
 		onSuccess: filter => dispatch({ 
       type: 'SET_DRIVERS', 
       payload: new FilterSelectorModel({
-        filter: filter.addOption(FilterOptionModel.DEFAULT),
+        filter: filter.addOption(FilterOptionModel.ALL),
         param: driverId,
         searchable: true,
         onChange: (value, { year, round }) => navigate(`./${year}/${round}/${value}`, { replace: true })

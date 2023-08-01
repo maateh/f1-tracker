@@ -4,7 +4,7 @@ class FilterOption {
     this.label = label
   }
 
-  static DEFAULT = new FilterOption({ value: 'all', label: 'ALL'})
+  static ALL = new FilterOption({ value: 'all', label: 'ALL' })
 }
 
 export default FilterOption
