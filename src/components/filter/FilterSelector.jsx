@@ -1,6 +1,9 @@
 import { useParams } from 'react-router-dom'
 import Select from 'react-select'
 
+// styles
+import './FilterSelector.css'
+
 const FilterSelector = ({ selector, loading }) => {
   const params = useParams()
   

@@ -8,12 +8,15 @@ import { useLapsFilterContext } from './context/hooks/useLapsFilterContext'
 // hooks
 import { useLapsFilterQueries } from './hooks/useLapsFilterQueries'
 
+// styles
+import './LapsFilter.css'
+
 const LapsFilter = () => {
 	const { selectors } = useLapsFilterContext()
   const { preloading, loading, error } = useLapsFilterQueries()
   
 	return (
-		<div>
+		<div className="laps-filter">
 			{preloading ? (
 				<SkeletonSelector counter={3} />
 			) : (

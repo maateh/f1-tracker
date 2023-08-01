@@ -1,0 +1,19 @@
+.filter-selector {
+	margin: 1.2rem;
+}
+
+.filter-selector > label {
+	margin: 0 3rem;
+	width: 12rem;
+}
+
+.filter-selector > label > span {
+	text-align: start;
+	font-size: 1.2rem;
+	font-weight: bold;
+	margin-bottom: 0.3rem;
+	padding-left: 0.4rem;
+	border-top: 2px solid var(--secondary);
+	border-left: 4px solid var(--secondary);
+	border-radius: 2px;
+}
