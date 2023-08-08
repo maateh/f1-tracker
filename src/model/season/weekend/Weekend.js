@@ -8,6 +8,7 @@ import Circuit from './circuit/Circuit'
 import SessionList from './session/SessionList'
 import Result from './result/Result'
 import Lap from './lap/Lap'
+import PitStop from './pit/PitStop'
 import QueryError from '../../error/QueryError'
 
 class Weekend {
@@ -25,6 +26,7 @@ class Weekend {
 		this.parseSessions(data)
 		this.parseResult(data)
 		this.parseLaps(data)
+		this.parsePits(data)
 	}
 
 	static async queryLast() {
@@ -73,6 +75,15 @@ class Weekend {
 			data.Laps.length
 		) {
 			this.laps = data.Laps.map(lap => new Lap(lap))
+		}
+	}
+
+	parsePits(data) {
+		if (
+			data.PitStops &&
+			data.PitStops.length
+		) {
+			this.pits = data.PitStops.map(pit => new PitStop(pit))
 		}
 	}
 

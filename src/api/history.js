@@ -33,22 +33,16 @@ export const pitStops = (year, round, page) => {
     })
 }
 
-export const driverPitStops = (year, round, driverId, page) => {
-  return ergast(`/${year}/${round}/drivers/${driverId}pitstops`, KEYS.RACE_TABLE, {
-    limit: 20,
-    offset: (page - 1) * 20
-  })
+export const driverPitStops = (year, round, driverId) => {
+  return ergast(`/${year}/${round}/drivers/${driverId}/pitstops`, KEYS.RACE_TABLE)
     .then(res => res)
     .catch(err => {
       throw new Error(err)
     })
 }
 
-export const constructorPitStops = (year, round, constructorId, page) => {
-  return ergast(`/${year}/${round}/constructors/${constructorId}pitstops`, KEYS.RACE_TABLE, {
-    limit: 20,
-    offset: (page - 1) * 20
-  })
+export const constructorPitStops = (year, round, constructorId) => {
+  return ergast(`/${year}/${round}/constructors/${constructorId}/pitstops`, KEYS.RACE_TABLE)
     .then(res => res)
     .catch(err => {
       throw new Error(err)

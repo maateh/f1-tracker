@@ -14,14 +14,14 @@ import WeekendModel from "../../../../model/season/weekend/Weekend"
 import CircularProgress from '@mui/material/CircularProgress'
 
 const PitsHistory = () => {
-  const { year, round, type, id } = useParams()
+  const { year, round, driverId } = useParams()
   const navigate = useNavigate()
 
   const { isLoading, isError, error } = useQuery({
 		queryKey: ['lastRound'],
 		queryFn: WeekendModel.queryLast,
 		onSuccess: ({ year, round }) => {
-      const route = `./${year}/${round}/${type || 'drivers'}/${id || 'all'}`
+      const route = `./${year}/${round}/${driverId || 'all'}`
       navigate(route, { replace: true })
     },
 		enabled: !year && !round,

@@ -23,8 +23,8 @@ export const useSeasonsQuery = () => {
         filter,
         param: year,
         searchable: true,
-        onChange: (value, { type }) => {
-          const route = `./${value}/1/${type}/${FilterOptionModel.ALL.value}`
+        onChange: (value) => {
+          const route = `./${value}/1/${FilterOptionModel.ALL.value}`
           navigate(route, { replace: true })
         }
       })

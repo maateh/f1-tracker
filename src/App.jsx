@@ -77,7 +77,7 @@ const router = createBrowserRouter([
             element: <PitsHistory />,
             children: [
               {
-                path: ":year/:round/:type/:id",
+                path: ":year/:round/:driverId",
                 loader: pitsLoader,
                 element: <Listing /> 
               }

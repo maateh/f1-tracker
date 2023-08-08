@@ -9,40 +9,25 @@ import FilterModel from "../../../../../../model/filter/Filter"
 import FilterSelectorModel from "../../../../../../model/filter/FilterSelector"
 import FilterOptionModel from "../../../../../../model/filter/FilterOption"
 
-export const useIdsQuery = () => {
+export const useDriversQuery = () => {
   const { dispatch } = usePitsFilterContext()
-  const { year, type, id } = useParams()
+  const { year, driverId } = useParams()
   const navigate = useNavigate()
 
   return useQuery({
-    ...idsQuery(year, type),
+    queryKey: ['filter', 'driverList', year],
+    queryFn: async () => FilterModel.queryDrivers(year),
     onSuccess: filter => dispatch({ 
-      type: 'SET_IDS', 
+      type: 'SET_DRIVERS', 
       payload: new FilterSelectorModel({
         filter: filter.addOption(FilterOptionModel.ALL),
-        param: id,
+        param: driverId || FilterOptionModel.ALL.value,
         searchable: true,
-        onChange: (value, { year, round, type }) => {
-          const route = `./${year}/${round}/${type}/${value}`
+        onChange: (value, { year, round }) => {
+          const route = `./${year}/${round}/${value}`
           navigate(route, { replace: true })
         }
       })
     }),
   })
 }
-
-const idsQuery = (year, type) => {
-	return type === 'constructors'
-		? constructorsQuery(year)
-		: driversQuery(year)
-}
-
-const driversQuery = year => ({
-	queryKey: ['filter', 'driverList', year],
-	queryFn: async () => FilterModel.queryDrivers(year),
-})
-
-const constructorsQuery = year => ({
-	queryKey: ['filter', 'constructorList', year],
-	queryFn: async () => FilterModel.queryConstructors(year),
-})

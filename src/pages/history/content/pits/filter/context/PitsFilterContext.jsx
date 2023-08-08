@@ -4,8 +4,7 @@ const INITIAL_STATE = {
 	selectors: {
 		seasons: null,
 		rounds: null,
-		types: null,
-		ids: null
+		drivers: null
 	}
 }
 
@@ -15,10 +14,8 @@ const dataReducer = (state, action) => {
 			return { ...state, selectors: { ...state.selectors, seasons: action.payload } }
 		case 'SET_ROUNDS':
 			return { ...state, selectors: { ...state.selectors, rounds: action.payload } }
-		case 'SET_TYPES':
-			return { ...state, selectors: { ...state.selectors, types: action.payload } }
-		case 'SET_IDS':
-			return { ...state, selectors: { ...state.selectors, ids: action.payload } }
+		case 'SET_DRIVERS':
+			return { ...state, selectors: { ...state.selectors, drivers: action.payload } }
 		default:
 			return state
 	}
