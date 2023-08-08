@@ -19,7 +19,7 @@ class Season {
 
 	static async query(year) {
 		return season(year)
-			.then(data => new Season(data))
+			.then(({ data }) => new Season(data))
 			.catch(err => {
 				throw new QueryError(err.message)
 			})

@@ -14,7 +14,7 @@ import QueryError from "../../../error/QueryError"
 class WeekendQualifyingListing {
   static async query(year, round) {
     return qualifyingResults(year, round)
-      .then(data => {
+      .then(({ data }) => {
         if (!data.Races || !data.Races.length) {
           throw new QueryError('No data found!', 404)
         }

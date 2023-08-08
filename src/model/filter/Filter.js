@@ -23,7 +23,7 @@ class Filter {
 
 	static async querySeasons() {
 		return seasonList()
-			.then(data => new Filter({
+			.then(({ data }) => new Filter({
         key: 'years',
         label: 'Years',
         options: data.Seasons
@@ -40,7 +40,7 @@ class Filter {
 
 	static async queryRounds(year) {
 		return season(year)
-			.then(data => new Filter({
+			.then(({ data }) => new Filter({
 				key: 'rounds',
 				label: 'Rounds',
 				options: data.Races
@@ -56,7 +56,7 @@ class Filter {
 
 	static async queryDrivers(year) {
 		return driverList(year)
-			.then(data => new Filter({
+			.then(({ data }) => new Filter({
         key: 'drivers',
         label: 'Drivers',
 				options: data.Drivers
@@ -72,7 +72,7 @@ class Filter {
 
 	static async queryConstructors(year) {
 		return constructorList(year)
-			.then(data => new Filter({
+			.then(({ data }) => new Filter({
         key: 'constructors',
         label: 'Constructors',
 				options: data.Constructors

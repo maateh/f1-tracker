@@ -29,7 +29,7 @@ class Weekend {
 
 	static async queryLast() {
 		return lastRound()
-			.then(data => new Weekend(data.Races[0]))
+			.then(({ data }) => new Weekend(data.Races[0]))
 			.catch(err => {
 				throw new QueryError(err.message)
 			})
@@ -37,7 +37,7 @@ class Weekend {
 
 	static async queryNext() {
 		return nextRound()
-			.then(data => new Weekend(data.Races[0]))
+			.then(({ data }) => new Weekend(data.Races[0]))
 			.catch(err => {
 				throw new QueryError(err.message)
 			})

@@ -9,9 +9,9 @@ import QueryError from '../../../../error/QueryError'
 class RoundLapsListing {
 	static async query(year, round, lap) {
 		return Promise.all([raceLap(year, round, lap), raceResults(year, round, { limit: 1 })])
-			.then(data => {
-				const season = new Season(data[0])
-				const pages = data[1].Races[0].Results[0].laps
+			.then(([{ data: lapData }, { data: resultsData }]) => {
+				const season = new Season(lapData)
+				const pages = resultsData.Races[0].Results[0].laps
 				if (!season.weekends) {
 					throw new QueryError('No data found!', 404)
 				}

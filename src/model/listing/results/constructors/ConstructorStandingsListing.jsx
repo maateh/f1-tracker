@@ -8,7 +8,7 @@ import QueryError from "../../../error/QueryError"
 class ConstructorStandingsListing {
   static async query(year) {
     return constructorStandings(year)
-      .then(data => {
+      .then(({ data }) => {
         const season = new Season(data)
         if (!season.standings) {
           throw new QueryError('No data found!', 404)

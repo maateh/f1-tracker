@@ -24,7 +24,7 @@ import QueryError from '../../../error/QueryError'
 class ConstructorRacesListing {
 	static async query(year, constructorId) {
 		return constructorRacesResults(year, constructorId)
-			.then(data => {
+			.then(({ data }) => {
 				const season = new Season(data)
 				if (!season.weekends) {
 					throw new QueryError('No data found!', 404)

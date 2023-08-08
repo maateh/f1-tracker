@@ -24,7 +24,7 @@ import QueryError from "../../../error/QueryError"
 class DriverRacesListing {
   static async query(year, driverId) {
     return driverRacesResults(year, driverId)
-      .then(data => {
+      .then(({ data }) => {
         const season = new Season(data)
         if (!season.weekends) {
           throw new QueryError('No data found!', 404)

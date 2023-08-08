@@ -25,13 +25,13 @@ import QueryError from '../../../error/QueryError'
 class SeasonListing {
   static async query(year) {
 		return Promise.all([qualifyingsResults(year), racesResults(year)])
-			.then(data => {
-				const season = new Season(data[1])
+			.then(([{ data: qualifyingsData }, { data: racesData }]) => {
+				const season = new Season(racesData)
         if (!season.weekends) {
           throw new QueryError('No data found!', 404)
         }
 
-        const qResults = data[0].Races.map(w => new Result(w))
+        const qResults = qualifyingsData.Races.map(w => new Result(w))
         if (qResults && qResults.length) {
           season.weekends.forEach((w, index) => w.result.qualifying = qResults[index].qualifying)
         }
