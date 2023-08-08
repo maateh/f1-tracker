@@ -23,7 +23,11 @@ export const useDriversQuery = () => {
         filter: filter.addOption(FilterOptionModel.ALL),
         param: driverId,
         searchable: true,
-        onChange: (value, { year, round }) => navigate(`./${year}/${round}/${value}`, { replace: true })
+        onChange: (value, { year, round }) => {
+          const pathname = `./${year}/${round}/${value}`
+          const search = '?page=1'
+          navigate({ pathname, search }, { replace: true })
+        }
       })
     })
 	})

@@ -8,15 +8,14 @@ import Homepage from './pages/home/Homepage'
 import SchedulePage from './pages/schedule/SchedulePage'
 
 import ResultsPage from './pages/results/ResultsPage'
-import ResultsListing from './components/listing/Listing'
 
 import HistoryPage from './pages/history/HistoryPage'
-import HistoryListing from './components/listing/Listing'
 import LapsHistory from './pages/history/content/laps/LapsHistory'
+import PitsHistory from './pages/history/content/pits/PitsHistory'
 import DriversHistory from './pages/history/content/drivers/DriversHistory'
 import ConstructorsHistory from './pages/history/content/constructors/ConstructorsHistory'
-import PitsHistory from './pages/history/content/pits/PitsHistory'
 
+import Listing from './components/listing/Listing'
 import NotFound from './components/error/NotFound'
 
 // loaders
@@ -44,12 +43,12 @@ const router = createBrowserRouter([
         children: [
           {
             path: ":year/:standings/:id",
-            element: <ResultsListing />,
+            element: <Listing />,
             loader: resultsLoader
           },
           {
             path: ":year/:standings/:id/:session",
-            element: <ResultsListing />,
+            element: <Listing />,
             loader: resultsLoader
           },
           {
@@ -69,8 +68,8 @@ const router = createBrowserRouter([
               {
                 path: ":year/:round/:driverId",
                 loader: lapsLoader,
-                element: <HistoryListing />
-              },
+                element: <Listing />
+              }
             ]
           },
           {
@@ -80,7 +79,7 @@ const router = createBrowserRouter([
               {
                 path: ":year/:round/:type/:id",
                 loader: pitsLoader,
-                element: <HistoryListing /> 
+                element: <Listing /> 
               }
             ]
           },

@@ -1,8 +1,10 @@
+// context
+import { useLapsFilterContext } from "../context/hooks/useLapsFilterContext"
+
 // hooks
 import { useSeasonsQuery } from "./useSeasonsQuery"
 import { useRoundsQuery } from "./useRoundsQuery"
 import { useDriversQuery } from "./useDriversQuery"
-import { useLapsFilterContext } from "../context/hooks/useLapsFilterContext"
 
 export const useLapsFilterQueries = () => {
   const { selectors } = useLapsFilterContext()

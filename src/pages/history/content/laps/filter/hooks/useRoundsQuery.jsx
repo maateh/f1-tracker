@@ -22,7 +22,11 @@ export const useRoundsQuery = () => {
         filter,
         param: round,
         searchable: true,
-        onChange: (value, { year, driverId }) => navigate(`./${year}/${value}/${driverId}`, { replace: true })
+        onChange: (value, { year, driverId }) => {
+          const pathname = `./${year}/${value}/${driverId}`
+          const search = '?page=1'
+          navigate({ pathname, search }, { replace: true })
+        }
       })
     })
 	})

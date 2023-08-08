@@ -1,12 +1,12 @@
 // loaders
-import seasonLoader from './rounds/SeasonLoader'
-import weekendRaceLoader from './rounds/WeekendRaceLoader'
-import weekendQualifyingLoader from './rounds/WeekendQualifyingLoader'
-import driverStandingsLoader from './drivers/DriverStandingsLoader'
-import driverRacesLoader from './drivers/DriverRacesLoader'
-import driverQualifyingsLoader from './drivers/DriverQualifyingsLoader'
-import constructorStandingsLoader from './constructors/ConstructorStandingsLoader'
-import constructorRacesLoader from './constructors/ConstructorRacesLoader'
+import { seasonLoader } from './rounds/SeasonLoader'
+import { weekendRaceLoader } from './rounds/WeekendRaceLoader'
+import { weekendQualifyingLoader } from './rounds/WeekendQualifyingLoader'
+import { driverStandingsLoader } from './drivers/DriverStandingsLoader'
+import { driverRacesLoader } from './drivers/DriverRacesLoader'
+import { driverQualifyingsLoader } from './drivers/DriverQualifyingsLoader'
+import { constructorStandingsLoader } from './constructors/ConstructorStandingsLoader'
+import { constructorRacesLoader } from './constructors/ConstructorRacesLoader'
 
 export const resultsLoader = ({ params }) => {
   switch (params.standings) {

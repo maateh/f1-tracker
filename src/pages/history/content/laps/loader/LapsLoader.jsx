@@ -5,9 +5,12 @@ import { driverLapsLoader } from './driver/DriverLapsLoader'
 // models
 import FilterOption from '../../../../../model/filter/FilterOption'
 
-export const lapsLoader = ({ params }) => {
+export const lapsLoader = ({ params, request: { url: rawUrl } }) => {
+  const url = new URL(rawUrl)
+  const page = url.searchParams.get('page') || 1
+
   if (params.driverId === FilterOption.ALL.value) {
-    return driverLapsLoader(params)
+    return roundLapsLoader({ ...params, page })
   }
-  return roundLapsLoader(params)
+  return driverLapsLoader({ ...params, page })
 }

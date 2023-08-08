@@ -4,7 +4,7 @@ const INITIAL_STATE = {
 	selectors: {
 		seasons: null,
 		rounds: null,
-		drivers: null,
+		drivers: null
 	}
 }
 

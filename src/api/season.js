@@ -1,60 +1,60 @@
-import { ergast } from "./ergast"
+import { ergast, KEYS } from "./ergast"
 
 export const seasonList = () => {
-  return ergast('/seasons', 'SeasonTable', {
+  return ergast('/seasons', KEYS.SEASON_TABLE, {
     limit: 100
   })
-    .then(data => data)
+    .then(res => res.data)
     .catch(err => {
       throw new Error(err)
     })
 }
 
 export const driverList = (year) => {
-  return ergast(`/${year}/drivers`, 'DriverTable')
-    .then(data => data)
+  return ergast(`/${year}/drivers`, KEYS.DRIVER_TABLE)
+    .then(res => res.data)
     .catch(err => {
       throw new Error(err)
     })
 }
 
 export const constructorList = (year) => {
-  return ergast(`/${year}/constructors`, 'ConstructorTable')
-    .then(data => data)
+  return ergast(`/${year}/constructors`, KEYS.CONSTRUCTOR_TABLE)
+    .then(res => res.data)
     .catch(err => {
       throw new Error(err)
     })
 }
 
 export const season = (year) => {
-  return ergast(`/${year}`, 'RaceTable')
-    .then(data => data)
+  return ergast(`/${year}`, KEYS.RACE_TABLE)
+    .then(res => res.data)
     .catch(err => {
       throw new Error(err)
     })
 }
 
 export const round = (year, round) => {
-  return ergast(`/${year}/${round}`, 'RaceTable', {
+  return ergast(`/${year}/${round}`, KEYS.RACE_TABLE, {
     limit: 100
   })
-    .then(data => data)
+    .then(res => res.data)
     .catch(err => {
       throw new Error(err)
     })
 }
 
 export const lastRound = () => {
-  return ergast('/current/last', 'RaceTable')
-    .then(data => data)
+  return ergast('/current/last', KEYS.RACE_TABLE)
+    .then(res => res.data)
     .catch(err => {
       throw new Error(err)
     })
 }
 
 export const nextRound = () => {
-  return ergast('/current/next', 'RaceTable')
-    .then(data => data)
+  return ergast('/current/next', KEYS.RACE_TABLE)
+    .then(res => res.data)
     .catch(err => {
       throw new Error(err)
     })

@@ -1,10 +1,10 @@
 /* listing info container */
-.results-content .listing-info__container {
+.listing-info__container {
   margin: 2rem 0;
 }
 
 /* filter info title */
-.results-content .listing-info__container > h2 {
+.listing-info__container > h2 {
   width: 100%;
   margin: 2rem auto;
   padding: 0.7rem 0;
@@ -20,7 +20,7 @@
 }
 
 /* category cards container */
-.results-content .listing-info__container > .listing-category__container {
+.listing-info__container > .listing-category__container {
   margin: 0 2rem;
 
   display: flex;
@@ -73,7 +73,7 @@
 }
 
 @media (max-width: 30rem) {
-  .results-content .listing-info__container > h2 {
+  .listing-info__container > h2 {
     font-size: 1.8rem;
   }
 

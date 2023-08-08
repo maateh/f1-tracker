@@ -4,6 +4,7 @@ import { useLoaderData } from "react-router-dom"
 // components
 import ListingInfo from "./info/ListingInfo"
 import ListingTable from "./table/ListingTable"
+import Pagination from "../pagination/Pagination"
 import Error from "../error/Error"
 
 // icons
@@ -13,12 +14,12 @@ const Listing = () => {
   const { queryKey, queryFn } = useLoaderData()
 
   const { isLoading, isError, error, data } = useQuery({
-    queryKey: queryKey, 
-    queryFn: queryFn
+    queryKey, 
+    queryFn
   })
 
   return (
-    <div className="results-listing__container">
+    <div className="listing__container">
       {isLoading && <CircularProgress />}
       {isError && <Error error={error} />}
 
@@ -26,6 +27,8 @@ const Listing = () => {
         <>
           <ListingInfo title={data.title} info={data.info} />
           <ListingTable header={data.header} table={data.table} />
+
+          {data.pagination && <Pagination max={data.pagination.max} />}
         </>
       )}
     </div>

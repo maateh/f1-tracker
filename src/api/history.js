@@ -1,20 +1,20 @@
-import { ergast } from "./ergast"
+import { ergast, KEYS } from "./ergast"
 
 // Lap Times
 export const raceLap = (year, round, lap) => {
-  return ergast(`/${year}/${round}/laps/${lap}`, 'RaceTable')
-    .then(data => data)
+  return ergast(`/${year}/${round}/laps/${lap}`, KEYS.RACE_TABLE)
+    .then(res => res.data)
     .catch(err => {
       throw new Error(err)
     })
 }
 
-export const driverLaps = (year, round, driverId, offset) => {
-  return ergast(`/${year}/${round}/drivers/${driverId}/laps`, 'RaceTable', {
+export const driverLaps = (year, round, driverId, page) => {
+  return ergast(`/${year}/${round}/drivers/${driverId}/laps`, KEYS.RACE_TABLE, {
     limit: 20,
-    offset
+    offset: (page - 1) * 20
   })
-    .then(data => data)
+    .then(res => res)
     .catch(err => {
       throw new Error(err)
     })
@@ -23,33 +23,33 @@ export const driverLaps = (year, round, driverId, offset) => {
 
 // Pit Stops
 export const pitStops = (year, round, offset) => {
-  return ergast(`/${year}/${round}/pitstops`, 'RaceTable', {
+  return ergast(`/${year}/${round}/pitstops`, KEYS.RACE_TABLE, {
     limit: 20,
     offset
   })
-    .then(data => data)
+    .then(res => res.data)
     .catch(err => {
       throw new Error(err)
     })
 }
 
 export const driverPitStops = (year, round, driverId, offset) => {
-  return ergast(`/${year}/${round}/drivers/${driverId}pitstops`, 'RaceTable', {
+  return ergast(`/${year}/${round}/drivers/${driverId}pitstops`, KEYS.RACE_TABLE, {
     limit: 20,
     offset
   })
-    .then(data => data)
+    .then(res => res.data)
     .catch(err => {
       throw new Error(err)
     })
 }
 
 export const constructorPitStops = (year, round, constructorId, offset) => {
-  return ergast(`/${year}/${round}/constructors/${constructorId}pitstops`, 'RaceTable', {
+  return ergast(`/${year}/${round}/constructors/${constructorId}pitstops`, KEYS.RACE_TABLE, {
     limit: 20,
     offset
   })
-    .then(data => data)
+    .then(res => res.data)
     .catch(err => {
       throw new Error(err)
     })

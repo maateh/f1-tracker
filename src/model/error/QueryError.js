@@ -7,7 +7,7 @@ class QueryError extends Error {
   get details() {
     if (this.code === 404) {
       return `
-        Sorry! There are no data recorded in the database from this period.
+        Sorry! There are no data recorded in the database with the specified filter.
         Please try using a different filter.
       `
     }

@@ -1,3 +1,5 @@
+import { format } from 'date-fns'
+
 // api
 import { lastRound, nextRound } from '../../../api/season'
 
@@ -5,8 +7,8 @@ import { lastRound, nextRound } from '../../../api/season'
 import Circuit from './circuit/Circuit'
 import SessionList from './session/SessionList'
 import Result from './result/Result'
+import Lap from './lap/Lap'
 import QueryError from '../../error/QueryError'
-import { format } from 'date-fns'
 
 class Weekend {
 	constructor(data) {
@@ -22,6 +24,7 @@ class Weekend {
 
 		this.parseSessions(data)
 		this.parseResult(data)
+		this.parseLaps(data)
 	}
 
 	static async queryLast() {
@@ -61,6 +64,15 @@ class Weekend {
 			data.Results.length
 		) {
 			this.result = new Result(data)
+		}
+	}
+
+	parseLaps(data) {
+		if (
+			data.Laps &&
+			data.Laps.length
+		) {
+			this.laps = data.Laps.map(lap => new Lap(lap))
 		}
 	}
 
