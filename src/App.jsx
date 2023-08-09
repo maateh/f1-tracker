@@ -6,6 +6,7 @@ import Main from './layouts/Main'
 // pages & components
 import Homepage from './pages/home/Homepage'
 import SchedulePage from './pages/schedule/SchedulePage'
+import WeekendList from './pages/schedule/content/weekends/WeekendList'
 import ResultsPage from './pages/results/ResultsPage'
 import HistoryPage from './pages/history/HistoryPage'
 import LapsHistory from './pages/history/content/laps/LapsHistory'
@@ -17,6 +18,7 @@ import Listing from './components/listing/Listing'
 import NotFound from './components/error/NotFound'
 
 // loaders
+import { scheduleLoader } from './pages/schedule/loader/ScheduleLoader'
 import { resultsLoader } from './pages/results/loader/ResultsLoader'
 import { lapsLoader } from './pages/history/content/laps/loader/LapsLoader'
 import { pitsLoader } from './pages/history/content/pits/loader/PitsLoader'
@@ -32,7 +34,18 @@ const router = createBrowserRouter([
       },
       {
         path: "schedule",
-        element: <SchedulePage />
+        element: <SchedulePage />,
+        children: [
+          {
+            path: ":year",
+            element: <WeekendList />,
+            loader: scheduleLoader
+          },
+          {
+            path: "*",
+            element: <Navigate to="./" />
+          }
+        ]
       },
       {
         path: "results",

@@ -1,35 +1,37 @@
-import { useQuery } from 'react-query'
-
 // components
-import FilterSelector from "./selector/FilterSelector"
-import SkeletonSelector from "../../../../components/skeleton/SkeletonSelector"
+import FilterSelector from '../../../../components/filter/FilterSelector'
+import SkeletonSelector from '../../../../components/skeleton/SkeletonSelector'
 
 // context
-import { useScheduleContext } from "../../context/hooks/useScheduleContext"
+import { useScheduleFilterContext } from './context/hooks/useScheduleFilterContext'
 
-// model
-import FilterModel from '../../../../model/filter/Filter'
+// hooks
+import { useScheduleFilterQueries } from './hooks/useScheduleFilterQueries'
 
 // styles
 import './ScheduleFilter.css'
 
 const ScheduleFilter = () => {
-  const { seasons, dispatch } = useScheduleContext()
-  const { isLoading, isError, error } = useQuery({
-    queryKey: ['filter', 'seasonList'],
-    queryFn: FilterModel.querySeasons,
-    onSuccess: data => dispatch({ type: 'SET_SEASONS', payload: data })
-  })
+	const { selectors } = useScheduleFilterContext()
+	const { preloading, loading, error } = useScheduleFilterQueries()
 
-  return (
-    <div className="schedule-filter">
-      {isLoading && <SkeletonSelector counter={1} />}
+	return (
+		<div className="schedule-filter">
+			{preloading ? (
+				<SkeletonSelector counter={1} />
+			) : (
+				Object.values(selectors).map(selector => (
+					<FilterSelector
+						key={selector.filter.key}
+						selector={selector}
+						loading={loading}
+					/>
+				))
+			)}
 
-      {seasons && <FilterSelector />}
-
-      {isError && <p className="error__element">{error}</p>}
-    </div>
-  )
+			{error && <p className="error__element">{error.message}</p>}
+		</div>
+	)
 }
 
 export default ScheduleFilter

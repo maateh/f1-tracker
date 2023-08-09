@@ -24,7 +24,7 @@ class RoundLapsListing {
 
 	constructor(season, pages) {
     this.season = season
-		this.title = `${season.year} ${this.weekend.name} Lap Timings Lap: ${this.currentLap.number}`
+		this.title = `${season.year} ${this.weekend.name} Lap Timings | #${this.currentLap.number}`
 
 		this.header = [
 			{ key: 'position', placeholder: 'Position' },

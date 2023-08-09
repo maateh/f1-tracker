@@ -1,36 +1,43 @@
+import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
 // components
 import ScheduleFilter from './filter/ScheduleFilter'
-import WeekendList from './weekends/WeekendList'
-import SkeletonGrid from '../../../components/skeleton/SkeletonGrid'
-import Error from '../../../components/error/Error'
 
 // context
-import { useScheduleContext } from '../context/hooks/useScheduleContext'
+import { ScheduleFilterContextProvider } from './filter/context/ScheduleFilterContext'
 
-// model
-import SeasonModel from '../../../model/season/Season'
+// models
+import WeekendModel from '../../../model/season/weekend/Weekend'
+
+// icons
+import { CircularProgress } from '@mui/material'
 
 const ScheduleContent = () => {
-  const { schedule, year, dispatch } = useScheduleContext()
-  const { isLoading, isError, error } = useQuery({
-    queryKey: ['season', year],
-    queryFn: () => SeasonModel.query(year),
-    onSuccess: data => dispatch({ type: 'SET_SCHEDULE', payload: data })
-  })
+	const { year } = useParams()
+	const navigate = useNavigate()
+
+	const { isLoading, isError, error } = useQuery({
+		queryKey: ['lastRound'],
+		queryFn: WeekendModel.queryLast,
+		onSuccess: ({ year }) =>
+			navigate(`./${year}`, { replace: true }),
+		enabled: !year,
+	})
 
   return (
     <div className="schedule-content">
-      {isLoading && <SkeletonGrid counter={9} />}
-      {isError && <Error error={error} />}
+      {isLoading && <CircularProgress />}
 
-      {schedule && (
-        <>
+      {year && (
+        <ScheduleFilterContextProvider>
           <ScheduleFilter />
-          <WeekendList />
-        </>
+        </ScheduleFilterContextProvider>
       )}
+
+      {isError && <p className="error__element">{error.message}</p>}
+
+      <Outlet />
     </div>
   )
 }

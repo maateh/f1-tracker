@@ -23,7 +23,7 @@ class DriverLapsListing {
 
 	constructor(season, pages) {
     this.season = season
-		this.title = `${season.year} ${this.weekend.name} {DRIVER_NAME} Lap Timings`
+		this.title = `${season.year} ${this.weekend.name} Lap Timings - ${this.driver}`
 
 		this.header = [
 			{ key: 'lap', placeholder: 'Lap' },
@@ -43,12 +43,16 @@ class DriverLapsListing {
 		}))
 
 		this.pagination = {
-			max: parseInt(pages)
+			max: parseInt(pages.amount)
 		}
 	}
 
   get weekend() {
 		return this.season.weekends[0]
+	}
+
+	get driver() {
+		return this.weekend.laps[0].timings[0].driverId
 	}
 }
 

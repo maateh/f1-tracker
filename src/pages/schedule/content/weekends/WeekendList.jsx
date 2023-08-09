@@ -1,22 +1,35 @@
+import { useLoaderData } from "react-router-dom"
+import { useQuery } from "react-query"
+
 // components
 import WeekendCard from "./weekend/WeekendCard"
-
-// context
-import { useScheduleContext } from "../../context/hooks/useScheduleContext"
+import SkeletonGrid from "../../../../components/skeleton/SkeletonGrid"
+import Error from "../../../../components/error/Error"
 
 // styles
 import './WeekendList.css'
 
 const WeekendList = () => {
-  const { schedule } = useScheduleContext()
+  const { queryKey, queryFn } = useLoaderData()
+  const { isLoading, isError, error, data } = useQuery({
+    queryKey, 
+    queryFn
+  })
 
   return (
     <div className="weekend-list__container">
-      <h2 className="season-year">{schedule.year}</h2>
+      {isLoading && <SkeletonGrid counter={9} />}
+      {isError && <Error error={error} />}
 
-      <div className="weekend-list">
-        {schedule.weekends.map(weekend => <WeekendCard key={weekend.round} weekend={weekend} />)}
-      </div>
+      {!isLoading && !isError && data && (
+        <>
+          <h2 className="season-year">{data.year}</h2>
+          
+          <div className="weekend-list">
+            {data.weekends.map(weekend => <WeekendCard key={weekend.round} weekend={weekend} />)}
+          </div>
+        </>
+      )}
     </div>
   )
 }
