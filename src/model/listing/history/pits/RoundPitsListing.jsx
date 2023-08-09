@@ -1,11 +1,11 @@
 // api
 import { pitStops } from "../../../../api/history";
-import QueryError from "../../../error/QueryError";
 
 // models
 import Season from "../../../season/Season";
+import QueryError from "../../../error/QueryError";
 
-class PitsListing {
+class RoundPitsListing {
   static async query(year, round, page) {
     return pitStops(year, round, page)
       .then(({ info, data }) => {
@@ -14,7 +14,7 @@ class PitsListing {
         if (!season.weekends) {
           throw new QueryError('No data found!', 404)
         }
-        return new PitsListing(season, pages)
+        return new RoundPitsListing(season, pages)
       })
 			.catch(err => {
 				throw new QueryError(err.message, err.code)
@@ -54,4 +54,4 @@ class PitsListing {
 	}
 }
 
-export default PitsListing
+export default RoundPitsListing

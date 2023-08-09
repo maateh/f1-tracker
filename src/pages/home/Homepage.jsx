@@ -9,9 +9,9 @@ import './Homepage.css'
 
 const Homepage = () => {
   return (
-    <main className="home-page__container">
+    <main className="page__container">
       <h1 className="page__title">
-        Track the most <span className="highlight">Formula 1</span> statistics in one place!
+        Track the most <span className="highlight home">Formula 1</span> statistics in one place!
       </h1>
 
       <WeekendContextProvider>

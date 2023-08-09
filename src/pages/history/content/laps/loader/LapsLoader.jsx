@@ -1,6 +1,6 @@
-// loaders
-import { roundLapsLoader } from './round/RoundLapsLoader'
-import { driverLapsLoader } from './driver/DriverLapsLoader'
+// queries
+import { roundLapsQuery } from './query/RoundLapsQuery'
+import { driverLapsQuery } from './query/DriverLapsQuery'
 
 // models
 import FilterOption from '../../../../../model/filter/FilterOption'
@@ -9,8 +9,7 @@ export const lapsLoader = ({ params, request: { url: rawUrl } }) => {
   const url = new URL(rawUrl)
   const page = url.searchParams.get('page') || 1
 
-  if (params.driverId === FilterOption.ALL.value) {
-    return roundLapsLoader({ ...params, page })
-  }
-  return driverLapsLoader({ ...params, page })
+  return params.driverId === FilterOption.ALL.value ?
+    roundLapsQuery({ ...params, page }) : 
+    driverLapsQuery({ ...params, page })
 }

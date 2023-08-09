@@ -36,6 +36,11 @@ a {
 
 
 /* global classes */
+.page__container {
+  max-width: 120rem;
+  margin: 1rem auto;
+  text-align: center;
+}
 .page__title {
   max-width: 45rem;
   margin: 4rem auto;

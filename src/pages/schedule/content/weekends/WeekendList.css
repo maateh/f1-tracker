@@ -1,8 +1,8 @@
 /* season title */
 .weekend-list__container > h2.season-year {
   width: 18rem;
-  margin: 3rem auto;
-  padding: 1.2rem 0 0.8rem;
+  margin: 1rem auto 2rem;
+  padding: 0.8rem 0;
   font-size: 4rem;
   font-weight: bold;
   letter-spacing: 0.6rem;

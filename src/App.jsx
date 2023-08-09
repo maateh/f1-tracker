@@ -6,9 +6,7 @@ import Main from './layouts/Main'
 // pages & components
 import Homepage from './pages/home/Homepage'
 import SchedulePage from './pages/schedule/SchedulePage'
-
 import ResultsPage from './pages/results/ResultsPage'
-
 import HistoryPage from './pages/history/HistoryPage'
 import LapsHistory from './pages/history/content/laps/LapsHistory'
 import PitsHistory from './pages/history/content/pits/PitsHistory'
@@ -22,7 +20,6 @@ import NotFound from './components/error/NotFound'
 import { resultsLoader } from './pages/results/loader/ResultsLoader'
 import { lapsLoader } from './pages/history/content/laps/loader/LapsLoader'
 import { pitsLoader } from './pages/history/content/pits/loader/PitsLoader'
-
 
 const router = createBrowserRouter([
   {
@@ -69,6 +66,10 @@ const router = createBrowserRouter([
                 path: ":year/:round/:driverId",
                 loader: lapsLoader,
                 element: <Listing />
+              },
+              {
+                path: "*",
+                element: <Navigate to="./" />
               }
             ]
           },
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
                 path: ":year/:round/:driverId",
                 loader: pitsLoader,
                 element: <Listing /> 
+              },
+              {
+                path: "*",
+                element: <Navigate to="./" />
               }
             ]
           },

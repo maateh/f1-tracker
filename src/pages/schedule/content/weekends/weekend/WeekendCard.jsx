@@ -32,7 +32,7 @@ const WeekendCard = ({ weekend }) => {
         </div>
       )}
 
-      <Link className="results-info" to={`/results/${weekend.year}/${weekend.round}/summary`}>Weekend results</Link>
+      <Link className="results-info" to={`/results/${weekend.year}/rounds/${weekend.round}/race`}>Weekend results</Link>
       <Link className="wiki-info" to={weekend.wikiUrl}>More info</Link>
 
       <p className="round">#{weekend.round}</p>

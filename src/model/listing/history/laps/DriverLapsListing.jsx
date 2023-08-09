@@ -1,9 +1,9 @@
 // api
-import { driverLaps } from '../../../../../api/history'
+import { driverLaps } from '../../../../api/history'
 
 // model
-import Season from '../../../../season/Season'
-import QueryError from '../../../../error/QueryError'
+import Season from '../../../season/Season'
+import QueryError from '../../../error/QueryError'
 
 class DriverLapsListing {
 	static async query(year, round, driverId, page) {

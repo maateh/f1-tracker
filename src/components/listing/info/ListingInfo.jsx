@@ -7,7 +7,7 @@ import './ListingInfo.css'
 const ListingInfo = ({ title, info }) => {
   return (
     <div className="listing-info__container">
-      <h2>{title}</h2>
+      <h2 className="listing-title">{title}</h2>
 
       <div className="listing-category__container">
         {info?.map(info => <InfoCard info={info} key={info.category} />)}

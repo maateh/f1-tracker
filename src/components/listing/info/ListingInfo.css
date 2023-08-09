@@ -4,7 +4,7 @@
 }
 
 /* filter info title */
-.listing-info__container > h2 {
+.listing-info__container > h2.listing-title {
   width: 100%;
   margin: 2rem auto;
   padding: 0.7rem 0;
@@ -73,7 +73,7 @@
 }
 
 @media (max-width: 30rem) {
-  .listing-info__container > h2 {
+  .listing-info__container > h2.listing-title {
     font-size: 1.8rem;
   }
 
@@ -87,5 +87,11 @@
 
   .listing-category__container > .category-card .category-data .category-data-desc {
     font-size: 1rem;
+  }
+}
+
+@media (min-width: 121rem) {
+  .listing-info__container > h2.listing-title {
+    border-radius: 16px;
   }
 }

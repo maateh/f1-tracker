@@ -1,15 +1,9 @@
-.home-page__container {
-  max-width: 100rem;
-  margin: 1rem auto;
-  text-align: center;
-}
-
-.home-page__container > .page__title > span {
+.page__title > span.home {
   font-size: 4.5rem;
 }
 
 @media (max-width: 50rem) {
-  .home-page__container > .page__title > span {
+  .page__title > span.home {
     font-size: 3.5rem;
   }
 }

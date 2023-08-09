@@ -1,10 +1,10 @@
 // api
-import { raceLap } from '../../../../../api/history'
-import { raceResults } from '../../../../../api/results'
+import { raceLap } from '../../../../api/history'
+import { raceResults } from '../../../../api/results'
 
 // model
-import Season from '../../../../season/Season'
-import QueryError from '../../../../error/QueryError'
+import Season from '../../../season/Season'
+import QueryError from '../../../error/QueryError'
 
 class RoundLapsListing {
 	static async query(year, round, lap) {
@@ -24,7 +24,7 @@ class RoundLapsListing {
 
 	constructor(season, pages) {
     this.season = season
-		this.title = `${season.year} ${this.weekend.name} Lap Timings`
+		this.title = `${season.year} ${this.weekend.name} Lap Timings Lap: ${this.currentLap.number}`
 
 		this.header = [
 			{ key: 'position', placeholder: 'Position' },
