@@ -38,12 +38,6 @@
   letter-spacing: 1px;
   text-transform: uppercase;
 }
-.listing-table__container thead th span.listing-table-sorting__icon {
-  cursor: pointer;
-  position: absolute;
-  padding: 0 0.2rem;
-  margin: 0 0.2rem;
-}
 
 /* table data */
 .listing-table__container td {

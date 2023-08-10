@@ -2,33 +2,37 @@ import { useQuery } from "react-query"
 import { useLoaderData } from "react-router-dom"
 
 // components
-import ListingInfo from "./info/ListingInfo"
+// import ListingInfo from "./info/ListingInfo"
+// import ListingTable from "./table/ListingTable"
+// import Pagination from "../pagination/Pagination"
+import ListingTitle from "./title/ListingTitle"
 import ListingTable from "./table/ListingTable"
-import Pagination from "../pagination/Pagination"
 import Error from "../error/Error"
 
 // icons
 import CircularProgress from '@mui/material/CircularProgress'
 
 const Listing = () => {
-  const { queryKey, queryFn } = useLoaderData()
+  const query = useLoaderData()
 
-  const { isLoading, isError, error, data } = useQuery({
-    queryKey, 
-    queryFn
-  })
+  const { 
+    isLoading, 
+    isError, 
+    error, 
+    data: listing 
+  } = useQuery(query)
 
   return (
     <div className="listing__container">
       {isLoading && <CircularProgress />}
       {isError && <Error error={error} />}
 
-      {!isLoading && !isError && data && (
+      {!isLoading && !isError && listing && (
         <>
-          <ListingInfo title={data.title} info={data.info} />
-          <ListingTable header={data.header} table={data.table} />
+          {listing.title && <ListingTitle title={listing.title} />}
+          {listing.table && <ListingTable table={listing.table} />}
 
-          {data.pagination && <Pagination max={data.pagination.max} />}
+          {/* {listing.pagination && <Pagination max={listing.pagination} />} */}
         </>
       )}
     </div>

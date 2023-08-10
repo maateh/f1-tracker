@@ -1,74 +1,74 @@
 // queries
-import { seasonQuery } from './query/rounds/SeasonQuery'
-import { weekendRaceQuery } from './query/rounds/WeekendRaceQuery'
-import { weekendQualifyingQuery } from './query/rounds/WeekendQualifyingQuery'
-import { driverStandingsQuery } from './query/drivers/DriverStandingsQuery'
-import { driverRacesQuery } from './query/drivers/DriverRacesQuery'
-import { driverQualifyingsQuery } from './query/drivers/DriverQualifyingsQuery'
-import { constructorStandingsQuery } from './query/constructors/ConstructorStandingsQuery'
-import { constructorRacesQuery } from './query/constructors/ConstructorRacesQuery'
+import { getSeasonQuery } from './query/rounds/SeasonQuery'
+import { getWeekendRaceQuery } from './query/rounds/WeekendRaceQuery'
+import { getWeekendQualifyingQuery } from './query/rounds/WeekendQualifyingQuery'
+import { getDriverStandingsQuery } from './query/drivers/DriverStandingsQuery'
+import { getDriverRacesQuery } from './query/drivers/DriverRacesQuery'
+import { getDriverQualifyingsQuery } from './query/drivers/DriverQualifyingsQuery'
+import { getConstructorStandingsQuery } from './query/constructors/ConstructorStandingsQuery'
+import { getConstructorRacesQuery } from './query/constructors/ConstructorRacesQuery'
 
 export const resultsLoader = ({ params }) => {
 	switch (params.standings) {
 		case 'rounds':
-			return roundsRouting(params)
+			return routeRounds(params)
 		case 'drivers':
-			return driversRouting(params)
+			return routeDrivers(params)
 		case 'constructors':
-			return constructorsRouting(params)
+			return routeConstructors(params)
 		default:
-			return roundsRouting(params)
+			return routeRounds(params)
 	}
 }
 
 // ROUNDS ROUTES
-const roundsRouting = params => {
+const routeRounds = params => {
 	switch (params.id) {
 		case 'all':
-			return seasonQuery(params)
+			return getSeasonQuery(params)
 		default:
-			return roundSessionRouting(params)
+			return routeRoundSession(params)
 	}
 }
 
-const roundSessionRouting = params => {
+const routeRoundSession = params => {
 	switch (params.session) {
 		case 'race':
-			return weekendRaceQuery(params)
+			return getWeekendRaceQuery(params)
 		case 'qualifying':
-			return weekendQualifyingQuery(params)
+			return getWeekendQualifyingQuery(params)
 		default:
-			return weekendRaceQuery(params)
+			return getWeekendRaceQuery(params)
 	}
 }
 
 // DRIVERS ROUTES
-const driversRouting = params => {
+const routeDrivers = params => {
 	switch (params.id) {
 		case 'all':
-			return driverStandingsQuery(params)
+			return getDriverStandingsQuery(params)
 		default:
-			return driverSessionRouting(params)
+			return routeDriverSession(params)
 	}
 }
 
-const driverSessionRouting = params => {
+const routeDriverSession = params => {
 	switch (params.session) {
 		case 'race':
-			return driverRacesQuery(params)
+			return getDriverRacesQuery(params)
 		case 'qualifying':
-			return driverQualifyingsQuery(params)
+			return getDriverQualifyingsQuery(params)
 		default:
-			return driverRacesQuery(params)
+			return getDriverRacesQuery(params)
 	}
 }
 
 // CONSTRUCTORS ROUTES
-const constructorsRouting = params => {
+const routeConstructors = params => {
 	switch (params.id) {
 		case 'all':
-			return constructorStandingsQuery(params)
+			return getConstructorStandingsQuery(params)
 		default:
-			return constructorRacesQuery(params)
+			return getConstructorRacesQuery(params)
 	}
 }

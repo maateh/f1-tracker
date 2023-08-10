@@ -1,29 +1,45 @@
+import { useState } from 'react'
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table'
+
+// components
+import ListingTableSorting from './ListingTableSorting'
+
 // styles
 import './ListingTable.css'
 
-const ListingTable = ({ header, table }) => {
+const ListingTable = ({ table: { columns, data } }) => {
+	const [sorting, setSorting] = useState([])
+ 
+	const table = useReactTable({
+		data,
+		columns,
+		getCoreRowModel: getCoreRowModel(),
+		getSortedRowModel: getSortedRowModel(),
+		state: { sorting },
+		onSortingChange: setSorting
+	})
+
 	return (
 		<div className="listing-table__container">
 			<table>
 				<thead>
-					<tr>
-						{header?.map(elem => (
-							<th key={elem.key}>{elem.placeholder}</th>
-						))}
-					</tr>
+					{table.getHeaderGroups().map(({ id, headers }) => (
+						<tr key={id}>
+							{headers.map(({ id, column, getContext }) => (
+								<th key={id}>
+									{flexRender(column.columnDef.header, getContext())}
+									<ListingTableSorting column={column} />
+								</th>
+							))}
+						</tr>
+					))}
 				</thead>
 				<tbody>
-					{table?.map(row => (
-						<tr key={row.key}>
-							{row.data.map(cell => (
-								<td className={cell.key} key={cell.key}>
-									{Array.isArray(cell.data)
-										? cell.data.map(cd => (
-												<p className={cd.key} key={cd.key}>
-													{cd.data}
-												</p>
-										  ))
-										: <p>{cell.data}</p>}
+					{table.getRowModel().rows.map(({ id, getVisibleCells }) => (
+						<tr key={id}>
+							{getVisibleCells().map(({ id, column, getContext }) => (
+								<td key={id}>
+									{flexRender(column.columnDef.cell, getContext())}
 								</td>
 							))}
 						</tr>

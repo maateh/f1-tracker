@@ -77,8 +77,8 @@ const router = createBrowserRouter([
             children: [
               {
                 path: ":year/:round/:driverId",
-                loader: lapsLoader,
-                element: <Listing />
+                element: <Listing />,
+                loader: lapsLoader
               },
               {
                 path: "*",
@@ -92,8 +92,8 @@ const router = createBrowserRouter([
             children: [
               {
                 path: ":year/:round/:driverId",
-                loader: pitsLoader,
-                element: <Listing /> 
+                element: <Listing />,
+                loader: pitsLoader
               },
               {
                 path: "*",

@@ -1,17 +1,10 @@
-// components
-import InfoCard from "./card/InfoCard"
-
 // styles
-import './ListingInfo.css'
+// import './ListingInfo.css'
 
-const ListingInfo = ({ title, info }) => {
+const ListingInfo = () => {
   return (
     <div className="listing-info__container">
-      <h2 className="listing-title">{title}</h2>
-
-      <div className="listing-category__container">
-        {info?.map(info => <InfoCard info={info} key={info.category} />)}
-      </div>
+      ListingInfoComponent
     </div>
   )
 }
