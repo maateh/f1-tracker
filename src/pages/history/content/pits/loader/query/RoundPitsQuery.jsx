@@ -26,6 +26,11 @@ export const getRoundPitsQuery = ({ year, round, page }) => ({
         table: new ListingTableModel({
           columns: [
             {
+              header: 'Lap',
+              accessorKey: 'lap',
+              enableSorting: true
+            },
+            {
               header: 'Stops',
               accessorKey: 'stops',
               enableSorting: true
@@ -33,11 +38,6 @@ export const getRoundPitsQuery = ({ year, round, page }) => ({
             {
               header: 'Driver',
               accessorKey: 'driver',
-              enableSorting: true
-            },
-            {
-              header: 'Lap',
-              accessorKey: 'lap',
               enableSorting: true
             },
             {
@@ -52,9 +52,9 @@ export const getRoundPitsQuery = ({ year, round, page }) => ({
             },
           ],
           data: weekend.pits.map(pit => ({
+            lap: pit.lap,
             stops: pit.stop,
             driver: pit.driverId,
-            lap: pit.lap,
             time: pit.time,
             duration: pit.duration,
           })),

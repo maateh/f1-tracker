@@ -26,13 +26,13 @@ export const getDriverPitsQuery = ({ year, round, driverId }) => ({
         table: new ListingTableModel({
           columns: [
             {
-              placeholder: 'Stops',
-              accessorKey: 'stops',
+              placeholder: 'Lap',
+              accessorKey: 'lap',
               enableSorting: true
             },
             {
-              placeholder: 'Lap',
-              accessorKey: 'lap',
+              placeholder: 'Stops',
+              accessorKey: 'stops',
               enableSorting: true
             },
             {
@@ -47,8 +47,8 @@ export const getDriverPitsQuery = ({ year, round, driverId }) => ({
             },
           ],
           data: weekend.pits.map(pit => ({
-            stops: pit.stop,
             lap: pit.lap,
+            stops: pit.stop,
             time: pit.time,
             duration: pit.duration,
           }))
