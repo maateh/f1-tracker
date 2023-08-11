@@ -12,9 +12,13 @@ import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt'
 // api
 import { driverQualifyingsResults } from "../../../../../api/results"
 
+// components
+import ResultsCard from '../../../content/card/ResultsCard'
+
 // models
 import SeasonModel from "../../../../../model/season/Season"
 import ListingModel from "../../../../../model/listing/Listing"
+import ListingCardsModel from '../../../../../model/listing/ListingCards'
 import ListingTableModel from "../../../../../model/listing/ListingTable"
 import ListingTitleModel from "../../../../../model/listing/ListingTitle"
 import QueryError from "../../../../../model/error/QueryError"
@@ -33,7 +37,34 @@ export const getDriverQualifyingsQuery = ({ year, id: driverId }) => ({
       return new ListingModel({
         title: new ListingTitleModel({
           main: `${season.year} Qualifying Results`,
-          sub: `Driver - ${getDriver(season).fullName} ${getDriver(season).formattedNumber}`
+          sub: `Selected Driver | ${getDriver(season).fullName} ${getDriver(season).formattedNumber}`
+        }),
+        cards: new ListingCardsModel({
+          styles: {
+            margin: '2rem',
+            display: 'flex',
+            gap: '1.5rem'
+          },
+          layouts: [
+            {
+              title: 'Driver Information',
+              summaries: [
+                { title: 'Full Name', desc: getDriver(season).fullName, icon: <SportsMotorsportsIcon /> },
+                { title: 'Nationality', desc: getDriver(season).nationality, icon: <PublicIcon /> },
+                { title: 'Date of Birth', desc: getDriver(season).dateOfBirth, icon: <CakeIcon /> },
+                { title: 'Driver code, number', desc: `${getDriver(season).code} ${getDriver(season).formattedNumber}`, icon: <TagIcon /> },
+              ]
+            },
+            {
+              title: 'Driver Achievements',
+              summaries: [
+                { title: 'Pole Positions', desc: poles(season), icon: <WorkspacePremiumIcon /> },
+                { title: 'Got to the Front Row', desc: frontRows(season), icon: <UnfoldLessDoubleIcon /> },
+                { title: 'Reached Q3', desc: reachedQ3(season), icon: <StarHalfIcon /> },
+                { title: 'Eliminated in Q1', desc: eliminated(season), icon: <ThumbDownOffAltIcon /> }
+              ]
+            },
+          ].map(card => <ResultsCard key={card.title} card={card} />)
         }),
         table: new ListingTableModel({
           columns: [
@@ -131,25 +162,3 @@ const eliminated = season => (
       .map(r => r.driver.code)
   )).flat(1).length + ' times in this season'
 )
-
-
-// this.info = [
-//   {
-//     category: 'Driver Information',
-//     data: [
-//       { title: 'Full Name', desc: this.driver.fullName, icon: <SportsMotorsportsIcon /> },
-//       { title: 'Nationality', desc: this.driver.nationality, icon: <PublicIcon /> },
-//       { title: 'Date of Birth', desc: this.driver.dateOfBirth, icon: <CakeIcon /> },
-//       { title: 'Driver code, number', desc: `${this.driver.code} ${this.driver.formattedNumber}`, icon: <TagIcon /> },
-//     ]
-//   },
-//   {
-//     category: 'Driver Achievements',
-//     data: [
-//       { title: 'Pole Positions', desc: this.poles(), icon: <WorkspacePremiumIcon /> },
-//       { title: 'Got to the Front Row', desc: this.frontRows(), icon: <UnfoldLessDoubleIcon /> },
-//       { title: 'Reached Q3', desc: this.reachedQ3(), icon: <StarHalfIcon /> },
-//       { title: 'Eliminated in Q1', desc: this.eliminated(), icon: <ThumbDownOffAltIcon /> }
-//     ]
-//   },
-// ]

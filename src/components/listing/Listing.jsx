@@ -1,12 +1,11 @@
-import { useQuery } from "react-query"
 import { useLoaderData } from "react-router-dom"
+import { useQuery } from "react-query"
 
 // components
-// import ListingInfo from "./info/ListingInfo"
-// import ListingTable from "./table/ListingTable"
-// import Pagination from "../pagination/Pagination"
 import ListingTitle from "./title/ListingTitle"
+import ListingCards from "./cards/ListingCards"
 import ListingTable from "./table/ListingTable"
+import Pagination from "../pagination/Pagination"
 import Error from "../error/Error"
 
 // icons
@@ -14,7 +13,6 @@ import CircularProgress from '@mui/material/CircularProgress'
 
 const Listing = () => {
   const query = useLoaderData()
-
   const { 
     isLoading, 
     isError, 
@@ -30,9 +28,10 @@ const Listing = () => {
       {!isLoading && !isError && listing && (
         <>
           {listing.title && <ListingTitle title={listing.title} />}
+          {listing.cards && <ListingCards cards={listing.cards} />}
           {listing.table && <ListingTable table={listing.table} />}
 
-          {/* {listing.pagination && <Pagination max={listing.pagination} />} */}
+          {/* {listing.table.pagination && <Pagination max={listing.table.pagination} />} */}
         </>
       )}
     </div>

@@ -22,7 +22,7 @@ export const getDriverLapsQuery = ({ year, round, driverId, page }) => ({
       return new ListingModel({
         title: new ListingTitleModel({
           main: `${weekend.year} ${weekend.name} Lap Timings`,
-          sub: `Driver - ${getDriver(weekend)}`
+          sub: `Selected Driver | ${getDriver(weekend)}`
         }),
         table: new ListingTableModel({
           columns: [

@@ -1,6 +1,4 @@
-import SeasonModel from "../../../model/season/Season";
+// query
+import { getScheduleQuery } from "./query/ScheduleQuery";
 
-export const scheduleLoader = ({ params: { year } }) => ({
-  queryKey: ['listing', 'season', year], 
-  queryFn: () => SeasonModel.query(year)
-})
+export const scheduleLoader = ({ params }) => getScheduleQuery(params)

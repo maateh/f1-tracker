@@ -16,11 +16,15 @@ import WarningIcon from '@mui/icons-material/Warning'
 // api
 import { qualifyingsResults, racesResults } from '../../../../../api/results'
 
+// components
+import ResultsCard from '../../../content/card/ResultsCard'
+
 // models
 import SeasonModel from '../../../../../model/season/Season'
 import ResultModel from '../../../../../model/season/weekend/result/Result'
 import ListingModel from '../../../../../model/listing/Listing'
 import ListingTitleModel from '../../../../../model/listing/ListingTitle'
+import ListingCardsModel from '../../../../../model/listing/ListingCards'
 import ListingTableModel from '../../../../../model/listing/ListingTable'
 import QualifyingModel from '../../../../../model/season/weekend/result/qualifying/Qualifying'
 import QueryError from '../../../../../model/error/QueryError'
@@ -43,6 +47,41 @@ export const getSeasonQuery = ({ year }) => ({
       return new ListingModel({
         title: new ListingTitleModel({
           main: `${season.year} Season Results`
+        }),
+        cards: new ListingCardsModel({
+          styles: {
+            margin: '2rem',
+            display: 'flex',
+            gap: '1.5rem'
+          },
+          layouts: [
+            {
+              title: 'General Information',
+              summaries: [
+                { title: 'Drivers', desc: driversAmount(season), icon: <SportsMotorsportsIcon /> },
+                { title: 'Constructors', desc: constructorsAmount(season), icon: <EngineeringIcon /> },
+                { title: 'Race Weekends', desc: weekendsAmount(season), icon: <EventIcon /> },
+              ]
+            },
+            {
+              title: 'How many different?',
+              summaries: [
+                { title: 'Grand Prix Winners', desc: grandPrixWinners(season), icon: <EmojiEventsIcon /> },
+                { title: 'Pole Sitters', desc: poleSitters(season), icon: <WorkspacePremiumIcon /> },
+                { title: 'Drivers on Podium', desc: driversOnPodium(season), icon: <CelebrationIcon /> },
+                { title: 'Point Scorers', desc: pointScorers(season), icon: <PlusOneIcon /> },
+              ]
+            },
+            {
+              title: 'Drivers Races Status',
+              summaries: [
+                { title: 'Finished the Race', desc: finished(season), icon: <SportsScoreIcon /> },
+                { title: 'Drivers got a Lap', desc: gotALap(season), icon: <Timer10SelectIcon /> },
+                { title: 'Crashed in Race', desc: crashed(season), icon: <ErrorIcon /> },
+                { title: 'Mechanical Failures', desc: failures(season), icon: <WarningIcon /> }
+              ]
+            },
+          ].map(card => <ResultsCard key={card.title} card={card} />)
         }),
         table: new ListingTableModel({
           columns: [
@@ -223,33 +262,3 @@ const fastest = weekend => (
   weekend.result.race
     .find(r => +r.fastestLap?.rank === 1)
 )
-
-
-// this.info = [
-//   {
-//     category: 'General Information',
-//     data: [
-//       { title: 'Drivers', desc: this.driversAmount(), icon: <SportsMotorsportsIcon /> },
-//       { title: 'Constructors', desc: this.constructorsAmount(), icon: <EngineeringIcon /> },
-//       { title: 'Race Weekends', desc: this.weekendsAmount(), icon: <EventIcon /> },
-//     ]
-//   },
-//   {
-//     category: 'How many different?',
-//     data: [
-//       { title: 'Grand Prix Winners', desc: this.grandPrixWinners(), icon: <EmojiEventsIcon /> },
-//       { title: 'Pole Sitters', desc: this.poleSitters(), icon: <WorkspacePremiumIcon /> },
-//       { title: 'Drivers on Podium', desc: this.driversOnPodium(), icon: <CelebrationIcon /> },
-//       { title: 'Point Scorers', desc: this.pointScorers(), icon: <PlusOneIcon /> },
-//     ]
-//   },
-//   {
-//     category: 'Drivers Races Status',
-//     data: [
-//       { title: 'Finished the Race', desc: this.finished(), icon: <SportsScoreIcon /> },
-//       { title: 'Drivers got a Lap', desc: this.gotALap(), icon: <Timer10SelectIcon /> },
-//       { title: 'Crashed in Race', desc: this.crashed(), icon: <ErrorIcon /> },
-//       { title: 'Mechanical Failures', desc: this.failures(), icon: <WarningIcon /> }
-//     ]
-//   },
-// ]

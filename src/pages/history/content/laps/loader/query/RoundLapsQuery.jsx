@@ -23,7 +23,7 @@ export const getRoundLapsQuery = ({ year, round, page: lap }) => ({
       return new ListingModel({
         title: new ListingTitle({
           main: `${weekend.year} ${weekend.name} Lap Timings`,
-          sub: `Current Lap #${getCurrentLap(weekend).number}`
+          sub: `Selected Lap | #${getCurrentLap(weekend).number}`
         }),
         table: new ListingTableModel({
           columns: [

@@ -18,8 +18,12 @@ import WarningIcon from '@mui/icons-material/Warning'
 import { driverRacesResults } from '../../../../../api/results'
 
 // models
+import ResultsCard from '../../../content/card/ResultsCard'
+
+// models
 import SeasonModel from '../../../../../model/season/Season'
 import ListingModel from "../../../../../model/listing/Listing"
+import ListingCardsModel from '../../../../../model/listing/ListingCards'
 import ListingTableModel from "../../../../../model/listing/ListingTable"
 import ListingTitleModel from "../../../../../model/listing/ListingTitle"
 import QueryError from '../../../../../model/error/QueryError'
@@ -37,7 +41,43 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
       return new ListingModel({
         title: new ListingTitleModel({
           main: `${season.year} Race Results`,
-          sub: `Driver - ${getDriver(season).fullName} ${getDriver(season).formattedNumber}`
+          sub: `Selected Driver | ${getDriver(season).fullName} ${getDriver(season).formattedNumber}`
+        }),
+        cards: new ListingCardsModel({
+          styles: {
+            margin: '2rem',
+            display: 'flex',
+            gap: '1.5rem'
+          },
+          layouts: [
+            {
+              title: 'Driver Information',
+              summaries: [
+                { title: 'Full Name', desc: getDriver(season).fullName, icon: <SportsMotorsportsIcon /> },
+                { title: 'Nationality', desc: getDriver(season).nationality, icon: <PublicIcon /> },
+                { title: 'Date of Birth', desc: getDriver(season).dateOfBirth, icon: <CakeIcon /> },
+                { title: 'Driver code, number', desc: `${getDriver(season).code} ${getDriver(season).formattedNumber}`, icon: <TagIcon /> },
+              ]
+            },
+            {
+              title: 'Driver Achievements',
+              summaries: [
+                { title: 'Win a Race', desc: win(season), icon: <EmojiEventsIcon /> },
+                { title: 'Podium Finish', desc: podium(season), icon: <CelebrationIcon /> },
+                { title: 'Fastest Lap', desc: fastestLaps(season), icon: <BoltIcon /> },
+                { title: 'Scoring Positions', desc: scoringPositions(season), icon: <PlusOneIcon /> }
+              ]
+            },
+            {
+              title: 'Driver Race Statuses',
+              summaries: [
+                { title: 'Finished the Race', desc: finished(season), icon: <SportsScoreIcon /> },
+                { title: 'Got a Lap', desc: gotALap(season), icon: <Timer10SelectIcon /> },
+                { title: 'Crashed in Race', desc: crashed(season), icon: <ErrorIcon /> },
+                { title: 'Mechanical Failures', desc: failures(season), icon: <WarningIcon /> }
+              ]
+            },
+          ].map(card => <ResultsCard key={card.title} card={card} />)
         }),
         table: new ListingTableModel({
           columns: [
@@ -137,7 +177,7 @@ const podium = season => (
 const fastestLaps = season => (
   season.weekends[0].result.race[0].fastestLap.time === '-' ?
     '-' :
-    this.season.weekends.map(w => (
+    season.weekends.map(w => (
       w.result.race
         .filter(r => +r.fastestLap.rank === 1)
     )).flat(1).length + ' times in this season'
@@ -184,34 +224,3 @@ const failures = season => (
       )
   )).flat(1).length + ' times in this season'
 )
-
-
-// this.info = [
-//   {
-//     category: 'Driver Information',
-//     data: [
-//       { title: 'Full Name', desc: this.driver.fullName, icon: <SportsMotorsportsIcon /> },
-//       { title: 'Nationality', desc: this.driver.nationality, icon: <PublicIcon /> },
-//       { title: 'Date of Birth', desc: this.driver.dateOfBirth, icon: <CakeIcon /> },
-//       { title: 'Driver code, number', desc: `${this.driver.code} ${this.driver.formattedNumber}`, icon: <TagIcon /> },
-//     ]
-//   },
-//   {
-//     category: 'Driver Achievements',
-//     data: [
-//       { title: 'Win a Race', desc: this.win(), icon: <EmojiEventsIcon /> },
-//       { title: 'Podium Finish', desc: this.podium(), icon: <CelebrationIcon /> },
-//       { title: 'Fastest Lap', desc: this.fastestLaps(), icon: <BoltIcon /> },
-//       { title: 'Scoring Positions', desc: this.scoringPositions(), icon: <PlusOneIcon /> }
-//     ]
-//   },
-//   {
-//     category: 'Driver Race Statuses',
-//     data: [
-//       { title: 'Finished the Race', desc: this.finished(), icon: <SportsScoreIcon /> },
-//       { title: 'Got a Lap', desc: this.gotALap(), icon: <Timer10SelectIcon /> },
-//       { title: 'Crashed in Race', desc: this.crashed(), icon: <ErrorIcon /> },
-//       { title: 'Mechanical Failures', desc: this.failures(), icon: <WarningIcon /> }
-//     ]
-//   },
-// ]

@@ -6,7 +6,6 @@ import Main from './layouts/Main'
 // pages & components
 import Homepage from './pages/home/Homepage'
 import SchedulePage from './pages/schedule/SchedulePage'
-import WeekendList from './pages/schedule/content/weekends/WeekendList'
 import ResultsPage from './pages/results/ResultsPage'
 import HistoryPage from './pages/history/HistoryPage'
 import LapsHistory from './pages/history/content/laps/LapsHistory'
@@ -38,7 +37,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: ":year",
-            element: <WeekendList />,
+            element: <Listing />,
             loader: scheduleLoader
           },
           {

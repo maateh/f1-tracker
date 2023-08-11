@@ -1,5 +1,5 @@
 /* season title */
-.weekend-list__container > h2.season-year {
+.listing-cards__container__container > h2.season-year {
   width: 18rem;
   margin: 1rem auto 2rem;
   padding: 0.8rem 0;
@@ -15,20 +15,10 @@
 
 
 /* weekend list & weekend-card */
-.weekend-list {
-  margin: 0 4rem;
-  font-size: 2rem;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 5rem;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-}
-.weekend-list > .weekend-card {
+.listing-cards__container > .weekend-card {
   height: 100%;
   width: 85%;
-  margin: auto;
+  margin: 1rem auto;
   padding: 1rem 1.5rem;
   
   border-top: 3px solid var(--secondary);
@@ -41,13 +31,13 @@
   justify-content: center;
   position: relative;
 }
-.weekend-list > .weekend-card:hover,
-.weekend-list > .weekend-card:active {
+.listing-cards__container > .weekend-card:hover,
+.listing-cards__container > .weekend-card:active {
   background: #ddd;
 }
 
 /* card basic info */
-.weekend-list > .weekend-card > .name {
+.listing-cards__container > .weekend-card > .name {
   margin-bottom: 0.2rem;
 
   color: var(--text-color);
@@ -58,18 +48,18 @@
   text-shadow: 1px 1px 5px rgba(50, 50, 50, 0.3);
   text-decoration: underline;
 }
-.weekend-list > .weekend-card .weekend-date {
+.listing-cards__container > .weekend-card .weekend-date {
   color: var(--text-color);
   font-size: 1.5rem;
   font-weight: lighter;
 }
-.weekend-list > .weekend-card .race-time {
+.listing-cards__container > .weekend-card .race-time {
   color: var(--text-color);
   font-size: 2rem;
 }
 
 /* card sprint info */
-.weekend-list > .weekend-card > .sprint-container .sprint-warn {
+.listing-cards__container > .weekend-card > .sprint-container .sprint-warn {
   margin-top: 1rem;
   margin-bottom: 0.1rem;
   color: var(--text-color);
@@ -77,35 +67,35 @@
   text-decoration: overline;
   text-shadow: 1px 1px 0 rgba(50, 50, 50, 0.3);
 }
-.weekend-list > .weekend-card > .sprint-container .sprint-time {
+.listing-cards__container > .weekend-card > .sprint-container .sprint-time {
   font-size: 1.5rem;
   font-weight: lighter;
 }
-.weekend-list > .weekend-card > .sprint-container .sprint-time:first-of-type {
+.listing-cards__container > .weekend-card > .sprint-container .sprint-time:first-of-type {
   margin-right: 1rem;
 }
 
 /* card session datetime */
-.weekend-list > .weekend-card .datetime-container {
+.listing-cards__container > .weekend-card .datetime-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.weekend-list > .weekend-card .datetime-container > .time {
+.listing-cards__container > .weekend-card .datetime-container > .time {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.weekend-list > .weekend-card .datetime-container > svg {
+.listing-cards__container > .weekend-card .datetime-container > svg {
   color: #555;
 }
-.weekend-list > .weekend-card .datetime-container > span {
+.listing-cards__container > .weekend-card .datetime-container > span {
   margin-left: 0.5rem;
 }
 
 
 /* card links */
-.weekend-list > .weekend-card > a.results-info {
+.listing-cards__container > .weekend-card > a.results-info {
   margin: 0.8rem auto 0;
   padding: 0.3rem 0.7rem;
   background: var(--primary);
@@ -116,11 +106,11 @@
   letter-spacing: 1px;
   color: var(--text-color-light);
 }
-.weekend-list > .weekend-card > a.results-info:hover,
-.weekend-list > .weekend-card > a.results-info:active {
+.listing-cards__container > .weekend-card > a.results-info:hover,
+.listing-cards__container > .weekend-card > a.results-info:active {
   background: var(--highlight);
 }
-.weekend-list > .weekend-card > a.wiki-info {
+.listing-cards__container > .weekend-card > a.wiki-info {
   width: fit-content;
   margin: 0.4rem auto;
 
@@ -130,7 +120,7 @@
 }
 
 /* card footer */
-.weekend-list > .weekend-card > .round {
+.listing-cards__container > .weekend-card > .round {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -148,51 +138,51 @@
 }
 
 @media (max-width: 95rem) {
-  .weekend-list {
+  .listing-cards__container {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .weekend-list > .weekend-card {
+  .listing-cards__container > .weekend-card {
     width: 35vw;
   }
 }
 
 @media (max-width: 60rem) {
-  .weekend-list {
+  .listing-cards__container {
     grid-template-columns: 1fr;
   }
 
-  .weekend-list > .weekend-card {
+  .listing-cards__container > .weekend-card {
     width: 60vw;
   }
 }
 
 @media (max-width: 40rem) {
   /* card basic info */
-  .weekend-list > .weekend-card > .name {
+  .listing-cards__container > .weekend-card > .name {
     font-size: 1.5rem;
   }
-  .weekend-list > .weekend-card .weekend-date {
+  .listing-cards__container > .weekend-card .weekend-date {
     font-size: 1.2rem;
   }
-  .weekend-list > .weekend-card .race-time {
+  .listing-cards__container > .weekend-card .race-time {
     font-size: 1.6rem;
   }
 
   /* card sprint info */
-  .weekend-list > .weekend-card > .sprint-container .sprint-warn {
+  .listing-cards__container > .weekend-card > .sprint-container .sprint-warn {
     font-size: 1.5rem;
   }
-  .weekend-list > .weekend-card > .sprint-container .sprint-time {
+  .listing-cards__container > .weekend-card > .sprint-container .sprint-time {
     font-size: 1.2rem;
     font-weight: lighter;
   }
 
   /* card links */
-  .weekend-list > .weekend-card > a.results-info {
+  .listing-cards__container > .weekend-card > a.results-info {
     font-size: 1rem;
   }
-  .weekend-list > .weekend-card > a.wiki-info {
+  .listing-cards__container > .weekend-card > a.wiki-info {
     font-size: 1rem;
   }
 }

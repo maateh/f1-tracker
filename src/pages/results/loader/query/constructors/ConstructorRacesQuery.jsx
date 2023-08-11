@@ -17,10 +17,14 @@ import WarningIcon from '@mui/icons-material/Warning'
 // api
 import { constructorRacesResults } from '../../../../../api/results'
 
+// components
+import ResultsCard from '../../../content/card/ResultsCard'
+
 // models
 import SeasonModel from '../../../../../model/season/Season'
 import ListingModel from '../../../../../model/listing/Listing'
 import ListingTitleModel from '../../../../../model/listing/ListingTitle'
+import ListingCardsModel from '../../../../../model/listing/ListingCards'
 import ListingTableModel from '../../../../../model/listing/ListingTable'
 import QueryError from '../../../../../model/error/QueryError'
 
@@ -36,7 +40,44 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
 
       return new ListingModel({
         title: new ListingTitleModel({
-          main: `${season.year} Race Results - ${getTeam(season).name}`
+          main: `${season.year} Race Results`,
+          sub: `Selected Constructor | ${getTeam(season).name}`
+        }),
+        cards: new ListingCardsModel({
+          styles: {
+            margin: '2rem',
+            display: 'flex',
+            gap: '1.5rem'
+          },
+          layouts: [
+            {
+              title: 'Constructor Information',
+              summaries: [
+                { title: 'Team Name', desc: getTeam(season).name, icon: <EngineeringIcon /> },
+                { title: 'Nationality', desc: getTeam(season).nationality, icon: <PublicIcon /> },
+                { title: 'Drivers', desc: driversQuantity(season), icon: <SportsMotorsportsIcon /> },
+                { title: 'More info', desc: 'link to wiki', icon: <ContactSupportIcon /> },
+              ],
+            },
+            {
+              title: 'Constructor Achievements',
+              summaries: [
+                { title: 'Win a Race', desc: win(season), icon: <EmojiEventsIcon /> },
+                { title: 'Podium Finish', desc: podium(season), icon: <CelebrationIcon /> },
+                { title: 'Fastest Lap', desc: fastestLaps(season), icon: <BoltIcon /> },
+                { title: 'Scoring Positions', desc: scoringPositions(season), icon: <PlusOneIcon /> }
+              ]
+            },
+            {
+              title: 'Constructor Race Statuses',
+              summaries: [
+                { title: 'Finished the Race', desc: finished(season), icon: <SportsScoreIcon /> },
+                { title: 'Got a Lap', desc: gotALap(season), icon: <Timer10SelectIcon /> },
+                { title: 'Crashed in Race', desc: crashed(season), icon: <ErrorIcon /> },
+                { title: 'Mechanical Failures', desc: failures(season), icon: <WarningIcon /> }
+              ]
+            },
+          ].map(card => <ResultsCard key={card.title} card={card} />)
         }),
         table: new ListingTableModel({
           columns: [
@@ -207,33 +248,3 @@ const scorers = weekend => (
     .reduce((acc, curr) => `${acc} ${curr.driver.code}: ${curr.points} - `, '')
     .slice(0, -3)
 )
-
-// this.info = [
-//   {
-//     category: 'Constructor Information',
-//     data: [
-//       { title: 'Team Name', desc: this.team.name, icon: <EngineeringIcon /> },
-//       { title: 'Nationality', desc: this.team.nationality, icon: <PublicIcon /> },
-//       { title: 'Drivers', desc: this.driversQuantity(), icon: <SportsMotorsportsIcon /> },
-//       { title: 'More info', desc: 'link to wiki', icon: <ContactSupportIcon /> },
-//     ],
-//   },
-//   {
-//     category: 'Constructor Achievements',
-//     data: [
-//       { title: 'Win a Race', desc: this.win(), icon: <EmojiEventsIcon /> },
-//       { title: 'Podium Finish', desc: this.podium(), icon: <CelebrationIcon /> },
-//       { title: 'Fastest Lap', desc: this.fastestLaps(), icon: <BoltIcon /> },
-//       { title: 'Scoring Positions', desc: this.scoringPositions(), icon: <PlusOneIcon /> }
-//     ]
-//   },
-//   {
-//     category: 'Constructor Race Statuses',
-//     data: [
-//       { title: 'Finished the Race', desc: this.finished(), icon: <SportsScoreIcon /> },
-//       { title: 'Got a Lap', desc: this.gotALap(), icon: <Timer10SelectIcon /> },
-//       { title: 'Crashed in Race', desc: this.crashed(), icon: <ErrorIcon /> },
-//       { title: 'Mechanical Failures', desc: this.failures(), icon: <WarningIcon /> }
-//     ]
-//   },
-// ]

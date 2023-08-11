@@ -12,10 +12,14 @@ import WarningIcon from '@mui/icons-material/Warning'
 // api
 import { raceResults } from "../../../../../api/results"
 
+// components
+import ResultsCard from '../../../content/card/ResultsCard'
+
 // models
 import WeekendModel from "../../../../../model/season/weekend/Weekend"
 import ListingModel from "../../../../../model/listing/Listing"
 import ListingTitleModel from "../../../../../model/listing/ListingTitle"
+import ListingCardsModel from '../../../../../model/listing/ListingCards'
 import ListingTableModel from "../../../../../model/listing/ListingTable"
 import QueryError from "../../../../../model/error/QueryError"
 
@@ -28,10 +32,36 @@ export const getWeekendRaceQuery = ({ year, id: round }) => ({
       }
       
       const weekend = new WeekendModel(data.Races[0])
-
       return new ListingModel({
         title: new ListingTitleModel({
           main: `${weekend.year} ${weekend.name} Race Results`
+        }),
+        cards: new ListingCardsModel({
+          styles: {
+            margin: '2rem',
+            display: 'flex',
+            gap: '1.5rem'
+          },
+          layouts: [
+            {
+              title: 'Circuit Information',
+              summaries: [
+                { title: 'Circuit Name', desc: weekend.circuit.name, icon: <LabelIcon /> },
+                { title: 'Country', desc: weekend.circuit.location.country, icon: <PublicIcon /> },
+                { title: 'Locality', desc: weekend.circuit.location.locality, icon: <LocationOnIcon /> },
+                { title: 'More info', desc: 'link to wiki', icon: <ContactSupportIcon /> },
+              ]
+            },
+            {
+              title: 'Drivers Race Status',
+              summaries: [
+                { title: 'Finished the Race', desc: finished(weekend), icon: <SportsScoreIcon /> },
+                { title: 'Drivers got a Lap', desc: gotALap(weekend), icon: <Timer10SelectIcon /> },
+                { title: 'Crashed in Race', desc: crashed(weekend), icon: <ErrorIcon /> },
+                { title: 'Mechanical Failures', desc: failures(weekend), icon: <WarningIcon /> }
+              ]
+            },
+          ].map(card => <ResultsCard key={card.title} card={card} />)
         }),
         table: new ListingTableModel({
           columns: [
@@ -120,24 +150,3 @@ const failures = weekend => (
     )
     .length + ' drivers in this race'
 )
-
-// this.info = [
-//   {
-//     category: 'Circuit Information',
-//     data: [
-//       { title: 'Circuit Name', desc: weekend.circuit.name, icon: <LabelIcon /> },
-//       { title: 'Country', desc: weekend.circuit.location.country, icon: <PublicIcon /> },
-//       { title: 'Locality', desc: weekend.circuit.location.locality, icon: <LocationOnIcon /> },
-//       { title: 'More info', desc: 'link to wiki', icon: <ContactSupportIcon /> },
-//     ]
-//   },
-//   {
-//     category: 'Drivers Race Status',
-//     data: [
-//       { title: 'Finished the Race', desc: this.finished(weekend), icon: <SportsScoreIcon /> },
-//       { title: 'Drivers got a Lap', desc: this.gotALap(weekend), icon: <Timer10SelectIcon /> },
-//       { title: 'Crashed in Race', desc: this.crashed(weekend), icon: <ErrorIcon /> },
-//       { title: 'Mechanical Failures', desc: this.failures(weekend), icon: <WarningIcon /> }
-//     ]
-//   },
-// ]

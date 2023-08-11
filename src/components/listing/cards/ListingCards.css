@@ -1,0 +1,20 @@
+.listing-cards__container {
+  flex-flow: row wrap;
+  grid-template-columns: repeat(3, 1fr);
+
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+@media (max-width: 95rem) {
+  .listing-cards__container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 60rem) {
+  .listing-cards__container {
+    grid-template-columns: 1fr;
+  }
+}

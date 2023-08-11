@@ -7,10 +7,14 @@ import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 // api
 import { qualifyingResults } from "../../../../../api/results"
 
+// components
+import ResultsCard from '../../../content/card/ResultsCard'
+
 // models
 import WeekendModel from "../../../../../model/season/weekend/Weekend"
 import ListingModel from "../../../../../model/listing/Listing"
 import ListingTitleModel from "../../../../../model/listing/ListingTitle"
+import ListingCardsModel from '../../../../../model/listing/ListingCards'
 import ListingTableModel from "../../../../../model/listing/ListingTable"
 import QueryError from "../../../../../model/error/QueryError"
 
@@ -23,10 +27,27 @@ export const getWeekendQualifyingQuery = ({ year, id: round }) => ({
       }
 
       const weekend = new WeekendModel(data.Races[0])
-      
       return new ListingModel({
         title: new ListingTitleModel({
           main: `${weekend.year} ${weekend.name} Qualifying Results`
+        }),
+        cards: new ListingCardsModel({
+          styles: {
+            margin: '2rem',
+            display: 'flex',
+            gap: '1.5rem'
+          },
+          layouts: [
+            {
+              title: 'Circuit Information',
+              summaries: [
+                { title: 'Circuit Name', desc: weekend.circuit.name, icon: <LabelIcon /> },
+                { title: 'Country', desc: weekend.circuit.location.country, icon: <PublicIcon /> },
+                { title: 'Locality', desc: weekend.circuit.location.locality, icon: <LocationOnIcon /> },
+                { title: 'More info', desc: 'link to wiki', icon: <ContactSupportIcon /> },
+              ]
+            }
+          ].map(card => <ResultsCard key={card.title} card={card} />)
         }),
         table: new ListingTableModel({
           columns: [
@@ -76,15 +97,3 @@ export const getWeekendQualifyingQuery = ({ year, id: round }) => ({
       throw new QueryError(err.message, err.code)
     })
 })
-
-// this.info = [
-//   {
-//     category: 'Circuit Information',
-//     data: [
-//       { title: 'Circuit Name', desc: weekend.circuit.name, icon: <LabelIcon /> },
-//       { title: 'Country', desc: weekend.circuit.location.country, icon: <PublicIcon /> },
-//       { title: 'Locality', desc: weekend.circuit.location.locality, icon: <LocationOnIcon /> },
-//       { title: 'More info', desc: 'link to wiki', icon: <ContactSupportIcon /> },
-//     ]
-//   },
-// ]

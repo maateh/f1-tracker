@@ -17,14 +17,6 @@ class Season {
 		this.parseConstructors(data)
 	}
 
-	static async query(year) {
-		return season(year)
-			.then(({ data }) => new Season(data))
-			.catch(err => {
-				throw new QueryError(err.message)
-			})
-	}
-
 	parseWiki(data) {
 		if (data.url) {
 			this.wiki = data.url

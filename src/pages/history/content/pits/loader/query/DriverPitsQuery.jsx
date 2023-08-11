@@ -21,7 +21,7 @@ export const getDriverPitsQuery = ({ year, round, driverId }) => ({
       return new ListingModel({
         title: new ListingTitleModel({
           main: `${weekend.year} ${weekend.name} Pit Stops`,
-          sub: `Driver - ${weekend.pits[0].driverId}`
+          sub: `Selected Driver | ${weekend.pits[0].driverId}`
         }),
         table: new ListingTableModel({
           columns: [

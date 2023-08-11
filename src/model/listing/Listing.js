@@ -1,13 +1,13 @@
 // models
 import ListingTitle from "./ListingTitle"
+import ListingCards from "./ListingCards"
 import ListingTable from "./ListingTable"
-import ListingGrid from "./ListingGrid"
 
 class Listing {
-  constructor({ title, table, grid }) {
+  constructor({ title, cards, table }) {
     this.title = title && new ListingTitle(title)
+    this.cards = cards && new ListingCards(cards)
     this.table = table && new ListingTable(table)
-    this.grid = grid && new ListingGrid(grid)
   }
 }
 
