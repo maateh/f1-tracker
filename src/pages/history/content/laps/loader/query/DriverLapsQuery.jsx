@@ -6,6 +6,7 @@ import WeekendModel from "../../../../../../model/season/weekend/Weekend"
 import ListingModel from "../../../../../../model/listing/Listing"
 import ListingTitleModel from "../../../../../../model/listing/ListingTitle"
 import ListingTableModel from "../../../../../../model/listing/ListingTable"
+import ListingPaginationModel from "../../../../../../model/listing/ListingPagination"
 import QueryError from "../../../../../../model/error/QueryError"
 
 export const getDriverLapsQuery = ({ year, round, driverId, page }) => ({
@@ -46,9 +47,9 @@ export const getDriverLapsQuery = ({ year, round, driverId, page }) => ({
             lap: lap.number,
             position: lap.timings[0].position,
             time: lap.timings[0].time
-          })),
-          pagination: +pages
-        })
+          }))
+        }),
+        pagination: new ListingPaginationModel({ pages })
       })
     })
     .catch(err => {

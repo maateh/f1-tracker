@@ -9,7 +9,7 @@ import Error from "../../../components/error/Error"
 // context
 import { useWeekendContext } from "../context/hooks/useWeekendContext"
 
-// model
+// models
 import WeekendModel from "../../../model/season/weekend/Weekend"
 
 // styles
@@ -17,7 +17,7 @@ import './HomeContent.css'
 
 const HomeContent = () => {
   const { weekend, dispatch } = useWeekendContext()
-  const weekendQuery = useQuery({
+  const { isLoading, isError, error } = useQuery({
     queryKey: ['nextRound'],
     queryFn: WeekendModel.queryNext,
     onSuccess: data => dispatch({ type: 'SET', payload: data })
@@ -25,8 +25,8 @@ const HomeContent = () => {
 
   return (
     <div className="home-content">
-      {weekendQuery.isLoading && <SkeletonGrid counter={2} />}
-      {weekendQuery.isError && <Error error={weekendQuery.error} />}
+      {isLoading && <SkeletonGrid counter={2} />}
+      {isError && <Error error={error} />}
 
       {weekend && (
         <>

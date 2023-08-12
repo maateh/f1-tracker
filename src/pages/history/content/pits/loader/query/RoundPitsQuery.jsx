@@ -6,6 +6,7 @@ import WeekendModel from "../../../../../../model/season/weekend/Weekend"
 import ListingModel from "../../../../../../model/listing/Listing"
 import ListingTitleModel from "../../../../../../model/listing/ListingTitle"
 import ListingTableModel from "../../../../../../model/listing/ListingTable"
+import ListingPaginationModel from "../../../../../../model/listing/ListingPagination"
 import QueryError from "../../../../../../model/error/QueryError"
 
 export const getRoundPitsQuery = ({ year, round, page }) => ({
@@ -57,9 +58,9 @@ export const getRoundPitsQuery = ({ year, round, page }) => ({
             driver: pit.driverId,
             time: pit.time,
             duration: pit.duration,
-          })),
-          pagination: +pages
+          }))
         }),
+        pagination: new ListingPaginationModel({ pages })
       })
     })
     .catch(err => {

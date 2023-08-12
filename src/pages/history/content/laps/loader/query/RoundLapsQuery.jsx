@@ -5,9 +5,10 @@ import { raceResults } from "../../../../../../api/results"
 // models
 import WeekendModel from "../../../../../../model/season/weekend/Weekend"
 import ListingModel from "../../../../../../model/listing/Listing"
+import ListingTitleModel from "../../../../../../model/listing/ListingTitle"
 import ListingTableModel from "../../../../../../model/listing/ListingTable"
+import ListingPaginationModel from "../../../../../../model/listing/ListingPagination"
 import QueryError from "../../../../../../model/error/QueryError"
-import ListingTitle from "../../../../../../model/listing/ListingTitle"
 
 export const getRoundLapsQuery = ({ year, round, page: lap }) => ({
   queryKey: ['listing', 'laps', year, round, lap],
@@ -21,7 +22,7 @@ export const getRoundLapsQuery = ({ year, round, page: lap }) => ({
       const pages = resultsData.Races[0].Results[0].laps
 
       return new ListingModel({
-        title: new ListingTitle({
+        title: new ListingTitleModel({
           main: `${weekend.year} ${weekend.name} Lap Timings`,
           sub: `Selected Lap | #${getCurrentLap(weekend).number}`
         }),
@@ -47,9 +48,9 @@ export const getRoundLapsQuery = ({ year, round, page: lap }) => ({
             position: `#${timing.position}`,
             driver: timing.driverId,
             time: timing.time,
-          })),
-          pagination: +pages
-        })
+          }))
+        }),
+        pagination: new ListingPaginationModel({ pages })
       })
     })
     .catch(err => {

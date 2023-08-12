@@ -28,13 +28,13 @@ const getPagesCut = ({ pages, cut, current }) => {
   }
 }
 
-const Pagination = ({ max }) => {
+const Pagination = ({ pagination: { pages } }) => {
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   
   const current = +searchParams.get('page') || 1
-  const pagesCut = getPagesCut({ pages: max, cut: 9, current })
-  const pages = range(pagesCut.start, pagesCut.end)
+  const pagesCut = getPagesCut({ pages, cut: 9, current })
+  const pagesRange = range(pagesCut.start, pagesCut.end)
   
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const Pagination = ({ max }) => {
         disabled={current <= 1}
       />
 
-      {pages.map(page => (
+      {pagesRange.map(page => (
         <PaginationItem 
           key={page}
           current={current}
@@ -71,13 +71,13 @@ const Pagination = ({ max }) => {
         current={current}
         page="Next" 
         setSearchParams={() => setSearchParams({ page: current + 1 })} 
-        disabled={current >= max}
+        disabled={current >= pages}
       />
       <PaginationItem 
         current={current}
         page="Last" 
-        setSearchParams={() => setSearchParams({ page: max })} 
-        disabled={current >= max}
+        setSearchParams={() => setSearchParams({ page: pages })} 
+        disabled={current >= pages}
       />
     </ul>
   )

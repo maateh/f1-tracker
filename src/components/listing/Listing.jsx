@@ -5,7 +5,7 @@ import { useQuery } from "react-query"
 import ListingTitle from "./title/ListingTitle"
 import ListingCards from "./cards/ListingCards"
 import ListingTable from "./table/ListingTable"
-import Pagination from "../pagination/Pagination"
+import Pagination from "./pagination/Pagination"
 import Error from "../error/Error"
 
 // icons
@@ -30,8 +30,7 @@ const Listing = () => {
           {listing.title && <ListingTitle title={listing.title} />}
           {listing.cards && <ListingCards cards={listing.cards} />}
           {listing.table && <ListingTable table={listing.table} />}
-
-          {/* {listing.table.pagination && <Pagination max={listing.table.pagination} />} */}
+          {listing.pagination && <Pagination pagination={listing.pagination} />}
         </>
       )}
     </div>
