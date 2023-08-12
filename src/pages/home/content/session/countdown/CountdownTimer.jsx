@@ -23,7 +23,7 @@ const CountdownTimer = ({ end }) => {
 			{duration && (
 				Object.values(duration).every(item => item === 0) ? (
 					<div>
-						{currentSession.active ? (
+						{currentSession.isActive() ? (
 							<p className="started">Session Ended!</p>
 						) : (
 							<p className="started">Session Started!</p>

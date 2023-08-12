@@ -1,5 +1,3 @@
-import { format } from 'date-fns'
-
 // api
 import { lastRound, nextRound } from '../../../api/season'
 
@@ -23,7 +21,7 @@ class Weekend {
 		this.date = data.date
 		this.time = data.time
 
-		this.parseSessions(data)
+		this.sessions = new SessionList(data)
 		this.parseResult(data)
 		this.parseLaps(data)
 		this.parsePits(data)
@@ -43,19 +41,6 @@ class Weekend {
 			.catch(err => {
 				throw new QueryError(err.message)
 			})
-	}
-
-	parseSessions(data) {
-		if (
-			data.FirstPractice &&
-			data.SecondPractice &&
-			(data.ThirdPractice || data.Sprint) &&
-			data.Qualifying &&
-			data.date &&
-			data.time
-		) {
-			this.sessions = new SessionList(data)
-		}
 	}
 
 	parseResult(data) {
@@ -87,13 +72,8 @@ class Weekend {
 		}
 	}
 
-	get active() {
-		return this.sessions.practices[0].start < Date.now()
-	}
-
-	getFormattedDate(pattern) {
-		const date = new Date(`${this.date}`)
-		return format(date, pattern)
+	isActive() {
+		return this.sessions.practices[0]?.start < Date.now()
 	}
 }
 

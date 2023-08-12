@@ -50,8 +50,3 @@ const ScheduleContent = () => {
 }
 
 export default ScheduleContent
-
-
-// versenyhétvégék felsorolása, kiemelve a jelenlegi aktuálisat
-// wiki link csatolása a pályákhoz
-// szabadedzések, kvali, verseny időpontjai feltüntetve local idő szerint

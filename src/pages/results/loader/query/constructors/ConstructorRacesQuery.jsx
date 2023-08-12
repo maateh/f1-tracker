@@ -120,7 +120,7 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
           data: season.weekends.map(weekend => ({
             round: weekend.round,
             weekend: weekend.name,
-            date: weekend.getFormattedDate('MMM dd.'),
+            date: weekend.sessions.race.getFormattedDate('MMM. dd.'),
             circuit: weekend.circuit.name,
             // fl: [
             //   { key: 'fl-time', data: faster(weekend).fastestLap.time },

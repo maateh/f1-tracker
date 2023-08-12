@@ -9,10 +9,10 @@ const RelevantSession = () => {
 
   return (
     <div className="relevant-session">
-      <h2 className="title">{`${session.active ? 'Current' : 'Next'} Session`}</h2>
+      <h2 className="title">{`${session.isActive() ? 'Current' : 'Next'} Session`}</h2>
       <p className="name">{session.title}</p>
       
-      <CountdownTimer end={session.active ? session.end : session.start} />
+      <CountdownTimer end={session.isActive() ? session.end : session.start} />
     </div>
   )
 }

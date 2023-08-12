@@ -6,7 +6,7 @@ const RelevantWeekend = () => {
 
   return (
     <div className="relevant-weekend">
-      <h2 className="title">{`${weekend.active ? 'Current' : 'Next'} Weekend`}</h2>
+      <h2 className="title">{`${weekend.isActive() ? 'Current' : 'Next'} Weekend`}</h2>
       <p className="race">{weekend.name}</p>
       <p className="track">{weekend.circuit.name}</p>
       <p className="date">{weekend.sessions.race.getFormattedDate('yyyy.MM.dd')}</p>

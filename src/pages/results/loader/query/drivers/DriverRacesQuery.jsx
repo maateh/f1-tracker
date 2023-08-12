@@ -135,7 +135,7 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
           data: season.weekends.map((weekend) => ({
             round: weekend.round,
             weekend: weekend.name,
-            date: weekend.getFormattedDate('MMM dd.'),
+            date: weekend.sessions.race.getFormattedDate('MMM. dd.'),
             circuit: weekend.circuit.name,
             grid: weekend.result.race[0].grid,
             // fl: [

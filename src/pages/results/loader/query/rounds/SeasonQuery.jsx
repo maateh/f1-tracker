@@ -134,7 +134,7 @@ export const getSeasonQuery = ({ year }) => ({
           data: season.weekends.map(weekend => ({
             round: weekend.round,
             weekend: weekend.name,
-            date: weekend.getFormattedDate('MMM dd.'),
+            date: weekend.sessions.race.getFormattedDate('MMM. dd.'),
             circuit: weekend.circuit.name,
             // pole: [
             //   { key: 'pole-time', data: pole(w)?.time },
