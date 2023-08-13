@@ -1,50 +1,57 @@
 import { ergast, KEYS } from "./ergast"
 
 // Lap Times
-export const raceLap = (year, round, lap) => {
-  return ergast(`/${year}/${round}/laps/${lap}`, KEYS.RACE_TABLE)
-    .then(res => res)
-    .catch(err => {
-      throw new Error(err)
-    })
-}
+export const raceLap = async (year, round, lap) => ergast({
+  url: `/${year}/${round}/laps/${lap}`,
+  key: KEYS.RACE_TABLE
+})
+  .then(res => res)
+  .catch(err => {
+    throw new Error(err)
+  })
 
-export const driverLaps = (year, round, driverId, page) => {
-  return ergast(`/${year}/${round}/drivers/${driverId}/laps`, KEYS.RACE_TABLE, {
+export const driverLaps = async (year, round, driverId, page) => ergast({
+  url: `/${year}/${round}/drivers/${driverId}/laps`, 
+  key: KEYS.RACE_TABLE, 
+  params: {
     limit: 20,
     offset: (page - 1) * 20
+  }
+})
+  .then(res => res)
+  .catch(err => {
+    throw new Error(err)
   })
-    .then(res => res)
-    .catch(err => {
-      throw new Error(err)
-    })
-}
 
 
 // Pit Stops
-export const pitStops = (year, round, page) => {
-  return ergast(`/${year}/${round}/pitstops`, KEYS.RACE_TABLE, {
+export const pitStops = async (year, round, page) => ergast({
+  url: `/${year}/${round}/pitstops`,
+  key: KEYS.RACE_TABLE,
+  params: {
     limit: 20,
     offset: (page - 1) * 20
+  }
+})
+  .then(res => res)
+  .catch(err => {
+    throw new Error(err)
   })
-    .then(res => res)
-    .catch(err => {
-      throw new Error(err)
-    })
-}
 
-export const driverPitStops = (year, round, driverId) => {
-  return ergast(`/${year}/${round}/drivers/${driverId}/pitstops`, KEYS.RACE_TABLE)
-    .then(res => res)
-    .catch(err => {
-      throw new Error(err)
-    })
-}
+export const driverPitStops = async (year, round, driverId) => ergast({
+  url: `/${year}/${round}/drivers/${driverId}/pitstops`,
+  key: KEYS.RACE_TABLE
+})
+  .then(res => res)
+  .catch(err => {
+    throw new Error(err)
+  })
 
-export const constructorPitStops = (year, round, constructorId) => {
-  return ergast(`/${year}/${round}/constructors/${constructorId}/pitstops`, KEYS.RACE_TABLE)
-    .then(res => res)
-    .catch(err => {
-      throw new Error(err)
-    })
-}
+export const constructorPitStops = async (year, round, constructorId) => ergast({
+  url: `/${year}/${round}/constructors/${constructorId}/pitstops`,
+  key: KEYS.RACE_TABLE
+})
+  .then(res => res)
+  .catch(err => {
+    throw new Error(err)
+  })

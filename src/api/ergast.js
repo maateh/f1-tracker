@@ -11,7 +11,7 @@ export const KEYS = {
 	STANDINGS_TABLE: 'StandingsTable'
 }
 
-export const ergast = async (url, key, params) => {
+export const ergast = async ({ url, key, params }) => {
 	return axios
 		.get(`${BASE_URL}${url}${URL_SUFFIX}`, { params })
 		.then(({ data: { MRData: data } }) => ({
