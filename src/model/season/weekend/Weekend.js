@@ -73,7 +73,9 @@ class Weekend {
 	}
 
 	isActive() {
-		return this.sessions.practices[0]?.start < Date.now()
+		const now = Date.now()
+		return this.sessions.practices[0]?.start < now
+			&& this.sessions.race.end > now
 	}
 }
 

@@ -9,13 +9,14 @@ import SeasonModel from '../../../../model/season/Season'
 import ListingModel from '../../../../model/listing/Listing'
 import ListingCardsModel from '../../../../model/listing/ListingCards'
 import QueryError from '../../../../model/error/QueryError'
+import WeekendModel from '../../../../model/season/weekend/Weekend'
 
 export const getScheduleQuery = ({ year }) => ({
 	queryKey: ['listing', 'season', year],
-	queryFn: () => season(year)
-    .then(({ data }) => {
+	queryFn: () => Promise.all([season(year), WeekendModel.queryNext()])
+    .then(([{ data }, { round }]) => {
       const season = new SeasonModel(data)
-
+      
       return new ListingModel({
         cards: new ListingCardsModel({
           styles: {
@@ -24,7 +25,7 @@ export const getScheduleQuery = ({ year }) => ({
             gap: '5rem'
           },
           layouts: season.weekends.map(weekend => (
-            <WeekendCard key={weekend.round} weekend={weekend} />
+            <WeekendCard key={weekend.round} weekend={weekend} nextRound={round} />
           ))
         })
       })

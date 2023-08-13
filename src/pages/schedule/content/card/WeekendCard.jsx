@@ -8,11 +8,15 @@ import FlashOnIcon from '@mui/icons-material/FlashOn'
 // styles
 import './WeekendCard.css'
 
-const WeekendCard = ({ weekend }) => {
+const WeekendCard = ({ weekend, nextRound }) => {
 	return (
-		<div className="weekend-card">
-			<p className="name">{weekend.name}</p>
-			<div className="datetime-container">
+		<div
+			className={`weekend-card__container ${
+				weekend.isActive() ? 'active' : ''
+			} ${weekend.round === nextRound ? 'next' : ''}`}
+		>
+			<h3 className="weekend-title">{weekend.name}</h3>
+			<div className="weekend-date__container">
 				<EventIcon />
 				<span className="weekend-date">
 					{weekend.sessions.practices &&
@@ -22,7 +26,7 @@ const WeekendCard = ({ weekend }) => {
 			</div>
 
 			{weekend.sessions.race.time && (
-				<div className="datetime-container">
+				<div className="weekend-date__container">
 					<TimerIcon />
 					<span className="race-time">
 						{weekend.sessions.race.getFormattedDate('HH:mm')}
@@ -35,12 +39,12 @@ const WeekendCard = ({ weekend }) => {
 					<p className="sprint-warn">Sprint weekend!</p>
 
 					{weekend.sessions.sprint.race.time && (
-						<div className="datetime-container">
+						<div className="weekend-date__container">
 							<TimerIcon />
 							<span className="sprint-time">
 								{weekend.sessions.sprint.qualifying.getFormattedDate('HH:mm')}
 							</span>
-	
+
 							<FlashOnIcon />
 							<span className="sprint-time">
 								{weekend.sessions.sprint.race.getFormattedDate('HH:mm')}
@@ -50,16 +54,20 @@ const WeekendCard = ({ weekend }) => {
 				</div>
 			)}
 
-			<Link
-				className="results-info"
-				to={`/results/${weekend.year}/rounds/${weekend.round}/race`}
-			>
-				Weekend results
-			</Link>
+			{weekend.sessions.race.isOver() && (
+				<div className="weekend-links__container">
+					<Link
+						className="weekend-results__btn"
+						to={`/results/${weekend.year}/rounds/${weekend.round}/race`}
+					>
+						Weekend results
+					</Link>
 
-			<Link className="wiki-info" to={weekend.wikiUrl}>
-				More info
-			</Link>
+					<Link className="weekend-wiki__btn" to={weekend.wikiUrl}>
+						More info
+					</Link>
+				</div>
+			)}
 
 			<p className="round">#{weekend.round}</p>
 		</div>
