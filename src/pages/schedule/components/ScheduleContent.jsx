@@ -13,9 +13,6 @@ import WeekendModel from '../../../model/season/weekend/Weekend'
 // icons
 import { CircularProgress } from '@mui/material'
 
-// styles
-import './ScheduleContent.css'
-
 const ScheduleContent = () => {
 	const { year } = useParams()
 	const navigate = useNavigate()
@@ -37,8 +34,6 @@ const ScheduleContent = () => {
           <ScheduleFilterContextProvider>
             <ScheduleFilter />
           </ScheduleFilterContextProvider>
-
-          <h2 className="schedule-title">{year}</h2>
         </>
       )}
 

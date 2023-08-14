@@ -1,5 +1,6 @@
 class ListingTitle {
-  constructor({ main, sub }) {
+  constructor({ layout, main, sub }) {
+    this.layout = layout
     this.main = main
     this.sub = sub
   }

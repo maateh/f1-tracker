@@ -1,12 +1,13 @@
 // styles
 import './ListingTitle.css'
 
-const ListingTitle = ({ title }) => {
-	return (
+const ListingTitle = ({ title: { layout, main, sub } }) => {
+	return layout || (
 		<div className="listing-title__container">
-			{title.main && <h2 className="listing-title-main">{title.main}</h2>}
-			{title.sub && <h3 className="listing-title-sub">{title.sub}</h3>}
+			{main && <h2 className="listing-title-main">{main}</h2>}
+			{sub && <h3 className="listing-title-sub">{sub}</h3>}
 		</div>
 	)
 }
+
 export default ListingTitle
