@@ -1,0 +1,41 @@
+import { useNavigate } from 'react-router-dom'
+
+// components
+import WeekendMarker from './components/WeekendMarker'
+import WeekendTitle from './components/WeekendTitle'
+import WeekendDate from './components/WeekendDate'
+import WeekendTime from './components/WeekendTime'
+import WeekendSprint from './components/WeekendSprint'
+import WeekendLinks from './components/WeekendLinks'
+import WeekendRound from './components/WeekendRound'
+
+// styles
+import './WeekendCard.css'
+
+const WeekendCard = ({ weekend, nextRound }) => {
+	const navigate = useNavigate()
+
+	const handleNavigate = () => (
+		weekend.sessions.race.isOver() 
+			&& navigate(`/results/${weekend.year}/rounds/${weekend.round}/race`)
+	)
+
+	return (
+		<li
+			onClick={handleNavigate}
+			className={`weekend-card__container 
+				${weekend.isActive() && 'active'} 
+				${weekend.round === nextRound ? 'next' : weekend.isRemaining() && 'remaining'}`}
+		>
+			<WeekendMarker weekend={weekend} nextRound={nextRound} />
+			<WeekendTitle title={weekend.name} />
+			<WeekendDate sessions={weekend.sessions} />
+			<WeekendTime race={weekend.sessions.race} />
+			<WeekendSprint sessions={weekend.sessions} />
+			<WeekendLinks weekend={weekend} />
+			<WeekendRound round={weekend.round} />
+		</li>
+	)
+}
+
+export default WeekendCard

@@ -77,6 +77,14 @@ class Weekend {
 		return this.sessions.practices[0]?.start < now
 			&& this.sessions.race.end > now
 	}
+
+	isOver() {
+		return this.sessions.race.isOver()
+	}
+
+	isRemaining() {
+		return !this.isActive() && !this.isOver()
+	}
 }
 
 export default Weekend

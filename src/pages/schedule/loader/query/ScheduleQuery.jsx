@@ -2,7 +2,7 @@
 import { season } from '../../../../api/season'
 
 // components
-import WeekendCard from '../../content/card/WeekendCard'
+import WeekendCard from '../../components/card/WeekendCard'
 
 // models
 import SeasonModel from '../../../../model/season/Season'

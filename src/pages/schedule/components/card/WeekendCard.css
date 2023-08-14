@@ -1,0 +1,181 @@
+.weekend-card__container {
+  height: 100%;
+  width: 95%;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  
+  background: var(--highlight);
+
+  border-top: 6px solid var(--secondary);
+  border-left: 6px solid var(--secondary);
+  border-radius: 6px;
+  border-bottom-right-radius: 24px;
+  border-top-left-radius: 48px;
+
+  cursor: pointer;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+.weekend-card__container.active {
+  background: var(--accent-green);
+}
+.weekend-card__container.next {
+  background: var(--accent-orange);
+}
+.weekend-card__container.remaining {
+  background: #666;
+}
+.weekend-card__container:hover,
+.weekend-card__container:active {
+  background: var(--secondary);
+}
+
+
+/* basic info */
+.weekend-card__container .weekend-title {
+  margin-top: 0.3rem;
+  margin-bottom: 0.2rem;
+
+  color: var(--text-color-light);
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  text-shadow: 1px 1px 5px rgba(50, 50, 50, 0.3);
+  text-decoration: overline;
+}
+.weekend-card__container .weekend-date {
+  color: var(--text-color-light);
+  font-size: 1.5rem;
+  font-weight: lighter;
+}
+.weekend-card__container .weekend-race-time {
+  margin-bottom: 1rem;
+  color: var(--text-color-light);
+  font-size: 1.9rem;
+}
+.weekend-card__container .weekend-round {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0.2rem 0.4rem;
+
+  border-right: 5px solid var(--secondary);
+  border-bottom: 5px solid var(--secondary);
+  border-bottom-right-radius: 24px;
+
+  color: var(--text-color-light);
+  font-size: 1.8rem;
+  font-weight: 800;
+  text-shadow: 2px 2px 2px rgba(50, 50, 50, 0.3);
+}
+
+
+/* sprint info */
+.weekend-card__container .weekend-sprint-info {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.2rem;
+  cursor: pointer;
+
+  color: var(--text-color-light);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: overline;
+}
+
+.weekend-card__container .weekend-sprint-info:hover,
+.weekend-card__container .weekend-sprint-info:active {
+  font-weight: 700;
+}
+.weekend-card__container .weekend-sprint-info svg {
+  color: var(--accent-yellow);
+  font-size: 1.8rem;
+}
+
+
+/* weekend markers */
+.weekend-card__container .weekend-marker {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+.weekend-card__container .weekend-marker.active svg,
+.weekend-card__container .weekend-marker.next svg {
+  color: var(--secondary);
+}
+.weekend-card__container:hover .weekend-marker.active svg,
+.weekend-card__container:active .weekend-marker.active svg,
+.weekend-card__container:hover .weekend-marker.next svg,
+.weekend-card__container:active .weekend-marker.next svg {
+  color: var(--text-color-light);
+}
+.weekend-card__container .weekend-marker.over svg {
+  color: var(--accent-orange);
+}
+.weekend-card__container .weekend-marker.remaining svg {
+  color: var(--accent-red);
+}
+
+
+/* link buttons */
+.weekend-card__container .weekend-links__container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  gap: 1rem;
+
+  padding: 0.4rem;
+  border-top-right-radius: 8px;
+}
+.weekend-card__container .weekend-links__container a {
+  color: var(--text-color-light);
+  font-size: 0.9rem;
+}
+.weekend-card__container .weekend-links__container a:hover,
+.weekend-card__container .weekend-links__container a:active {
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+
+
+@media (max-width: 95rem) {
+  .weekend-card__container {
+    width: 35vw;
+  }
+}
+
+@media (max-width: 60rem) {
+  .weekend-card__container {
+    width: 60vw;
+  }
+}
+
+@media (max-width: 40rem) {
+  .weekend-card__container .weekend-title {
+    font-size: 1.5rem;
+  }
+  .weekend-card__container .weekend-date {
+    font-size: 1.2rem;
+  }
+  .weekend-card__container .weekend-race-time {
+    margin-top: 0.1rem;
+    font-size: 1.5rem;
+  }
+  .weekend-card__container .weekend-round {
+    font-size: 1.5rem;
+  }
+
+  .weekend-card__container .weekend-sprint-info .weekend-sprint-mark {
+    font-size: 0.9rem;
+  }
+  .weekend-card__container .weekend-sprint-info svg {
+    font-size: 1.4rem;
+  }
+}

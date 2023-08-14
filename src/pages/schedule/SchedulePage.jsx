@@ -1,5 +1,5 @@
 // components
-import ScheduleContent from "./content/ScheduleContent"
+import ScheduleContent from "./components/ScheduleContent"
 
 const SchedulePage = () => {
   return (

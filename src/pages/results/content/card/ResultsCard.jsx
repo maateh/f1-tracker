@@ -3,7 +3,7 @@ import './ResultsCard.css'
 
 const ResultsCard = ({ card }) => {
   return (
-    <div className="results-card__container">
+    <li className="results-card__container">
       <p className="results-card-title">{card.title}</p>
 
       <div className="summaries__container">
@@ -15,7 +15,7 @@ const ResultsCard = ({ card }) => {
           </div>
         ))}
       </div>
-    </div>
+    </li>
   )
 }
 
