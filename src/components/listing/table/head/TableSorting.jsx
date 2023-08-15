@@ -3,7 +3,7 @@ import ImportExportIcon from '@mui/icons-material/ImportExport'
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp'
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown'
 
-const ListingTableSorting = ({ column }) => {
+const TableSorting = ({ column }) => {
   const sortedby = {
     asc: <KeyboardDoubleArrowUpIcon onClick={column.getToggleSortingHandler()} />,
     desc: <KeyboardDoubleArrowDownIcon onClick={column.getToggleSortingHandler()} />,
@@ -17,4 +17,4 @@ const ListingTableSorting = ({ column }) => {
   )
 }
 
-export default ListingTableSorting
+export default TableSorting

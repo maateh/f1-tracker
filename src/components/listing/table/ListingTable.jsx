@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import {
-	flexRender,
 	getCoreRowModel,
 	getSortedRowModel,
 	useReactTable,
 } from '@tanstack/react-table'
 
 // components
-import ListingTableSorting from './ListingTableSorting'
+import TableHead from './head/TableHead'
+import TableBody from './body/TableBody'
 
 // styles
 import './ListingTable.css'
@@ -27,34 +27,8 @@ const ListingTable = ({ table: { columns, data } }) => {
 	return (
 		<div className="listing-table__container">
 			<table>
-				<thead>
-					{table.getHeaderGroups().map(({ id, headers }) => (
-						<tr key={id}>
-							{headers.map(({ id, column, getContext }) => (
-								<th key={id}>
-									{flexRender(column.columnDef.header, getContext())}
-									<ListingTableSorting column={column} />
-								</th>
-							))}
-						</tr>
-					))}
-				</thead>
-				<tbody>
-					{table.getRowModel().rows.map(({ id, getVisibleCells }) => (
-						<tr key={id}>
-							{getVisibleCells().map(({
-									id,
-									column: { columnDef: { accessorKey, cell }},
-									getContext,
-								}) => (
-									<td key={id} className={accessorKey}>
-										{flexRender(cell, getContext())}
-									</td>
-								)
-							)}
-						</tr>
-					))}
-				</tbody>
+				<TableHead headerGroups={table.getHeaderGroups()} />
+				<TableBody rows={table.getRowModel().rows} />
 			</table>
 		</div>
 	)

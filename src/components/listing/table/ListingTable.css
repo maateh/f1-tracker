@@ -31,19 +31,23 @@
 .listing-table__container thead {
   background: var(--secondary);
 }
-.listing-table__container thead th {
+.listing-table__container thead th header {
   padding: 0.8rem 0.4rem;
   color: var(--text-color-light);
   font-weight: 500;
   font-size: 1.1rem;
   letter-spacing: 1px;
   text-transform: uppercase;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
 }
-.listing-table__container thead th span.listing-table-sorting__icon {
+.listing-table__container thead th header span.listing-table-sorting__icon svg {
   cursor: pointer;
-  position: absolute;
-  padding: 0 0.2rem;
-  margin: 0 0.2rem;
+  vertical-align: middle;
+  font-size: 1.4rem;
 }
 
 /* table data */
