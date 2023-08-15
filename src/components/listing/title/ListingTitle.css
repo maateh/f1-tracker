@@ -1,12 +1,10 @@
 /* LISTING TITLE */
 .listing-title__container {
   margin: 2rem auto;
-  /* padding: 0.7rem 0; */
 }
 
 .listing-title__container > h2.listing-title-main {
   width: 100%;
-  /* margin: 2rem auto; */
   padding: 0.7rem 0;
   background: var(--secondary);
   box-shadow: 2px 2px 4px rgba(50, 50, 50, 0.5);
@@ -31,7 +29,6 @@
   font-size: 1.5rem;
   font-weight: 600;
   text-transform: capitalize;
-  /* text-shadow: 1px 1px 1px rgba(120, 120, 120, 0.8); */
   letter-spacing: 2px;
 }
 

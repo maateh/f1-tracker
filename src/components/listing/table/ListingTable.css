@@ -10,6 +10,7 @@
   border-spacing: 0;
   border: 3px solid var(--secondary);
   border-radius: 10px;
+  background: #eee;
 }
 
 /* table background & borders */
@@ -76,15 +77,15 @@
   font-size: 1rem;
 }
 
-.listing-table__container > table td.pole > p.pole-time {
+/* .listing-table__container > table td.pole > p.pole-time {
   font-weight: 500;
 }
 .listing-table__container > table td.pole > p.pole-driver {
   font-weight: 300;
   font-size: 0.9rem;
-}
+} */
 
-.listing-table__container > table td.winner > p.winner-driver {
+/* .listing-table__container > table td.winner > p.winner-driver {
   font-weight: 600;
 }
 .listing-table__container > table td.winner > p.winner-constructor {
@@ -99,7 +100,7 @@
 .listing-table__container > table td.fl > p.fl-speed {
   font-weight: 300;
   font-size: 0.9rem;
-}
+} */
 
 .listing-table__container > table td.grid {
   font-weight: 600;
@@ -122,14 +123,14 @@
   font-size: 1.2rem;
 }
 
-.listing-table__container > table td.points > p.points-amount {
+/* .listing-table__container > table td.points > p.points-amount {
   font-weight: 600;
   font-size: 1.1rem;
 }
 .listing-table__container > table td.points > p.points-drivers {
   font-weight: 300;
   font-size: 0.9rem;
-}
+} */
 
 .listing-table__container > table td.duration {
   font-weight: 400;

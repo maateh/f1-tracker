@@ -1,4 +1,4 @@
-import HistoryContent from './content/HistoryContent'
+import HistoryContent from './components/HistoryContent'
 
 const HistoryPage = () => {
   return (

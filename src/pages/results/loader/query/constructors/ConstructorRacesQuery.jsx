@@ -18,7 +18,9 @@ import WarningIcon from '@mui/icons-material/Warning'
 import { constructorRacesResults } from '../../../../../api/results'
 
 // components
-import ResultsCard from '../../../content/card/ResultsCard'
+import ResultsCard from '../../../components/card/ResultsCard'
+import FastestLapCell from '../../../components/table/FastestLapCell'
+import PointsCell from '../../../components/table/PointsCell'
 
 // models
 import SeasonModel from '../../../../../model/season/Season'
@@ -101,36 +103,40 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
               accessorKey: 'circuit',
               enableSorting: true
             },
-            // {
-            //   header: 'Fastest Lap',
-            //   accessorKey: 'fl',
-            //   enableSorting: true
-            // },
+            {
+              header: 'Fastest Lap',
+              accessorKey: 'fl',
+              enableSorting: true,
+              cell: ({ cell: { getValue: getWeekend }}) =>
+                <FastestLapCell 
+                  lap={faster(getWeekend()).fastestLap} 
+                  driver={fasterDriver(getWeekend())} 
+                />
+            },
             {
               header: 'Completed Laps',
               accessorKey: 'laps',
               enableSorting: true
             },
-            // {
-            //   header: 'Points',
-            //   accessorKey: 'points',
-            //   enableSorting: true
-            // },
+            {
+              header: 'Points',
+              accessorKey: 'points',
+              enableSorting: true,
+              cell: ({ cell: { getValue: getWeekend }}) => 
+                <PointsCell 
+                  points={points(getWeekend())}
+                  scorers={scorers(getWeekend())}
+                />
+            },
           ],
           data: season.weekends.map(weekend => ({
             round: weekend.round,
             weekend: weekend.name,
             date: weekend.sessions.race.getFormattedDate('MMM. dd.'),
             circuit: weekend.circuit.name,
-            // fl: [
-            //   { key: 'fl-time', data: faster(weekend).fastestLap.time },
-            //   { key: 'fl-driver', data: fasterDriver(weekend) },
-            // ],
+            fl: weekend,
             laps: `${completedLaps(weekend)} laps`,
-            // points: [
-            //   { key: 'points-amount', data: `${points(weekend)} points` },
-            //   { key: 'points-drivers', data: scorers(weekend) },
-            // ],
+            points: weekend,
           }))
         })
       })
@@ -226,10 +232,11 @@ const faster = weekend => (
     .sort((acc, curr) => Math.min(acc.fastestLap.rank, curr.fastestLap.rank))[0]
 )
 
-const fasterDriver = weekend => (
-  faster(weekend).fastestLap.time === '-' ? 
-    '' : faster.driver.code
-)
+const fasterDriver = weekend => {
+  const result = faster(weekend)
+  return result.fastestLap.time === '-' ? 
+    '' : result.driver
+}
 
 const completedLaps = weekend => (
   weekend.result.race.length > 1 ?

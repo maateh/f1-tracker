@@ -18,7 +18,8 @@ import WarningIcon from '@mui/icons-material/Warning'
 import { driverRacesResults } from '../../../../../api/results'
 
 // models
-import ResultsCard from '../../../content/card/ResultsCard'
+import ResultsCard from '../../../components/card/ResultsCard'
+import FastestLapCell from '../../../components/table/FastestLapCell'
 
 // models
 import SeasonModel from '../../../../../model/season/Season'
@@ -64,7 +65,7 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
               summaries: [
                 { title: 'Win a Race', desc: win(season), icon: <EmojiEventsIcon /> },
                 { title: 'Podium Finish', desc: podium(season), icon: <CelebrationIcon /> },
-                { title: 'Fastest Lap', desc: fastestLaps(season), icon: <BoltIcon /> },
+                { title: 'Fastest Laps', desc: fastestLaps(season), icon: <BoltIcon /> },
                 { title: 'Scoring Positions', desc: scoringPositions(season), icon: <PlusOneIcon /> }
               ]
             },
@@ -106,11 +107,16 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
               accessorKey: 'grid',
               enableSorting: true
             },
-            // {
-            //   header: 'Fastest Lap',
-            //   accessorKey: 'fl',
-            //   enableSorting: true
-            // },
+            {
+              header: 'Fastest Lap',
+              accessorKey: 'fl',
+              enableSorting: true,
+              cell: ({ cell: { getValue: getFastestLap }}) =>
+                <FastestLapCell 
+                  lap={getFastestLap()} 
+                  speed={getFastestLap()?.avgSpeed}
+                />
+            },
             {
               header: 'Completed Laps',
               accessorKey: 'laps',
@@ -138,10 +144,7 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
             date: weekend.sessions.race.getFormattedDate('MMM. dd.'),
             circuit: weekend.circuit.name,
             grid: weekend.result.race[0].grid,
-            // fl: [
-            //   { key: 'fl-time', data: weekend.result.race[0].fastestLap.time },
-            //   { key: 'fl-speed', data: weekend.result.race[0].fastestLap?.avgSpeed },
-            // ],
+            fl: weekend.result.race[0].fastestLap,
             laps: weekend.result.race[0].laps,
             duration: weekend.result.race[0].raceTime,
             position: weekend.result.race[0].position,

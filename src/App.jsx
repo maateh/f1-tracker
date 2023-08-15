@@ -8,10 +8,10 @@ import Homepage from './pages/home/Homepage'
 import SchedulePage from './pages/schedule/SchedulePage'
 import ResultsPage from './pages/results/ResultsPage'
 import HistoryPage from './pages/history/HistoryPage'
-import LapsHistory from './pages/history/content/laps/LapsHistory'
-import PitsHistory from './pages/history/content/pits/PitsHistory'
-import DriversHistory from './pages/history/content/drivers/DriversHistory'
-import ConstructorsHistory from './pages/history/content/constructors/ConstructorsHistory'
+import LapsHistory from './pages/history/components/laps/LapsHistory'
+import PitsHistory from './pages/history/components/pits/PitsHistory'
+import DriversHistory from './pages/history/components/drivers/DriversHistory'
+import ConstructorsHistory from './pages/history/components/constructors/ConstructorsHistory'
 
 import Listing from './components/listing/Listing'
 import NotFound from './components/error/NotFound'
@@ -19,8 +19,8 @@ import NotFound from './components/error/NotFound'
 // loaders
 import { scheduleLoader } from './pages/schedule/loader/ScheduleLoader'
 import { resultsLoader } from './pages/results/loader/ResultsLoader'
-import { lapsLoader } from './pages/history/content/laps/loader/LapsLoader'
-import { pitsLoader } from './pages/history/content/pits/loader/PitsLoader'
+import { lapsLoader } from './pages/history/components/laps/loader/LapsLoader'
+import { pitsLoader } from './pages/history/components/pits/loader/PitsLoader'
 
 const router = createBrowserRouter([
   {

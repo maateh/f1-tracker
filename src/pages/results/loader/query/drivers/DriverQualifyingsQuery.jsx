@@ -13,7 +13,7 @@ import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt'
 import { driverQualifyingsResults } from "../../../../../api/results"
 
 // components
-import ResultsCard from '../../../content/card/ResultsCard'
+import ResultsCard from '../../../components/card/ResultsCard'
 
 // models
 import SeasonModel from "../../../../../model/season/Season"
@@ -59,7 +59,7 @@ export const getDriverQualifyingsQuery = ({ year, id: driverId }) => ({
               title: 'Driver Achievements',
               summaries: [
                 { title: 'Pole Positions', desc: poles(season), icon: <WorkspacePremiumIcon /> },
-                { title: 'Got to the Front Row', desc: frontRows(season), icon: <UnfoldLessDoubleIcon /> },
+                { title: 'Qualify to the Front Row', desc: frontRows(season), icon: <UnfoldLessDoubleIcon /> },
                 { title: 'Reached Q3', desc: reachedQ3(season), icon: <StarHalfIcon /> },
                 { title: 'Eliminated in Q1', desc: eliminated(season), icon: <ThumbDownOffAltIcon /> }
               ]

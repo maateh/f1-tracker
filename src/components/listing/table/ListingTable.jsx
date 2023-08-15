@@ -1,5 +1,10 @@
 import { useState } from 'react'
-import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table'
+import {
+	flexRender,
+	getCoreRowModel,
+	getSortedRowModel,
+	useReactTable,
+} from '@tanstack/react-table'
 
 // components
 import ListingTableSorting from './ListingTableSorting'
@@ -9,14 +14,14 @@ import './ListingTable.css'
 
 const ListingTable = ({ table: { columns, data } }) => {
 	const [sorting, setSorting] = useState([])
- 
+
 	const table = useReactTable({
 		data,
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 		state: { sorting },
-		onSortingChange: setSorting
+		onSortingChange: setSorting,
 	})
 
 	return (
@@ -37,11 +42,16 @@ const ListingTable = ({ table: { columns, data } }) => {
 				<tbody>
 					{table.getRowModel().rows.map(({ id, getVisibleCells }) => (
 						<tr key={id}>
-							{getVisibleCells().map(({ id, column, getContext }) => (
-								<td key={id}>
-									{flexRender(column.columnDef.cell, getContext())}
-								</td>
-							))}
+							{getVisibleCells().map(({
+									id,
+									column: { columnDef: { accessorKey, cell }},
+									getContext,
+								}) => (
+									<td key={id} className={accessorKey}>
+										{flexRender(cell, getContext())}
+									</td>
+								)
+							)}
 						</tr>
 					))}
 				</tbody>

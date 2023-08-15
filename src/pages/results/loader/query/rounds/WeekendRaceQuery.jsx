@@ -13,7 +13,8 @@ import WarningIcon from '@mui/icons-material/Warning'
 import { raceResults } from "../../../../../api/results"
 
 // components
-import ResultsCard from '../../../content/card/ResultsCard'
+import ResultsCard from '../../../components/card/ResultsCard'
+import FastestLapCell from '../../../components/table/FastestLapCell'
 
 // models
 import WeekendModel from "../../../../../model/season/weekend/Weekend"
@@ -85,11 +86,16 @@ export const getWeekendRaceQuery = ({ year, id: round }) => ({
               accessorKey: 'grid',
               enableSorting: true
             },
-            // {
-            //   header: 'Fastest Lap',
-            //   accessorKey: 'fl',
-            //   enableSorting: true
-            // },
+            {
+              header: 'Fastest Lap',
+              accessorKey: 'fl',
+              enableSorting: true,
+              cell: ({ cell: { getValue: getFastestLap }}) => 
+                <FastestLapCell 
+                  lap={getFastestLap()} 
+                  speed={getFastestLap()?.avgSpeed}
+                />
+            },
             {
               header: 'Race gap',
               accessorKey: 'duration',
@@ -106,10 +112,7 @@ export const getWeekendRaceQuery = ({ year, id: round }) => ({
             driver: `${result.driver.fullName} ${result.driver.formattedNumber}`,
             constructor: result.constructor.name,
             grid: result.grid,
-            // fl: [
-            //   { key: 'fl-time', data: result.fastestLap.time },
-            //   { key: 'fl-speed', data: result.fastestLap?.avgSpeed },
-            // ],
+            fl: result.fastestLap,
             duration: result.raceTime,
             points: result.points,
           }))

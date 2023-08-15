@@ -28,7 +28,7 @@ class Qualifying {
   }
 
   get time() {
-    return this.q3 ? this.q3 : this.q2 ? this.q2 : this.q1
+    return this.q3 !== '-' ? this.q3 : this.q2 !== '-' ? this.q2 : this.q1
   }
 }
 

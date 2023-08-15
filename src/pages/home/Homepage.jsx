@@ -1,5 +1,5 @@
 // components
-import HomeContent from './content/HomeContent'
+import HomeContent from './components/HomeContent'
 
 // context
 import { WeekendContextProvider } from './context/WeekendContext'

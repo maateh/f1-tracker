@@ -8,7 +8,7 @@ import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 import { qualifyingResults } from "../../../../../api/results"
 
 // components
-import ResultsCard from '../../../content/card/ResultsCard'
+import ResultsCard from '../../../components/card/ResultsCard'
 
 // models
 import WeekendModel from "../../../../../model/season/weekend/Weekend"

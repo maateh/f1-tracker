@@ -17,7 +17,10 @@ import WarningIcon from '@mui/icons-material/Warning'
 import { qualifyingsResults, racesResults } from '../../../../../api/results'
 
 // components
-import ResultsCard from '../../../content/card/ResultsCard'
+import ResultsCard from '../../../components/card/ResultsCard'
+import PoleCell from '../../../components/table/PoleCell'
+import WinnerCell from '../../../components/table/WinnerCell'
+import FastestLapCell from '../../../components/table/FastestLapCell'
 
 // models
 import SeasonModel from '../../../../../model/season/Season'
@@ -41,7 +44,9 @@ export const getSeasonQuery = ({ year }) => ({
 
       const qResults = qualifyingsData.Races.map(w => new ResultModel(w))
       if (qResults && qResults.length) {
-        season.weekends.forEach((w, index) => w.result.qualifying = qResults[index].qualifying)
+        season.weekends.forEach((w, index) => {
+          w.result.qualifying = qResults[index]?.qualifying
+        })
       }
 
       return new ListingModel({
@@ -105,21 +110,30 @@ export const getSeasonQuery = ({ year }) => ({
               accessorKey: 'circuit',
               enableSorting: true
             },
-            // {
-            //   header: 'Pole Lap',
-            //   accessorKey: 'pole',
-            //   enableSorting: true
-            // },
-            // {
-            //   header: 'Winner',
-            //   accessorKey: 'winner',
-            //   enableSorting: true
-            // },
-            // {
-            //   header: 'Fastest Lap',
-            //   accessorKey: 'fl',
-            //   enableSorting: true
-            // },
+            {
+              header: 'Pole Lap',
+              accessorKey: 'pole',
+              enableSorting: true,
+              cell: ({ cell: { getValue: getPole }}) => 
+                <PoleCell pole={getPole()} />
+            },
+            {
+              header: 'Winner',
+              accessorKey: 'winner',
+              enableSorting: true,
+              cell: ({ cell: { getValue: getResult }}) => 
+                <WinnerCell result={getResult()} />
+            },
+            {
+              header: 'Fastest Lap',
+              accessorKey: 'fl',
+              enableSorting: true,
+              cell: ({ cell: { getValue: getResult }}) => 
+                <FastestLapCell 
+                  lap={getResult()?.fastestLap} 
+                  driver={getResult()?.driver}
+                />
+            },
             {
               header: 'Laps',
               accessorKey: 'laps',
@@ -136,18 +150,9 @@ export const getSeasonQuery = ({ year }) => ({
             weekend: weekend.name,
             date: weekend.sessions.race.getFormattedDate('MMM. dd.'),
             circuit: weekend.circuit.name,
-            // pole: [
-            //   { key: 'pole-time', data: pole(w)?.time },
-            //   { key: 'pole-driver', data: pole(w)?.driver?.code },
-            // ],
-            // winner: [
-            //   { key: 'winner-driver', data: weekend.result.race[0].driver.fullName },
-            //   { key: 'winner-constructor', data: weekend.result.race[0].constructor.name }
-            // ],
-            // fl: [
-            //   { key: 'fl-time', data: fastest(w) ? fastest(w).fastestLap.time : '-' },
-            //   { key: 'fl-driver', data: fastest(w) ? fastest(w).driver.code : '' }
-            // ],
+            pole: pole(weekend),
+            winner: weekend.result.race[0],
+            fl: fastest(weekend),
             laps: weekend.result.race[0].laps,
             duration: weekend.result.race[0].raceTime
           }))
@@ -187,7 +192,7 @@ const grandPrixWinners = season => {
 }
 
 const poleSitters = season => {
-  const poleSitters = season.weekends.find(w => w.result.qualifying) ? 
+  const poleSitters = season.weekends.every(w => w.result.qualifying) ? 
     season.weekends.map(w => w.result.qualifying[0].driver.code) :
     []
   return poleSitters.length ? `${new Set(poleSitters).size} different drivers` : '-'
