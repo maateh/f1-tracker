@@ -18,6 +18,8 @@ import { qualifyingsResults, racesResults } from '../../../../../api/results'
 
 // components
 import ResultsCard from '../../../components/card/ResultsCard'
+import CustomTableCell from '../../../../../components/listing/table/cell/CustomTableCell'
+import CircuitCell from '../../../components/table/CircuitCell'
 import PoleCell from '../../../components/table/PoleCell'
 import WinnerCell from '../../../components/table/WinnerCell'
 import FastestLapCell from '../../../components/table/FastestLapCell'
@@ -93,22 +95,39 @@ export const getSeasonQuery = ({ year }) => ({
             {
               header: 'Round',
               accessorKey: 'round',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getRound }}) => 
+                <CustomTableCell
+                  data={getRound()}
+                  style={{ fontWeight: '700', fontSize: '1.2rem' }}
+                />
             },
             {
               header: 'Weekend',
               accessorKey: 'weekend',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getWeekendName }}) => 
+                <CustomTableCell
+                  data={getWeekendName()}
+                  style={{ fontWeight: '600' }}
+                />
             },
             {
               header: 'Date',
               accessorKey: 'date',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getDate }}) => 
+                <CustomTableCell
+                  data={getDate()}
+                  style={{ fontWeight: '400', fontSize: '1rem' }}
+                />
             },
             {
               header: 'Circuit Name',
               accessorKey: 'circuit',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getCircuit }}) => 
+                <CircuitCell circuit={getCircuit()} />
             },
             {
               header: 'Pole Lap',
@@ -137,19 +156,29 @@ export const getSeasonQuery = ({ year }) => ({
             {
               header: 'Laps',
               accessorKey: 'laps',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getLaps }}) => 
+                <CustomTableCell
+                  data={getLaps()}
+                  style={{ fontWeight: '500', fontSize: '1.1rem' }}
+                />
             },
             {
               header: 'Race Duration',
               accessorKey: 'duration',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getDuration }}) => 
+                <CustomTableCell
+                  data={getDuration()}
+                  style={{ fontWeight: '400' }}
+                />
             },
           ],
           data: season.weekends.map(weekend => ({
             round: weekend.round,
             weekend: weekend.name,
             date: weekend.sessions.race.getFormattedDate('MMM. dd.'),
-            circuit: weekend.circuit.name,
+            circuit: weekend.circuit,
             pole: pole(weekend),
             winner: weekend.result.race[0],
             fl: fastest(weekend),

@@ -1,17 +1,12 @@
-const WinnerCell = ({
-	result: {
-		driver: { fullName },
-		constructor: { name },
-	},
-}) => {
+const WinnerCell = ({ result: { driver, constructor } }) => {
 	return (
 		<>
 			<p style={{ fontWeight: '600' }}>
-        {fullName}
+        {driver.fullName}
       </p>
 
 			<p style={{ fontWeight: '300', fontSize: '1rem' }}>
-        {name}
+        {constructor.name}
       </p>
 		</>
 	)

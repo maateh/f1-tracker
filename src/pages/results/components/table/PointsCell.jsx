@@ -1,7 +1,7 @@
 const PointsCell = ({ points, scorers }) => {
   return (
     <>
-      <p style={{ fontWeight: '600', fontSize: '1.1rem' }}>
+      <p style={{ fontWeight: '600', fontSize: '1.2rem' }}>
         {points} points
       </p>
 

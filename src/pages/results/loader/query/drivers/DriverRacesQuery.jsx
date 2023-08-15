@@ -19,6 +19,8 @@ import { driverRacesResults } from '../../../../../api/results'
 
 // models
 import ResultsCard from '../../../components/card/ResultsCard'
+import CustomTableCell from '../../../../../components/listing/table/cell/CustomTableCell'
+import CircuitCell from '../../../components/table/CircuitCell'
 import FastestLapCell from '../../../components/table/FastestLapCell'
 
 // models
@@ -28,6 +30,7 @@ import ListingCardsModel from '../../../../../model/listing/ListingCards'
 import ListingTableModel from "../../../../../model/listing/ListingTable"
 import ListingTitleModel from "../../../../../model/listing/ListingTitle"
 import QueryError from '../../../../../model/error/QueryError'
+import PointsCell from '../../../components/table/PointsCell'
 
 export const getDriverRacesQuery = ({ year, id: driverId }) => ({
   queryKey: ['listing', 'driverRacesResults', year, driverId],
@@ -85,22 +88,39 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
             {
               header: 'Round',
               accessorKey: 'round',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getRound }}) => 
+                <CustomTableCell
+                  data={getRound()}
+                  style={{ fontWeight: '700', fontSize: '1.2rem' }}
+                />
             },
             {
               header: 'Weekend',
               accessorKey: 'weekend',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getWeekendName }}) => 
+                <CustomTableCell
+                  data={getWeekendName()}
+                  style={{ fontWeight: '600' }}
+                />
             },
             {
               header: 'Date',
               accessorKey: 'date',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getDate }}) => 
+                <CustomTableCell
+                  data={getDate()}
+                  style={{ fontWeight: '400', fontSize: '1rem' }}
+                />
             },
             {
               header: 'Circuit Name',
               accessorKey: 'circuit',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getCircuit }}) => 
+                <CircuitCell circuit={getCircuit()} />
             },
             {
               header: 'Grid',
@@ -120,29 +140,46 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
             {
               header: 'Completed Laps',
               accessorKey: 'laps',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getLaps }}) => 
+                <CustomTableCell
+                  data={getLaps()}
+                  style={{ fontWeight: '500', fontSize: '1.1rem' }}
+                />
             },
             {
               header: 'Race Gap',
               accessorKey: 'duration',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getDuration }}) => 
+                <CustomTableCell
+                  data={getDuration()}
+                  style={{ fontWeight: '400' }}
+                />
             },
             {
               header: 'Position',
               accessorKey: 'position',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getPosition }}) => 
+                <CustomTableCell
+                  data={getPosition()}
+                  style={{ fontWeight: '600', fontSize: '1.2rem' }}
+                />
             },
             {
               header: 'Points',
               accessorKey: 'points',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getPoints }}) => 
+                <PointsCell points={getPoints()} />
             },
           ],
           data: season.weekends.map((weekend) => ({
             round: weekend.round,
             weekend: weekend.name,
             date: weekend.sessions.race.getFormattedDate('MMM. dd.'),
-            circuit: weekend.circuit.name,
+            circuit: weekend.circuit,
             grid: weekend.result.race[0].grid,
             fl: weekend.result.race[0].fastestLap,
             laps: weekend.result.race[0].laps,

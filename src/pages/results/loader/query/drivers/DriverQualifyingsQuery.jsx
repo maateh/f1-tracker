@@ -14,6 +14,8 @@ import { driverQualifyingsResults } from "../../../../../api/results"
 
 // components
 import ResultsCard from '../../../components/card/ResultsCard'
+import CustomTableCell from '../../../../../components/listing/table/cell/CustomTableCell'
+import CircuitCell from '../../../components/table/CircuitCell'
 
 // models
 import SeasonModel from "../../../../../model/season/Season"
@@ -71,49 +73,86 @@ export const getDriverQualifyingsQuery = ({ year, id: driverId }) => ({
             {
               header: 'Round',
               accessorKey: 'round',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getRound }}) => 
+              <CustomTableCell
+              data={getRound()}
+              style={{ fontWeight: '700', fontSize: '1.2rem' }}
+            />
             },
             {
               header: 'Weekend',
               accessorKey: 'weekend',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getWeekendName }}) => 
+                <CustomTableCell
+                  data={getWeekendName()}
+                  style={{ fontWeight: '600' }}
+                />
             },
             {
               header: 'Date',
               accessorKey: 'date',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getDate }}) => 
+                <CustomTableCell
+                  data={getDate()}
+                  style={{ fontWeight: '400', fontSize: '1rem' }}
+                />
             },
             {
               header: 'Circuit Name',
               accessorKey: 'circuit',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getCircuit }}) => 
+                <CircuitCell circuit={getCircuit()} />
             },
             {
               header: 'Q1',
               accessorKey: 'q1',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getQ1 }}) => 
+                <CustomTableCell
+                  data={getQ1()}
+                  style={{ fontWeight: '400' }}
+                />
             },
             {
               header: 'Q2',
               accessorKey: 'q2',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getQ2 }}) => 
+                <CustomTableCell
+                  data={getQ2()}
+                  style={{ fontWeight: '400' }}
+                />
             },
             {
               header: 'Q3',
               accessorKey: 'q3',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getQ3 }}) => 
+                <CustomTableCell
+                  data={getQ3()}
+                  style={{ fontWeight: '400' }}
+                />
             },
             {
               header: 'Position',
               accessorKey: 'pos',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getPosition }}) => 
+                <CustomTableCell
+                  data={getPosition()}
+                  style={{ fontWeight: '600', fontSize: '1.2rem' }}
+                />
             },
           ],
           data: season.weekends.map(weekend => ({
             round: weekend.round,
             weekend: weekend.name,
             date: weekend.sessions.race.getFormattedDate('MMM. dd.'),
-            circuit: weekend.circuit.name,
+            circuit: weekend.circuit,
             q1: weekend.result.qualifying[0].q1,
             q2: weekend.result.qualifying[0].q2,
             q3: weekend.result.qualifying[0].q3,

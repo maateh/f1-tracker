@@ -9,6 +9,7 @@ import { qualifyingResults } from "../../../../../api/results"
 
 // components
 import ResultsCard from '../../../components/card/ResultsCard'
+import CustomTableCell from '../../../../../components/listing/table/cell/CustomTableCell'
 
 // models
 import WeekendModel from "../../../../../model/season/weekend/Weekend"
@@ -54,32 +55,62 @@ export const getWeekendQualifyingQuery = ({ year, id: round }) => ({
             {
               header: 'Position',
               accessorKey: 'pos',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getPosition }}) => 
+                <CustomTableCell
+                  data={getPosition()}
+                  style={{ fontWeight: '600', fontSize: '1.2rem' }}
+                />
             },
             {
               header: 'Driver',
               accessorKey: 'driver',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getDriver }}) => 
+                <CustomTableCell
+                  data={getDriver()}
+                  style={{ fontWeight: '500' }}
+                />
             },
             {
               header: 'Constructor',
               accessorKey: 'constructor',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getConstructor }}) => 
+                <CustomTableCell
+                  data={getConstructor()}
+                  style={{ fontWeight: '500' }}
+                />
             },
             {
               header: 'Q1',
               accessorKey: 'q1',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getQ1 }}) => 
+                <CustomTableCell
+                  data={getQ1()}
+                  style={{ fontWeight: '400' }}
+                />
             },
             {
               header: 'Q2',
               accessorKey: 'q2',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getQ2 }}) => 
+                <CustomTableCell
+                  data={getQ2()}
+                  style={{ fontWeight: '400' }}
+                />
             },
             {
               header: 'Q3',
               accessorKey: 'q3',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getQ3 }}) => 
+                <CustomTableCell
+                  data={getQ3()}
+                  style={{ fontWeight: '400' }}
+                />
             },
           ],
           data: weekend.result.qualifying.map(result => ({

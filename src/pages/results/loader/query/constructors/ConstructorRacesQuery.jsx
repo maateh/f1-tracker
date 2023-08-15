@@ -19,6 +19,8 @@ import { constructorRacesResults } from '../../../../../api/results'
 
 // components
 import ResultsCard from '../../../components/card/ResultsCard'
+import CustomTableCell from '../../../../../components/listing/table/cell/CustomTableCell'
+import CircuitCell from '../../../components/table/CircuitCell'
 import FastestLapCell from '../../../components/table/FastestLapCell'
 import PointsCell from '../../../components/table/PointsCell'
 
@@ -86,22 +88,39 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
             {
               header: 'Round',
               accessorKey: 'round',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getRound }}) => 
+                <CustomTableCell
+                  data={getRound()}
+                  style={{ fontWeight: '700', fontSize: '1.2rem' }}
+                />
             },
             {
               header: 'Weekend',
               accessorKey: 'weekend',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getWeekendName }}) => 
+                <CustomTableCell
+                  data={getWeekendName()}
+                  style={{ fontWeight: '600' }}
+                />
             },
             {
               header: 'Date',
               accessorKey: 'date',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getDate }}) => 
+                <CustomTableCell
+                  data={getDate()}
+                  style={{ fontWeight: '400', fontSize: '1rem' }}
+                />
             },
             {
               header: 'Circuit Name',
               accessorKey: 'circuit',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getCircuit }}) => 
+                <CircuitCell circuit={getCircuit()} />
             },
             {
               header: 'Fastest Lap',
@@ -116,7 +135,12 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
             {
               header: 'Completed Laps',
               accessorKey: 'laps',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getLaps }}) => 
+                <CustomTableCell
+                  data={getLaps()}
+                  style={{ fontWeight: '500', fontSize: '1.1rem' }}
+                />
             },
             {
               header: 'Points',
@@ -133,7 +157,7 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
             round: weekend.round,
             weekend: weekend.name,
             date: weekend.sessions.race.getFormattedDate('MMM. dd.'),
-            circuit: weekend.circuit.name,
+            circuit: weekend.circuit,
             fl: weekend,
             laps: `${completedLaps(weekend)} laps`,
             points: weekend,

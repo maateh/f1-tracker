@@ -1,6 +1,10 @@
 // api
 import { driverStandings } from "../../../../../api/standings"
 
+// components
+import CustomTableCell from "../../../../../components/listing/table/cell/CustomTableCell"
+import PointsCell from "../../../components/table/PointsCell"
+
 // models
 import SeasonModel from '../../../../../model/season/Season'
 import ListingModel from "../../../../../model/listing/Listing"
@@ -27,32 +31,59 @@ export const getDriverStandingsQuery = ({ year }) => ({
             {
               header: 'Position',
               accessorKey: 'pos',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getPosition } }) => 
+                <CustomTableCell
+                  data={getPosition()}
+                  style={{ fontWeight: '600', fontSize: '1.2rem' }}
+                />
             },
             {
               header: 'Driver',
               accessorKey: 'driver',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getDriver }}) => 
+                <CustomTableCell
+                  data={getDriver()}
+                  style={{ fontWeight: '500' }}
+                />
             },
             {
               header: 'Constructor',
               accessorKey: 'constructor',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getConstructor }}) => 
+                <CustomTableCell
+                  data={getConstructor()}
+                  style={{ fontWeight: '500' }}
+                />
             },
             {
               header: 'Nationality',
               accessorKey: 'nationality',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getNationality }}) => 
+                <CustomTableCell
+                  data={getNationality()}
+                  style={{ fontWeight: '500' }}
+                />
             },
             {
               header: 'Wins',
               accessorKey: 'wins',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getWins }}) => 
+                <CustomTableCell
+                  data={getWins()}
+                  style={{ fontWeight: '500' }}
+                />
             },
             {
               header: 'Points',
               accessorKey: 'points',
-              enableSorting: true
+              enableSorting: true,
+              cell: ({ cell: { getValue: getPoints }}) => 
+                <PointsCell points={getPoints()} />
             },
           ],
           data: season.standings.drivers.map(result => ({
