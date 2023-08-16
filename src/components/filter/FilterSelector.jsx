@@ -17,6 +17,10 @@ const FilterSelector = ({ selector, loading }) => {
       <label className={selector.filter.key}>
         <span>{selector.filter.label}</span>
         <Select
+          className="react-select-container"
+          classNamePrefix="react-select"
+          unstyled={true}
+          
           onChange={handleChange}
           placeholder={selector.current.label}
           value={selector.current.value}
