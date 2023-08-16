@@ -15,7 +15,7 @@ export const useSeasonsQuery = () => {
 
   return useQuery({
     queryKey: ['filter', 'seasonList'],
-		queryFn: FilterModel.querySeasons,
+		queryFn: async () => FilterModel.querySeasons({ label: 'Select a Season' }),
 		onSuccess: filter => dispatch({ 
       type: 'SET_SEASONS', 
       payload: new FilterSelectorModel({

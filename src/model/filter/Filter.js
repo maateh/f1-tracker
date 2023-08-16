@@ -21,11 +21,11 @@ class Filter {
 		return this.options?.find(option => option.value === value)
 	}
 
-	static async querySeasons() {
+	static async querySeasons({ label = 'Years' }) {
 		return seasonList()
 			.then(({ data }) => new Filter({
         key: 'years',
-        label: 'Years',
+        label,
         options: data.Seasons
 					.map(({ season }) => new FilterOption({ 
 						value: season, 
@@ -38,11 +38,11 @@ class Filter {
 			})
 	}
 
-	static async queryRounds(year) {
+	static async queryRounds({ year, label = 'Rounds' }) {
 		return season(year)
 			.then(({ data }) => new Filter({
 				key: 'rounds',
-				label: 'Rounds',
+				label,
 				options: data.Races
 					.map(({ round, raceName }) => new FilterOption({ 
 						value: round, 
@@ -54,11 +54,11 @@ class Filter {
 			})
 	}
 
-	static async queryDrivers(year) {
+	static async queryDrivers({ year, label = 'Drivers' }) {
 		return driverList(year)
 			.then(({ data }) => new Filter({
         key: 'drivers',
-        label: 'Drivers',
+        label,
 				options: data.Drivers
 					.map(({ driverId, givenName, familyName }) => new FilterOption({ 
 						value: driverId, 
@@ -70,11 +70,11 @@ class Filter {
 			})
 	}
 
-	static async queryConstructors(year) {
+	static async queryConstructors({ year, label = 'Constructors' }) {
 		return constructorList(year)
 			.then(({ data }) => new Filter({
         key: 'constructors',
-        label: 'Constructors',
+        label,
 				options: data.Constructors
 					.map(({ constructorId, name }) => new FilterOption({ 
 						value: constructorId, 

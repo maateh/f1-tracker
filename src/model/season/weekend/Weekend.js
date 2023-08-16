@@ -74,7 +74,8 @@ class Weekend {
 
 	isActive() {
 		const now = Date.now()
-		return this.sessions.practices[0]?.start < now
+		return this.sessions.practices && 
+			this.sessions.practices[0]?.start < now
 			&& this.sessions.race.end > now
 	}
 

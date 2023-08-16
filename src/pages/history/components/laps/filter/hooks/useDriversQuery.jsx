@@ -16,7 +16,7 @@ export const useDriversQuery = () => {
 
   return useQuery({
 		queryKey: ['filter', 'driverList', year],
-		queryFn: () => FilterModel.queryDrivers(year),
+		queryFn: () => FilterModel.queryDrivers({ year }),
 		onSuccess: filter => dispatch({ 
       type: 'SET_DRIVERS', 
       payload: new FilterSelectorModel({

@@ -45,15 +45,15 @@ const idsQuery = (year, standings) => {
 
 const roundsQuery = year => ({
 	queryKey: ['filter', 'roundList', year],
-	queryFn: async () => FilterModel.queryRounds(year),
+	queryFn: async () => FilterModel.queryRounds({ year }),
 })
 
 const driversQuery = year => ({
 	queryKey: ['filter', 'driverList', year],
-	queryFn: async () => FilterModel.queryDrivers(year),
+	queryFn: async () => FilterModel.queryDrivers({ year }),
 })
 
 const constructorsQuery = year => ({
 	queryKey: ['filter', 'constructorList', year],
-	queryFn: async () => FilterModel.queryConstructors(year),
+	queryFn: async () => FilterModel.queryConstructors({ year }),
 })

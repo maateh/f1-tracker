@@ -15,7 +15,7 @@ export const useRoundsQuery = () => {
 
   return useQuery({
 		queryKey: ['filter', 'roundList', year],
-		queryFn: () => FilterModel.queryRounds(year),
+		queryFn: () => FilterModel.queryRounds({ year }),
 		onSuccess: filter => dispatch({ 
       type: 'SET_ROUNDS', 
       payload: new FilterSelectorModel({
