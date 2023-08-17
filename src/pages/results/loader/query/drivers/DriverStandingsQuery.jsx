@@ -2,7 +2,8 @@
 import { driverStandings } from "../../../../../api/standings"
 
 // components
-import CustomTableCell from "../../../../../components/listing/table/cell/CustomTableCell"
+import SingleTableCell from "../../../../../components/listing/table/cell/SingleTableCell"
+import LinkingTableCell from "../../../../../components/listing/table/cell/LinkingTableCell"
 import PointsCell from "../../../components/table/PointsCell"
 
 // models
@@ -33,7 +34,7 @@ export const getDriverStandingsQuery = ({ year }) => ({
               accessorKey: 'pos',
               enableSorting: true,
               cell: ({ cell: { getValue: getPosition } }) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getPosition()}
                   style={{ fontWeight: '600', fontSize: '1.2rem' }}
                 />
@@ -43,8 +44,9 @@ export const getDriverStandingsQuery = ({ year }) => ({
               accessorKey: 'driver',
               enableSorting: true,
               cell: ({ cell: { getValue: getDriver }}) => 
-                <CustomTableCell
-                  data={getDriver()}
+                <LinkingTableCell
+                  data={getDriver().fullName}
+                  link={getDriver().wiki}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -53,8 +55,9 @@ export const getDriverStandingsQuery = ({ year }) => ({
               accessorKey: 'constructor',
               enableSorting: true,
               cell: ({ cell: { getValue: getConstructor }}) => 
-                <CustomTableCell
-                  data={getConstructor()}
+                <LinkingTableCell
+                  data={getConstructor().name}
+                  link={getConstructor().wiki}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -63,7 +66,7 @@ export const getDriverStandingsQuery = ({ year }) => ({
               accessorKey: 'nationality',
               enableSorting: true,
               cell: ({ cell: { getValue: getNationality }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getNationality()}
                   style={{ fontWeight: '500' }}
                 />
@@ -73,7 +76,7 @@ export const getDriverStandingsQuery = ({ year }) => ({
               accessorKey: 'wins',
               enableSorting: true,
               cell: ({ cell: { getValue: getWins }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getWins()}
                   style={{ fontWeight: '500' }}
                 />
@@ -88,8 +91,8 @@ export const getDriverStandingsQuery = ({ year }) => ({
           ],
           data: season.standings.drivers.map(result => ({
             pos: result.position,
-            driver: `${result.driver.fullName} ${result.driver.formattedNumber}`,
-            constructor: result.constructors[0].name,
+            driver: result.driver,
+            constructor: result.constructors[0],
             nationality: result.driver.nationality,
             wins: result.wins,
             points: result.points,

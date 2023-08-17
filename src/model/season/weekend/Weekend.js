@@ -15,7 +15,7 @@ class Weekend {
 		this.year = data.season
 
 		this.name = data.raceName
-		this.wikiUrl = data.url
+		this.wiki = data.url
 		this.circuit = new Circuit(data.Circuit)
 
 		this.date = data.date

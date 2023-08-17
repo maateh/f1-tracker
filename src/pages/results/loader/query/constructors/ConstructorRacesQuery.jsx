@@ -19,7 +19,7 @@ import { constructorRacesResults } from '../../../../../api/results'
 
 // components
 import ResultsCard from '../../../components/card/ResultsCard'
-import CustomTableCell from '../../../../../components/listing/table/cell/CustomTableCell'
+import SingleTableCell from '../../../../../components/listing/table/cell/SingleTableCell'
 import CircuitCell from '../../../components/table/CircuitCell'
 import FastestLapCell from '../../../components/table/FastestLapCell'
 import PointsCell from '../../../components/table/PointsCell'
@@ -90,7 +90,7 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
               accessorKey: 'round',
               enableSorting: true,
               cell: ({ cell: { getValue: getRound }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getRound()}
                   style={{ fontWeight: '700', fontSize: '1.2rem' }}
                 />
@@ -100,7 +100,7 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
               accessorKey: 'weekend',
               enableSorting: true,
               cell: ({ cell: { getValue: getWeekendName }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getWeekendName()}
                   style={{ fontWeight: '600' }}
                 />
@@ -110,7 +110,7 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
               accessorKey: 'date',
               enableSorting: true,
               cell: ({ cell: { getValue: getDate }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getDate()}
                   style={{ fontWeight: '400', fontSize: '1rem' }}
                 />
@@ -137,7 +137,7 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
               accessorKey: 'laps',
               enableSorting: true,
               cell: ({ cell: { getValue: getLaps }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getLaps()}
                   style={{ fontWeight: '500', fontSize: '1.1rem' }}
                 />

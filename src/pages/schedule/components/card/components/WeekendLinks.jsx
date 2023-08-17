@@ -22,7 +22,7 @@ const WeekendLinks = ({ weekend }) => {
       <Tooltip title="Wikipedia page" arrow={true} disableInteractive={true}>
         <div className="icon__container">
           <InfoIcon />
-          <Link className="weekend-wiki__btn" to={weekend.wikiUrl}>
+          <Link className="weekend-wiki__btn" to={weekend.wiki}>
             <span>More info</span>
           </Link>
         </div>

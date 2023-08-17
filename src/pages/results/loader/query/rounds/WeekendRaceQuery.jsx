@@ -14,7 +14,8 @@ import { raceResults } from "../../../../../api/results"
 
 // components
 import ResultsCard from '../../../components/card/ResultsCard'
-import CustomTableCell from '../../../../../components/listing/table/cell/CustomTableCell'
+import SingleTableCell from '../../../../../components/listing/table/cell/SingleTableCell'
+import LinkingTableCell from '../../../../../components/listing/table/cell/LinkingTableCell'
 import FastestLapCell from '../../../components/table/FastestLapCell'
 import PointsCell from '../../../components/table/PointsCell'
 
@@ -73,7 +74,7 @@ export const getWeekendRaceQuery = ({ year, id: round }) => ({
               accessorKey: 'pos',
               enableSorting: true,
               cell: ({ cell: { getValue: getPosition } }) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getPosition()}
                   style={{ fontWeight: '600', fontSize: '1.2rem' }}
                 />
@@ -83,8 +84,9 @@ export const getWeekendRaceQuery = ({ year, id: round }) => ({
               accessorKey: 'driver',
               enableSorting: true,
               cell: ({ cell: { getValue: getDriver }}) => 
-                <CustomTableCell
-                  data={getDriver()}
+                <LinkingTableCell
+                  data={getDriver().fullName}
+                  link={getDriver().wiki}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -93,8 +95,9 @@ export const getWeekendRaceQuery = ({ year, id: round }) => ({
               accessorKey: 'constructor',
               enableSorting: true,
               cell: ({ cell: { getValue: getConstructor }}) => 
-                <CustomTableCell
-                  data={getConstructor()}
+                <LinkingTableCell
+                  data={getConstructor().name}
+                  link={getConstructor().wiki}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -103,7 +106,7 @@ export const getWeekendRaceQuery = ({ year, id: round }) => ({
               accessorKey: 'grid',
               enableSorting: true,
               cell: ({ cell: { getValue: getGrid }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getGrid()}
                   style={{ fontWeight: '600', fontSize: '1rem' }}
                 />
@@ -123,7 +126,7 @@ export const getWeekendRaceQuery = ({ year, id: round }) => ({
               accessorKey: 'duration',
               enableSorting: true,
               cell: ({ cell: { getValue: getDuration }}) => 
-                <PointsCell
+                <SingleTableCell
                   data={getDuration()}
                   style={{ fontWeight: '400' }}
                 />
@@ -138,8 +141,8 @@ export const getWeekendRaceQuery = ({ year, id: round }) => ({
           ],
           data: weekend.result.race.map(result => ({
             pos: result.position,
-            driver: `${result.driver.fullName} ${result.driver.formattedNumber}`,
-            constructor: result.constructor.name,
+            driver: result.driver,
+            constructor: result.constructor,
             grid: result.grid,
             fl: result.fastestLap,
             duration: result.raceTime,

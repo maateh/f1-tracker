@@ -9,7 +9,8 @@ import { qualifyingResults } from "../../../../../api/results"
 
 // components
 import ResultsCard from '../../../components/card/ResultsCard'
-import CustomTableCell from '../../../../../components/listing/table/cell/CustomTableCell'
+import SingleTableCell from '../../../../../components/listing/table/cell/SingleTableCell'
+import LinkingTableCell from '../../../../../components/listing/table/cell/LinkingTableCell'
 
 // models
 import WeekendModel from "../../../../../model/season/weekend/Weekend"
@@ -57,7 +58,7 @@ export const getWeekendQualifyingQuery = ({ year, id: round }) => ({
               accessorKey: 'pos',
               enableSorting: true,
               cell: ({ cell: { getValue: getPosition }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getPosition()}
                   style={{ fontWeight: '600', fontSize: '1.2rem' }}
                 />
@@ -67,8 +68,9 @@ export const getWeekendQualifyingQuery = ({ year, id: round }) => ({
               accessorKey: 'driver',
               enableSorting: true,
               cell: ({ cell: { getValue: getDriver }}) => 
-                <CustomTableCell
-                  data={getDriver()}
+                <LinkingTableCell
+                  data={getDriver().fullName}
+                  link={getDriver().wiki}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -77,8 +79,9 @@ export const getWeekendQualifyingQuery = ({ year, id: round }) => ({
               accessorKey: 'constructor',
               enableSorting: true,
               cell: ({ cell: { getValue: getConstructor }}) => 
-                <CustomTableCell
-                  data={getConstructor()}
+                <LinkingTableCell
+                  data={getConstructor().name}
+                  link={getConstructor().wiki}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -87,7 +90,7 @@ export const getWeekendQualifyingQuery = ({ year, id: round }) => ({
               accessorKey: 'q1',
               enableSorting: true,
               cell: ({ cell: { getValue: getQ1 }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getQ1()}
                   style={{ fontWeight: '400' }}
                 />
@@ -97,7 +100,7 @@ export const getWeekendQualifyingQuery = ({ year, id: round }) => ({
               accessorKey: 'q2',
               enableSorting: true,
               cell: ({ cell: { getValue: getQ2 }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getQ2()}
                   style={{ fontWeight: '400' }}
                 />
@@ -107,7 +110,7 @@ export const getWeekendQualifyingQuery = ({ year, id: round }) => ({
               accessorKey: 'q3',
               enableSorting: true,
               cell: ({ cell: { getValue: getQ3 }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getQ3()}
                   style={{ fontWeight: '400' }}
                 />
@@ -115,8 +118,8 @@ export const getWeekendQualifyingQuery = ({ year, id: round }) => ({
           ],
           data: weekend.result.qualifying.map(result => ({
             pos: result.position,
-            driver: `${result.driver.fullName} ${result.driver.formattedNumber}`,
-            constructor: result.constructor.name,
+            driver: result.driver,
+            constructor: result.constructor,
             q1: result.q1,
             q2: result.q2,
             q3: result.q3,

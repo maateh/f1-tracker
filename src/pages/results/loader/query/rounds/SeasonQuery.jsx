@@ -18,7 +18,8 @@ import { qualifyingsResults, racesResults } from '../../../../../api/results'
 
 // components
 import ResultsCard from '../../../components/card/ResultsCard'
-import CustomTableCell from '../../../../../components/listing/table/cell/CustomTableCell'
+import SingleTableCell from '../../../../../components/listing/table/cell/SingleTableCell'
+import LinkingTableCell from '../../../../../components/listing/table/cell/LinkingTableCell'
 import CircuitCell from '../../../components/table/CircuitCell'
 import PoleCell from '../../../components/table/PoleCell'
 import WinnerCell from '../../../components/table/WinnerCell'
@@ -97,7 +98,7 @@ export const getSeasonQuery = ({ year }) => ({
               accessorKey: 'round',
               enableSorting: true,
               cell: ({ cell: { getValue: getRound }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getRound()}
                   style={{ fontWeight: '700', fontSize: '1.2rem' }}
                 />
@@ -106,9 +107,10 @@ export const getSeasonQuery = ({ year }) => ({
               header: 'Weekend',
               accessorKey: 'weekend',
               enableSorting: true,
-              cell: ({ cell: { getValue: getWeekendName }}) => 
-                <CustomTableCell
-                  data={getWeekendName()}
+              cell: ({ cell: { getValue: getWeekend }}) => 
+                <LinkingTableCell
+                  data={getWeekend().name}
+                  link={getWeekend().wiki}
                   style={{ fontWeight: '600' }}
                 />
             },
@@ -117,7 +119,7 @@ export const getSeasonQuery = ({ year }) => ({
               accessorKey: 'date',
               enableSorting: true,
               cell: ({ cell: { getValue: getDate }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getDate()}
                   style={{ fontWeight: '400', fontSize: '1rem' }}
                 />
@@ -157,9 +159,10 @@ export const getSeasonQuery = ({ year }) => ({
               header: 'Laps',
               accessorKey: 'laps',
               enableSorting: true,
-              cell: ({ cell: { getValue: getLaps }}) => 
-                <CustomTableCell
-                  data={getLaps()}
+              cell: ({ cell: { getValue: getWeekend }}) => 
+                <LinkingTableCell
+                  data={`${getWeekend().result.race[0].laps} laps`}
+                  link={`/history/laps/${getWeekend().year}/${getWeekend().round}/all`}
                   style={{ fontWeight: '500', fontSize: '1.1rem' }}
                 />
             },
@@ -168,7 +171,7 @@ export const getSeasonQuery = ({ year }) => ({
               accessorKey: 'duration',
               enableSorting: true,
               cell: ({ cell: { getValue: getDuration }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getDuration()}
                   style={{ fontWeight: '400' }}
                 />
@@ -176,13 +179,13 @@ export const getSeasonQuery = ({ year }) => ({
           ],
           data: season.weekends.map(weekend => ({
             round: weekend.round,
-            weekend: weekend.name,
+            weekend: weekend,
             date: weekend.sessions.race.getFormattedDate('MMM. dd.'),
             circuit: weekend.circuit,
             pole: pole(weekend),
             winner: weekend.result.race[0],
             fl: fastest(weekend),
-            laps: weekend.result.race[0].laps,
+            laps: weekend,
             duration: weekend.result.race[0].raceTime
           }))
         })

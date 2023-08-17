@@ -1,13 +1,21 @@
+import { Link } from "react-router-dom"
+
 const WinnerCell = ({ result: { driver, constructor } }) => {
 	return (
 		<>
-			<p style={{ fontWeight: '600' }}>
+			<Link 
+				style={{ display: 'block', fontWeight: '600' }}
+				to={`${driver.wiki}`}
+			>
         {driver.fullName}
-      </p>
+      </Link>
 
-			<p style={{ fontWeight: '300', fontSize: '1rem' }}>
+			<Link 
+				style={{ display: 'block', fontWeight: '300', fontSize: '1rem' }}
+				to={`${constructor.wiki}`}
+			>
         {constructor.name}
-      </p>
+      </Link>
 		</>
 	)
 }

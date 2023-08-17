@@ -19,7 +19,8 @@ import { driverRacesResults } from '../../../../../api/results'
 
 // models
 import ResultsCard from '../../../components/card/ResultsCard'
-import CustomTableCell from '../../../../../components/listing/table/cell/CustomTableCell'
+import SingleTableCell from '../../../../../components/listing/table/cell/SingleTableCell'
+import LinkingTableCell from '../../../../../components/listing/table/cell/LinkingTableCell'
 import CircuitCell from '../../../components/table/CircuitCell'
 import FastestLapCell from '../../../components/table/FastestLapCell'
 
@@ -90,7 +91,7 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
               accessorKey: 'round',
               enableSorting: true,
               cell: ({ cell: { getValue: getRound }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getRound()}
                   style={{ fontWeight: '700', fontSize: '1.2rem' }}
                 />
@@ -99,9 +100,10 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
               header: 'Weekend',
               accessorKey: 'weekend',
               enableSorting: true,
-              cell: ({ cell: { getValue: getWeekendName }}) => 
-                <CustomTableCell
-                  data={getWeekendName()}
+              cell: ({ cell: { getValue: getWeekend }}) => 
+                <LinkingTableCell
+                  data={getWeekend().name}
+                  link={getWeekend().wiki}
                   style={{ fontWeight: '600' }}
                 />
             },
@@ -110,7 +112,7 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
               accessorKey: 'date',
               enableSorting: true,
               cell: ({ cell: { getValue: getDate }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getDate()}
                   style={{ fontWeight: '400', fontSize: '1rem' }}
                 />
@@ -141,9 +143,10 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
               header: 'Completed Laps',
               accessorKey: 'laps',
               enableSorting: true,
-              cell: ({ cell: { getValue: getLaps }}) => 
-                <CustomTableCell
-                  data={getLaps()}
+              cell: ({ cell: { getValue: getWeekend }}) => 
+                <LinkingTableCell
+                  data={`${getWeekend().result.race[0].laps} laps`}
+                  link={`/history/laps/${getWeekend().year}/${getWeekend().round}/${getWeekend().result.race[0].driver.id}`}
                   style={{ fontWeight: '500', fontSize: '1.1rem' }}
                 />
             },
@@ -152,7 +155,7 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
               accessorKey: 'duration',
               enableSorting: true,
               cell: ({ cell: { getValue: getDuration }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getDuration()}
                   style={{ fontWeight: '400' }}
                 />
@@ -162,7 +165,7 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
               accessorKey: 'position',
               enableSorting: true,
               cell: ({ cell: { getValue: getPosition }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getPosition()}
                   style={{ fontWeight: '600', fontSize: '1.2rem' }}
                 />
@@ -177,12 +180,12 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
           ],
           data: season.weekends.map((weekend) => ({
             round: weekend.round,
-            weekend: weekend.name,
+            weekend: weekend,
             date: weekend.sessions.race.getFormattedDate('MMM. dd.'),
             circuit: weekend.circuit,
             grid: weekend.result.race[0].grid,
             fl: weekend.result.race[0].fastestLap,
-            laps: weekend.result.race[0].laps,
+            laps: weekend,
             duration: weekend.result.race[0].raceTime,
             position: weekend.result.race[0].position,
             points: weekend.result.race[0].points,

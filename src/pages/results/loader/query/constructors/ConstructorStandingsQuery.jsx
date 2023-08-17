@@ -2,7 +2,8 @@
 import { constructorStandings } from "../../../../../api/standings"
 
 // components
-import CustomTableCell from "../../../../../components/listing/table/cell/CustomTableCell"
+import SingleTableCell from "../../../../../components/listing/table/cell/SingleTableCell"
+import LinkingTableCell from "../../../../../components/listing/table/cell/LinkingTableCell"
 import PointsCell from "../../../components/table/PointsCell"
 
 // models
@@ -33,7 +34,7 @@ export const getConstructorStandingsQuery = ({ year }) => ({
               accessorKey: 'pos',
               enableSorting: true,
               cell: ({ cell: { getValue: getPosition } }) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getPosition()}
                   style={{ fontWeight: '600', fontSize: '1.2rem' }}
                 />
@@ -43,8 +44,9 @@ export const getConstructorStandingsQuery = ({ year }) => ({
               accessorKey: 'constructor',
               enableSorting: true,
               cell: ({ cell: { getValue: getConstructor }}) => 
-                <CustomTableCell
-                  data={getConstructor()}
+                <LinkingTableCell
+                  data={getConstructor().name}
+                  link={getConstructor().wiki}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -53,7 +55,7 @@ export const getConstructorStandingsQuery = ({ year }) => ({
               accessorKey: 'nationality',
               enableSorting: true,
               cell: ({ cell: { getValue: getNationality }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getNationality()}
                   style={{ fontWeight: '500' }}
                 />
@@ -63,7 +65,7 @@ export const getConstructorStandingsQuery = ({ year }) => ({
               accessorKey: 'wins',
               enableSorting: true,
               cell: ({ cell: { getValue: getWins }}) => 
-                <CustomTableCell
+                <SingleTableCell
                   data={getWins()}
                   style={{ fontWeight: '500' }}
                 />
@@ -78,7 +80,7 @@ export const getConstructorStandingsQuery = ({ year }) => ({
           ],
           data: season.standings.constructors.map(result => ({
             pos: result.position,
-            constructor: result.constructor.name,
+            constructor: result.constructor,
             nationality: result.constructor.nationality,
             wins: result.wins,
             points: result.points,
