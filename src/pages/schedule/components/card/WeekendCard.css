@@ -1,5 +1,5 @@
 .weekend-card__container {
-  height: 100%;
+  height: 180px;
   width: 95%;
   margin: 0 auto;
   padding: 1rem 1.5rem;
@@ -9,6 +9,9 @@
   border-top: 6px solid var(--secondary);
   border-left: 6px solid var(--secondary);
   border-radius: 6px;
+
+  border-bottom: 1px solid var(--secondary);
+  border-right: 1px solid var(--secondary);
   border-bottom-right-radius: 24px;
   border-top-left-radius: 48px;
 
@@ -92,7 +95,7 @@
 .weekend-card__container .weekend-sprint-info:active {
   font-weight: 700;
 }
-.weekend-card__container .weekend-sprint-info svg {
+.weekend-card__container .weekend-sprint-info > svg {
   color: var(--accent-yellow);
   font-size: 1.8rem;
 }
@@ -156,6 +159,9 @@
 }
 
 @media (max-width: 40rem) {
+  .weekend-card__container {
+    height: 220px;
+  }
   .weekend-card__container .weekend-title {
     font-size: 1.5rem;
   }
@@ -169,11 +175,25 @@
   .weekend-card__container .weekend-round {
     font-size: 1.5rem;
   }
+  .weekend-card__container .weekend-marker svg {
+    font-size: 1.4rem;
+  }
 
-  .weekend-card__container .weekend-sprint-info .weekend-sprint-mark {
+  .weekend-card__container .weekend-sprint-info > span {
     font-size: 0.9rem;
   }
-  .weekend-card__container .weekend-sprint-info svg {
+  .weekend-card__container .weekend-sprint-info > svg {
     font-size: 1.4rem;
+  }
+
+  .weekend-card__container .weekend-links__container {
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+}
+
+@media (max-width: 20rem) {
+  .weekend-card__container {
+    height: 280px;
   }
 }

@@ -1,17 +1,14 @@
 // components
-import HomeContent from './components/HomeContent'
+import HomeContent from './HomeContent'
 
 // context
 import { WeekendContextProvider } from './context/WeekendContext'
-
-// styles
-import './Homepage.css'
 
 const Homepage = () => {
   return (
     <main className="page__container">
       <h1 className="page__title">
-        Track the most <span className="highlight home">Formula 1</span> statistics in one place!
+        Track the most <span className="highlight">Formula 1</span> statistics in one place!
       </h1>
 
       <WeekendContextProvider>

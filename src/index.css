@@ -36,7 +36,6 @@ a {
 }
 
 
-
 /* global classes */
 .page__container {
   max-width: 120rem;
@@ -44,43 +43,57 @@ a {
   text-align: center;
 }
 .page__title {
-  max-width: 45rem;
-  margin: 4rem auto;
-  padding: 0 0.5rem 1rem 0.5rem;
-  font-size: 3.5rem;
-  font-weight: 700;
+  max-width: 60rem;
+  margin: 2rem auto 1.5rem;
+  padding: 1rem 4rem;
+
   color: var(--text-color);
+  font-size: 4.5rem;
+  font-weight: 800;
+  font-variant: small-caps;
+  letter-spacing: 1px;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-  border-bottom: 2px solid #ccc;
+
+  position: relative;
 }
-.page__subtitle {
-  max-width: fit-content;
-  font-size: 2rem;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  margin: auto;
-  border-bottom: 2px solid #888;
+.page__title::after {
+  content: "";
+  height: 2px;
+  width: 80%;
+
+  background: #aaa;
+  border-radius: 2px;
+
+  position: absolute;
+  bottom: 0;
+  left: 10%;
 }
-@media (max-width: 50rem) {
+.page__title > span.highlight {
+  font-size: 5.2rem;
+}
+
+@media (max-width: 40rem) {
   .page__title {
+    margin: 2rem auto;
+    padding: 1rem 2rem;
     font-size: 2.5rem;
-    max-width: 60%;
   }
-  .page__subtitle {
-    font-size: 1.8rem;
-    max-width: 50%;
-  } 
+  .page__title > span.highlight {
+    font-size: 2.8rem;
+  }
 }
 
 .btn {
-  background: var(--highlight);
   margin: 1rem;
   padding: 0.5rem 0.8rem;
+
+  background: var(--highlight);
   border-radius: 8px;
-  color: var(--text-color-light);
-  cursor: pointer;
-  font-size: 1rem;
   border: 1px solid var(--highlight);
+
+  color: var(--text-color-light);
+  font-size: 1rem;
+  cursor: pointer;
 }
 .btn:hover,
 .btn:active {
@@ -88,9 +101,8 @@ a {
   border: 1px solid var(--primary);
 }
 .highlight {
-  font-weight: bold;
+  padding: 0 0.25rem;
   color: var(--highlight);
-  padding: 0 0.5rem;
   text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.5);
 }
 .error__element {

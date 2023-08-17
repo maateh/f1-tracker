@@ -31,7 +31,7 @@
 .listing-table__container thead {
   background: var(--secondary);
 }
-.listing-table__container thead th header {
+.listing-table__container thead th .column-header {
   padding: 0.8rem 0.4rem;
   color: var(--text-color-light);
   font-weight: 500;
@@ -44,7 +44,7 @@
   align-items: center;
   gap: 0.2rem;
 }
-.listing-table__container thead th header span.listing-table-sorting__icon svg {
+.listing-table__container thead th .column-header span.listing-table-sorting__icon svg {
   cursor: pointer;
   vertical-align: middle;
   font-size: 1.4rem;

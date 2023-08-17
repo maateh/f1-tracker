@@ -13,10 +13,10 @@ const TableHead = ({ headerGroups }) => {
         <tr key={id}>
           {headers.map(({ id, column, getContext }) => (
             <th key={id}>
-              <header>
+              <div className="column-header">
                 <span>{flexRender(column.columnDef.header, getContext())}</span>
                 <TableSorting column={column} />
-              </header>
+              </div>
             </th>
           ))}
         </tr>

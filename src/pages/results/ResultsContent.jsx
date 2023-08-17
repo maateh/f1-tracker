@@ -1,15 +1,15 @@
-import { useQuery } from 'react-query'
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
+import { useQuery } from 'react-query'
 
 // components
-import ResultsFilter from './filter/ResultsFilter'
+import ResultsFilter from './components/filter/ResultsFilter'
 
 // context
-import { ResultsFilterContextProvider } from './filter/context/ResultsFilterContext'
+import { ResultsFilterContextProvider } from './components/filter/context/ResultsFilterContext'
 
 // models
-import WeekendModel from '../../../model/season/weekend/Weekend'
-import FilterOptionModel from '../../../model/filter/FilterOption'
+import WeekendModel from '../../model/season/weekend/Weekend'
+import FilterOptionModel from '../../model/filter/FilterOption'
 
 // icons
 import CircularProgress from '@mui/material/CircularProgress'

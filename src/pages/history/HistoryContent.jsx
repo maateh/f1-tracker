@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom"
 
 // components
-import HistoryChooser from "./chooser/HistoryChooser"
+import HistoryChooser from "./components/chooser/HistoryChooser"
 
 const HistoryContent = () => {
   return (

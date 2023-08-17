@@ -28,7 +28,7 @@ const PitsHistory = () => {
 	})
 
   return (
-    <div className="history__container">
+    <div className="history-category__container">
       {isLoading && <CircularProgress />}
 
       {year && round && (

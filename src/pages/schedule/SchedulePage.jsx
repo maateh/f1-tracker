@@ -1,5 +1,5 @@
 // components
-import ScheduleContent from "./components/ScheduleContent"
+import ScheduleContent from "./ScheduleContent"
 
 const SchedulePage = () => {
   return (
@@ -10,4 +10,5 @@ const SchedulePage = () => {
     </main>
   )
 }
+
 export default SchedulePage

@@ -5,15 +5,15 @@ import CountdownTimer from "./countdown/CountdownTimer"
 import { useWeekendContext } from "../../context/hooks/useWeekendContext"
 
 const RelevantSession = () => {
-  const { weekend: { sessions: { relevantSession: session } }} = useWeekendContext()
+  const { weekend: { sessions: { relevantSession: session }}} = useWeekendContext()
 
   return (
-    <div className="relevant-session">
+    <section className="relevant-session">
       <h2 className="title">{`${session.isActive() ? 'Current' : 'Next'} Session`}</h2>
       <p className="name">{session.title}</p>
       
       <CountdownTimer end={session.isActive() ? session.end : session.start} />
-    </div>
+    </section>
   )
 }
 

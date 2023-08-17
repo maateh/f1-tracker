@@ -1,19 +1,19 @@
 import { useQuery } from "react-query"
 
 // components
-import RelevantWeekend from "./weekend/RelevantWeekend"
-import RelevantSession from "./session/RelevantSession"
-import SkeletonGrid from "../../../components/skeleton/SkeletonGrid"
-import Error from "../../../components/error/Error"
+import RelevantWeekend from "./components/weekend/RelevantWeekend"
+import RelevantSession from "./components/session/RelevantSession"
+import SkeletonGrid from "../../components/skeleton/SkeletonGrid"
+import Error from "../../components/error/Error"
 
 // context
-import { useWeekendContext } from "../context/hooks/useWeekendContext"
+import { useWeekendContext } from "./context/hooks/useWeekendContext"
 
 // models
-import WeekendModel from "../../../model/season/weekend/Weekend"
+import WeekendModel from "../../model/season/weekend/Weekend"
 
 // styles
-import './HomeContent.css'
+import './Home.css'
 
 const HomeContent = () => {
   const { weekend, dispatch } = useWeekendContext()

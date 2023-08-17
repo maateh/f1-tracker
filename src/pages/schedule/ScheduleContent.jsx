@@ -2,13 +2,13 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
 // components
-import ScheduleFilter from './filter/ScheduleFilter'
+import ScheduleFilter from './components/filter/ScheduleFilter'
 
 // context
-import { ScheduleFilterContextProvider } from './filter/context/ScheduleFilterContext'
+import { ScheduleFilterContextProvider } from './components/filter/context/ScheduleFilterContext'
 
 // models
-import WeekendModel from '../../../model/season/weekend/Weekend'
+import WeekendModel from '../../model/season/weekend/Weekend'
 
 // icons
 import { CircularProgress } from '@mui/material'

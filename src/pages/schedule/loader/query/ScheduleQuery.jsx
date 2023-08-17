@@ -27,7 +27,7 @@ export const getScheduleQuery = ({ year }) => ({
           styles: {
             margin: '2rem 4rem',
             display: 'grid',
-            gap: '5rem'
+            gap: '4rem'
           },
           layouts: season.weekends.map(weekend => (
             <WeekendCard key={weekend.round} weekend={weekend} nextRound={round} />

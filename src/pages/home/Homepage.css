@@ -1,9 +1,0 @@
-.page__title > span.home {
-  font-size: 4.5rem;
-}
-
-@media (max-width: 50rem) {
-  .page__title > span.home {
-    font-size: 3.5rem;
-  }
-}

@@ -1,5 +1,5 @@
 // components
-import ResultsContent from './components/ResultsContent'
+import ResultsContent from './ResultsContent'
 
 const ResultsPage = () => {
   return (

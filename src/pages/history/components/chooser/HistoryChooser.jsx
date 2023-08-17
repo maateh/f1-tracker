@@ -12,19 +12,20 @@ const options = [
 
 const HistoryChooser = () => {
   return (
-    <div className="history-chooser">
-      <h2 className="page__subtitle">Choose a category</h2>
-      <div className="category-container">
+    <section className="history-chooser">
+      <h2 className="history-chooser__title">Select a category</h2>
+
+      <div className="history-categories__container">
         {options.map(option => (
           <NavLink
+            className="category-option"
             key={option.value}
-            className="option"
             to={`./${option.value}`}
             preventScrollReset={true}
           >{option.placeholder}</NavLink>
         ))}
       </div>
-    </div>
+    </section>
   )
 }
 
