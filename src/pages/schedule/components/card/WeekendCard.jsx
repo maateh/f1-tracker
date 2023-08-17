@@ -15,10 +15,10 @@ import './WeekendCard.css'
 const WeekendCard = ({ weekend, nextRound }) => {
 	const navigate = useNavigate()
 
-	const handleNavigate = () => (
+	const handleNavigate = () => {
 		weekend.sessions.race.isOver() 
 			&& navigate(`/results/${weekend.year}/rounds/${weekend.round}/race`)
-	)
+	}
 
 	return (
 		<li
@@ -31,7 +31,7 @@ const WeekendCard = ({ weekend, nextRound }) => {
 			<WeekendTitle title={weekend.name} />
 			<WeekendDate sessions={weekend.sessions} />
 			<WeekendTime race={weekend.sessions.race} />
-			<WeekendSprint sessions={weekend.sessions} />
+			<WeekendSprint sprint={weekend.sessions.sprint} />
 			<WeekendLinks weekend={weekend} />
 			<WeekendRound round={weekend.round} />
 		</li>
