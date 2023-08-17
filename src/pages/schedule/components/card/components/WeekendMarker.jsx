@@ -28,7 +28,7 @@ const WeekendMarker = ({ weekend, nextRound }) => {
 
   return (
     <div className={`weekend-marker ${status}`}>
-      <Tooltip title={title} arrow>
+      <Tooltip title={title} arrow={true} disableInteractive={true}>
         {icon}
       </Tooltip>
     </div>
