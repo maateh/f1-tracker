@@ -25,7 +25,7 @@ const ResultsFilter = () => {
 	}, [preloading, params, dispatch])
 
 	return (
-		<div className="results-filter">
+		<div className="results-filter__container">
 			{preloading ? (
 				<SkeletonSelector counter={3} />
 			) : (

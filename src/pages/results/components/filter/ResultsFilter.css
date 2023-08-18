@@ -1,6 +1,6 @@
-.results-filter {
+.results-filter__container {
 	display: flex;
-  flex-flow: row wrap;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }

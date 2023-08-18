@@ -64,7 +64,7 @@ export const getSeasonQuery = ({ year }) => ({
           },
           layouts: [
             {
-              title: 'General Information',
+              title: 'Season Information',
               summaries: [
                 { title: 'Drivers', desc: driversAmount(season), icon: <SportsMotorsportsIcon /> },
                 { title: 'Constructors', desc: constructorsAmount(season), icon: <EngineeringIcon /> },
