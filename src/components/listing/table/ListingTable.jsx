@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
 	getCoreRowModel,
 	getSortedRowModel,
@@ -16,8 +16,8 @@ const ListingTable = ({ table: { columns, data } }) => {
 	const [sorting, setSorting] = useState([])
 
 	const table = useReactTable({
-		data,
-		columns,
+		columns: useMemo(() => columns, [columns]),
+		data: useMemo(() => data, [data]),
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 		state: { sorting },

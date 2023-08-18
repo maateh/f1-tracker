@@ -1,7 +1,6 @@
 // icons
 import LabelIcon from '@mui/icons-material/Label'
 import PublicIcon from '@mui/icons-material/Public'
-import LocationOnIcon from '@mui/icons-material/LocationOn'
 import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 
 import SportsScoreIcon from '@mui/icons-material/SportsScore'
@@ -48,12 +47,12 @@ export const getWeekendRaceQuery = ({ year, id: round }) => ({
           },
           layouts: [
             {
-              title: 'Circuit Information',
+              title: 'Weekend Information',
               summaries: [
-                { title: 'Circuit Name', desc: weekend.circuit.name, icon: <LabelIcon /> },
-                { title: 'Country', desc: weekend.circuit.location.country, icon: <PublicIcon /> },
-                { title: 'Locality', desc: weekend.circuit.location.locality, icon: <LocationOnIcon /> },
-                { title: 'More info', desc: 'link to wiki', icon: <ContactSupportIcon /> },
+                { title: 'Circuit Name', desc: weekend.circuit.name, link: weekend.circuit.maps, icon: <LabelIcon /> },
+                { title: 'Country, City', desc: `${weekend.circuit.location.country}, ${weekend.circuit.location.locality}`, icon: <PublicIcon /> },
+                { title: 'Wikipedia (Circuit)', desc: 'Click here for more!', link: weekend.circuit.wiki, icon: <ContactSupportIcon /> },
+                { title: 'Wikipedia (Weekend)', desc: 'Click here for more!', link: weekend.wiki, icon: <ContactSupportIcon /> },
               ]
             },
             {

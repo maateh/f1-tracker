@@ -2,7 +2,6 @@
 import EngineeringIcon from '@mui/icons-material/Engineering'
 import PublicIcon from '@mui/icons-material/Public'
 import SportsMotorsportsIcon from '@mui/icons-material/SportsMotorsports'
-import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import CelebrationIcon from '@mui/icons-material/Celebration'
@@ -20,6 +19,7 @@ import { constructorRacesResults } from '../../../../../api/results'
 // components
 import ResultsCard from '../../../components/card/ResultsCard'
 import SingleTableCell from '../../../../../components/listing/table/cell/SingleTableCell'
+import LinkingTableCell from '../../../../../components/listing/table/cell/LinkingTableCell'
 import CircuitCell from '../../../components/table/CircuitCell'
 import FastestLapCell from '../../../components/table/FastestLapCell'
 import PointsCell from '../../../components/table/PointsCell'
@@ -57,10 +57,9 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
             {
               title: 'Constructor Information',
               summaries: [
-                { title: 'Team Name', desc: getTeam(season).name, icon: <EngineeringIcon /> },
+                { title: 'Team Name', desc: getTeam(season).name, link: getTeam(season).wiki, icon: <EngineeringIcon /> },
                 { title: 'Nationality', desc: getTeam(season).nationality, icon: <PublicIcon /> },
-                { title: 'Drivers', desc: driversQuantity(season), icon: <SportsMotorsportsIcon /> },
-                { title: 'More info', desc: 'link to wiki', icon: <ContactSupportIcon /> },
+                { title: 'Drivers', desc: driversQuantity(season), icon: <SportsMotorsportsIcon /> }
               ],
             },
             {
@@ -136,9 +135,10 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
               header: 'Completed Laps',
               accessorKey: 'laps',
               enableSorting: true,
-              cell: ({ cell: { getValue: getLaps }}) => 
-                <SingleTableCell
-                  data={getLaps()}
+              cell: ({ cell: { getValue: getWeekend }}) => 
+                <LinkingTableCell
+                  data={`${completedLaps(getWeekend())} laps`}
+                  link={`/history/laps/${getWeekend().year}/${getWeekend().round}/all`}
                   style={{ fontWeight: '500', fontSize: '1.1rem' }}
                 />
             },
@@ -159,7 +159,7 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
             date: weekend.sessions.race.getFormattedDate('MMM. dd.'),
             circuit: weekend.circuit,
             fl: weekend,
-            laps: `${completedLaps(weekend)} laps`,
+            laps: weekend,
             points: weekend,
           }))
         })

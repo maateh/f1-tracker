@@ -52,7 +52,7 @@ export const getDriverQualifyingsQuery = ({ year, id: driverId }) => ({
             {
               title: 'Driver Information',
               summaries: [
-                { title: 'Full Name', desc: getDriver(season).fullName, icon: <SportsMotorsportsIcon /> },
+                { title: 'Full Name', desc: getDriver(season).fullName, link: getDriver(season).wiki, icon: <SportsMotorsportsIcon /> },
                 { title: 'Nationality', desc: getDriver(season).nationality, icon: <PublicIcon /> },
                 { title: 'Date of Birth', desc: getDriver(season).dateOfBirth, icon: <CakeIcon /> },
                 { title: 'Driver code, number', desc: `${getDriver(season).code} ${getDriver(season).formattedNumber}`, icon: <TagIcon /> },

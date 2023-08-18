@@ -24,17 +24,16 @@
   flex: 1 0 40%;
   color: var(--text-color-light);
 }
-.results-card__container > .summaries__container > .summary .summary-icon {
-  text-align: center;
-  vertical-align: middle;
-}
 .results-card__container > .summaries__container > .summary .summary-title {
-  vertical-align: top;
-  margin-left: 0.4rem;
+  margin: 0 0.15rem;
   font-size: 1.25rem;
   font-weight: 500;
+  font-variant: small-caps;
 }
 .results-card__container > .summaries__container > .summary .summary-desc {
+  margin-top: 0.25rem;
+  display: block;
+  color: var(--text-color-light);
   font-size: 1.1rem;
   font-weight: 300;
 }

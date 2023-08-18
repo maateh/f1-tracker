@@ -138,9 +138,8 @@ label span {
   align-items: center;
 }
 .icon__container svg {
+  margin-right: 0.3rem;
+  margin-left: 0.25rem;
   color: var(--text-color-light);
-}
-.icon__container span {
-  margin-left: 0.3rem;
-  margin-right: 0.25rem;
+  vertical-align: text-bottom;
 }

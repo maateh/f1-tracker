@@ -107,6 +107,8 @@ export const getSeasonQuery = ({ year }) => ({
               header: 'Weekend',
               accessorKey: 'weekend',
               enableSorting: true,
+              sortingFn: (a, b, id) => 
+                a.getValue(id).name < b.getValue(id).name ? 1 : -1,
               cell: ({ cell: { getValue: getWeekend }}) => 
                 <LinkingTableCell
                   data={getWeekend().name}
@@ -117,7 +119,7 @@ export const getSeasonQuery = ({ year }) => ({
             {
               header: 'Date',
               accessorKey: 'date',
-              enableSorting: true,
+              enableSorting: false,
               cell: ({ cell: { getValue: getDate }}) => 
                 <SingleTableCell
                   data={getDate()}
@@ -128,6 +130,8 @@ export const getSeasonQuery = ({ year }) => ({
               header: 'Circuit Name',
               accessorKey: 'circuit',
               enableSorting: true,
+              sortingFn: (a, b, id) => 
+                a.getValue(id).name < b.getValue(id).name ? 1 : -1,
               cell: ({ cell: { getValue: getCircuit }}) => 
                 <CircuitCell circuit={getCircuit()} />
             },
@@ -135,6 +139,8 @@ export const getSeasonQuery = ({ year }) => ({
               header: 'Pole Lap',
               accessorKey: 'pole',
               enableSorting: true,
+              sortingFn: (a, b, id) => 
+                a.getValue(id)?.time < b.getValue(id)?.time ? 1 : -1,
               cell: ({ cell: { getValue: getPole }}) => 
                 <PoleCell pole={getPole()} />
             },
@@ -142,6 +148,8 @@ export const getSeasonQuery = ({ year }) => ({
               header: 'Winner',
               accessorKey: 'winner',
               enableSorting: true,
+              sortingFn: (a, b, id) => 
+                a.getValue(id).driver.fullName < b.getValue(id).driver.fullName ? 1 : -1,
               cell: ({ cell: { getValue: getResult }}) => 
                 <WinnerCell result={getResult()} />
             },
@@ -149,6 +157,8 @@ export const getSeasonQuery = ({ year }) => ({
               header: 'Fastest Lap',
               accessorKey: 'fl',
               enableSorting: true,
+              sortingFn: (a, b, id) => 
+                a.getValue(id)?.fastestLap < b.getValue(id)?.fastestLap ? 1 : -1,
               cell: ({ cell: { getValue: getResult }}) => 
                 <FastestLapCell 
                   lap={getResult()?.fastestLap} 
@@ -159,6 +169,8 @@ export const getSeasonQuery = ({ year }) => ({
               header: 'Laps',
               accessorKey: 'laps',
               enableSorting: true,
+              sortingFn: (a, b, id) => 
+                a.getValue(id).result.race[0].laps < b.getValue(id).result.race[0].laps ? 1 : -1,
               cell: ({ cell: { getValue: getWeekend }}) => 
                 <LinkingTableCell
                   data={`${getWeekend().result.race[0].laps} laps`}
