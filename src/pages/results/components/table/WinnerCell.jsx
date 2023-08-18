@@ -1,18 +1,20 @@
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 const WinnerCell = ({ result: { driver, constructor } }) => {
+	const { year } = useParams()
+
 	return (
 		<>
 			<Link 
 				style={{ display: 'block', fontWeight: '600' }}
-				to={`${driver.wiki}`}
+				to={`/results/${year}/drivers/${driver.id}/race`}
 			>
         {driver.fullName}
       </Link>
 
 			<Link 
 				style={{ display: 'block', fontWeight: '300', fontSize: '1rem' }}
-				to={`${constructor.wiki}`}
+				to={`/results/${year}/constructors/${constructor.id}`}
 			>
         {constructor.name}
       </Link>

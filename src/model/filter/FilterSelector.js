@@ -10,6 +10,11 @@ class FilterSelector {
   get current() {
     return this.filter.get(this.param)
   }
+
+  updateParam(param) {
+    this.param = param
+    return this
+  }
 }
 
 export default FilterSelector

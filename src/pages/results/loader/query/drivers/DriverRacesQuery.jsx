@@ -103,14 +103,14 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
               cell: ({ cell: { getValue: getWeekend }}) => 
                 <LinkingTableCell
                   data={getWeekend().name}
-                  link={getWeekend().wiki}
+                  link={`/results/${getWeekend().year}/rounds/${getWeekend().round}/race`}
                   style={{ fontWeight: '600' }}
                 />
             },
             {
               header: 'Date',
               accessorKey: 'date',
-              enableSorting: true,
+              enableSorting: false,
               cell: ({ cell: { getValue: getDate }}) => 
                 <SingleTableCell
                   data={getDate()}

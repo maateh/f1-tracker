@@ -98,9 +98,10 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
               header: 'Weekend',
               accessorKey: 'weekend',
               enableSorting: true,
-              cell: ({ cell: { getValue: getWeekendName }}) => 
-                <SingleTableCell
-                  data={getWeekendName()}
+              cell: ({ cell: { getValue: getWeekend }}) => 
+                <LinkingTableCell
+                  data={getWeekend().name}
+                  link={`/results/${getWeekend().year}/rounds/${getWeekend().round}/race`}
                   style={{ fontWeight: '600' }}
                 />
             },
@@ -155,7 +156,7 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
           ],
           data: season.weekends.map(weekend => ({
             round: weekend.round,
-            weekend: weekend.name,
+            weekend: weekend,
             date: weekend.sessions.race.getFormattedDate('MMM. dd.'),
             circuit: weekend.circuit,
             fl: weekend,

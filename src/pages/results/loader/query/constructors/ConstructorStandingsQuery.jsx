@@ -46,7 +46,7 @@ export const getConstructorStandingsQuery = ({ year }) => ({
               cell: ({ cell: { getValue: getConstructor }}) => 
                 <LinkingTableCell
                   data={getConstructor().name}
-                  link={getConstructor().wiki}
+                  link={`/results/${season.year}/constructors/${getConstructor().id}`}
                   style={{ fontWeight: '500' }}
                 />
             },

@@ -46,7 +46,7 @@ export const getDriverStandingsQuery = ({ year }) => ({
               cell: ({ cell: { getValue: getDriver }}) => 
                 <LinkingTableCell
                   data={getDriver().fullName}
-                  link={getDriver().wiki}
+                  link={`/results/${season.year}/drivers/${getDriver().id}/race`}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -57,7 +57,7 @@ export const getDriverStandingsQuery = ({ year }) => ({
               cell: ({ cell: { getValue: getConstructor }}) => 
                 <LinkingTableCell
                   data={getConstructor().name}
-                  link={getConstructor().wiki}
+                  link={`/results/${season.year}/constructors/${getConstructor().id}`}
                   style={{ fontWeight: '500' }}
                 />
             },

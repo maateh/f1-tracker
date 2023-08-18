@@ -1,5 +1,6 @@
-// components
 import { useParams } from 'react-router-dom'
+
+// components
 import FilterSelector from '../../../../components/filter/FilterSelector'
 import SkeletonSelector from '../../../../components/skeleton/SkeletonSelector'
 
@@ -11,11 +12,17 @@ import { useResultsFilterQueries } from './hooks/useResultsFilterQueries'
 
 // styles
 import './ResultsFilter.css'
+import { useEffect } from 'react'
 
 const ResultsFilter = () => {
-	const { selectors } = useResultsFilterContext()
+	const { selectors, dispatch } = useResultsFilterContext()
 	const { preloading, loading, error } = useResultsFilterQueries()
 	const params = useParams()
+
+	useEffect(() => {
+		if (preloading) return
+		dispatch({ type: 'UPDATE_PARAMS', payload: params })
+	}, [preloading, params, dispatch])
 
 	return (
 		<div className="results-filter">

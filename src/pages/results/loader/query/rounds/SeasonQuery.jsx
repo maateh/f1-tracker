@@ -112,7 +112,7 @@ export const getSeasonQuery = ({ year }) => ({
               cell: ({ cell: { getValue: getWeekend }}) => 
                 <LinkingTableCell
                   data={getWeekend().name}
-                  link={getWeekend().wiki}
+                  link={`/results/${getWeekend().year}/rounds/${getWeekend().round}/race`}
                   style={{ fontWeight: '600' }}
                 />
             },
@@ -158,7 +158,7 @@ export const getSeasonQuery = ({ year }) => ({
               accessorKey: 'fl',
               enableSorting: true,
               sortingFn: (a, b, id) => 
-                a.getValue(id)?.fastestLap < b.getValue(id)?.fastestLap ? 1 : -1,
+                a.getValue(id)?.fastestLap.time < b.getValue(id)?.fastestLap.time ? 1 : -1,
               cell: ({ cell: { getValue: getResult }}) => 
                 <FastestLapCell 
                   lap={getResult()?.fastestLap} 

@@ -32,6 +32,7 @@ export const useIdsQuery = () => {
         enabled: () => true
       })
     }),
+    enabled: standings !== selectors.ids?.filter.key
   })
 }
 

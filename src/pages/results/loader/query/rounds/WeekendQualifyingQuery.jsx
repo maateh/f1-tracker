@@ -69,7 +69,7 @@ export const getWeekendQualifyingQuery = ({ year, id: round }) => ({
               cell: ({ cell: { getValue: getDriver }}) => 
                 <LinkingTableCell
                   data={getDriver().fullName}
-                  link={getDriver().wiki}
+                  link={`/results/${weekend.year}/drivers/${getDriver().id}/race`}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -80,7 +80,7 @@ export const getWeekendQualifyingQuery = ({ year, id: round }) => ({
               cell: ({ cell: { getValue: getConstructor }}) => 
                 <LinkingTableCell
                   data={getConstructor().name}
-                  link={getConstructor().wiki}
+                  link={`/results/${weekend.year}/constructors/${getConstructor().id}`}
                   style={{ fontWeight: '500' }}
                 />
             },

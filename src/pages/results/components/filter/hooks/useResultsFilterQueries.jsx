@@ -27,7 +27,9 @@ export const useResultsFilterQueries = () => {
   }, [navigate, dispatch, standings, session, selectors.standings, selectors.sessions])
   
   return {
-    preloading: Object.values(selectors).some(s => !s),
+    preloading: 
+      Object.values(selectors).some(s => !s) || 
+      selectors.standings.param !== selectors.ids.filter.key,
     loading: seasonsLoading || idsLoading,
     error: seasonsError || idsError
   }
