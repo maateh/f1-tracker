@@ -72,9 +72,10 @@ export const getWeekendRaceQuery = ({ year, id: round }) => ({
               header: 'Position',
               accessorKey: 'pos',
               enableSorting: true,
-              cell: ({ cell: { getValue: getPosition } }) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue } }) => 
                 <SingleTableCell
-                  data={getPosition()}
+                  value={getValue().value}
                   style={{ fontWeight: '600', fontSize: '1.2rem' }}
                 />
             },
@@ -82,10 +83,11 @@ export const getWeekendRaceQuery = ({ year, id: round }) => ({
               header: 'Driver',
               accessorKey: 'driver',
               enableSorting: true,
-              cell: ({ cell: { getValue: getDriver }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <LinkingTableCell
-                  data={getDriver().fullName}
-                  link={`/results/${weekend.year}/drivers/${getDriver().id}/race`}
+                  value={getValue().value}
+                  link={`/results/${weekend.year}/drivers/${getValue().driver.id}/race`}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -93,10 +95,11 @@ export const getWeekendRaceQuery = ({ year, id: round }) => ({
               header: 'Constructor',
               accessorKey: 'constructor',
               enableSorting: true,
-              cell: ({ cell: { getValue: getConstructor }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <LinkingTableCell
-                  data={getConstructor().name}
-                  link={`/results/${weekend.year}/constructors/${getConstructor().id}`}
+                  value={getValue().value}
+                  link={`/results/${weekend.year}/constructors/${getValue().constructor.id}`}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -104,9 +107,10 @@ export const getWeekendRaceQuery = ({ year, id: round }) => ({
               header: 'Grid',
               accessorKey: 'grid',
               enableSorting: true,
-              cell: ({ cell: { getValue: getGrid }}) => 
+              sortingFn: 'grid',
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getGrid()}
+                  value={getValue().value}
                   style={{ fontWeight: '600', fontSize: '1rem' }}
                 />
             },
@@ -114,19 +118,20 @@ export const getWeekendRaceQuery = ({ year, id: round }) => ({
               header: 'Fastest Lap',
               accessorKey: 'fl',
               enableSorting: true,
-              cell: ({ cell: { getValue: getFastestLap }}) => 
+              sortingFn: 'time',
+              cell: ({ cell: { getValue }}) => 
                 <FastestLapCell 
-                  lap={getFastestLap()} 
-                  speed={getFastestLap()?.avgSpeed}
+                  lap={getValue().fastestLap} 
+                  speed={getValue().fastestLap?.avgSpeed}
                 />
             },
             {
               header: 'Race gap',
               accessorKey: 'duration',
-              enableSorting: true,
-              cell: ({ cell: { getValue: getDuration }}) => 
+              enableSorting: false,
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getDuration()}
+                  value={getValue().value}
                   style={{ fontWeight: '400' }}
                 />
             },
@@ -134,18 +139,19 @@ export const getWeekendRaceQuery = ({ year, id: round }) => ({
               header: 'Points',
               accessorKey: 'points',
               enableSorting: true,
-              cell: ({ cell: { getValue: getPoints }}) => 
-                <PointsCell points={getPoints()} />
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
+                <PointsCell points={getValue().value} />
             },
           ],
           data: weekend.result.race.map(result => ({
-            pos: result.position,
-            driver: result.driver,
-            constructor: result.constructor,
-            grid: result.grid,
-            fl: result.fastestLap,
-            duration: result.raceTime,
-            points: result.points,
+            pos: { value: +result.position },
+            driver: { value: result.driver.fullName, driver: result.driver },
+            constructor: { value: result.constructor.name, constructor: result.constructor },
+            grid: { value: result.grid },
+            fl: { value: result.fastestLap?.time, fastestLap: result.fastestLap },
+            duration: { value: result.raceTime },
+            points: { value: +result.points },
           }))
         })
       })

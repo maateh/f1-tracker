@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 
-const LinkingTableCell = ({ data, link, style }) => {
+const LinkingTableCell = ({ value, link, style }) => {
   return (
     <Link style={style} to={link}>
-      {data}
+      {value}
     </Link>
   )
 }

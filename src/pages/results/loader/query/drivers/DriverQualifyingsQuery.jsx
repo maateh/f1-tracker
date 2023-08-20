@@ -75,20 +75,22 @@ export const getDriverQualifyingsQuery = ({ year, id: driverId }) => ({
               header: 'Round',
               accessorKey: 'round',
               enableSorting: true,
-              cell: ({ cell: { getValue: getRound }}) => 
-              <SingleTableCell
-              data={getRound()}
-              style={{ fontWeight: '700', fontSize: '1.2rem' }}
-            />
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
+                <SingleTableCell
+                  value={getValue().value}
+                  style={{ fontWeight: '700', fontSize: '1.2rem' }}
+                />
             },
             {
               header: 'Weekend',
               accessorKey: 'weekend',
               enableSorting: true,
-              cell: ({ cell: { getValue: getWeekend }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <LinkingTableCell
-                  data={getWeekend().name}
-                  link={`/results/${getWeekend().year}/rounds/${getWeekend().round}/race`}
+                  value={getValue().value}
+                  link={`/results/${getValue().weekend.year}/rounds/${getValue().weekend.round}/race`}
                   style={{ fontWeight: '600' }}
                 />
             },
@@ -96,9 +98,10 @@ export const getDriverQualifyingsQuery = ({ year, id: driverId }) => ({
               header: 'Date',
               accessorKey: 'date',
               enableSorting: false,
-              cell: ({ cell: { getValue: getDate }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getDate()}
+                  value={getValue().value}
                   style={{ fontWeight: '400', fontSize: '1rem' }}
                 />
             },
@@ -106,16 +109,18 @@ export const getDriverQualifyingsQuery = ({ year, id: driverId }) => ({
               header: 'Circuit Name',
               accessorKey: 'circuit',
               enableSorting: true,
-              cell: ({ cell: { getValue: getCircuit }}) => 
-                <CircuitCell circuit={getCircuit()} />
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
+                <CircuitCell circuit={getValue().circuit} />
             },
             {
               header: 'Q1',
               accessorKey: 'q1',
               enableSorting: true,
-              cell: ({ cell: { getValue: getQ1 }}) => 
+              sortingFn: 'time',
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getQ1()}
+                  value={getValue().value}
                   style={{ fontWeight: '400' }}
                 />
             },
@@ -123,9 +128,10 @@ export const getDriverQualifyingsQuery = ({ year, id: driverId }) => ({
               header: 'Q2',
               accessorKey: 'q2',
               enableSorting: true,
-              cell: ({ cell: { getValue: getQ2 }}) => 
+              sortingFn: 'time',
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getQ2()}
+                  value={getValue().value}
                   style={{ fontWeight: '400' }}
                 />
             },
@@ -133,9 +139,10 @@ export const getDriverQualifyingsQuery = ({ year, id: driverId }) => ({
               header: 'Q3',
               accessorKey: 'q3',
               enableSorting: true,
-              cell: ({ cell: { getValue: getQ3 }}) => 
+              sortingFn: 'time',
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getQ3()}
+                  value={getValue().value}
                   style={{ fontWeight: '400' }}
                 />
             },
@@ -143,22 +150,23 @@ export const getDriverQualifyingsQuery = ({ year, id: driverId }) => ({
               header: 'Position',
               accessorKey: 'pos',
               enableSorting: true,
-              cell: ({ cell: { getValue: getPosition }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getPosition()}
+                  value={getValue().value}
                   style={{ fontWeight: '600', fontSize: '1.2rem' }}
                 />
             },
           ],
           data: season.weekends.map(weekend => ({
-            round: weekend.round,
-            weekend: weekend,
-            date: weekend.sessions.race.getFormattedDate('MMM. dd.'),
-            circuit: weekend.circuit,
-            q1: weekend.result.qualifying[0].q1,
-            q2: weekend.result.qualifying[0].q2,
-            q3: weekend.result.qualifying[0].q3,
-            pos: weekend.result.qualifying[0].position,
+            round: { value: +weekend.round },
+            weekend: { value: weekend.name, weekend },
+            date: { value: weekend.sessions.race.getFormattedDate('MMM. dd.') },
+            circuit: { value: weekend.circuit.name, circuit: weekend.circuit },
+            q1: { value: weekend.result.qualifying[0].q1 },
+            q2: { value: weekend.result.qualifying[0].q2 },
+            q3: { value: weekend.result.qualifying[0].q3 },
+            pos: { value: +weekend.result.qualifying[0].position },
           }))
         })
       })

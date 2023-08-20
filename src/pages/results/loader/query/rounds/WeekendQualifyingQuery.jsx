@@ -56,9 +56,10 @@ export const getWeekendQualifyingQuery = ({ year, id: round }) => ({
               header: 'Position',
               accessorKey: 'pos',
               enableSorting: true,
-              cell: ({ cell: { getValue: getPosition }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getPosition()}
+                  value={getValue().value}
                   style={{ fontWeight: '600', fontSize: '1.2rem' }}
                 />
             },
@@ -66,10 +67,11 @@ export const getWeekendQualifyingQuery = ({ year, id: round }) => ({
               header: 'Driver',
               accessorKey: 'driver',
               enableSorting: true,
-              cell: ({ cell: { getValue: getDriver }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <LinkingTableCell
-                  data={getDriver().fullName}
-                  link={`/results/${weekend.year}/drivers/${getDriver().id}/race`}
+                  value={getValue().value}
+                  link={`/results/${weekend.year}/drivers/${getValue().driver.id}/race`}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -77,10 +79,11 @@ export const getWeekendQualifyingQuery = ({ year, id: round }) => ({
               header: 'Constructor',
               accessorKey: 'constructor',
               enableSorting: true,
-              cell: ({ cell: { getValue: getConstructor }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <LinkingTableCell
-                  data={getConstructor().name}
-                  link={`/results/${weekend.year}/constructors/${getConstructor().id}`}
+                  value={getValue().value}
+                  link={`/results/${weekend.year}/constructors/${getValue().constructor.id}`}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -88,9 +91,10 @@ export const getWeekendQualifyingQuery = ({ year, id: round }) => ({
               header: 'Q1',
               accessorKey: 'q1',
               enableSorting: true,
-              cell: ({ cell: { getValue: getQ1 }}) => 
+              sortingFn: 'time',
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getQ1()}
+                  value={getValue().value}
                   style={{ fontWeight: '400' }}
                 />
             },
@@ -98,9 +102,10 @@ export const getWeekendQualifyingQuery = ({ year, id: round }) => ({
               header: 'Q2',
               accessorKey: 'q2',
               enableSorting: true,
-              cell: ({ cell: { getValue: getQ2 }}) => 
+              sortingFn: 'time',
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getQ2()}
+                  value={getValue().value}
                   style={{ fontWeight: '400' }}
                 />
             },
@@ -108,20 +113,21 @@ export const getWeekendQualifyingQuery = ({ year, id: round }) => ({
               header: 'Q3',
               accessorKey: 'q3',
               enableSorting: true,
-              cell: ({ cell: { getValue: getQ3 }}) => 
+              sortingFn: 'time',
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getQ3()}
+                  value={getValue().value}
                   style={{ fontWeight: '400' }}
                 />
             },
           ],
           data: weekend.result.qualifying.map(result => ({
-            pos: result.position,
-            driver: result.driver,
-            constructor: result.constructor,
-            q1: result.q1,
-            q2: result.q2,
-            q3: result.q3,
+            pos: { value: +result.position },
+            driver: { value: result.driver.fullName, driver: result.driver },
+            constructor: { value: result.constructor.name, constructor: result.constructor },
+            q1: { value: result.q1 },
+            q2: { value: result.q2 },
+            q3: { value: result.q3 },
           }))
         })
       })

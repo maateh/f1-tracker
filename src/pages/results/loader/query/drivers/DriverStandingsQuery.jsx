@@ -33,9 +33,10 @@ export const getDriverStandingsQuery = ({ year }) => ({
               header: 'Position',
               accessorKey: 'pos',
               enableSorting: true,
-              cell: ({ cell: { getValue: getPosition } }) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue } }) => 
                 <SingleTableCell
-                  data={getPosition()}
+                  value={getValue().value}
                   style={{ fontWeight: '600', fontSize: '1.2rem' }}
                 />
             },
@@ -43,10 +44,11 @@ export const getDriverStandingsQuery = ({ year }) => ({
               header: 'Driver',
               accessorKey: 'driver',
               enableSorting: true,
-              cell: ({ cell: { getValue: getDriver }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <LinkingTableCell
-                  data={getDriver().fullName}
-                  link={`/results/${season.year}/drivers/${getDriver().id}/race`}
+                  value={getValue().value}
+                  link={`/results/${season.year}/drivers/${getValue().driver.id}/race`}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -54,10 +56,11 @@ export const getDriverStandingsQuery = ({ year }) => ({
               header: 'Constructor',
               accessorKey: 'constructor',
               enableSorting: true,
-              cell: ({ cell: { getValue: getConstructor }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <LinkingTableCell
-                  data={getConstructor().name}
-                  link={`/results/${season.year}/constructors/${getConstructor().id}`}
+                  value={getValue().value}
+                  link={`/results/${season.year}/constructors/${getValue().constructor.id}`}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -65,9 +68,10 @@ export const getDriverStandingsQuery = ({ year }) => ({
               header: 'Nationality',
               accessorKey: 'nationality',
               enableSorting: true,
-              cell: ({ cell: { getValue: getNationality }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getNationality()}
+                  value={getValue().value}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -75,9 +79,9 @@ export const getDriverStandingsQuery = ({ year }) => ({
               header: 'Wins',
               accessorKey: 'wins',
               enableSorting: true,
-              cell: ({ cell: { getValue: getWins }}) => 
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getWins()}
+                  value={getValue().value}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -85,17 +89,17 @@ export const getDriverStandingsQuery = ({ year }) => ({
               header: 'Points',
               accessorKey: 'points',
               enableSorting: true,
-              cell: ({ cell: { getValue: getPoints }}) => 
-                <PointsCell points={getPoints()} />
+              cell: ({ cell: { getValue }}) => 
+                <PointsCell points={getValue().value} />
             },
           ],
           data: season.standings.drivers.map(result => ({
-            pos: result.position,
-            driver: result.driver,
-            constructor: result.constructors[0],
-            nationality: result.driver.nationality,
-            wins: result.wins,
-            points: result.points,
+            pos: { value: +result.position },
+            driver: { value: result.driver.fullName, driver: result.driver },
+            constructor: { value: result.constructors[0].name, constructor: result.constructors[0] },
+            nationality: { value: result.driver.nationality },
+            wins: { value: +result.wins },
+            points: { value: +result.points },
           }))
         })
       })

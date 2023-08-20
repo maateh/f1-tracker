@@ -90,9 +90,10 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
               header: 'Round',
               accessorKey: 'round',
               enableSorting: true,
-              cell: ({ cell: { getValue: getRound }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getRound()}
+                  value={getValue().value}
                   style={{ fontWeight: '700', fontSize: '1.2rem' }}
                 />
             },
@@ -100,10 +101,11 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
               header: 'Weekend',
               accessorKey: 'weekend',
               enableSorting: true,
-              cell: ({ cell: { getValue: getWeekend }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <LinkingTableCell
-                  data={getWeekend().name}
-                  link={`/results/${getWeekend().year}/rounds/${getWeekend().round}/race`}
+                  value={getValue().value}
+                  link={`/results/${getValue().weekend.year}/rounds/${getValue().weekend.round}/race`}
                   style={{ fontWeight: '600' }}
                 />
             },
@@ -111,9 +113,9 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
               header: 'Date',
               accessorKey: 'date',
               enableSorting: false,
-              cell: ({ cell: { getValue: getDate }}) => 
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getDate()}
+                  value={getValue().value}
                   style={{ fontWeight: '400', fontSize: '1rem' }}
                 />
             },
@@ -121,42 +123,51 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
               header: 'Circuit Name',
               accessorKey: 'circuit',
               enableSorting: true,
-              cell: ({ cell: { getValue: getCircuit }}) => 
-                <CircuitCell circuit={getCircuit()} />
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
+                <CircuitCell circuit={getValue().circuit} />
             },
             {
               header: 'Grid',
               accessorKey: 'grid',
-              enableSorting: true
+              enableSorting: true,
+              sortingFn: 'grid',
+              cell: ({ cell: { getValue }}) => 
+                <SingleTableCell
+                  value={getValue().value}
+                  style={{ fontWeight: '600', fontSize: '1rem' }}
+                />
             },
             {
               header: 'Fastest Lap',
               accessorKey: 'fl',
               enableSorting: true,
-              cell: ({ cell: { getValue: getFastestLap }}) =>
+              sortingFn: 'time',
+              cell: ({ cell: { getValue }}) =>
                 <FastestLapCell 
-                  lap={getFastestLap()} 
-                  speed={getFastestLap()?.avgSpeed}
+                  lap={getValue().fastestLap} 
+                  speed={getValue().fastestLap?.avgSpeed}
                 />
             },
             {
               header: 'Completed Laps',
               accessorKey: 'laps',
               enableSorting: true,
-              cell: ({ cell: { getValue: getWeekend }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <LinkingTableCell
-                  data={`${getWeekend().result.race[0].laps} laps`}
-                  link={`/history/laps/${getWeekend().year}/${getWeekend().round}/${getWeekend().result.race[0].driver.id}`}
+                  value={`${getValue().value} laps`}
+                  link={`/history/laps/${getValue().weekend.year}/${getValue().weekend.round}/${getValue().weekend.result.race[0].driver.id}`}
                   style={{ fontWeight: '500', fontSize: '1.1rem' }}
                 />
             },
             {
               header: 'Race Gap',
               accessorKey: 'duration',
-              enableSorting: true,
-              cell: ({ cell: { getValue: getDuration }}) => 
+              enableSorting: false,
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getDuration()}
+                  value={getValue().value}
                   style={{ fontWeight: '400' }}
                 />
             },
@@ -164,9 +175,10 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
               header: 'Position',
               accessorKey: 'position',
               enableSorting: true,
-              cell: ({ cell: { getValue: getPosition }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getPosition()}
+                  value={getValue().value}
                   style={{ fontWeight: '600', fontSize: '1.2rem' }}
                 />
             },
@@ -174,21 +186,22 @@ export const getDriverRacesQuery = ({ year, id: driverId }) => ({
               header: 'Points',
               accessorKey: 'points',
               enableSorting: true,
-              cell: ({ cell: { getValue: getPoints }}) => 
-                <PointsCell points={getPoints()} />
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
+                <PointsCell points={getValue().value} />
             },
           ],
           data: season.weekends.map((weekend) => ({
-            round: weekend.round,
-            weekend: weekend,
-            date: weekend.sessions.race.getFormattedDate('MMM. dd.'),
-            circuit: weekend.circuit,
-            grid: weekend.result.race[0].grid,
-            fl: weekend.result.race[0].fastestLap,
-            laps: weekend,
-            duration: weekend.result.race[0].raceTime,
-            position: weekend.result.race[0].position,
-            points: weekend.result.race[0].points,
+            round: { value: +weekend.round },
+            weekend: { value: weekend.name, weekend },
+            date: { value: weekend.sessions.race.getFormattedDate('MMM. dd.') },
+            circuit: { value: weekend.circuit.name, circuit: weekend.circuit },
+            grid: { value: weekend.result.race[0].grid },
+            fl: { value: weekend.result.race[0].fastestLap.time, fastestLap: weekend.result.race[0].fastestLap },
+            laps: { value: +weekend.result.race[0].laps, weekend },
+            duration: { value: weekend.result.race[0].raceTime },
+            position: { value: +weekend.result.race[0].position },
+            points: { value: +weekend.result.race[0].points },
           }))
         })
       })

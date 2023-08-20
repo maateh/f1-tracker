@@ -88,9 +88,10 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
               header: 'Round',
               accessorKey: 'round',
               enableSorting: true,
-              cell: ({ cell: { getValue: getRound }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getRound()}
+                  value={getValue().value}
                   style={{ fontWeight: '700', fontSize: '1.2rem' }}
                 />
             },
@@ -98,20 +99,21 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
               header: 'Weekend',
               accessorKey: 'weekend',
               enableSorting: true,
-              cell: ({ cell: { getValue: getWeekend }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <LinkingTableCell
-                  data={getWeekend().name}
-                  link={`/results/${getWeekend().year}/rounds/${getWeekend().round}/race`}
+                  value={getValue().value}
+                  link={`/results/${getValue().weekend.year}/rounds/${getValue().weekend.round}/race`}
                   style={{ fontWeight: '600' }}
                 />
             },
             {
               header: 'Date',
               accessorKey: 'date',
-              enableSorting: true,
-              cell: ({ cell: { getValue: getDate }}) => 
+              enableSorting: false,
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getDate()}
+                  value={getValue().value}
                   style={{ fontWeight: '400', fontSize: '1rem' }}
                 />
             },
@@ -119,27 +121,30 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
               header: 'Circuit Name',
               accessorKey: 'circuit',
               enableSorting: true,
-              cell: ({ cell: { getValue: getCircuit }}) => 
-                <CircuitCell circuit={getCircuit()} />
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
+                <CircuitCell circuit={getValue().circuit} />
             },
             {
               header: 'Fastest Lap',
               accessorKey: 'fl',
               enableSorting: true,
-              cell: ({ cell: { getValue: getWeekend }}) =>
+              sortingFn: 'time',
+              cell: ({ cell: { getValue }}) =>
                 <FastestLapCell 
-                  lap={faster(getWeekend()).fastestLap} 
-                  driver={fasterDriver(getWeekend())} 
+                  lap={getValue().lap} 
+                  driver={getValue().driver} 
                 />
             },
             {
               header: 'Completed Laps',
               accessorKey: 'laps',
               enableSorting: true,
-              cell: ({ cell: { getValue: getWeekend }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <LinkingTableCell
-                  data={`${completedLaps(getWeekend())} laps`}
-                  link={`/history/laps/${getWeekend().year}/${getWeekend().round}/all`}
+                  value={`${getValue().value} laps`}
+                  link={`/history/laps/${getValue().weekend.year}/${getValue().weekend.round}/all`}
                   style={{ fontWeight: '500', fontSize: '1.1rem' }}
                 />
             },
@@ -147,21 +152,22 @@ export const getConstructorRacesQuery = ({ year, id: constructorId }) => ({
               header: 'Points',
               accessorKey: 'points',
               enableSorting: true,
-              cell: ({ cell: { getValue: getWeekend }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <PointsCell 
-                  points={points(getWeekend())}
-                  scorers={scorers(getWeekend())}
+                  points={getValue().value}
+                  scorers={getValue().scorers}
                 />
             },
           ],
           data: season.weekends.map(weekend => ({
-            round: weekend.round,
-            weekend: weekend,
-            date: weekend.sessions.race.getFormattedDate('MMM. dd.'),
-            circuit: weekend.circuit,
-            fl: weekend,
-            laps: weekend,
-            points: weekend,
+            round: { value: +weekend.round },
+            weekend: { value: weekend.name, weekend },
+            date: { value: weekend.sessions.race.getFormattedDate('MMM. dd.') },
+            circuit: { value: weekend.circuit.name, circuit: weekend.circuit },
+            fl: { value: faster(weekend).fastestLap.time, lap: faster(weekend).fastestLap, driver: fasterDriver(weekend) },
+            laps: { value: +completedLaps(weekend), weekend },
+            points: { value: +points(weekend), scorers: scorers(weekend) },
           }))
         })
       })

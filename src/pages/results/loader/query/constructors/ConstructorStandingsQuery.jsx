@@ -33,9 +33,10 @@ export const getConstructorStandingsQuery = ({ year }) => ({
               header: 'Position',
               accessorKey: 'pos',
               enableSorting: true,
-              cell: ({ cell: { getValue: getPosition } }) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue } }) => 
                 <SingleTableCell
-                  data={getPosition()}
+                  value={getValue().value}
                   style={{ fontWeight: '600', fontSize: '1.2rem' }}
                 />
             },
@@ -43,10 +44,11 @@ export const getConstructorStandingsQuery = ({ year }) => ({
               header: 'Constructor',
               accessorKey: 'constructor',
               enableSorting: true,
-              cell: ({ cell: { getValue: getConstructor }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <LinkingTableCell
-                  data={getConstructor().name}
-                  link={`/results/${season.year}/constructors/${getConstructor().id}`}
+                  value={getValue().value}
+                  link={`/results/${season.year}/constructors/${getValue().constructor.id}`}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -54,9 +56,10 @@ export const getConstructorStandingsQuery = ({ year }) => ({
               header: 'Nationality',
               accessorKey: 'nationality',
               enableSorting: true,
-              cell: ({ cell: { getValue: getNationality }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getNationality()}
+                  value={getValue().value}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -64,9 +67,10 @@ export const getConstructorStandingsQuery = ({ year }) => ({
               header: 'Wins',
               accessorKey: 'wins',
               enableSorting: true,
-              cell: ({ cell: { getValue: getWins }}) => 
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell
-                  data={getWins()}
+                  value={getValue().value}
                   style={{ fontWeight: '500' }}
                 />
             },
@@ -74,16 +78,17 @@ export const getConstructorStandingsQuery = ({ year }) => ({
               header: 'Points',
               accessorKey: 'points',
               enableSorting: true,
-              cell: ({ cell: { getValue: getPoints }}) => 
-                <PointsCell points={getPoints()} />
+              sortingFn: 'default',
+              cell: ({ cell: { getValue }}) => 
+                <PointsCell points={getValue().value} />
             },
           ],
           data: season.standings.constructors.map(result => ({
-            pos: result.position,
-            constructor: result.constructor,
-            nationality: result.constructor.nationality,
-            wins: result.wins,
-            points: result.points,
+            pos: { value: +result.position },
+            constructor: { value: result.constructor.name, constructor: result.constructor },
+            nationality: { value: result.constructor.nationality },
+            wins: { value: +result.wins },
+            points: { value: +result.points },
           }))
         })
       })

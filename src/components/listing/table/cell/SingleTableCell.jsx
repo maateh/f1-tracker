@@ -1,7 +1,7 @@
-const SingleTableCell = ({ data, style }) => {
+const SingleTableCell = ({ value, style }) => {
   return (
     <p style={style}>
-      {data}
+      {value}
     </p>
   )
 }
