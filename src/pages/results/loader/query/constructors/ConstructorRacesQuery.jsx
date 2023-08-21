@@ -272,7 +272,7 @@ const fasterDriver = weekend => {
 const completedLaps = weekend => (
   weekend.result.race.length > 1 ?
     weekend.result.race
-      .reduce((acc, curr) => +acc.laps || acc + +curr.laps) :
+      .reduce((acc, curr) => +acc.laps + +curr.laps) :
     weekend.result.race[0].laps
 )
 
