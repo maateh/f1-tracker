@@ -1,5 +1,5 @@
 .weekend-card__container {
-  height: 180px;
+  height: 11.25rem;
   width: 95%;
   margin: 0 auto;
   padding: 1rem 1.5rem;
@@ -103,8 +103,8 @@
 /* weekend markers */
 .weekend-card__container .weekend-marker {
   position: absolute;
-  top: 16px;
-  left: 16px;
+  top: 1rem;
+  left: 1rem;
 }
 .weekend-card__container .weekend-marker.active svg,
 .weekend-card__container .weekend-marker.next svg {
@@ -160,7 +160,7 @@
 
 @media (max-width: 40rem) {
   .weekend-card__container {
-    height: 220px;
+    height: 14rem;
   }
   .weekend-card__container .weekend-title {
     font-size: 1.5rem;
@@ -194,6 +194,6 @@
 
 @media (max-width: 20rem) {
   .weekend-card__container {
-    height: 280px;
+    height: 18.5rem;
   }
 }
