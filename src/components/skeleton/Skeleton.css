@@ -25,13 +25,22 @@
 
 
 /* selector layout */
-.skeleton-selector__wrapper {
-  width: 10rem;
-  margin: 0 auto;
+.skeleton-selector__container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
 }
-.skeleton-selector__wrapper .text,
+.skeleton-selector__wrapper {
+  margin: 0.25rem 1rem;
+}
 .skeleton-selector__wrapper .title {
-  height: 2rem;
+  width: 10rem;
+  height: 0.8rem;
+}
+.skeleton-selector__wrapper .text {
+  width: 10rem;
+  height: 1.75rem;
 }
 
 
