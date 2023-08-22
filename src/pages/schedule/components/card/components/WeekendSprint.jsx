@@ -1,5 +1,5 @@
 // components
-import { Tooltip } from '@mui/material'
+import Tooltip from '@mui/material/Tooltip'
 
 // icons
 import FlashOnIcon from '@mui/icons-material/FlashOn'

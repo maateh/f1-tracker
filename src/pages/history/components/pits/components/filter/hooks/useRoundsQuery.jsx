@@ -2,14 +2,14 @@ import { useNavigate, useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // context
-import { useLapsFilterContext } from "../context/hooks/useLapsFilterContext"
+import { usePitsFilterContext } from "../context/hooks/usePitsFilterContext"
 
 // models
-import FilterModel from "../../../../../../model/filter/Filter"
-import FilterSelectorModel from "../../../../../../model/filter/FilterSelector"
+import FilterModel from "../../../../../../../model/filter/Filter"
+import FilterSelectorModel from "../../../../../../../model/filter/FilterSelector"
 
 export const useRoundsQuery = () => {
-  const { dispatch } = useLapsFilterContext()
+  const { dispatch } = usePitsFilterContext()
   const { year, round } = useParams()
   const navigate = useNavigate()
 
@@ -22,10 +22,9 @@ export const useRoundsQuery = () => {
         filter,
         param: round,
         searchable: true,
-        onChange: (value, { year, driverId }) => {
-          const pathname = `./${year}/${value}/${driverId}`
-          const search = '?page=1'
-          navigate({ pathname, search }, { replace: true })
+        onChange: (value, { driverId }) => {
+          const route = `./${year}/${value}/${driverId}`
+          navigate(route, { replace: true })
         }
       })
     })

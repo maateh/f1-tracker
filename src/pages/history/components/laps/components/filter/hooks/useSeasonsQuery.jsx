@@ -5,9 +5,9 @@ import { useQuery } from "react-query"
 import { useLapsFilterContext } from "../context/hooks/useLapsFilterContext"
 
 // models
-import FilterModel from "../../../../../../model/filter/Filter"
-import FilterSelectorModel from "../../../../../../model/filter/FilterSelector"
-import FilterOptionModel from "../../../../../../model/filter/FilterOption"
+import FilterModel from "../../../../../../../model/filter/Filter"
+import FilterSelectorModel from "../../../../../../../model/filter/FilterSelector"
+import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
 
 export const useSeasonsQuery = () => {
   const { dispatch } = useLapsFilterContext()

@@ -2,10 +2,10 @@ import { Outlet, useNavigate, useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // components
-import LapsFilter from "./filter/LapsFilter"
+import LapsFilter from "./components/filter/LapsFilter"
 
 // context
-import { LapsFilterContextProvider } from "./filter/context/LapsFilterContext"
+import { LapsFilterContextProvider } from "./components/filter/context/LapsFilterContext"
 
 // models
 import WeekendModel from "../../../../model/season/weekend/Weekend"

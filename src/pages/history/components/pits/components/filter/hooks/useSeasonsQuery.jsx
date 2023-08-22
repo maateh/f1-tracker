@@ -5,9 +5,9 @@ import { useQuery } from "react-query"
 import { usePitsFilterContext } from "../context/hooks/usePitsFilterContext"
 
 // models
-import FilterModel from "../../../../../../model/filter/Filter"
-import FilterSelectorModel from "../../../../../../model/filter/FilterSelector"
-import FilterOptionModel from "../../../../../../model/filter/FilterOption"
+import FilterModel from "../../../../../../../model/filter/Filter"
+import FilterSelectorModel from "../../../../../../../model/filter/FilterSelector"
+import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
 
 export const useSeasonsQuery = () => {
   const { dispatch } = usePitsFilterContext()

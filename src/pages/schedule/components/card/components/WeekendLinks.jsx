@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
 // components
-import { Tooltip } from '@mui/material'
+import Tooltip from '@mui/material/Tooltip'
 
 // icons
 import SegmentIcon from '@mui/icons-material/Segment'

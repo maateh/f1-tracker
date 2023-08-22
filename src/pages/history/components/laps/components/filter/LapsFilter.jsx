@@ -1,6 +1,9 @@
+import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+
 // components
-import FilterSelector from '../../../../../components/filter/FilterSelector'
-import SkeletonSelector from '../../../../../components/skeleton/SkeletonSelector'
+import FilterSelector from '../../../../../../components/filter/FilterSelector'
+import SkeletonSelector from '../../../../../../components/skeleton/SkeletonSelector'
 
 // context
 import { useLapsFilterContext } from './context/hooks/useLapsFilterContext'
@@ -12,9 +15,15 @@ import { useLapsFilterQueries } from './hooks/useLapsFilterQueries'
 import './LapsFilter.css'
 
 const LapsFilter = () => {
-	const { selectors } = useLapsFilterContext()
+	const { selectors, dispatch } = useLapsFilterContext()
   const { preloading, loading, error } = useLapsFilterQueries()
+	const params = useParams()
   
+	useEffect(() => {
+		if (preloading) return
+		dispatch({ type: 'UPDATE_PARAMS', payload: params })
+	}, [preloading, params, dispatch])
+
 	return (
 		<div className="laps-filter">
 			{preloading ? (

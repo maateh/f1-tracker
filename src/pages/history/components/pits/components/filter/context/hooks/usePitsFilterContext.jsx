@@ -2,7 +2,7 @@ import { useContext } from "react"
 
 // context
 import { PitsFilterContext } from "../PitsFilterContext"
-import ContextError from "../../../../../../../model/error/ContextError"
+import ContextError from "../../../../../../../../model/error/ContextError"
 
 export const usePitsFilterContext = () => {
   const context = useContext(PitsFilterContext)

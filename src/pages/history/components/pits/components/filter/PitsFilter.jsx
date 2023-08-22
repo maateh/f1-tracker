@@ -1,6 +1,6 @@
 // components
-import FilterSelector from '../../../../../components/filter/FilterSelector'
-import SkeletonSelector from '../../../../../components/skeleton/SkeletonSelector'
+import FilterSelector from '../../../../../../components/filter/FilterSelector'
+import SkeletonSelector from '../../../../../../components/skeleton/SkeletonSelector'
 
 // context
 import { usePitsFilterContext } from './context/hooks/usePitsFilterContext'

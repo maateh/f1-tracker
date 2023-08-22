@@ -11,7 +11,7 @@ import { ScheduleFilterContextProvider } from './components/filter/context/Sched
 import WeekendModel from '../../model/season/weekend/Weekend'
 
 // icons
-import { CircularProgress } from '@mui/material'
+import CircularProgress from '@mui/material/CircularProgress'
 
 const ScheduleContent = () => {
 	const { year } = useParams()

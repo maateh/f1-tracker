@@ -2,10 +2,10 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
 // components
-import PitsFilter from './filter/PitsFilter'
+import PitsFilter from './components/filter/PitsFilter'
 
 // context
-import { PitsFilterContextProvider } from './filter/context/PitsFilterContext'
+import { PitsFilterContextProvider } from './components/filter/context/PitsFilterContext'
 
 // models
 import WeekendModel from "../../../../model/season/weekend/Weekend"
