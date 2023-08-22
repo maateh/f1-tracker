@@ -40,7 +40,7 @@ export const getRoundLapsQuery = ({ year, round, page: lap }) => ({
       const weekend = new WeekendModel(lapData.Races[0])
       const currentLap = weekend.laps[0]
       const pages = resultsData.Races[0].Results[0].laps
-      
+
       const { race: result } = new ResultModel(resultsData.Races[0])
       const prevLap = prevLapData && new WeekendModel(prevLapData.Races[0]).laps[0]
 
@@ -58,11 +58,31 @@ export const getRoundLapsQuery = ({ year, round, page: lap }) => ({
           layouts: [{
             title: 'Current Lap Information',
             summaries: [
-              { title: 'Drivers in race yet', desc: driversInRace(currentLap), icon: <SportsMotorsportsIcon /> },
-              { title: 'Eliminated', desc: eliminated(currentLap, prevLap, result), icon: <RemoveCircleIcon /> },
-              { title: 'Fastest Lap', desc: fastestLap(currentLap), icon: <SpeedIcon /> },
-              { title: 'Average Lap Time', desc: averageTime(currentLap), icon: <AvTimerIcon /> },
-              { title: 'Overtakes', desc: overtakes(currentLap), icon: <KeyboardDoubleArrowUpIcon /> },
+              {
+                title: 'Drivers in race yet',
+                desc: driversInRace(currentLap),
+                icon: <SportsMotorsportsIcon />
+              },
+              {
+                title: 'Eliminated',
+                desc: eliminated(currentLap, prevLap, result),
+                icon: <RemoveCircleIcon />
+              },
+              {
+                title: 'Fastest Lap',
+                desc: fastestLap(currentLap),
+                icon: <SpeedIcon />
+              },
+              {
+                title: 'Average Lap Time',
+                desc: averageTime(currentLap),
+                icon: <AvTimerIcon />
+              },
+              {
+                title: 'Gained Positions',
+                desc: gainedPositions(currentLap, prevLap, result),
+                icon: <KeyboardDoubleArrowUpIcon />
+              },
             ]
           }].map(card => <SummaryCard key={card.title} card={card} />)
         }),
@@ -73,7 +93,7 @@ export const getRoundLapsQuery = ({ year, round, page: lap }) => ({
               accessorKey: 'position',
               enableSorting: true,
               sortingFn: 'default',
-              cell: ({ cell: { getValue } }) => 
+              cell: ({ cell: { getValue }}) => 
                 <SingleTableCell 
                   value={`#${getValue().value}`}
                   style={{ fontSize: '1.2rem', fontWeight: 600 }}
@@ -84,7 +104,7 @@ export const getRoundLapsQuery = ({ year, round, page: lap }) => ({
               accessorKey: 'driver',
               enableSorting: true,
               sortingFn: 'default',
-              cell: ({ cell: { getValue } }) => 
+              cell: ({ cell: { getValue }}) => 
                 <LinkingTableCell 
                   value={getValue().value}
                   link={`../${weekend.year}/${weekend.round}/${getValue().driver.id}`}
@@ -92,13 +112,14 @@ export const getRoundLapsQuery = ({ year, round, page: lap }) => ({
                 />
             },
             {
-              header: 'Time',
+              header: 'Lap Time',
               accessorKey: 'time',
               enableSorting: true,
               sortingFn: 'default',
-              cell: ({ cell: { getValue } }) => 
+              cell: ({ cell: { getValue }}) => 
                 <TimeCell 
                   time={getValue().value}
+                  gap={'gap'}
                 />
             },
           ],
@@ -146,6 +167,18 @@ const averageTime = lap => {
   return `${time.getMinutes()}:${time.getSeconds()}.${time.getMilliseconds()}`
 }
 
-const overtakes = (currentLap, prevLap) => {
-  return '... overtakes in this lap'
+const gainedPositions = (currentLap, prevLap, result) => {
+  const gainedPositions = currentLap.timings.reduce((acc, timing) => {
+    const prevPosition = prevLap 
+      ? +prevLap.timings
+        .find(({ driverId }) => timing.driverId === driverId)
+        .position
+      : +result
+        .find((r => r.driver.id === timing.driverId))
+        .position
+    return prevPosition > timing.position 
+      ? acc + prevPosition - +timing.position 
+      : acc
+  }, 0)
+  return `${gainedPositions} gained positions in this lap`
 }

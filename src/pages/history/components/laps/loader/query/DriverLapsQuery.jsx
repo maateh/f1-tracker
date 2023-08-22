@@ -97,17 +97,18 @@ export const getDriverLapsQuery = ({ year, round, driverId, page }) => ({
                 <SingleTableCell value={getValue().value} />
             },
             {
-              header: 'Time',
+              header: 'Lap Time',
               accessorKey: 'time',
               enableSorting: true,
               sortingFn: 'default',
               cell: ({ cell: { getValue }}) => 
                 <TimeCell
                   time={getValue().value}
+                  gap={'gap'}
                 />
             },
           ],
-          data: weekend.laps.map(lap => ({
+          data: laps.map(lap => ({
             lap: { value: +lap.number },
             position: { value: +lap.timings[0].position },
             time: { value: lap.timings[0].time }
