@@ -2,9 +2,11 @@
 import SpeedIcon from '@mui/icons-material/Speed'
 import AvTimerIcon from '@mui/icons-material/AvTimer'
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp'
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown'
 
 // api
 import { driverLaps } from "../../../../../../api/history"
+import { driverRaceResults } from '../../../../../../api/results'
 
 // components
 import SummaryCard from '../../../../../../components/listing/cards/card/SummaryCard'
@@ -14,6 +16,7 @@ import TimeCell from '../../components/table/TimeCell'
 
 // models
 import WeekendModel from "../../../../../../model/season/weekend/Weekend"
+import RaceModel from '../../../../../../model/season/weekend/result/race/Race'
 import ListingModel from "../../../../../../model/listing/Listing"
 import ListingTitleModel from "../../../../../../model/listing/ListingTitle"
 import ListingCardsModel from "../../../../../../model/listing/ListingCards"
@@ -23,19 +26,26 @@ import QueryError from "../../../../../../model/error/QueryError"
 
 export const getDriverLapsQuery = ({ year, round, driverId, page }) => ({
   queryKey: ['listing', 'laps', year, round, driverId, page],
-  queryFn: () => driverLaps(year, round, driverId, page)
-    .then(({ info, data }) => {
-      if (!data.Races || !data.Races.length) {
+  queryFn: () => Promise.all([
+    driverLaps(year, round, driverId, page), 
+    driverRaceResults(year, round, driverId)
+  ])
+    .then(([{ info, data: lapsData }, { data: resultsData }]) => {
+      if (!lapsData.Races || !lapsData.Races.length) {
         throw new QueryError('No data found!', 404)
       }
 
-      const weekend = new WeekendModel(data.Races[0])
+      const weekend = new WeekendModel(lapsData.Races[0])
+      const { laps } = weekend
       const pages = Math.ceil(info.total / info.limit)
+
+      const result = new RaceModel(resultsData.Races[0].Results[0])
+      const { driver } = result
 
       return new ListingModel({
         title: new ListingTitleModel({
           main: `${weekend.year} ${weekend.name} Lap Timings`,
-          sub: `Selected Driver | ${getDriver(weekend)}`
+          sub: `Selected Driver | ${driver.fullName}`
         }),
         cards: new ListingCardsModel({
           styles: {
@@ -46,9 +56,21 @@ export const getDriverLapsQuery = ({ year, round, driverId, page }) => ({
           layouts: [{
             title: 'Current Lap Information',
             summaries: [
-              { title: 'Fastest Lap', desc: fastestLap(weekend), icon: <SpeedIcon /> },
-              { title: 'Average Lap Time', desc: averageTime(weekend), icon: <AvTimerIcon /> },
-              { title: 'Gained Positions', desc: gainedPositions(weekend), icon: <KeyboardDoubleArrowUpIcon /> },
+              {
+                title: 'Fastest Lap',
+                desc: fastestLap(laps),
+                icon: <SpeedIcon />
+              },
+              {
+                title: 'Average Lap Time',
+                desc: averageTime(laps),
+                icon: <AvTimerIcon />
+              },
+              {
+                title: gainedTitle(laps, result),
+                desc: gainedPositions(laps, result),
+                icon: gainedIcon(laps, result)
+              },
             ]
           }].map(card => <SummaryCard key={card.title} card={card} />)
         }),
@@ -99,25 +121,39 @@ export const getDriverLapsQuery = ({ year, round, driverId, page }) => ({
     })
 })
 
-// Helper functions
-const getDriver = weekend => weekend.laps[0].timings[0].driverId
+// Card & Table helpers
+const fastestLap = laps =>
+	laps.reduce((acc, curr) =>
+		acc.timings[0].getTimeInMs() < curr.timings[0].getTimeInMs() ? acc : curr
+	).timings[0].time
 
-
-const fastestLap = weekend => {
-  return weekend.laps
-    .reduce((acc, curr) =>
-      acc.timings[0].getTimeInMs() < curr.timings[0].getTimeInMs() ? acc : curr
-    ).timings[0].time
-}
-
-const averageTime = weekend => {
-  const times = weekend.laps
+const averageTime = laps => {
+  const times = laps
     .reduce((acc, curr) => acc + curr.timings[0].getTimeInMs(), 0)
-  const average = times / weekend.laps.length
+  const average = times / laps.length
   const time = new Date(average)
   return `${time.getMinutes()}:${time.getSeconds()}.${time.getMilliseconds()}`
 }
 
-const gainedPositions = weekend => {
-  return '... positions from the start of the race'
+const gained = (laps, result) => +result.grid - +laps.pop().timings[0].position
+
+const gainedTitle = (laps, result) => {
+  const gainedPositions = gained(laps, result)
+  return gainedPositions === 0 || isNaN(gainedPositions) ? '' 
+    : gainedPositions > 0 ? 'Gained Positions' 
+    : 'Lost Positions'
+}
+
+const gainedPositions = (laps, result) => {
+  const gainedPositions = gained(laps, result)
+  return gainedPositions === 0 || isNaN(gainedPositions) ? ''
+    : gainedPositions > 0 ? `Gained ${gainedPositions} positions from the start of the race`
+    : `Lost ${Math.abs(gainedPositions)} positions from the start of the race`
+}
+
+const gainedIcon = (laps, result) => {
+  const gainedPositions = gained(laps, result)
+  return gainedPositions === 0 || isNaN(gainedPositions) ? ''
+    : gainedPositions > 0 ? <KeyboardDoubleArrowUpIcon /> 
+    : <KeyboardDoubleArrowDownIcon />
 }

@@ -40,6 +40,7 @@ export const getRoundLapsQuery = ({ year, round, page: lap }) => ({
       const weekend = new WeekendModel(lapData.Races[0])
       const currentLap = weekend.laps[0]
       const pages = resultsData.Races[0].Results[0].laps
+      
       const { race: result } = new ResultModel(resultsData.Races[0])
       const prevLap = prevLapData && new WeekendModel(prevLapData.Races[0]).laps[0]
 
