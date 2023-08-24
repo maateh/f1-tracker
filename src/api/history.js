@@ -3,19 +3,21 @@ import { ergast, KEYS } from "./ergast"
 // Lap Times
 export const raceLap = async (year, round, lap) => ergast({
   url: `/${year}/${round}/laps/${lap}`,
-  key: KEYS.RACE_TABLE
+  key: KEYS.RACE_TABLE, 
+  params: {
+    limit: 40
+  }
 })
   .then(res => res)
   .catch(err => {
     throw new Error(err)
   })
 
-export const driverLaps = async (year, round, driverId, page) => ergast({
+export const driverLaps = async (year, round, driverId) => ergast({
   url: `/${year}/${round}/drivers/${driverId}/laps`, 
   key: KEYS.RACE_TABLE, 
   params: {
-    limit: 20,
-    offset: (page - 1) * 20
+    limit: 100
   }
 })
   .then(res => res)
@@ -29,8 +31,8 @@ export const pitStops = async (year, round, page) => ergast({
   url: `/${year}/${round}/pitstops`,
   key: KEYS.RACE_TABLE,
   params: {
-    limit: 20,
-    offset: (page - 1) * 20
+    limit: 100
+    // offset: (page - 1) * 20
   }
 })
   .then(res => res)

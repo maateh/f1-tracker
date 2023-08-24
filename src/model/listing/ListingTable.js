@@ -2,11 +2,11 @@ class ListingTable {
   constructor({
     columns, 
     data, 
-    pagination
+    pages
   }) {
     this.columns = columns
     this.data = data
-    this.pagination = pagination
+    this.pages = pages
   }
 }
 

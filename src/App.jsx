@@ -13,6 +13,7 @@ import PitsHistory from './pages/history/components/pits/PitsHistory'
 import DriversHistory from './pages/history/components/drivers/DriversHistory'
 import ConstructorsHistory from './pages/history/components/constructors/ConstructorsHistory'
 
+import Loader from './components/loader/Loader'
 import Listing from './components/listing/Listing'
 import NotFound from './components/error/NotFound'
 
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: ":year",
-            element: <Listing />,
+            element: <Loader />,
             loader: scheduleLoader
           },
           {
@@ -52,12 +53,12 @@ const router = createBrowserRouter([
         children: [
           {
             path: ":year/:standings/:id",
-            element: <Listing />,
+            element: <Loader />,
             loader: resultsLoader
           },
           {
             path: ":year/:standings/:id/:session",
-            element: <Listing />,
+            element: <Loader />,
             loader: resultsLoader
           },
           {
@@ -76,7 +77,7 @@ const router = createBrowserRouter([
             children: [
               {
                 path: ":year/:round/:driverId",
-                element: <Listing />,
+                element: <Loader />,
                 loader: lapsLoader
               },
               {

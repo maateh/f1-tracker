@@ -1,0 +1,169 @@
+import { useParams } from "react-router-dom"
+import { useQuery } from "react-query"
+
+// api
+import { driverLaps } from "../../../../../../../api/history"
+import { driverRaceResults } from "../../../../../../../api/results"
+
+// components
+import SummaryCard from "../../../../../../../components/listing/cards/card/SummaryCard"
+import SingleTableCell from "../../../../../../../components/listing/table/cell/SingleTableCell"
+import LinkingTableCell from "../../../../../../../components/listing/table/cell/LinkingTableCell"
+import TimeCell from '../components/table/TimeCell'
+
+// models
+import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
+import RaceModel from "../../../../../../../model/season/weekend/result/race/Race"
+import ListingModel from "../../../../../../../model/listing/Listing"
+import ListingTitleModel from "../../../../../../../model/listing/ListingTitle"
+import ListingCardsModel from "../../../../../../../model/listing/ListingCards"
+import ListingTableModel from "../../../../../../../model/listing/ListingTable"
+import QueryError from "../../../../../../../model/error/QueryError"
+
+// icons
+import SpeedIcon from '@mui/icons-material/Speed'
+import AvTimerIcon from '@mui/icons-material/AvTimer'
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp'
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown'
+
+export const useDriverLapsQuery = () => {
+  const { year, round, driverId } = useParams()
+
+  return useQuery({
+    queryKey: ['listing', 'laps', year, round, driverId],
+    queryFn: () => Promise.all([
+      driverLaps(year, round, driverId), 
+      driverRaceResults(year, round, driverId)
+    ])
+      .then(([{ info, data: lapsData }, { data: resultsData }]) => {
+        if (!lapsData.Races || !lapsData.Races.length) {
+          throw new QueryError('No data found!', 404)
+        }
+  
+        const weekend = new WeekendModel(lapsData.Races[0])
+        const { laps } = weekend
+        const pages = Math.ceil(info.total / 20)
+        
+        const result = new RaceModel(resultsData.Races[0].Results[0])
+        const { driver } = result
+
+        return new ListingModel({
+          title: new ListingTitleModel({
+            main: `${weekend.year} ${weekend.name} Lap Timings`,
+            sub: `Selected Driver | ${driver.fullName}`
+          }),
+          cards: new ListingCardsModel({
+            styles: {
+              margin: '2rem',
+              display: 'flex',
+              gap: '1.5rem'
+            },
+            layouts: [{
+              title: 'Current Lap Information',
+              summaries: [
+                {
+                  title: 'Fastest Lap',
+                  desc: fastestLap(laps),
+                  icon: <SpeedIcon />
+                },
+                {
+                  title: 'Average Lap Time',
+                  desc: averageTime(laps),
+                  icon: <AvTimerIcon />
+                },
+                {
+                  title: gainedTitle(laps, result),
+                  desc: gainedPositions(laps, result),
+                  icon: gainedIcon(laps, result)
+                },
+              ]
+            }].map(card => <SummaryCard key={card.title} card={card} />)
+          }),
+          table: new ListingTableModel({
+            columns: [
+              {
+                header: 'Lap',
+                accessorKey: 'lap',
+                enableSorting: true,
+                sortingFn: 'default',
+                cell: ({ cell: { getValue }}) => 
+                  <LinkingTableCell
+                    value={getValue().value}
+                    link={`../${weekend.year}/${weekend.round}/all?page=${getValue().value}`}
+                    style={{ fontWeight: '500', fontSize: '1.2rem' }}
+                  />
+              },
+              {
+                header: 'Position',
+                accessorKey: 'position',
+                enableSorting: true,
+                sortingFn: 'default',
+                cell: ({ cell: { getValue }}) => 
+                  <SingleTableCell value={getValue().value} />
+              },
+              {
+                header: 'Lap Time',
+                accessorKey: 'time',
+                enableSorting: true,
+                sortingFn: 'default',
+                cell: ({ cell: { getValue }}) => 
+                  <TimeCell
+                    time={getValue().value}
+                    gap={'gap'}
+                  />
+              },
+            ],
+            data: laps.map(lap => ({
+              lap: { value: +lap.number },
+              position: { value: +lap.timings[0].position },
+              time: { value: lap.timings[0].time }
+            })),
+            pages: +pages
+          })
+        })
+      })
+      .catch(err => {
+        throw new QueryError(err.message, err.code)
+      })
+  })
+}
+
+// Card & Table helpers
+const fastestLap = laps => {
+	return laps.reduce((acc, curr) =>
+		acc.timings[0].getTimeInMs() < curr.timings[0].getTimeInMs() ? acc : curr
+	).timings[0].time
+}
+
+const averageTime = laps => {
+  const times = laps
+    .reduce((acc, curr) => acc + curr.timings[0].getTimeInMs(), 0)
+  const average = times / laps.length
+  const time = new Date(average)
+  return `${time.getMinutes()}:${time.getSeconds()}.${time.getMilliseconds()}`
+}
+
+const gained = (laps, result) => {
+  return +result.grid - +laps[laps.length - 1].timings[0].position
+}
+
+const gainedTitle = (laps, result) => {
+  const gainedPositions = gained(laps, result)
+  return gainedPositions === 0 || isNaN(gainedPositions) ? '' 
+    : gainedPositions > 0 ? 'Gained Positions' 
+    : 'Lost Positions'
+}
+
+const gainedPositions = (laps, result) => {
+  const gainedPositions = gained(laps, result)
+  return gainedPositions === 0 || isNaN(gainedPositions) ? ''
+    : gainedPositions > 0 ? `Gained ${gainedPositions} positions from the start of the race`
+    : `Lost ${Math.abs(gainedPositions)} positions from the start of the race`
+}
+
+const gainedIcon = (laps, result) => {
+  const gainedPositions = gained(laps, result)
+  return gainedPositions === 0 || isNaN(gainedPositions) ? ''
+    : gainedPositions > 0 ? <KeyboardDoubleArrowUpIcon /> 
+    : <KeyboardDoubleArrowDownIcon />
+}

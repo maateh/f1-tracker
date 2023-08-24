@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import {
 	getCoreRowModel,
+	getPaginationRowModel,
 	getSortedRowModel,
 	useReactTable,
 } from '@tanstack/react-table'
@@ -8,20 +9,29 @@ import {
 // components
 import TableHead from './head/TableHead'
 import TableBody from './body/TableBody'
+import Pagination from '../pagination/Pagination'
 
 // styles
 import './ListingTable.css'
 
-const ListingTable = ({ table: { columns, data } }) => {
+const ListingTable = ({ table: { columns, data, pages }}) => {
 	const [sorting, setSorting] = useState([])
 
 	const table = useReactTable({
-		columns: useMemo(() => columns, [columns]),
-		data: useMemo(() => data, [data]),
+		columns,
+		data,
 		getCoreRowModel: getCoreRowModel(),
+		getPaginationRowModel: pages && getPaginationRowModel(),
 		getSortedRowModel: getSortedRowModel(),
-		state: { sorting },
 		onSortingChange: setSorting,
+		initialState: {
+			pagination: {
+				pageSize: 20
+			}
+		},
+		state: {
+			sorting
+		},
 		sortingFns: {
 			default: (a, b, id) =>
 				a.getValue(id).value < b.getValue(id).value ? 1 : -1,
@@ -36,12 +46,16 @@ const ListingTable = ({ table: { columns, data } }) => {
 	})
 
 	return (
-		<div className="listing-table__container">
-			<table>
-				<TableHead headerGroups={table.getHeaderGroups()} />
-				<TableBody rows={table.getRowModel().rows} />
-			</table>
-		</div>
+		<>
+			<div className="listing-table__container">
+				<table>
+					<TableHead headerGroups={table.getHeaderGroups()} />
+					<TableBody rows={table.getRowModel().rows} />
+				</table>
+			</div>
+			
+			{pages && <Pagination pages={pages} table={table} />}
+		</>
 	)
 }
 

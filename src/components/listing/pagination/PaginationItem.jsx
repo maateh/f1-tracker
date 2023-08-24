@@ -1,8 +1,8 @@
-const PaginationItem = ({ current, page, setSearchParams, disabled }) => {
+const PaginationItem = ({ current, page, setPage, disabled }) => {
   return disabled || (
     <li 
       className={`pagination-item ${current === page ? 'active' : ''}`}
-      onClick={() => setSearchParams({ page })}
+      onClick={setPage}
     >
       <span>{page}</span>
     </li>

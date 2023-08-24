@@ -1,15 +1,12 @@
-// queries
-import { getRoundLapsQuery } from './query/RoundLapsQuery'
-import { getDriverLapsQuery } from './query/DriverLapsQuery'
+// components
+import RoundLapsListing from '../components/listing/RoundLapsListing'
+import DriverLapsListing from '../components/listing/DriverLapsListing'
 
 // models
 import FilterOption from '../../../../../model/filter/FilterOption'
 
-export const lapsLoader = ({ params, request: { url: rawUrl } }) => {
-  const url = new URL(rawUrl)
-  const page = url.searchParams.get('page') || 1
-
-  return params.driverId === FilterOption.ALL.value ?
-    getRoundLapsQuery({ ...params, page }) : 
-    getDriverLapsQuery({ ...params, page })
+export const lapsLoader = ({ params: { driverId } }) => {
+  return driverId === FilterOption.ALL.value 
+    ? <RoundLapsListing /> 
+    : <DriverLapsListing />
 }

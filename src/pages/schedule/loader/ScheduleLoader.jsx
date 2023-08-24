@@ -1,4 +1,4 @@
-// query
-import { getScheduleQuery } from "./query/ScheduleQuery";
+// components
+import ScheduleListing from "../components/listing/ScheduleListing";
 
-export const scheduleLoader = ({ params }) => getScheduleQuery(params)
+export const scheduleLoader = () => <ScheduleListing />

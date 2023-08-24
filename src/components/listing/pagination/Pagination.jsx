@@ -28,32 +28,36 @@ const getPagesCut = ({ pages, cut, current }) => {
   }
 }
 
-const Pagination = ({ pagination: { pages } }) => {
+const Pagination = ({ pages, table }) => {
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   
   const current = +searchParams.get('page') || 1
-  const pagesCut = getPagesCut({ pages, cut: 9, current })
+  const pagesCut = getPagesCut({
+    pages,
+    cut: 9,
+    current
+  })
   const pagesRange = range(pagesCut.start, pagesCut.end)
   
-
   useEffect(() => {
+    table && table.setPageIndex(+searchParams.get('page') - 1)
     const search = `?${searchParams.toString()}`
     navigate({ search }, { replace: true })
-  }, [navigate, searchParams])
+  }, [navigate, searchParams, table])
 
   return (
     <ul className="pagination">
       <PaginationItem 
         current={current}
         page="First" 
-        setSearchParams={() => setSearchParams({ page: 1 })} 
+        setPage={() => setSearchParams({ page: 1 })}
         disabled={current <= 1}
       />
       <PaginationItem 
         current={current}
         page="Previous" 
-        setSearchParams={() => setSearchParams({ page: current - 1 })} 
+        setPage={() => setSearchParams({ page: current - 1 })}
         disabled={current <= 1}
       />
 
@@ -62,7 +66,7 @@ const Pagination = ({ pagination: { pages } }) => {
           key={page}
           current={current}
           page={page} 
-          setSearchParams={setSearchParams} 
+          setPage={() => setSearchParams({ page })}
           disabled={false}
         />
       ))}
@@ -70,13 +74,13 @@ const Pagination = ({ pagination: { pages } }) => {
       <PaginationItem 
         current={current}
         page="Next" 
-        setSearchParams={() => setSearchParams({ page: current + 1 })} 
+        setPage={() => setSearchParams({ page: current + 1 })}
         disabled={current >= pages}
       />
       <PaginationItem 
         current={current}
         page="Last" 
-        setSearchParams={() => setSearchParams({ page: pages })} 
+        setPage={() => setSearchParams({ page: pages })}
         disabled={current >= pages}
       />
     </ul>

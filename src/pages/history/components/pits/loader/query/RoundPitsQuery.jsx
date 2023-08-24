@@ -58,9 +58,9 @@ export const getRoundPitsQuery = ({ year, round, page }) => ({
             driver: pit.driverId,
             time: pit.time,
             duration: pit.duration,
-          }))
-        }),
-        pagination: new ListingPaginationModel({ pages })
+          })),
+          pages: +pages
+        })
       })
     })
     .catch(err => {
