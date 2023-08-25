@@ -6,6 +6,7 @@ import { raceLap } from "../../../../../../../api/history"
 import { raceResults } from "../../../../../../../api/results"
 
 // components
+import SummaryCard from "../../../../../../../components/listing/cards/card/SummaryCard"
 import SingleTableCell from "../../../../../../../components/listing/table/cell/SingleTableCell"
 import LinkingTableCell from "../../../../../../../components/listing/table/cell/LinkingTableCell"
 import TimeCell from "../components/table/TimeCell"
@@ -25,7 +26,6 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import SpeedIcon from '@mui/icons-material/Speed'
 import AvTimerIcon from '@mui/icons-material/AvTimer'
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp'
-import SummaryCard from "../../../../../../../components/listing/cards/card/SummaryCard"
 
 export const useRoundLapsQuery = () => {
   const { year, round } = useParams()
@@ -126,14 +126,14 @@ export const useRoundLapsQuery = () => {
                 cell: ({ cell: { getValue }}) => 
                   <TimeCell 
                     time={getValue().value}
-                    gap={'gap'}
+                    gap={getValue().gap}
                   />
               },
             ],
             data: currentLap.timings.map(timing => ({
               position: { value: +timing.position },
               driver: { value: getDriver(timing.driverId, result).fullName, driver: getDriver(timing.driverId, result) },
-              time: { value: timing.time },
+              time: { value: timing.time, gap: gap(currentLap, timing.driverId) },
             }))
           }),
           pages: +pages
@@ -150,8 +150,7 @@ const getDriver = (driverId, result) => {
   return result.find(r => r.driver.id === driverId).driver
 }
 
-
-// Card & Table helpers
+// Card helpers
 const driversInRace = lap => {
   return `${lap.timings.length} drivers in the race this lap`
 }
@@ -192,4 +191,22 @@ const gainedPositions = (currentLap, prevLap, result) => {
       : acc
   }, 0)
   return `${gainedPositions} gained positions in this lap`
+}
+
+// Table helpers
+const gap = (lap, driverId) => {
+  const firstTime = lap.timings[0].getTimeInMs()
+  const driverTime = lap.timings
+      .find(timing => timing.driverId === driverId)
+      .getTimeInMs()
+
+  const gap = firstTime > driverTime 
+    ? new Date(firstTime - driverTime) 
+    : new Date(driverTime - firstTime)
+
+  const prefix = firstTime > driverTime ? '-' : '+'
+  const minutes = gap.getMinutes() > 0 ? `${gap.getMinutes()}:` : ''
+  return gap.getMilliseconds() === 0
+    ? 'Reference time'
+    : `${prefix}${minutes}${gap.getSeconds()}.${gap.getMilliseconds()}`
 }

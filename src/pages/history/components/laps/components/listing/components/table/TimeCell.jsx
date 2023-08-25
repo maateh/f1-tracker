@@ -10,7 +10,7 @@ const TimeCell = ({ time, gap }) => {
 
 
       <p style={{
-        fontSize: '0.9rem',
+        fontSize: '0.95rem',
         fontWeight: 300
       }}>
         {gap}
