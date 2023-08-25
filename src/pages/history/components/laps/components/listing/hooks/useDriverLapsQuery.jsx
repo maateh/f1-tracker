@@ -25,6 +25,8 @@ import SpeedIcon from '@mui/icons-material/Speed'
 import AvTimerIcon from '@mui/icons-material/AvTimer'
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp'
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown'
+import UnfoldLessDoubleIcon from '@mui/icons-material/UnfoldLessDouble'
+import SportsScoreIcon from '@mui/icons-material/SportsScore'
 
 export const useDriverLapsQuery = () => {
   const { year, round, driverId } = useParams()
@@ -59,7 +61,7 @@ export const useDriverLapsQuery = () => {
               gap: '1.5rem'
             },
             layouts: [{
-              title: 'Current Lap Information',
+              title: "Driver's Race Information",
               summaries: [
                 {
                   title: 'Fastest Lap',
@@ -70,6 +72,16 @@ export const useDriverLapsQuery = () => {
                   title: 'Average Lap Time',
                   desc: averageTime(laps),
                   icon: <AvTimerIcon />
+                },
+                {
+                  title: 'Starting Grid Position',
+                  desc: startingPosition(result),
+                  icon: <UnfoldLessDoubleIcon />
+                },
+                {
+                  title: 'Final Result',
+                  desc: finalResult(result),
+                  icon: <SportsScoreIcon />
                 },
                 {
                   title: gainedTitle(laps, result),
@@ -143,27 +155,40 @@ const averageTime = laps => {
   return `${time.getMinutes()}:${time.getSeconds()}.${time.getMilliseconds()}`
 }
 
+const startingPosition = result => {
+  return isNaN(+result.grid)
+    ? 'Started from PIT LANE'
+    : `#${result.grid} on the starting grid`
+}
+
+const finalResult = result => {
+  return `#${result.position} at the end of the race (${result.status})`
+}
+
 const gained = (laps, result) => {
-  return +result.grid - +laps[laps.length - 1].timings[0].position
+  const startedPosition = isNaN(+result.grid) 
+    ? +laps[0].timings[0].position
+    : +result.grid
+  return startedPosition - +result.position
 }
 
 const gainedTitle = (laps, result) => {
   const gainedPositions = gained(laps, result)
-  return gainedPositions === 0 || isNaN(gainedPositions) ? '' 
+  return isNaN(gainedPositions) || gainedPositions === 0 ? '' 
     : gainedPositions > 0 ? 'Gained Positions' 
     : 'Lost Positions'
 }
 
 const gainedPositions = (laps, result) => {
   const gainedPositions = gained(laps, result)
-  return gainedPositions === 0 || isNaN(gainedPositions) ? ''
+  return isNaN(gainedPositions) || gainedPositions === 0 ? ''
     : gainedPositions > 0 ? `Gained ${gainedPositions} positions from the start of the race`
     : `Lost ${Math.abs(gainedPositions)} positions from the start of the race`
 }
 
 const gainedIcon = (laps, result) => {
   const gainedPositions = gained(laps, result)
-  return gainedPositions === 0 || isNaN(gainedPositions) ? ''
+  return isNaN(gainedPositions) || gainedPositions === 0 ? ''
     : gainedPositions > 0 ? <KeyboardDoubleArrowUpIcon /> 
     : <KeyboardDoubleArrowDownIcon />
 }
