@@ -9,6 +9,7 @@ import { driverRaceResults } from "../../../../../../../api/results"
 import SummaryCard from "../../../../../../../components/listing/cards/card/SummaryCard"
 import SingleTableCell from "../../../../../../../components/listing/table/cell/SingleTableCell"
 import LinkingTableCell from "../../../../../../../components/listing/table/cell/LinkingTableCell"
+import GainedInfoCell from "../components/table/GainedInfoCell"
 import TimeCell from '../components/table/TimeCell'
 
 // models
@@ -99,8 +100,9 @@ export const useDriverLapsQuery = () => {
                 enableSorting: true,
                 sortingFn: 'default',
                 cell: ({ cell: { getValue }}) => 
-                  <LinkingTableCell
-                    value={getValue().value}
+                  <GainedInfoCell
+                    value={`#${getValue().value}`}
+                    gained={getValue().gained}
                     link={`../${weekend.year}/${weekend.round}/all?page=${getValue().value}`}
                     style={{ fontWeight: '500', fontSize: '1.2rem' }}
                   />
@@ -111,7 +113,10 @@ export const useDriverLapsQuery = () => {
                 enableSorting: true,
                 sortingFn: 'default',
                 cell: ({ cell: { getValue }}) => 
-                  <SingleTableCell value={getValue().value} />
+                  <SingleTableCell
+                    value={getValue().value}
+                    style={{ fontWeight: 500 }}
+                  />
               },
               {
                 header: 'Lap Time',
@@ -126,9 +131,15 @@ export const useDriverLapsQuery = () => {
               },
             ],
             data: laps.map((lap, index) => ({
-              lap: { value: +lap.number },
+              lap: {
+                value: +lap.number,
+                gained: gainedForRound(lap.timings[0], result, laps, index)
+              },
               position: { value: +lap.timings[0].position },
-              time: { value: lap.timings[0].time, gap: gap(lap.timings[0], laps, index) }
+              time: {
+                value: lap.timings[0].time,
+                gap: gap(lap.timings[0], laps, index)
+              }
             })),
             pages: +pages
           })
@@ -194,6 +205,19 @@ const gainedIcon = (laps, result) => {
 }
 
 // Table helpers
+const gainedForRound = (timing, result, laps, index) => {
+  let prevPosition = index > 0
+    ? laps[index - 1].timings[0].position
+    : result.grid
+  prevPosition = isNaN(prevPosition) ? timing.position : prevPosition
+  
+  const differential = timing.position - prevPosition
+  const prefix = differential > 0 ? '-' : '+'
+  return differential === 0
+    ? ''
+    : `${prefix}${Math.abs(differential)}`
+}
+
 const gap = (timing, laps, index) => {
   const prevTiming = index > 0 
     ? laps[index - 1].timings[0] 

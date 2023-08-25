@@ -8,7 +8,7 @@ import { raceResults } from "../../../../../../../api/results"
 // components
 import SummaryCard from "../../../../../../../components/listing/cards/card/SummaryCard"
 import SingleTableCell from "../../../../../../../components/listing/table/cell/SingleTableCell"
-import LinkingTableCell from "../../../../../../../components/listing/table/cell/LinkingTableCell"
+import GainedInfoCell from "../components/table/GainedInfoCell"
 import TimeCell from "../components/table/TimeCell"
 
 // models
@@ -112,8 +112,9 @@ export const useRoundLapsQuery = () => {
                 enableSorting: true,
                 sortingFn: 'default',
                 cell: ({ cell: { getValue }}) => 
-                  <LinkingTableCell 
+                  <GainedInfoCell 
                     value={getValue().value}
+                    gained={getValue().gained}
                     link={`../${weekend.year}/${weekend.round}/${getValue().driver.id}`}
                     style={{ fontWeight: '500' }}
                   />
@@ -132,7 +133,11 @@ export const useRoundLapsQuery = () => {
             ],
             data: currentLap.timings.map(timing => ({
               position: { value: +timing.position },
-              driver: { value: getDriver(timing.driverId, result).fullName, driver: getDriver(timing.driverId, result) },
+              driver: {
+                value: getDriver(timing.driverId, result).fullName, 
+                driver: getDriver(timing.driverId, result),
+                gained: driverGainedPositions(timing, prevLap, result)
+              },
               time: { value: timing.time, gap: gap(currentLap, timing.driverId) },
             }))
           }),
@@ -184,7 +189,7 @@ const gainedPositions = (currentLap, prevLap, result) => {
         .find(({ driverId }) => timing.driverId === driverId)
         .position
       : +result
-        .find((r => r.driver.id === timing.driverId))
+        .find(r => r.driver.id === timing.driverId)
         .position
     return prevPosition > timing.position 
       ? acc + prevPosition - +timing.position 
@@ -194,21 +199,34 @@ const gainedPositions = (currentLap, prevLap, result) => {
 }
 
 // Table helpers
+const driverGainedPositions = (timing, prevLap, result) => {
+  let prevPosition = prevLap
+    ? prevLap.timings.find(t => t.driverId === timing.driverId).position
+    : result.find(r => r.driver.id === timing.driverId).grid
+  prevPosition = isNaN(prevPosition) ? timing.position : prevPosition
+
+  const differential = timing.position - prevPosition
+  const prefix = differential > 0 ? '-' : '+'
+  return differential === 0
+    ? ''
+    : `${prefix}${Math.abs(differential)}`
+}
+
 const gap = (lap, driverId) => {
-  const firstTime = lap.timings[0].getTimeInMs()
+  const refTime = lap.timings[0].getTimeInMs()
   const driverTime = lap.timings
       .find(timing => timing.driverId === driverId)
       .getTimeInMs()
 
-  const gap = firstTime > driverTime 
-    ? new Date(firstTime - driverTime) 
-    : new Date(driverTime - firstTime)
+  const gap = refTime > driverTime 
+    ? new Date(refTime - driverTime) 
+    : new Date(driverTime - refTime)
 
-  const prefix = firstTime > driverTime ? '-' : '+'
+  const prefix = refTime > driverTime ? '-' : '+'
   const minutes = gap.getMinutes() > 0 ? `${gap.getMinutes()}:` : ''
   const ms = gap.getMilliseconds().toString().padStart(3, '0')
 
-  return firstTime === driverTime
+  return refTime === driverTime
     ? 'Reference time'
     : `${prefix}${minutes}${gap.getSeconds()}.${ms}`
 }
