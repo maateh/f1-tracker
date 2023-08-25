@@ -24,8 +24,9 @@ const WeekendCard = ({ weekend, nextRound }) => {
 		<li
 			onClick={handleNavigate}
 			className={`weekend-card__container 
-				${weekend.isActive() ? 'active' : ''} 
-				${weekend.round === nextRound ? 'next' : weekend.isRemaining() ? 'remaining' : ''}`}
+				${weekend.isActive() ? 'active' 
+					: weekend.round === nextRound ? 'next' 
+					: weekend.isRemaining() ? 'remaining' : ''}`} 
 		>
 			<WeekendMarker weekend={weekend} nextRound={nextRound} />
 			<WeekendTitle title={weekend.name} />

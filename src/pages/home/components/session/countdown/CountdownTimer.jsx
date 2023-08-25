@@ -8,7 +8,11 @@ import { useWeekendContext } from '../../../context/hooks/useWeekendContext'
 import './CountdownTimer.css'
 
 const CountdownTimer = ({ end }) => {
-	const { weekend: { sessions: { currentSession }} } = useWeekendContext()
+	const {
+		weekend: {
+			sessions: { relevantSession }
+		}
+	} = useWeekendContext()
 	const { duration } = useTimer(end)
 
 	// TODO
@@ -23,7 +27,7 @@ const CountdownTimer = ({ end }) => {
 			{duration && (
 				Object.values(duration).every(item => item === 0) ? (
 					<div>
-						{currentSession.isActive() ? (
+						{relevantSession.isActive() ? (
 							<p className="started">Session Ended!</p>
 						) : (
 							<p className="started">Session Started!</p>
