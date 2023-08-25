@@ -206,7 +206,9 @@ const gap = (lap, driverId) => {
 
   const prefix = firstTime > driverTime ? '-' : '+'
   const minutes = gap.getMinutes() > 0 ? `${gap.getMinutes()}:` : ''
-  return gap.getMilliseconds() === 0
+  const ms = gap.getMilliseconds().toString().padStart(3, '0')
+
+  return firstTime === driverTime
     ? 'Reference time'
-    : `${prefix}${minutes}${gap.getSeconds()}.${gap.getMilliseconds()}`
+    : `${prefix}${minutes}${gap.getSeconds()}.${ms}`
 }

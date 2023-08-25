@@ -152,7 +152,7 @@ export const useDriverRacesQuery = () => {
                 cell: ({ cell: { getValue }}) =>
                   <FastestLapCell 
                     lap={getValue().fastestLap} 
-                    speed={getValue().fastestLap?.avgSpeed}
+                    speed={getValue().fastestLap?.getAvgSpeed()}
                   />
               },
               {

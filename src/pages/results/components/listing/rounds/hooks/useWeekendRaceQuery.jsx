@@ -128,7 +128,7 @@ export const useWeekendRaceQuery = () => {
                 cell: ({ cell: { getValue }}) => 
                   <FastestLapCell 
                     lap={getValue().fastestLap} 
-                    speed={getValue().fastestLap?.avgSpeed}
+                    speed={getValue().fastestLap?.getAvgSpeed()}
                   />
               },
               {
@@ -170,11 +170,10 @@ export const useWeekendRaceQuery = () => {
 
 // Drivers Race Status
 const finished = weekend => {
-  return weekend.result.race
-    .filter(r => 
-      r.status.includes('Finished') || 
-      r.status.includes('+')
-    ).length + ' drivers in this race'
+  return weekend.result.race.filter(r => 
+    r.status.includes('Finished') || 
+    r.status.includes('+')
+  ).length + ' drivers in this race'
 }
 
 const gotALap = weekend => {

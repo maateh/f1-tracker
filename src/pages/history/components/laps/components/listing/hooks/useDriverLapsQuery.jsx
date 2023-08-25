@@ -64,8 +64,8 @@ export const useDriverLapsQuery = () => {
               title: "Driver's Race Information",
               summaries: [
                 {
-                  title: 'Fastest Lap',
-                  desc: fastestLap(laps),
+                  title: 'Fastest Lap Time',
+                  desc: fastestTime(laps),
                   icon: <SpeedIcon />
                 },
                 {
@@ -121,14 +121,14 @@ export const useDriverLapsQuery = () => {
                 cell: ({ cell: { getValue }}) => 
                   <TimeCell
                     time={getValue().value}
-                    gap={'gap'}
+                    gap={getValue().gap}
                   />
               },
             ],
-            data: laps.map(lap => ({
+            data: laps.map((lap, index) => ({
               lap: { value: +lap.number },
               position: { value: +lap.timings[0].position },
-              time: { value: lap.timings[0].time }
+              time: { value: lap.timings[0].time, gap: gap(lap.timings[0], laps, index) }
             })),
             pages: +pages
           })
@@ -140,8 +140,8 @@ export const useDriverLapsQuery = () => {
   })
 }
 
-// Card & Table helpers
-const fastestLap = laps => {
+// Card helpers
+const fastestTime = laps => {
 	return laps.reduce((acc, curr) =>
 		acc.timings[0].getTimeInMs() < curr.timings[0].getTimeInMs() ? acc : curr
 	).timings[0].time
@@ -191,4 +191,26 @@ const gainedIcon = (laps, result) => {
   return isNaN(gainedPositions) || gainedPositions === 0 ? ''
     : gainedPositions > 0 ? <KeyboardDoubleArrowUpIcon /> 
     : <KeyboardDoubleArrowDownIcon />
+}
+
+// Table helpers
+const gap = (timing, laps, index) => {
+  const prevTiming = index > 0 
+    ? laps[index - 1].timings[0] 
+    : timing
+
+  const currentLapTimeInMs = timing.getTimeInMs()
+  const prevLapTimeInMs = prevTiming.getTimeInMs()
+
+  const gap = currentLapTimeInMs > prevLapTimeInMs
+    ? new Date(currentLapTimeInMs - prevLapTimeInMs) 
+    : new Date(prevLapTimeInMs - currentLapTimeInMs)
+
+  const prefix = currentLapTimeInMs > prevLapTimeInMs ? '+' : '-'
+  const minutes = gap.getMinutes() > 0 ? `${gap.getMinutes()}:` : ''
+  const ms = gap.getMilliseconds().toString().padStart(3, '0')
+
+  return currentLapTimeInMs === prevLapTimeInMs
+    ? 'First Lap Time'
+    : `${prefix}${minutes}${gap.getSeconds()}.${ms}`
 }

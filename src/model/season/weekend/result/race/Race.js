@@ -1,6 +1,7 @@
 // model
 import Constructor from '../constructor/Constructor'
 import Driver from '../driver/Driver'
+import FastestLap from '../fastest/FastestLap'
 
 class Race {
 	constructor(data) {
@@ -34,18 +35,21 @@ class Race {
 
 	parseFastestLap(data) {
 		if (data.FastestLap) {
-			this.fastestLap = {
+			this.fastestLap = new FastestLap({
 				time: data.FastestLap.Time.time,
-				avgSpeed: `${data.FastestLap.AverageSpeed.speed} ${data.FastestLap.AverageSpeed.units}`,
+				avgSpeed: {
+					speed: data.FastestLap.AverageSpeed.speed,
+					units: data.FastestLap.AverageSpeed.units,
+				},
 				rank: data.FastestLap.rank,
 				lap: data.FastestLap.lap,
-			}
+			})
 			return
 		}
 		
-		this.fastestLap = {
+		this.fastestLap = new FastestLap({
 			time: '-'
-		}
+		})
 	}
 }
 
