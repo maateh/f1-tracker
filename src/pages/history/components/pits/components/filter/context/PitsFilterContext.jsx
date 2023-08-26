@@ -11,11 +11,19 @@ const INITIAL_STATE = {
 const dataReducer = (state, action) => {
 	switch (action.type) {
 		case 'SET_SEASONS':
-			return { ...state, selectors: { ...state.selectors, seasons: action.payload } }
+			return { ...state, selectors: { ...state.selectors, seasons: action.payload }}
 		case 'SET_ROUNDS':
-			return { ...state, selectors: { ...state.selectors, rounds: action.payload } }
+			return { ...state, selectors: { ...state.selectors, rounds: action.payload }}
 		case 'SET_DRIVERS':
-			return { ...state, selectors: { ...state.selectors, drivers: action.payload } }
+			return { ...state, selectors: { ...state.selectors, drivers: action.payload }}
+		case 'UPDATE_PARAMS':
+			return {
+				selectors: {
+					seasons: state.selectors.seasons.updateParam(action.payload.year),
+					rounds: state.selectors.rounds.updateParam(action.payload.round),
+					drivers: state.selectors.drivers.updateParam(action.payload.driverId)
+				},
+			}
 		default:
 			return state
 	}

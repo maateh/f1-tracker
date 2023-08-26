@@ -14,7 +14,6 @@ import DriversHistory from './pages/history/components/drivers/DriversHistory'
 import ConstructorsHistory from './pages/history/components/constructors/ConstructorsHistory'
 
 import Loader from './components/loader/Loader'
-import Listing from './components/listing/Listing'
 import NotFound from './components/error/NotFound'
 
 // loaders
@@ -92,7 +91,7 @@ const router = createBrowserRouter([
             children: [
               {
                 path: ":year/:round/:driverId",
-                element: <Listing />,
+                element: <Loader />,
                 loader: pitsLoader
               },
               {

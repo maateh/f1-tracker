@@ -1,3 +1,6 @@
+import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+
 // components
 import FilterSelector from '../../../../../../components/filter/FilterSelector'
 import SkeletonSelector from '../../../../../../components/skeleton/SkeletonSelector'
@@ -12,8 +15,14 @@ import { usePitsFilterQueries } from './hooks/usePitsFilterQueries'
 import './PitsFilter.css'
 
 const PitsFilter = () => {
-  const { selectors } = usePitsFilterContext()
+  const { selectors, dispatch } = usePitsFilterContext()
   const { preloading, loading, error } = usePitsFilterQueries()
+	const params = useParams()
+
+	useEffect(() => {
+		if (preloading) return
+		dispatch({ type: 'UPDATE_PARAMS', payload: params })
+	}, [preloading, params, dispatch])
 
   return (
     <div className="pits-filter">

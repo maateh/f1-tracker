@@ -27,12 +27,11 @@ export const driverLaps = async (year, round, driverId) => ergast({
 
 
 // Pit Stops
-export const pitStops = async (year, round, page) => ergast({
+export const pitStops = async (year, round) => ergast({
   url: `/${year}/${round}/pitstops`,
   key: KEYS.RACE_TABLE,
   params: {
     limit: 100
-    // offset: (page - 1) * 20
   }
 })
   .then(res => res)

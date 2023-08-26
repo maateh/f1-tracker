@@ -22,6 +22,7 @@ const HistoryChooser = () => {
             key={option.value}
             to={`./${option.value}`}
             preventScrollReset={true}
+            replace={true}
           >{option.placeholder}</NavLink>
         ))}
       </div>

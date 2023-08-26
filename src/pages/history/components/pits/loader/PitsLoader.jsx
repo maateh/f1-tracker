@@ -1,12 +1,12 @@
-// queries
-import { getRoundPitsQuery } from './query/RoundPitsQuery'
-import { getDriverPitsQuery } from './query/DriverPitsQuery'
+// components
+import RoundPitsListing from '../components/listing/RoundPitsListing'
+import DriverPitsListing from '../components/listing/DriverPitsListing'
 
-export const pitsLoader = ({ params, request: { url: rawUrl } }) => {
-  const url = new URL(rawUrl)
-  const page = url.searchParams.get('page') || 1
-  
-  return params.driverId === 'all' ? 
-    getRoundPitsQuery({ ...params, page }) : 
-    getDriverPitsQuery(params)
+// models
+import FilterOption from '../../../../../model/filter/FilterOption'
+
+export const pitsLoader = ({ params: { driverId } }) => {
+  return driverId === FilterOption.ALL.value 
+    ? <RoundPitsListing /> 
+    : <DriverPitsListing />
 }
