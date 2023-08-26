@@ -16,10 +16,14 @@ import SeasonModel from "../../../../../../../model/season/Season"
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
 import ListingModel from "../../../../../../../model/listing/Listing"
 import ListingTitleModel from "../../../../../../../model/listing/ListingTitle"
+import ListingCardsModel from "../../../../../../../model/listing/ListingCards"
 import ListingTableModel from "../../../../../../../model/listing/ListingTable"
 import QueryError from "../../../../../../../model/error/QueryError"
 
 // icons
+import LocalParkingIcon from '@mui/icons-material/LocalParking'
+import CalculateIcon from '@mui/icons-material/Calculate'
+import TimelapseIcon from '@mui/icons-material/Timelapse'
 
 export const useRoundPitsQuery = () => {
   const { year, round } = useParams()
@@ -44,6 +48,33 @@ export const useRoundPitsQuery = () => {
         return new ListingModel({
           title: new ListingTitleModel({
             main: `${weekend.year} ${weekend.name} Pit Stops`
+          }),
+          cards: new ListingCardsModel({
+            styles: {
+              margin: '2rem',
+              display: 'flex',
+              gap: '1.5rem'
+            },
+            layouts: [{
+              title: 'Pit Stops Information',
+              summaries: [
+                {
+                  title: 'Pit Stops',
+                  desc: pitStopsAmount(weekend.pits),
+                  icon: <LocalParkingIcon />
+                },
+                {
+                  title: 'Average Pits per Driver',
+                  desc: averagePerDriver(weekend.pits),
+                  icon: <CalculateIcon />
+                },
+                {
+                  title: 'Average Duration',
+                  desc: averageDuration(weekend.pits),
+                  icon: <TimelapseIcon />
+                }
+              ]
+            }].map(card => <SummaryCard key={card.title} card={card} />)
           }),
           table: new ListingTableModel({
             columns: [
@@ -140,7 +171,26 @@ const getFastestPit = pits => {
 }
 
 // Card helpers
+const pitStopsAmount = pits => {
+  return `${pits.length} pit stops in the race`
+}
 
+const averagePerDriver = pits => {
+  const drivers = pits.map(pit => pit.driverId)
+  const average = +pits.length / new Set(drivers).size
+  return `${average.toFixed(3)} pit stops average`
+}
+
+const averageDuration = pits => {
+  const sum = pits.reduce((acc, curr) => acc + curr.getDurationInMs(), 0)
+  const averageTime = new Date(sum / pits.length)
+
+  const seconds = averageTime.getSeconds()
+  const ms = averageTime.getMilliseconds()
+    .toString()
+    .padStart(3, '0')
+  return `${seconds}.${ms}s average pit stop duration`
+}
 
 // Table helpers
 const gap = (pit, fastestPit) => {

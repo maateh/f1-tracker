@@ -6,7 +6,7 @@
   box-shadow: 4px 4px 6px rgba(100, 100, 100, 0.5);
 }
 .summary-card__container > .summary-card-title {
-  margin: 1rem;
+  margin: 1.15rem 4rem;
   color: var(--text-color-light);
   font-size: 1.7rem;
   font-weight: 600;
@@ -40,6 +40,7 @@
 
 @media (max-width: 30rem) {
   .summary-card__container > .summary-card-title {
+    margin: 1rem 1.5rem;
     font-size: 1.4rem;
   }
 
