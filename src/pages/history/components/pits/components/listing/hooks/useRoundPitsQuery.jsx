@@ -3,6 +3,7 @@ import { useQuery } from "react-query"
 
 // api
 import { pitStops } from "../../../../../../../api/history"
+import { driverList } from "../../../../../../../api/season"
 
 // components
 import SummaryCard from "../../../../../../../components/listing/cards/card/SummaryCard"
@@ -11,6 +12,7 @@ import LinkingTableCell from "../../../../../../../components/listing/table/cell
 import DurationCell from "../components/table/DurationCell"
 
 // models
+import SeasonModel from "../../../../../../../model/season/Season"
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
 import ListingModel from "../../../../../../../model/listing/Listing"
 import ListingTitleModel from "../../../../../../../model/listing/ListingTitle"
@@ -24,17 +26,20 @@ export const useRoundPitsQuery = () => {
 
   return useQuery({
     queryKey: ['listing', 'pits', year, round],
-    queryFn: () => pitStops(year, round)
-      .then(({ info, data }) => {
-        if (!data.Races || !data.Races.length) {
+    queryFn: () => Promise.all([
+      pitStops(year, round),
+      driverList(year)
+    ])
+      .then(([{ info, data: pitsData }, { data: driversData }]) => {
+        if (!pitsData.Races || !pitsData.Races.length) {
           throw new QueryError('No data found!', 404)
         }
   
-        const weekend = new WeekendModel(data.Races[0])
+        const weekend = new WeekendModel(pitsData.Races[0])
+        const { drivers } = new SeasonModel(driversData)
         const pages = Math.ceil(info.total / 20)
 
-        const { pits } = weekend
-        const fastestPit = getFastestPit(pits)
+        const fastestPit = getFastestPit(weekend.pits)
   
         return new ListingModel({
           title: new ListingTitleModel({
@@ -83,7 +88,7 @@ export const useRoundPitsQuery = () => {
                 cell: ({ cell: { getValue }}) => 
                   <LinkingTableCell 
                     value={getValue().value} 
-                    link={`../${weekend.year}/${weekend.round}/${getValue().value}`}
+                    link={`../${weekend.year}/${weekend.round}/${getValue().driver.id}`}
                     style={{ fontSize: '1.1rem', fontWeight: 500}}
                   />
               },
@@ -100,12 +105,18 @@ export const useRoundPitsQuery = () => {
                   />
               },
             ],
-            data: pits.map(pit => ({
+            data: weekend.pits.map(pit => ({
               time: { value: pit.time },
               lap: { value: +pit.lap },
               stops: { value: +pit.stop },
-              driver: { value: pit.driverId },
-              duration: { value: pit.duration, gap: gap(pit, fastestPit) },
+              driver: {
+                value: getDriver(pit.driverId, drivers).fullName,
+                driver: getDriver(pit.driverId, drivers)
+              },
+              duration: {
+                value: pit.duration,
+                gap: gap(pit, fastestPit)
+              }
             })),
             pages: +pages
           })
@@ -118,6 +129,10 @@ export const useRoundPitsQuery = () => {
 }
 
 // Helpers
+const getDriver = (driverId, drivers) => {
+  return drivers.find(driver => driver.id === driverId)
+}
+
 const getFastestPit = pits => {
 	return pits.reduce((prev, curr) =>
 		prev.getDurationInMs() > curr.getDurationInMs() ? curr : prev

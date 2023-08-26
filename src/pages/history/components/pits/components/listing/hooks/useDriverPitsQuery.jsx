@@ -3,6 +3,7 @@ import { useQuery } from "react-query"
 
 // api
 import { driverPitStops } from "../../../../../../../api/history"
+import { driverInfo } from "../../../../../../../api/season"
 
 // components
 import SummaryCard from "../../../../../../../components/listing/cards/card/SummaryCard"
@@ -11,6 +12,7 @@ import DurationCell from "../components/table/DurationCell"
 
 // models
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
+import DriverModel from "../../../../../../../model/season/weekend/result/driver/Driver"
 import ListingModel from "../../../../../../../model/listing/Listing"
 import ListingTitleModel from "../../../../../../../model/listing/ListingTitle"
 import ListingTableModel from "../../../../../../../model/listing/ListingTable"
@@ -23,21 +25,24 @@ export const useDriverPitsQuery = () => {
 
   return useQuery({
     queryKey: ['listing', 'pits', year, round, driverId],
-    queryFn: () => driverPitStops(year, round, driverId)
-      .then(({ data }) => {
-        if (!data.Races || !data.Races.length) {
+    queryFn: () => Promise.all([
+      driverPitStops(year, round, driverId),
+      driverInfo(year, driverId)
+    ])
+      .then(([{ data: pitsData }, { data: driverData }]) => {
+        if (!pitsData.Races || !pitsData.Races.length) {
           throw new QueryError('No data found!', 404)
         }
   
-        const weekend = new WeekendModel(data.Races[0])
+        const weekend = new WeekendModel(pitsData.Races[0])
+        const driver = new DriverModel(driverData.Drivers[0])
 
-        const { pits } = weekend
-        const fastestPit = getFastestPit(pits)
+        const fastestPit = getFastestPit(weekend.pits)
   
         return new ListingModel({
           title: new ListingTitleModel({
             main: `${weekend.year} ${weekend.name} Pit Stops`,
-            sub: `Selected Driver | ${weekend.pits[0].driverId}`
+            sub: `Selected Driver | ${driver.fullName}`
           }),
           table: new ListingTableModel({
             columns: [
@@ -87,7 +92,7 @@ export const useDriverPitsQuery = () => {
                   />
               },
             ],
-            data: pits.map(pit => ({
+            data: weekend.pits.map(pit => ({
               time: { value: pit.time },
               lap: { value: +pit.lap },
               stops: { value: +pit.stop },
