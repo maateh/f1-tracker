@@ -6,6 +6,12 @@ class PitStop {
     this.time = data.time
     this.duration = data.duration
   }
+
+  getDurationInMs() {
+    const separator = /[.]/
+    const [sec, ms] = this.duration.split(separator)
+    return +sec * 1000 + +ms
+  }
 }
 
 export default PitStop

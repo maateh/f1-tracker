@@ -5,7 +5,9 @@ import { useQuery } from "react-query"
 import { driverPitStops } from "../../../../../../../api/history"
 
 // components
+import SummaryCard from "../../../../../../../components/listing/cards/card/SummaryCard"
 import SingleTableCell from "../../../../../../../components/listing/table/cell/SingleTableCell"
+import DurationCell from "../components/table/DurationCell"
 
 // models
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
@@ -28,6 +30,9 @@ export const useDriverPitsQuery = () => {
         }
   
         const weekend = new WeekendModel(data.Races[0])
+
+        const { pits } = weekend
+        const fastestPit = getFastestPit(pits)
   
         return new ListingModel({
           title: new ListingTitleModel({
@@ -42,7 +47,10 @@ export const useDriverPitsQuery = () => {
                 enableSorting: true,
                 sortingFn: 'default',
                 cell: ({ cell: { getValue }}) =>
-                  <SingleTableCell value={getValue().value} />
+                  <SingleTableCell 
+                    value={getValue().value}
+                    style={{ fontSize: '1.15rem', fontWeight: '600' }}
+                  />
               },
               {
                 placeholder: 'Lap',
@@ -50,7 +58,10 @@ export const useDriverPitsQuery = () => {
                 enableSorting: true,
                 sortingFn: 'default',
                 cell: ({ cell: { getValue }}) =>
-                  <SingleTableCell value={getValue().value} />
+                  <SingleTableCell
+                    value={`#${getValue().value}`}
+                    style={{ fontSize: '1.1rem', fontWeight: '600' }}
+                  />
               },
               {
                 placeholder: 'Stops',
@@ -58,22 +69,29 @@ export const useDriverPitsQuery = () => {
                 enableSorting: true,
                 sortingFn: 'default',
                 cell: ({ cell: { getValue }}) =>
-                  <SingleTableCell value={getValue().value} />
+                  <SingleTableCell
+                    value={getValue().value}
+                    style={{ fontSize: '1.1rem', fontWeight: '600' }}
+                  />
               },
               {
-                placeholder: 'Duration',
+                placeholder: 'Pit Duration',
                 accessorKey: 'duration',
                 enableSorting: true,
                 sortingFn: 'default',
                 cell: ({ cell: { getValue }}) =>
-                  <SingleTableCell value={getValue().value} />
+                  <DurationCell
+                    duration={getValue().value}
+                    gap={getValue().gap}
+                    style={{ fontSize: '1.3rem', fontWeight: '400' }}
+                  />
               },
             ],
-            data: weekend.pits.map(pit => ({
+            data: pits.map(pit => ({
               time: { value: pit.time },
               lap: { value: +pit.lap },
               stops: { value: +pit.stop },
-              duration: { value: pit.duration },
+              duration: { value: pit.duration, gap: gap(pit, fastestPit) },
             }))
           })
         })
@@ -82,4 +100,32 @@ export const useDriverPitsQuery = () => {
         throw new QueryError(err.message, err.code)
       })
   })
+}
+
+// Helpers
+const getFastestPit = pits => {
+	return pits.reduce((prev, curr) =>
+		prev.getDurationInMs() > curr.getDurationInMs() ? curr : prev
+	)
+}
+
+// Card helpers
+
+
+// Table helpers
+const gap = (pit, fastestPit) => {
+  const refTime = fastestPit.getDurationInMs()
+  const pitTime = pit.getDurationInMs()
+
+  const gap = refTime > pitTime 
+    ? new Date(refTime - pitTime) 
+    : new Date(pitTime - refTime)
+
+  const ms = gap.getMilliseconds()
+    .toString()
+    .padStart(3, '0')
+
+  return refTime === pitTime
+    ? 'Reference time'
+    : `+${gap.getSeconds()}.${ms}`
 }
