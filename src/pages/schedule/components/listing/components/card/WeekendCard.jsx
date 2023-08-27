@@ -12,7 +12,7 @@ import WeekendRound from './components/WeekendRound'
 // styles
 import './WeekendCard.css'
 
-const WeekendCard = ({ weekend, nextRound }) => {
+const WeekendCard = ({ weekend, nextWeekend }) => {
 	const navigate = useNavigate()
 
 	const handleNavigate = () => {
@@ -25,10 +25,10 @@ const WeekendCard = ({ weekend, nextRound }) => {
 			onClick={handleNavigate}
 			className={`weekend-card__container 
 				${weekend.isActive() ? 'active' 
-					: weekend.round === nextRound ? 'next' 
+					: weekend.year === nextWeekend.year && weekend.round === nextWeekend.round ? 'next' 
 					: weekend.isRemaining() ? 'remaining' : ''}`} 
 		>
-			<WeekendMarker weekend={weekend} nextRound={nextRound} />
+			<WeekendMarker weekend={weekend} nextWeekend={nextWeekend.round} />
 			<WeekendTitle title={weekend.name} />
 			<WeekendDate sessions={weekend.sessions} />
 			<WeekendTime race={weekend.sessions.race} />

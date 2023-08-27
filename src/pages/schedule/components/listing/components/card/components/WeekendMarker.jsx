@@ -7,12 +7,12 @@ import EventAvailableIcon from '@mui/icons-material/EventAvailable'
 import HourglassTopIcon from '@mui/icons-material/HourglassTop'
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty'
 
-const WeekendMarker = ({ weekend, nextRound }) => {
+const WeekendMarker = ({ weekend, nextWeekend }) => {
   const { title, status, icon } = weekend.isActive() ? {
     title: "Weekend is currently underway",
     status: 'active',
     icon: <PlayCircleOutlineIcon />
-  } : weekend.round === nextRound ? {
+  } : weekend.year === nextWeekend.year && weekend.round === nextWeekend.round ? {
     title: "Weekend will start soon...",
     status: 'next',
     icon: <HourglassTopIcon />

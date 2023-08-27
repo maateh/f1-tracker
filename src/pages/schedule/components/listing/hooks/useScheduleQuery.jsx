@@ -21,9 +21,12 @@ export const useScheduleQuery = () => {
 
   return useQuery({
     queryKey: ['listing', 'season', year],
-    queryFn: () => Promise.all([season(year), WeekendModel.queryNext()])
-      .then(([{ data }, { round }]) => {
-        const season = new SeasonModel(data)
+    queryFn: () => Promise.all([
+      season(year),
+      WeekendModel.queryNext()
+    ])
+      .then(([{ data }, nextWeekend]) => {
+        const { weekends } = new SeasonModel(data)
         
         return new ListingModel({
           title: new ListingTitleModel({
@@ -35,8 +38,8 @@ export const useScheduleQuery = () => {
               display: 'grid',
               gap: '4rem'
             },
-            layouts: season.weekends.map(weekend => (
-              <WeekendCard key={weekend.round} weekend={weekend} nextRound={round} />
+            layouts: weekends.map(weekend => (
+              <WeekendCard key={weekend.round} weekend={weekend} nextWeekend={nextWeekend} />
             ))
           })
         })
