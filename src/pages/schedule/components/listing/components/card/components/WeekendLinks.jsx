@@ -11,21 +11,25 @@ const WeekendLinks = ({ weekend }) => {
   return weekend.sessions.race.isOver() && (
     <div className="weekend-links__container">
       <Tooltip title="Race results" arrow={true} disableInteractive={true}>
-        <div className="icon__container">
+        <Link 
+          className="weekend-results__btn icon__container"
+          to={`/results/${weekend.year}/rounds/${weekend.round}/race`}
+          onClick={e => e.stopPropagation()}
+        >
           <SegmentIcon />
-          <Link className="weekend-results__btn" to={`/results/${weekend.year}/rounds/${weekend.round}/race`}>
-            <span>Race results</span>
-          </Link>
-        </div>
+          <span>Race results</span>
+        </Link>
       </Tooltip>
 
       <Tooltip title="Wikipedia page" arrow={true} disableInteractive={true}>
-        <div className="icon__container">
+        <Link
+          className="weekend-wiki__btn icon__container"
+          to={weekend.wiki}
+          onClick={e => e.stopPropagation()}
+        >
           <InfoIcon />
-          <Link className="weekend-wiki__btn" to={weekend.wiki}>
-            <span>More info</span>
-          </Link>
-        </div>
+          <span>More info</span>
+        </Link>
       </Tooltip>
     </div>
   )

@@ -16,8 +16,8 @@ const WeekendCard = ({ weekend, nextWeekend }) => {
 	const navigate = useNavigate()
 
 	const handleNavigate = () => {
-		weekend.sessions.race.isOver() 
-			&& navigate(`/results/${weekend.year}/rounds/${weekend.round}/race`)
+		if (!weekend.sessions.race.isOver()) return
+		navigate(`/results/${weekend.year}/rounds/${weekend.round}/race`)
 	}
 
 	return (
