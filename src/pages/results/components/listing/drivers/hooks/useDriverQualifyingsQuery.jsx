@@ -36,16 +36,18 @@ export const useDriverQualifyingsQuery = () => {
     queryKey: ['listing', 'driverQualifyingsResults', year, driverId],
     queryFn: () => driverQualifyingsResults(year, driverId)
       .then(({ data }) => {
-        const season = new SeasonModel(data)
+        const { year, weekends } = SeasonModel.parser({ data })
   
-        if (!season.weekends) {
+        if (!weekends) {
           throw new QueryError('No data found!', 404)
         }
+
+        const driver = getDriver(weekends)
   
         return new ListingModel({
           title: new ListingTitleModel({
-            main: `${season.year} Qualifying Results`,
-            sub: `Selected Driver | ${getDriver(season).fullName} ${getDriver(season).formattedNumber}`
+            main: `${year} Qualifying Results`,
+            sub: `Selected Driver | ${driver.fullName} ${driver.formattedNumber}`
           }),
           cards: new ListingCardsModel({
             styles: {
@@ -57,19 +59,52 @@ export const useDriverQualifyingsQuery = () => {
               {
                 title: 'Driver Information',
                 summaries: [
-                  { title: 'Full Name', desc: getDriver(season).fullName, link: getDriver(season).wiki, icon: <SportsMotorsportsIcon /> },
-                  { title: 'Nationality', desc: getDriver(season).nationality, icon: <PublicIcon /> },
-                  { title: 'Date of Birth', desc: getDriver(season).dateOfBirth, icon: <CakeIcon /> },
-                  { title: 'Driver code, number', desc: `${getDriver(season).code} ${getDriver(season).formattedNumber}`, icon: <TagIcon /> },
+                  {
+                    title: 'Full Name',
+                    desc: driver.fullName,
+                    link: driver.wiki,
+                    icon: <SportsMotorsportsIcon />
+                  },
+                  {
+                    title: 'Nationality',
+                    desc: driver.nationality,
+                    icon: <PublicIcon />
+                  },
+                  {
+                    title: 'Date of Birth',
+                    desc: driver.dateOfBirth,
+                    icon: <CakeIcon />
+                  },
+                  {
+                    title: 'Driver code, number',
+                    desc: `${driver.code} ${driver.formattedNumber}`,
+                    icon: <TagIcon />
+                  },
                 ]
               },
               {
                 title: 'Driver Achievements',
                 summaries: [
-                  { title: 'Pole Positions', desc: poles(season), icon: <WorkspacePremiumIcon /> },
-                  { title: 'Qualify to the Front Row', desc: frontRows(season), icon: <UnfoldLessDoubleIcon /> },
-                  { title: 'Reached Q3', desc: reachedQ3(season), icon: <StarHalfIcon /> },
-                  { title: 'Eliminated in Q1', desc: eliminated(season), icon: <ThumbDownOffAltIcon /> }
+                  {
+                    title: 'Pole Positions',
+                    desc: poles(weekends),
+                    icon: <WorkspacePremiumIcon />
+                  },
+                  {
+                    title: 'Qualify to the Front Row',
+                    desc: frontRows(weekends),
+                    icon: <UnfoldLessDoubleIcon />
+                  },
+                  {
+                    title: 'Reached Q3',
+                    desc: reachedQ3(weekends),
+                    icon: <StarHalfIcon />
+                  },
+                  {
+                    title: 'Eliminated in Q1',
+                    desc: eliminated(weekends),
+                    icon: <ThumbDownOffAltIcon />
+                  }
                 ]
               },
             ].map(card => <ResultsCard key={card.title} card={card} />)
@@ -163,11 +198,17 @@ export const useDriverQualifyingsQuery = () => {
                   />
               },
             ],
-            data: season.weekends.map(weekend => ({
+            data: weekends.map(weekend => ({
               round: { value: +weekend.round },
-              weekend: { value: weekend.name, weekend },
+              weekend: {
+                value: weekend.name,
+                weekend
+              },
               date: { value: weekend.sessions.race.getFormattedDate('MMM. dd.') },
-              circuit: { value: weekend.circuit.name, circuit: weekend.circuit },
+              circuit: {
+                value: weekend.circuit.name,
+                circuit: weekend.circuit
+              },
               q1: { value: weekend.result.qualifying[0].q1 },
               q2: { value: weekend.result.qualifying[0].q2 },
               q3: { value: weekend.result.qualifying[0].q3 },
@@ -183,36 +224,36 @@ export const useDriverQualifyingsQuery = () => {
 }
 
 // Helpers
-const getDriver = season => {
-  return season.weekends[0].result.qualifying[0].driver
+const getDriver = weekends => {
+  return weekends[0].result.qualifying[0].driver
 }
 
-const poles = season => {
-  return season.weekends.map(w => 
+const poles = weekends => {
+  return weekends.map(w => 
     w.result.qualifying
       .filter(r => +r.position === 1)
       .map(r => r.driver.code)
   ).flat(1).length + ' times in this season'
 }
 
-const frontRows = season => {
-  return season.weekends.map(w => 
+const frontRows = weekends => {
+  return weekends.map(w => 
     w.result.qualifying
       .filter(r => +r.position <= 2)
       .map(r => r.driver.code)
   ).flat(1).length + ' times in this season'
 }
 
-const reachedQ3 = season => {
-  return season.weekends.map(w => 
+const reachedQ3 = weekends => {
+  return weekends.map(w => 
     w.result.qualifying
       .filter(r => !r.q3.includes('-'))
       .map(r => r.driver.code)
   ).flat(1).length + ' times in this season'
 }
 
-const eliminated = season => {
-  return season.weekends.map(w => 
+const eliminated = weekends => {
+  return weekends.map(w => 
     w.result.qualifying
       .filter(r => r.q2.includes('-'))
       .map(r => r.driver.code)

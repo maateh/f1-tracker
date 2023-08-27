@@ -1,49 +1,64 @@
-// api
-import { season } from '../../api/season'
-
 // model
 import Weekend from './weekend/Weekend'
-import QueryError from '../error/QueryError'
 import StandingsLists from './standings/StandingsList'
 import Driver from './weekend/result/driver/Driver'
+import Constructor from './weekend/result/constructor/Constructor'
 
 class Season {
-	constructor(data) {
-		this.year = data.season
-		this.parseWiki(data)
-		this.parseWeekends(data)
-		this.parseStandings(data)
-		this.parseDrivers(data)
-		this.parseConstructors(data)
+	constructor({
+		year,
+		wiki,
+		weekends,
+		standings,
+		drivers,
+		constructors
+	}) {
+		this.year = year
+		this.wiki = wiki
+		this.weekends = weekends
+		this.standings = standings
+		this.drivers = drivers
+		this.constructors = constructors
 	}
 
-	parseWiki(data) {
-		if (data.url) {
-			this.wiki = data.url
+	static parser({ data }) {
+		return new Season({
+			year: data.season,
+			wiki: this.#parseWiki({ url: data.url }),
+			weekends: this.#parseWeekends({ weekends: data.Races }),
+			standings: this.#parseStandings({ standings: data.StandingsLists }),
+			drivers: this.#parseDrivers({ drivers: data.Drivers }),
+			constructors: this.#parseConstructors({ constructors: data.Constructors }),
+		})
+	}
+
+	static #parseWiki({ url }) {
+		if (url) {
+			return url
 		}
 	}
 
-	parseWeekends(data) {
-		if (data.Races && data.Races.length) {
-		  this.weekends = data.Races.map(weekend => new Weekend(weekend))
+	static #parseWeekends({ weekends }) {
+		if (weekends && weekends.length) {
+		  return weekends.map(weekend => new Weekend(weekend))
 		}
 	}
 
-	parseStandings(data) {
-    if (data.StandingsLists && data.StandingsLists.length) {
-      this.standings = new StandingsLists(data.StandingsLists[0])
+	static #parseStandings({ standings }) {
+    if (standings && standings.length) {
+      return new StandingsLists(standings[0])
     }
 	}
 
-	parseDrivers(data) {
-		if (data.Drivers && data.Drivers.length) {
-			this.drivers = data.Drivers.map(driver => new Driver(driver))
+	static #parseDrivers({ drivers }) {
+		if (drivers && drivers.length) {
+			return drivers.map(driver => new Driver(driver))
 		}
 	}
 
-	parseConstructors(data) {
-		if (data.Constructors && data.Constructors.length) {
-			this.constructors = data.Constructors.map(constructor => new Driver(constructor))
+	static #parseConstructors({ constructors }) {
+		if (constructors && constructors.length) {
+			return constructors.map(constructor => new Constructor(constructor))
 		}
 	}
 }

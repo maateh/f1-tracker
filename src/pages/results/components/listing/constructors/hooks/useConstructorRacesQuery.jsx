@@ -42,16 +42,16 @@ export const useConstructorRacesQuery = () => {
     queryKey: ['listing', 'constructorRacesResults', year, constructorId],
     queryFn: () => constructorRacesResults(year, constructorId)
       .then(({ data }) => {
-        const season = new SeasonModel(data)
+        const { year, weekends } = SeasonModel.parser({ data })
   
-        if (!season.weekends) {
+        if (!weekends) {
           throw new QueryError('No data found!', 404)
         }
   
         return new ListingModel({
           title: new ListingTitleModel({
-            main: `${season.year} Race Results`,
-            sub: `Selected Constructor | ${getTeam(season).name}`
+            main: `${year} Race Results`,
+            sub: `Selected Constructor | ${getTeam(weekends).name}`
           }),
           cards: new ListingCardsModel({
             styles: {
@@ -63,27 +63,27 @@ export const useConstructorRacesQuery = () => {
               {
                 title: 'Constructor Information',
                 summaries: [
-                  { title: 'Team Name', desc: getTeam(season).name, link: getTeam(season).wiki, icon: <EngineeringIcon /> },
-                  { title: 'Nationality', desc: getTeam(season).nationality, icon: <PublicIcon /> },
-                  { title: 'Drivers', desc: driversQuantity(season), icon: <SportsMotorsportsIcon /> }
+                  { title: 'Team Name', desc: getTeam(weekends).name, link: getTeam(weekends).wiki, icon: <EngineeringIcon /> },
+                  { title: 'Nationality', desc: getTeam(weekends).nationality, icon: <PublicIcon /> },
+                  { title: 'Drivers', desc: driversQuantity(weekends), icon: <SportsMotorsportsIcon /> }
                 ],
               },
               {
                 title: 'Constructor Achievements',
                 summaries: [
-                  { title: 'Win a Race', desc: win(season), icon: <EmojiEventsIcon /> },
-                  { title: 'Podium Finish', desc: podium(season), icon: <CelebrationIcon /> },
-                  { title: 'Fastest Lap', desc: fastestLaps(season), icon: <BoltIcon /> },
-                  { title: 'Scoring Positions', desc: scoringPositions(season), icon: <PlusOneIcon /> }
+                  { title: 'Win a Race', desc: win(weekends), icon: <EmojiEventsIcon /> },
+                  { title: 'Podium Finish', desc: podium(weekends), icon: <CelebrationIcon /> },
+                  { title: 'Fastest Lap', desc: fastestLaps(weekends), icon: <BoltIcon /> },
+                  { title: 'Scoring Positions', desc: scoringPositions(weekends), icon: <PlusOneIcon /> }
                 ]
               },
               {
                 title: 'Constructor Race Statuses',
                 summaries: [
-                  { title: 'Finished the Race', desc: finished(season), icon: <SportsScoreIcon /> },
-                  { title: 'Got a Lap', desc: gotALap(season), icon: <Timer10SelectIcon /> },
-                  { title: 'Crashed in Race', desc: crashed(season), icon: <ErrorIcon /> },
-                  { title: 'Mechanical Failures', desc: failures(season), icon: <WarningIcon /> }
+                  { title: 'Finished the Race', desc: finished(weekends), icon: <SportsScoreIcon /> },
+                  { title: 'Got a Lap', desc: gotALap(weekends), icon: <Timer10SelectIcon /> },
+                  { title: 'Crashed in Race', desc: crashed(weekends), icon: <ErrorIcon /> },
+                  { title: 'Mechanical Failures', desc: failures(weekends), icon: <WarningIcon /> }
                 ]
               },
             ].map(card => <ResultsCard key={card.title} card={card} />)
@@ -166,14 +166,30 @@ export const useConstructorRacesQuery = () => {
                   />
               },
             ],
-            data: season.weekends.map(weekend => ({
+            data: weekends.map(weekend => ({
               round: { value: +weekend.round },
-              weekend: { value: weekend.name, weekend },
+              weekend: {
+                value: weekend.name,
+                weekend
+              },
               date: { value: weekend.sessions.race.getFormattedDate('MMM. dd.') },
-              circuit: { value: weekend.circuit.name, circuit: weekend.circuit },
-              fl: { value: faster(weekend).fastestLap.time, lap: faster(weekend).fastestLap, driver: fasterDriver(weekend) },
-              laps: { value: +completedLaps(weekend), weekend },
-              points: { value: +points(weekend), scorers: scorers(weekend) },
+              circuit: {
+                value: weekend.circuit.name,
+                circuit: weekend.circuit
+              },
+              fl: {
+                value: faster(weekend).fastestLap.time,
+                lap: faster(weekend).fastestLap,
+                driver: fasterDriver(weekend)
+              },
+              laps: {
+                value: +completedLaps(weekend),
+                weekend
+              },
+              points: {
+                value: +points(weekend),
+                scorers: scorers(weekend)
+              },
             }))
           })
         })
@@ -185,81 +201,75 @@ export const useConstructorRacesQuery = () => {
 }
 
 // Helpers
-const getTeam = season => {
-  return season.weekends[0].result.race[0].constructor
+const getTeam = weekends => {
+  return weekends[0].result.race[0].constructor
 }
 
 // Cards - Constructor Information
-const driversQuantity = season => {
-  const quantity = season.weekends.map(w => (
-    w.result.race
-      .map(r => r.driver.code)
-  )).flat(1)
+const driversQuantity = weekends => {
+  const quantity = weekends.map(w => 
+    w.result.race.map(r => r.driver.code)
+  ).flat(1)
   return `${new Set(quantity).size} drivers drove for them`
 }
 
 // Cards - Constructor Achievements
-const win = season => {
-  return season.weekends.map(w => (
+const win = weekends => {
+  return weekends.map(w => 
     w.result.race.filter(r => +r.position === 1)
-  )).flat(1).length + ' times in this season'
+  ).flat(1).length + ' times in this season'
 }
 
-const podium = season => {
-  return season.weekends.map(w => (
+const podium = weekends => {
+  return weekends.map(w => 
     w.result.race.filter(r => +r.position <= 3)
-  )).flat(1).length + ' times in this season'
+  ).flat(1).length + ' times in this season'
 }
 
-const fastestLaps = season => {
-  return season.weekends[0].result.race[0].fastestLap.time === '-' 
+const fastestLaps = weekends => {
+  return weekends[0].result.race[0].fastestLap.time === '-' 
     ? '-'
-    : season.weekends.map(w => 
+    : weekends.map(w => 
         w.result.race.filter(r => +r.fastestLap.rank === 1)
   ).flat(1).length + ' times in this season'
 }
 
-const scoringPositions = season => {
-  return season.weekends.map(w => 
+const scoringPositions = weekends => {
+  return weekends.map(w => 
     w.result.race.filter(r => +r.points > 0)
   ).flat(1).length + ' times in this season'
 }
 
 // Cards - Constructor Race Statuses
-const finished = season => {
-  return season.weekends.map(w => 
-    w.result.race
-      .filter(r => 
-        r.status.includes('Finished') || 
-        r.status.includes('+'))
+const finished = weekends => {
+  return weekends.map(w => 
+    w.result.race.filter(r => 
+      r.status.includes('Finished') || 
+      r.status.includes('+'))
   ).flat(1).length + ' times in this season'
 }
 
-const gotALap = season => {
-  return season.weekends.map(w => 
-    w.result.race
-      .filter(r => r.status.includes('+'))
+const gotALap = weekends => {
+  return weekends.map(w => 
+    w.result.race.filter(r => r.status.includes('+'))
   ).flat(1).length + ' times in this season'
 }
 
-const crashed = season => {
-  return season.weekends.map(w => 
-    w.result.race
-      .filter(r => 
-        r.status.includes('Accident') || 
-        r.status.includes('Collision'))
+const crashed = weekends => {
+  return weekends.map(w => 
+    w.result.race.filter(r => 
+      r.status.includes('Accident') || 
+      r.status.includes('Collision'))
   ).flat(1).length + ' times in this season'
 }
 
-const failures = season => {
-  return season.weekends.map(w => 
-    w.result.race
-      .filter(r => 
-        !r.status.includes('Finished') || 
-        !r.status.includes('+') || 
-        !r.status.includes('Accident') || 
-        !r.status.includes('Collision')
-      )
+const failures = weekends => {
+  return weekends.map(w => 
+    w.result.race.filter(r => 
+      !r.status.includes('Finished') || 
+      !r.status.includes('+') || 
+      !r.status.includes('Accident') || 
+      !r.status.includes('Collision'))
   ).flat(1).length + ' times in this season'
 }
 

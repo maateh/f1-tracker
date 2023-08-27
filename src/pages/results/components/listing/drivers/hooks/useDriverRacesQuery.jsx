@@ -43,16 +43,18 @@ export const useDriverRacesQuery = () => {
     queryKey: ['listing', 'driverRacesResults', year, driverId],
     queryFn: () => driverRacesResults(year, driverId)
       .then(({ data }) => {
-        const season = new SeasonModel(data)
+        const { year, weekends } = SeasonModel.parser({ data })
   
-        if (!season.weekends) {
+        if (!weekends) {
           throw new QueryError('No data found!', 404)
         }
   
+        const driver = getDriver(weekends)
+
         return new ListingModel({
           title: new ListingTitleModel({
-            main: `${season.year} Race Results`,
-            sub: `Selected Driver | ${getDriver(season).fullName} ${getDriver(season).formattedNumber}`
+            main: `${year} Race Results`,
+            sub: `Selected Driver | ${driver.fullName} ${driver.formattedNumber}`
           }),
           cards: new ListingCardsModel({
             styles: {
@@ -64,28 +66,76 @@ export const useDriverRacesQuery = () => {
               {
                 title: 'Driver Information',
                 summaries: [
-                  { title: 'Full Name', desc: getDriver(season).fullName, link: getDriver(season).wiki, icon: <SportsMotorsportsIcon /> },
-                  { title: 'Nationality', desc: getDriver(season).nationality, icon: <PublicIcon /> },
-                  { title: 'Date of Birth', desc: getDriver(season).dateOfBirth, icon: <CakeIcon /> },
-                  { title: 'Driver code, number', desc: `${getDriver(season).code} ${getDriver(season).formattedNumber}`, icon: <TagIcon /> },
+                  {
+                    title: 'Full Name',
+                    desc: driver.fullName, link: driver.wiki,
+                    icon: <SportsMotorsportsIcon />
+                  },
+                  {
+                    title: 'Nationality',
+                    desc: driver.nationality,
+                    icon: <PublicIcon />
+                  },
+                  {
+                    title: 'Date of Birth',
+                    desc: driver.dateOfBirth,
+                    icon: <CakeIcon />
+                  },
+                  {
+                    title: 'Driver code, number',
+                    desc: `${driver.code} ${driver.formattedNumber}`,
+                    icon: <TagIcon />
+                  },
                 ]
               },
               {
                 title: 'Driver Achievements',
                 summaries: [
-                  { title: 'Win a Race', desc: win(season), icon: <EmojiEventsIcon /> },
-                  { title: 'Podium Finish', desc: podium(season), icon: <CelebrationIcon /> },
-                  { title: 'Fastest Laps', desc: fastestLaps(season), icon: <BoltIcon /> },
-                  { title: 'Scoring Positions', desc: scoringPositions(season), icon: <PlusOneIcon /> }
+                  {
+                    title: 'Win a Race',
+                    desc: win(weekends),
+                    icon: <EmojiEventsIcon />
+                  },
+                  {
+                    title: 'Podium Finish',
+                    desc: podium(weekends),
+                    icon: <CelebrationIcon />
+                  },
+                  {
+                    title: 'Fastest Laps',
+                    desc: fastestLaps(weekends),
+                    icon: <BoltIcon />
+                  },
+                  {
+                    title: 'Scoring Positions',
+                    desc: scoringPositions(weekends),
+                    icon: <PlusOneIcon />
+                  }
                 ]
               },
               {
                 title: 'Driver Race Statuses',
                 summaries: [
-                  { title: 'Finished the Race', desc: finished(season), icon: <SportsScoreIcon /> },
-                  { title: 'Got a Lap', desc: gotALap(season), icon: <Timer10SelectIcon /> },
-                  { title: 'Crashed in Race', desc: crashed(season), icon: <ErrorIcon /> },
-                  { title: 'Mechanical Failures', desc: failures(season), icon: <WarningIcon /> }
+                  {
+                    title: 'Finished the Race',
+                    desc: finished(weekends),
+                    icon: <SportsScoreIcon />
+                  },
+                  {
+                    title: 'Got a Lap',
+                    desc: gotALap(weekends),
+                    icon: <Timer10SelectIcon />
+                  },
+                  {
+                    title: 'Crashed in Race',
+                    desc: crashed(weekends),
+                    icon: <ErrorIcon />
+                  },
+                  {
+                    title: 'Mechanical Failures',
+                    desc: failures(weekends),
+                    icon: <WarningIcon />
+                  }
                 ]
               },
             ].map(card => <ResultsCard key={card.title} card={card} />)
@@ -111,7 +161,7 @@ export const useDriverRacesQuery = () => {
                 cell: ({ cell: { getValue }}) => 
                   <LinkingTableCell
                     value={getValue().value}
-                    link={`/results/${getValue().weekend.year}/rounds/${getValue().weekend.round}/race`}
+                    link={`/results/${year}/rounds/${getValue().weekend.round}/race`}
                     style={{ fontWeight: '600' }}
                   />
               },
@@ -163,7 +213,7 @@ export const useDriverRacesQuery = () => {
                 cell: ({ cell: { getValue }}) => 
                   <LinkingTableCell
                     value={`${getValue().value} laps`}
-                    link={`/history/laps/${getValue().weekend.year}/${getValue().weekend.round}/${getValue().weekend.result.race[0].driver.id}`}
+                    link={`/history/laps/${year}/${getValue().weekend.round}/${driver.id}`}
                     style={{ fontWeight: '500', fontSize: '1.1rem' }}
                   />
               },
@@ -197,14 +247,26 @@ export const useDriverRacesQuery = () => {
                   <PointsCell points={getValue().value} />
               },
             ],
-            data: season.weekends.map((weekend) => ({
+            data: weekends.map((weekend) => ({
               round: { value: +weekend.round },
-              weekend: { value: weekend.name, weekend },
+              weekend: {
+                value: weekend.name,
+                weekend
+              },
               date: { value: weekend.sessions.race.getFormattedDate('MMM. dd.') },
-              circuit: { value: weekend.circuit.name, circuit: weekend.circuit },
+              circuit: {
+                value: weekend.circuit.name,
+                circuit: weekend.circuit
+              },
               grid: { value: weekend.result.race[0].grid },
-              fl: { value: weekend.result.race[0].fastestLap.time, fastestLap: weekend.result.race[0].fastestLap },
-              laps: { value: +weekend.result.race[0].laps, weekend },
+              fl: {
+                value: weekend.result.race[0].fastestLap.time,
+                fastestLap: weekend.result.race[0].fastestLap
+              },
+              laps: {
+                value: +weekend.result.race[0].laps,
+                weekend
+              },
               duration: { value: weekend.result.race[0].raceTime },
               position: { value: +weekend.result.race[0].position },
               points: { value: +weekend.result.race[0].points },
@@ -219,63 +281,63 @@ export const useDriverRacesQuery = () => {
 }
 
 // Helpers
-const getDriver = season => {
-  return season.weekends[0].result.race[0].driver
+const getDriver = weekends => {
+  return weekends[0].result.race[0].driver
 }
 
 // Driver Achievements
-const win = season => {
-  return season.weekends.map(w => 
+const win = weekends => {
+  return weekends.map(w => 
     w.result.race.filter(r => +r.position === 1)
   ).flat(1).length + ' times in this season'
 }
 
-const podium = season => {
-  return season.weekends.map(w => 
+const podium = weekends => {
+  return weekends.map(w => 
     w.result.race.filter(r => +r.position <= 3)
   ).flat(1).length + ' times in this season'
 }
 
-const fastestLaps = season => {
-  return season.weekends[0].result.race[0].fastestLap.time === '-' 
+const fastestLaps = weekends => {
+  return weekends[0].result.race[0].fastestLap.time === '-' 
     ? '-' 
-    : season.weekends.map(w => 
+    : weekends.map(w => 
         w.result.race.filter(r => +r.fastestLap.rank === 1)
   ).flat(1).length + ' times in this season'
 }
 
-const scoringPositions = season => {
-  return season.weekends.map(w => 
+const scoringPositions = weekends => {
+  return weekends.map(w => 
     w.result.race.filter(r => +r.points > 0)
   ).flat(1).length + ' times in this season'
 }
 
 
 // Driver Race Statuses
-const finished = season => {
-  return season.weekends.map(w => 
+const finished = weekends => {
+  return weekends.map(w => 
     w.result.race.filter(r => 
         r.status.includes('Finished') || 
         r.status.includes('+'))
   ).flat(1).length + ' times in this season'
 }
 
-const gotALap = season => {
-  return season.weekends.map(w => 
+const gotALap = weekends => {
+  return weekends.map(w => 
     w.result.race.filter(r => r.status.includes('+'))
   ).flat(1).length + ' times in this season'
 }
 
-const crashed = season => {
-  return season.weekends.map(w => (
+const crashed = weekends => {
+  return weekends.map(w => (
     w.result.race.filter(r => 
       r.status.includes('Accident') || 
       r.status.includes('Collision'))
   )).flat(1).length + ' times in this season'
 }
 
-const failures = season => {
-  return season.weekends.map(w => (
+const failures = weekends => {
+  return weekends.map(w => (
     w.result.race.filter(r => 
       !r.status.includes('Finished') || 
       !r.status.includes('+') || 

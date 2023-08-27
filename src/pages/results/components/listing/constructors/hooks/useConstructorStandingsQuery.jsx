@@ -23,15 +23,15 @@ export const useConstructorStandingsQuery = () => {
     queryKey: ['listing', 'constructorStandings', year],
     queryFn: () => constructorStandings(year)
       .then(({ data }) => {
-        const season = new SeasonModel(data)
+        const { year, standings } = SeasonModel.parser({ data })
   
-        if (!season.standings) {
+        if (!standings) {
           throw new QueryError('No data found!', 404)
         }
         
         return new ListingModel({
           title: new ListingTitleModel({
-            main: `${season.year} Constructor Standings`
+            main: `${year} Constructor Standings`
           }),
           table: new ListingTableModel({
             columns: [
@@ -54,7 +54,7 @@ export const useConstructorStandingsQuery = () => {
                 cell: ({ cell: { getValue }}) => 
                   <LinkingTableCell
                     value={getValue().value}
-                    link={`/results/${season.year}/constructors/${getValue().constructor.id}`}
+                    link={`/results/${year}/constructors/${getValue().constructor.id}`}
                     style={{ fontWeight: '500' }}
                   />
               },
@@ -89,9 +89,12 @@ export const useConstructorStandingsQuery = () => {
                   <PointsCell points={getValue().value} />
               },
             ],
-            data: season.standings.constructors.map(result => ({
+            data: standings.constructors.map(result => ({
               pos: { value: +result.position },
-              constructor: { value: result.constructor.name, constructor: result.constructor },
+              constructor: {
+                value: result.constructor.name,
+                constructor: result.constructor
+              },
               nationality: { value: result.constructor.nationality },
               wins: { value: +result.wins },
               points: { value: +result.points },

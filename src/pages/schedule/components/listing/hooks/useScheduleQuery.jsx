@@ -26,7 +26,7 @@ export const useScheduleQuery = () => {
       WeekendModel.queryNext()
     ])
       .then(([{ data }, nextWeekend]) => {
-        const { weekends } = new SeasonModel(data)
+        const { weekends } = SeasonModel.parser({ data })
         
         return new ListingModel({
           title: new ListingTitleModel({
@@ -39,7 +39,11 @@ export const useScheduleQuery = () => {
               gap: '4rem'
             },
             layouts: weekends.map(weekend => (
-              <WeekendCard key={weekend.round} weekend={weekend} nextWeekend={nextWeekend} />
+              <WeekendCard
+                key={weekend.round}
+                weekend={weekend}
+                nextWeekend={nextWeekend}
+              />
             ))
           })
         })

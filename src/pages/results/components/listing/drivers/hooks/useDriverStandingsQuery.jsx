@@ -23,15 +23,15 @@ export const useDriverStandingsQuery = () => {
     queryKey: ['listing', 'driverStandings', year],
     queryFn: () => driverStandings(year)
       .then(({ data }) => {
-        const season = new SeasonModel(data)
+        const { year, standings } = SeasonModel.parser({ data })
   
-        if (!season.standings) {
+        if (!standings) {
           throw new QueryError('No data found!', 404)
         }
   
         return new ListingModel({
           title: new ListingTitleModel({
-            main: `${season.year} Driver Standings`
+            main: `${year} Driver Standings`
           }),
           table: new ListingTableModel({
             columns: [
@@ -54,7 +54,7 @@ export const useDriverStandingsQuery = () => {
                 cell: ({ cell: { getValue }}) => 
                   <LinkingTableCell
                     value={getValue().value}
-                    link={`/results/${season.year}/drivers/${getValue().driver.id}/race`}
+                    link={`/results/${year}/drivers/${getValue().driver.id}/race`}
                     style={{ fontWeight: '500' }}
                   />
               },
@@ -66,7 +66,7 @@ export const useDriverStandingsQuery = () => {
                 cell: ({ cell: { getValue }}) => 
                   <LinkingTableCell
                     value={getValue().value}
-                    link={`/results/${season.year}/constructors/${getValue().constructor.id}`}
+                    link={`/results/${year}/constructors/${getValue().constructor.id}`}
                     style={{ fontWeight: '500' }}
                   />
               },
@@ -99,10 +99,16 @@ export const useDriverStandingsQuery = () => {
                   <PointsCell points={getValue().value} />
               },
             ],
-            data: season.standings.drivers.map(result => ({
+            data: standings.drivers.map(result => ({
               pos: { value: +result.position },
-              driver: { value: result.driver.fullName, driver: result.driver },
-              constructor: { value: result.constructors[0].name, constructor: result.constructors[0] },
+              driver: {
+                value: result.driver.fullName,
+                driver: result.driver
+              },
+              constructor: {
+                value: result.constructors[0].name,
+                constructor: result.constructors[0]
+              },
               nationality: { value: result.driver.nationality },
               wins: { value: +result.wins },
               points: { value: +result.points },

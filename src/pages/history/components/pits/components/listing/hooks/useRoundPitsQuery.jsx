@@ -40,7 +40,7 @@ export const useRoundPitsQuery = () => {
         }
   
         const weekend = new WeekendModel(pitsData.Races[0])
-        const { drivers } = new SeasonModel(driversData)
+        const { drivers } = SeasonModel.parser({ data: driversData })
         const pages = Math.ceil(info.total / 20)
 
         const fastestPit = getFastestPit(weekend.pits)
