@@ -36,7 +36,7 @@ import Timer10SelectIcon from '@mui/icons-material/Timer10Select'
 import ErrorIcon from '@mui/icons-material/Error'
 import WarningIcon from '@mui/icons-material/Warning'
 
-export const useDriverRacesQuery = () => {
+const useDriverRacesQuery = () => {
   const { year, id: driverId } = useParams()
 
   return useQuery({
@@ -258,18 +258,18 @@ export const useDriverRacesQuery = () => {
                 value: weekend.circuit.name,
                 circuit: weekend.circuit
               },
-              grid: { value: weekend.result.race[0].grid },
+              grid: { value: weekend.results.race[0].grid },
               fl: {
-                value: weekend.result.race[0].fastestLap.time,
-                fastestLap: weekend.result.race[0].fastestLap
+                value: weekend.results.race[0].fastestLap.time,
+                fastestLap: weekend.results.race[0].fastestLap
               },
               laps: {
-                value: +weekend.result.race[0].laps,
+                value: +weekend.results.race[0].laps,
                 weekend
               },
-              duration: { value: weekend.result.race[0].raceTime },
-              position: { value: +weekend.result.race[0].position },
-              points: { value: +weekend.result.race[0].points },
+              duration: { value: weekend.results.race[0].raceTime },
+              position: { value: +weekend.results.race[0].position },
+              points: { value: +weekend.results.race[0].points },
             }))
           })
         })
@@ -282,33 +282,33 @@ export const useDriverRacesQuery = () => {
 
 // Helpers
 const getDriver = weekends => {
-  return weekends[0].result.race[0].driver
+  return weekends[0].results.race[0].driver
 }
 
 // Driver Achievements
 const win = weekends => {
   return weekends.map(w => 
-    w.result.race.filter(r => +r.position === 1)
+    w.results.race.filter(r => +r.position === 1)
   ).flat(1).length + ' times in this season'
 }
 
 const podium = weekends => {
   return weekends.map(w => 
-    w.result.race.filter(r => +r.position <= 3)
+    w.results.race.filter(r => +r.position <= 3)
   ).flat(1).length + ' times in this season'
 }
 
 const fastestLaps = weekends => {
-  return weekends[0].result.race[0].fastestLap.time === '-' 
+  return weekends[0].results.race[0].fastestLap.time === '-' 
     ? '-' 
     : weekends.map(w => 
-        w.result.race.filter(r => +r.fastestLap.rank === 1)
+        w.results.race.filter(r => +r.fastestLap.rank === 1)
   ).flat(1).length + ' times in this season'
 }
 
 const scoringPositions = weekends => {
   return weekends.map(w => 
-    w.result.race.filter(r => +r.points > 0)
+    w.results.race.filter(r => +r.points > 0)
   ).flat(1).length + ' times in this season'
 }
 
@@ -316,7 +316,7 @@ const scoringPositions = weekends => {
 // Driver Race Statuses
 const finished = weekends => {
   return weekends.map(w => 
-    w.result.race.filter(r => 
+    w.results.race.filter(r => 
         r.status.includes('Finished') || 
         r.status.includes('+'))
   ).flat(1).length + ' times in this season'
@@ -324,13 +324,13 @@ const finished = weekends => {
 
 const gotALap = weekends => {
   return weekends.map(w => 
-    w.result.race.filter(r => r.status.includes('+'))
+    w.results.race.filter(r => r.status.includes('+'))
   ).flat(1).length + ' times in this season'
 }
 
 const crashed = weekends => {
   return weekends.map(w => (
-    w.result.race.filter(r => 
+    w.results.race.filter(r => 
       r.status.includes('Accident') || 
       r.status.includes('Collision'))
   )).flat(1).length + ' times in this season'
@@ -338,10 +338,12 @@ const crashed = weekends => {
 
 const failures = weekends => {
   return weekends.map(w => (
-    w.result.race.filter(r => 
+    w.results.race.filter(r => 
       !r.status.includes('Finished') || 
       !r.status.includes('+') || 
       !r.status.includes('Accident') || 
       !r.status.includes('Collision'))
   )).flat(1).length + ' times in this season'
 }
+
+export default useDriverRacesQuery

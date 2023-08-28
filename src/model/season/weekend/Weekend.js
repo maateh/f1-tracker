@@ -10,26 +10,51 @@ import PitStop from './pit/PitStop'
 import QueryError from '../../error/QueryError'
 
 class Weekend {
-	constructor(data) {
-		this.round = data.round
-		this.year = data.season
+	constructor({
+		round,
+		year,
+		name,
+		wiki,
+		date,
+		time,
+		circuit,
+		sessions,
+		results,
+		laps,
+		pits,
+	}) {
+		this.round = round
+		this.year = year
+		this.name = name
+		this.wiki = wiki
+		this.date = date
+		this.time = time
+		this.circuit = circuit
+		this.sessions = sessions
+		this.results = results
+		this.laps = laps
+		this.pits = pits
 
-		this.name = data.raceName
-		this.wiki = data.url
-		this.circuit = new Circuit(data.Circuit)
 
-		this.date = data.date
-		this.time = data.time
+		// this.round = data.round
+		// this.year = data.season
 
-		this.sessions = new SessionList(data)
-		this.parseResult(data)
-		this.parseLaps(data)
-		this.parsePits(data)
+		// this.name = data.raceName
+		// this.wiki = data.url
+		// this.circuit = new Circuit(data.Circuit)
+
+		// this.date = data.date
+		// this.time = data.time
+
+		// this.sessions = new SessionList(data)
+		// this.parseResult(data)
+		// this.parseLaps(data)
+		// this.parsePits(data)
 	}
 
 	static async queryLast() {
 		return lastRound()
-			.then(({ data }) => new Weekend(data.Races[0]))
+			.then(({ data }) => Weekend.parser({ Race: data.Races[0] }))
 			.catch(err => {
 				throw new QueryError(err.message)
 			})
@@ -37,38 +62,48 @@ class Weekend {
 
 	static async queryNext() {
 		return nextRound()
-			.then(({ data }) => new Weekend(data.Races[0]))
+			.then(({ data }) => Weekend.parser({ Race: data.Races[0] }))
 			.catch(err => {
 				throw new QueryError(err.message)
 			})
 	}
 
-	parseResult(data) {
+	static parser({ Race }) {
+		return new Weekend({
+			round: Race.round,
+			year: Race.season,
+			name: Race.raceName,
+			wiki: Race.url,
+			date: Race.date,
+			time: Race.time,
+			circuit: Circuit.parser({ Circuit: Race.Circuit }),
+			sessions: SessionList.parser({ Race }),
+			results: this.#parseResults({ Race }),
+			laps: this.#parseLaps({ Laps: Race.Laps }),
+			pits: this.#parsePits({ PitStops: Race.PitStops })
+		})
+	}
+
+	static #parseResults({ Race }) {
 		if (
-			data.QualifyingResults && 
-			data.QualifyingResults.length || 
-			data.Results && 
-			data.Results.length
+			Race.QualifyingResults && 
+			Race.QualifyingResults.length || 
+			Race.Results && 
+			Race.Results.length
 		) {
-			this.result = new Result(data)
+			return new Result(Race)
 		}
 	}
 
-	parseLaps(data) {
-		if (
-			data.Laps &&
-			data.Laps.length
-		) {
-			this.laps = data.Laps.map(lap => new Lap(lap))
+	static #parseLaps({ Laps: laps }) {
+		if (laps && laps.length) {
+			return laps.map(lap => Lap.parser({ Lap: lap }))
 		}
 	}
 
-	parsePits(data) {
-		if (
-			data.PitStops &&
-			data.PitStops.length
-		) {
-			this.pits = data.PitStops.map(pit => new PitStop(pit))
+	static #parsePits({ PitStops: pits }) {
+		if (pits && pits.length) {
+			return pits.map(pit => PitStop.parser({ PitStop: pit }))
 		}
 	}
 

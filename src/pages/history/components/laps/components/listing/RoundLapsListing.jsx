@@ -1,5 +1,5 @@
 // hooks
-import { useRoundLapsQuery } from "./hooks/useRoundLapsQuery"
+import useRoundLapsQuery from "./hooks/useRoundLapsQuery"
 
 // components
 import Listing from "../../../../../../components/listing/Listing"

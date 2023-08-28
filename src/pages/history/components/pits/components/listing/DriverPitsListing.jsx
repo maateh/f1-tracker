@@ -1,5 +1,5 @@
 // hooks
-import { useDriverPitsQuery } from "./hooks/useDriverPitsQuery"
+import useDriverPitsQuery from "./hooks/useDriverPitsQuery"
 
 // components
 import Listing from "../../../../../../components/listing/Listing"

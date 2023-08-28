@@ -29,7 +29,7 @@ import UnfoldLessDoubleIcon from '@mui/icons-material/UnfoldLessDouble'
 import StarHalfIcon from '@mui/icons-material/StarHalf'
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt'
 
-export const useDriverQualifyingsQuery = () => {
+const useDriverQualifyingsQuery = () => {
   const { year, id: driverId } = useParams()
 
   return useQuery({
@@ -209,10 +209,10 @@ export const useDriverQualifyingsQuery = () => {
                 value: weekend.circuit.name,
                 circuit: weekend.circuit
               },
-              q1: { value: weekend.result.qualifying[0].q1 },
-              q2: { value: weekend.result.qualifying[0].q2 },
-              q3: { value: weekend.result.qualifying[0].q3 },
-              pos: { value: +weekend.result.qualifying[0].position },
+              q1: { value: weekend.results.qualifying[0].q1 },
+              q2: { value: weekend.results.qualifying[0].q2 },
+              q3: { value: weekend.results.qualifying[0].q3 },
+              pos: { value: +weekend.results.qualifying[0].position },
             }))
           })
         })
@@ -225,12 +225,12 @@ export const useDriverQualifyingsQuery = () => {
 
 // Helpers
 const getDriver = weekends => {
-  return weekends[0].result.qualifying[0].driver
+  return weekends[0].results.qualifying[0].driver
 }
 
 const poles = weekends => {
   return weekends.map(w => 
-    w.result.qualifying
+    w.results.qualifying
       .filter(r => +r.position === 1)
       .map(r => r.driver.code)
   ).flat(1).length + ' times in this season'
@@ -238,7 +238,7 @@ const poles = weekends => {
 
 const frontRows = weekends => {
   return weekends.map(w => 
-    w.result.qualifying
+    w.results.qualifying
       .filter(r => +r.position <= 2)
       .map(r => r.driver.code)
   ).flat(1).length + ' times in this season'
@@ -246,7 +246,7 @@ const frontRows = weekends => {
 
 const reachedQ3 = weekends => {
   return weekends.map(w => 
-    w.result.qualifying
+    w.results.qualifying
       .filter(r => !r.q3.includes('-'))
       .map(r => r.driver.code)
   ).flat(1).length + ' times in this season'
@@ -254,8 +254,10 @@ const reachedQ3 = weekends => {
 
 const eliminated = weekends => {
   return weekends.map(w => 
-    w.result.qualifying
+    w.results.qualifying
       .filter(r => r.q2.includes('-'))
       .map(r => r.driver.code)
   ).flat(1).length + ' times in this season'
 }
+
+export default useDriverQualifyingsQuery

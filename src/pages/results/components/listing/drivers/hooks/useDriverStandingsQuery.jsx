@@ -16,7 +16,7 @@ import ListingTitleModel from "../../../../../../model/listing/ListingTitle"
 import ListingTableModel from "../../../../../../model/listing/ListingTable"
 import QueryError from "../../../../../../model/error/QueryError"
 
-export const useDriverStandingsQuery = () => {
+const useDriverStandingsQuery = () => {
   const { year } = useParams()
 
   return useQuery({
@@ -121,3 +121,5 @@ export const useDriverStandingsQuery = () => {
       })
   })
 }
+
+export default useDriverStandingsQuery

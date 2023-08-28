@@ -1,8 +1,16 @@
 class Timing {
-  constructor(data) {
-    this.driverId = data.driverId
-    this.position = data.position
-    this.time = data.time
+  constructor({ driverId, position, time }) {
+    this.driverId = driverId
+    this.position = position
+    this.time = time
+  }
+
+  static parser({ Timing: timing }) {
+    return new Timing({
+      driverId: timing.driverId,
+      position: timing.position,
+      time: timing.time
+    })
   }
 
   getTimeInMs() {

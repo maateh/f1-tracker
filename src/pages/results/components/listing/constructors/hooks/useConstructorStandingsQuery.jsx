@@ -16,7 +16,7 @@ import ListingTitleModel from '../../../../../../model/listing/ListingTitle'
 import ListingTableModel from '../../../../../../model/listing/ListingTable'
 import QueryError from '../../../../../../model/error/QueryError'
 
-export const useConstructorStandingsQuery = () => {
+const useConstructorStandingsQuery = () => {
   const { year } = useParams()
 
   return useQuery({
@@ -107,3 +107,5 @@ export const useConstructorStandingsQuery = () => {
       })
   })
 }
+
+export default useConstructorStandingsQuery

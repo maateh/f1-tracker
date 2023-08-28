@@ -29,7 +29,7 @@ import Timer10SelectIcon from '@mui/icons-material/Timer10Select'
 import ErrorIcon from '@mui/icons-material/Error'
 import WarningIcon from '@mui/icons-material/Warning'
 
-export const useWeekendRaceQuery = () => {
+const useWeekendRaceQuery = () => {
   const { year, id: round } = useParams()
 
   return useQuery({
@@ -40,10 +40,17 @@ export const useWeekendRaceQuery = () => {
           throw new QueryError('No data found!', 404)
         }
         
-        const weekend = new WeekendModel(data.Races[0])
+        const {
+          year,
+          name,
+          circuit,
+          wiki,
+          results
+        } = WeekendModel.parser({ Race: data.Races[0] })
+        
         return new ListingModel({
           title: new ListingTitleModel({
-            main: `${weekend.year} ${weekend.name} Race Results`
+            main: `${year} ${name} Race Results`
           }),
           cards: new ListingCardsModel({
             styles: {
@@ -55,19 +62,19 @@ export const useWeekendRaceQuery = () => {
               {
                 title: 'Weekend Information',
                 summaries: [
-                  { title: 'Circuit Name', desc: weekend.circuit.name, link: weekend.circuit.maps, icon: <LabelIcon /> },
-                  { title: 'Country, City', desc: `${weekend.circuit.location.country}, ${weekend.circuit.location.locality}`, icon: <PublicIcon /> },
-                  { title: 'Wikipedia (Circuit)', desc: 'Click here for more!', link: weekend.circuit.wiki, icon: <ContactSupportIcon /> },
-                  { title: 'Wikipedia (Weekend)', desc: 'Click here for more!', link: weekend.wiki, icon: <ContactSupportIcon /> },
+                  { title: 'Circuit Name', desc: circuit.name, link: circuit.getMapsLink(), icon: <LabelIcon /> },
+                  { title: 'Country, City', desc: `${circuit.location.country}, ${circuit.location.locality}`, icon: <PublicIcon /> },
+                  { title: 'Wikipedia (Circuit)', desc: 'Click here for more!', link: circuit.wiki, icon: <ContactSupportIcon /> },
+                  { title: 'Wikipedia (Weekend)', desc: 'Click here for more!', link: wiki, icon: <ContactSupportIcon /> },
                 ]
               },
               {
                 title: 'Drivers Race Status',
                 summaries: [
-                  { title: 'Finished the Race', desc: finished(weekend), icon: <SportsScoreIcon /> },
-                  { title: 'Drivers got a Lap', desc: gotALap(weekend), icon: <Timer10SelectIcon /> },
-                  { title: 'Crashed in Race', desc: crashed(weekend), icon: <ErrorIcon /> },
-                  { title: 'Mechanical Failures', desc: failures(weekend), icon: <WarningIcon /> }
+                  { title: 'Finished the Race', desc: finished(results), icon: <SportsScoreIcon /> },
+                  { title: 'Drivers got a Lap', desc: gotALap(results), icon: <Timer10SelectIcon /> },
+                  { title: 'Crashed in Race', desc: crashed(results), icon: <ErrorIcon /> },
+                  { title: 'Mechanical Failures', desc: failures(results), icon: <WarningIcon /> }
                 ]
               },
             ].map(card => <ResultsCard key={card.title} card={card} />)
@@ -93,7 +100,7 @@ export const useWeekendRaceQuery = () => {
                 cell: ({ cell: { getValue }}) => 
                   <LinkingTableCell
                     value={getValue().value}
-                    link={`/results/${weekend.year}/drivers/${getValue().driver.id}/race`}
+                    link={`/results/${year}/drivers/${getValue().driver.id}/race`}
                     style={{ fontWeight: '500' }}
                   />
               },
@@ -105,7 +112,7 @@ export const useWeekendRaceQuery = () => {
                 cell: ({ cell: { getValue }}) => 
                   <LinkingTableCell
                     value={getValue().value}
-                    link={`/results/${weekend.year}/constructors/${getValue().constructor.id}`}
+                    link={`/results/${year}/constructors/${getValue().constructor.id}`}
                     style={{ fontWeight: '500' }}
                   />
               },
@@ -150,12 +157,21 @@ export const useWeekendRaceQuery = () => {
                   <PointsCell points={getValue().value} />
               },
             ],
-            data: weekend.result.race.map(result => ({
+            data: results.race.map(result => ({
               pos: { value: +result.position },
-              driver: { value: result.driver.fullName, driver: result.driver },
-              constructor: { value: result.constructor.name, constructor: result.constructor },
+              driver: {
+                value: result.driver.fullName,
+                driver: result.driver
+              },
+              constructor: {
+                value: result.constructor.name,
+                constructor: result.constructor
+              },
               grid: { value: result.grid },
-              fl: { value: result.fastestLap?.time, fastestLap: result.fastestLap },
+              fl: {
+                value: result.fastestLap?.time,
+                fastestLap: result.fastestLap
+              },
               duration: { value: result.raceTime },
               points: { value: +result.points },
             }))
@@ -169,31 +185,33 @@ export const useWeekendRaceQuery = () => {
 }
 
 // Drivers Race Status
-const finished = weekend => {
-  return weekend.result.race.filter(r => 
+const finished = results => {
+  return results.race.filter(r => 
     r.status.includes('Finished') || 
     r.status.includes('+')
   ).length + ' drivers in this race'
 }
 
-const gotALap = weekend => {
-  return weekend.result.race
+const gotALap = results => {
+  return results.race
     .filter(r => r.status.includes('+'))
     .length + ' drivers in this race'
 }
 
-const crashed = weekend => {
-  return weekend.result.race.filter(r => 
+const crashed = results => {
+  return results.race.filter(r => 
     r.status.includes('Accident') || 
     r.status.includes('Collision')
   ).length + ' drivers in this race'
 }
 
-const failures = weekend => {
-  return weekend.result.race.filter(r => 
+const failures = results => {
+  return results.race.filter(r => 
     !r.status.includes('Finished') || 
     !r.status.includes('+') || 
     !r.status.includes('Accident') || 
     !r.status.includes('Collision')
   ).length + ' drivers in this race'
 }
+
+export default useWeekendRaceQuery

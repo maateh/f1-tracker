@@ -22,7 +22,7 @@ import LabelIcon from '@mui/icons-material/Label'
 import PublicIcon from '@mui/icons-material/Public'
 import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 
-export const useWeekendQualifyingQuery = () => {
+const useWeekendQualifyingQuery = () => {
   const { year, id: round } = useParams()
 
   return useQuery({
@@ -33,10 +33,17 @@ export const useWeekendQualifyingQuery = () => {
           throw new QueryError('No data found!', 404)
         }
   
-        const weekend = new WeekendModel(data.Races[0])
+        const {
+          year,
+          name,
+          circuit,
+          wiki,
+          results
+        } = WeekendModel.parser({ Race: data.Races[0] })
+
         return new ListingModel({
           title: new ListingTitleModel({
-            main: `${weekend.year} ${weekend.name} Qualifying Results`
+            main: `${year} ${name} Qualifying Results`
           }),
           cards: new ListingCardsModel({
             styles: {
@@ -48,10 +55,10 @@ export const useWeekendQualifyingQuery = () => {
               {
                 title: 'Weekend Information',
                 summaries: [
-                  { title: 'Circuit Name', desc: weekend.circuit.name, link: weekend.circuit.maps, icon: <LabelIcon /> },
-                  { title: 'Country, City', desc: `${weekend.circuit.location.country}, ${weekend.circuit.location.locality}`, icon: <PublicIcon /> },
-                  { title: 'Wikipedia (Circuit)', desc: 'Click here for more!', link: weekend.circuit.wiki, icon: <ContactSupportIcon /> },
-                  { title: 'Wikipedia (Weekend)', desc: 'Click here for more!', link: weekend.wiki, icon: <ContactSupportIcon /> },
+                  { title: 'Circuit Name', desc: circuit.name, link: circuit.getMapsLink(), icon: <LabelIcon /> },
+                  { title: 'Country, City', desc: `${circuit.location.country}, ${circuit.location.locality}`, icon: <PublicIcon /> },
+                  { title: 'Wikipedia (Circuit)', desc: 'Click here for more!', link: circuit.wiki, icon: <ContactSupportIcon /> },
+                  { title: 'Wikipedia (Weekend)', desc: 'Click here for more!', link: wiki, icon: <ContactSupportIcon /> },
                 ]
               },
             ].map(card => <ResultsCard key={card.title} card={card} />)
@@ -77,7 +84,7 @@ export const useWeekendQualifyingQuery = () => {
                 cell: ({ cell: { getValue }}) => 
                   <LinkingTableCell
                     value={getValue().value}
-                    link={`/results/${weekend.year}/drivers/${getValue().driver.id}/race`}
+                    link={`/results/${year}/drivers/${getValue().driver.id}/race`}
                     style={{ fontWeight: '500' }}
                   />
               },
@@ -89,7 +96,7 @@ export const useWeekendQualifyingQuery = () => {
                 cell: ({ cell: { getValue }}) => 
                   <LinkingTableCell
                     value={getValue().value}
-                    link={`/results/${weekend.year}/constructors/${getValue().constructor.id}`}
+                    link={`/results/${year}/constructors/${getValue().constructor.id}`}
                     style={{ fontWeight: '500' }}
                   />
               },
@@ -127,7 +134,7 @@ export const useWeekendQualifyingQuery = () => {
                   />
               },
             ],
-            data: weekend.result.qualifying.map(result => ({
+            data: results.qualifying.map(result => ({
               pos: { value: +result.position },
               driver: { value: result.driver.fullName, driver: result.driver },
               constructor: { value: result.constructor.name, constructor: result.constructor },
@@ -143,3 +150,5 @@ export const useWeekendQualifyingQuery = () => {
       })
   })
 }
+
+export default useWeekendQualifyingQuery

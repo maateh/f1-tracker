@@ -1,5 +1,5 @@
 // hooks
-import { useWeekendRaceQuery } from "./hooks/useWeekendRaceQuery"
+import useWeekendRaceQuery from "./hooks/useWeekendRaceQuery"
 
 // components
 import Listing from "../../../../../components/listing/Listing"

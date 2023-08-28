@@ -1,5 +1,5 @@
 // hooks
-import { useWeekendQualifyingQuery } from "./hooks/useWeekendQualifyingQuery"
+import useWeekendQualifyingQuery from "./hooks/useWeekendQualifyingQuery"
 
 // components
 import Listing from "../../../../../components/listing/Listing"

@@ -2,100 +2,111 @@
 import Session from './Session'
 
 class SessionList {
-  constructor(data) {
-    this.parsePractices(data)
-    this.parseSprints(data)
-    this.parseQualifying(data)
-    this.parseRace(data)
-  }
+	constructor({ practices, sprint, qualifying, race }) {
+		this.practices = practices
+		this.sprint = sprint
+		this.qualifying = qualifying
+		this.race = race
+	}
 
-  parsePractices(data) {
-    if (data.FirstPractice) {
-      this.practices = [
-        new Session({
-          key: 'fp1',
-          title: 'Free Practice 1',
-          ...data.FirstPractice,
-        })
-      ]
-    }
+	static parser({ Race }) {
+		return new SessionList({
+			practices: this.#parsePractices({ Race }),
+			sprint: this.#parseSprint({ Race }),
+			qualifying: this.#parseQualifying({ Race }),
+			race: this.#parseRace({ Race }),
+		})
+	}
 
-    if (data.SecondPractice) {
-      if (data.Sprint) return
+	static #parsePractices({ Race }) {
+		const practices = []
 
-      this.practices.push(
-        new Session({
-          key: 'fp2',
-          title: 'Free Practice 2',
-          ...data.SecondPractice,
-        })
-      )
-    }
+		if (Race.FirstPractice) {
+			practices.push(
+				new Session({
+					key: 'fp1',
+					title: 'Free Practice 1',
+					...Race.FirstPractice,
+				})
+			)
+		}
 
-    if (data.ThirdPractice) {
-      this.practices.push(
-        new Session({
-          key: 'fp3',
-          title: 'Free Practice 3',
-          ...data.ThirdPractice,
-        })
-      )
-    }
-  }
+		if (Race.SecondPractice) {
+			if (Race.Sprint) return practices
 
-  parseSprints(data) {
-    if (data.Sprint) {
-      this.sprint = {
-        qualifying: new Session({
-          key: 'sq',
-          title: 'Sprint Qualifying',
-          ...data.SecondPractice
-        }),
-        race: new Session({
-          key: 'sr',
-          title: 'Sprint Race',
-          ...data.Sprint
-        })
-      }
-    }
-  }
+			practices.push(
+				new Session({
+					key: 'fp2',
+					title: 'Free Practice 2',
+					...Race.SecondPractice,
+				})
+			)
+		}
 
-  parseQualifying(data) {
-    if (data.Qualifying) {
-      this.qualifying = new Session({
-        key: 'qualifying',
-        title: 'Qualifying',
-        ...data.Qualifying
+		if (Race.ThirdPractice) {
+			practices.push(
+				new Session({
+					key: 'fp3',
+					title: 'Free Practice 3',
+					...Race.ThirdPractice,
+				})
+			)
+		}
+
+		return practices
+	}
+
+	static #parseSprint({ Race }) {
+		if (!Race.Sprint) return
+
+    return {
+      qualifying: new Session({
+        key: 'sq',
+        title: 'Sprint Qualifying',
+        ...Race.SecondPractice,
+      }),
+      race: new Session({
+        key: 'sr',
+        title: 'Sprint Race',
+        ...Race.Sprint,
       })
-      return
-    }
+		}
+	}
 
-    this.qualifying = new Session({
-      key: 'qualifying',
-      title: 'Qualifying'
-    })
-  }
+	static #parseQualifying({ Race }) {
+		if (Race.Qualifying) {
+			return new Session({
+				key: 'qualifying',
+				title: 'Qualifying',
+				...Race.Qualifying,
+			})
+		}
 
-  parseRace(data) {
-    if (data.date && data.time) {
-      this.race = new Session({
-        key: 'race', 
-        title: 'Race Time!',
-        date: data.date, 
-        time: data.time
-      })
-      return
-    }
+		return new Session({
+			key: 'qualifying',
+			title: 'Qualifying',
+		})
+	}
 
-    this.race = new Session({
-      key: 'race', 
-      title: 'Race Time!',
-      date: data.date
-    })
-  }
+	static #parseRace({ Race }) {
+		if (Race.date && Race.time) {
+			return new Session({
+				key: 'race',
+				title: 'Race Time!',
+				date: Race.date,
+				time: Race.time,
+			})
+		}
 
-  get currentSession() {
-    const practice = this.practices?.find(p => p.isActive())
+		return new Session({
+			key: 'race',
+			title: 'Race Time!',
+			date: Race.date,
+		})
+	}
+
+	get currentSession() {
+		const practice = this.practices?.find(p => p.isActive())
 		if (practice) {
 			return practice
 		}
@@ -104,38 +115,41 @@ class SessionList {
 			return this.qualifying
 		}
 
-    const sprint = this.sprint && Object.values(this.sprint).find(s => s.isActive())
-    if (sprint) {
-      return sprint
-    }
+		const sprint =
+			this.sprint && Object.values(this.sprint).find(s => s.isActive())
+		if (sprint) {
+			return sprint
+		}
 
 		if (this.race.isActive()) {
-      return this.race
-    }
-  }
+			return this.race
+		}
+	}
 
-  get nextSession() {
+	get nextSession() {
 		const practice = this.practices?.find(p => !p.isActive() && !p.isOver())
 		if (practice) {
 			return practice
 		}
 
-    const qualifying = this.qualifying
+		const qualifying = this.qualifying
 		if (!qualifying.isActive() && !qualifying.isOver()) {
 			return qualifying
 		}
 
-    const sprint = this.sprint && Object.values(this.sprint).find(s => !s.isActive() && !s.isOver())
-    if (sprint) {
-      return sprint
-    }
+		const sprint =
+			this.sprint &&
+			Object.values(this.sprint).find(s => !s.isActive() && !s.isOver())
+		if (sprint) {
+			return sprint
+		}
 
 		return this.race
 	}
 
-  get relevantSession() {
-    return this.currentSession || this.nextSession
-  }
+	get relevantSession() {
+		return this.currentSession || this.nextSession
+	}
 }
 
 export default SessionList

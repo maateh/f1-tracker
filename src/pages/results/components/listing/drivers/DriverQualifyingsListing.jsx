@@ -1,5 +1,5 @@
 // hooks
-import { useDriverQualifyingsQuery } from "./hooks/useDriverQualifyingsQuery"
+import useDriverQualifyingsQuery from "./hooks/useDriverQualifyingsQuery"
 
 // components
 import Listing from "../../../../../components/listing/Listing"

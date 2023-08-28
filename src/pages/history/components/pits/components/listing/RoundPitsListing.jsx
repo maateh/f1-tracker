@@ -1,5 +1,5 @@
 // hooks
-import { useRoundPitsQuery } from "./hooks/useRoundPitsQuery"
+import useRoundPitsQuery from "./hooks/useRoundPitsQuery"
 
 // components
 import Listing from "../../../../../../components/listing/Listing"

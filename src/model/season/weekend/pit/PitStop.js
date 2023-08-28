@@ -1,10 +1,26 @@
 class PitStop {
-  constructor(data) {
-    this.driverId = data.driverId
-    this.lap = data.lap
-    this.stop = data.stop
-    this.time = data.time
-    this.duration = data.duration
+  constructor({
+    driverId,
+    lap,
+    stop,
+    time,
+    duration
+  }) {
+    this.driverId = driverId
+    this.lap = lap
+    this.stop = stop
+    this.time = time
+    this.duration = duration
+  }
+
+  static parser({ PitStop: pit }) {
+    return new PitStop({
+      driverId: pit.driverId,
+      lap: pit.lap,
+      stop: pit.stop,
+      time: pit.time,
+      duration: pit.duration
+    })
   }
 
   getDurationInMs() {

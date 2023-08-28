@@ -1,5 +1,5 @@
 import { useQuery } from "react-query"
-import { useLocation, useParams, useSearchParams } from "react-router-dom"
+import { useParams, useSearchParams } from "react-router-dom"
 
 // api
 import { raceLap } from "../../../../../../../api/history"
@@ -27,7 +27,7 @@ import SpeedIcon from '@mui/icons-material/Speed'
 import AvTimerIcon from '@mui/icons-material/AvTimer'
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp'
 
-export const useRoundLapsQuery = () => {
+const useRoundLapsQuery = () => {
   const { year, round } = useParams()
   const [searchParams] = useSearchParams()
   const lap = searchParams.get('page') || 1
@@ -43,17 +43,20 @@ export const useRoundLapsQuery = () => {
         if (!lapData.Races || !lapData.Races.length) {
           throw new QueryError('No data found!', 404)
         }
-  
-        const weekend = new WeekendModel(lapData.Races[0])
-        const currentLap = weekend.laps[0]
+        
         const pages = +resultsData.Races[0].Results[0].laps
-  
+        const {
+					year,
+					round,
+					name,
+					laps: [currentLap],
+				} = WeekendModel.parser({ Race: lapData.Races[0] })
         const { race: result } = new ResultModel(resultsData.Races[0])
-        const prevLap = prevLapData && new WeekendModel(prevLapData.Races[0]).laps[0]
+        const prevLap = prevLapData && WeekendModel.parser({ Race: prevLapData.Races[0] }).laps[0]
   
         return new ListingModel({
           title: new ListingTitleModel({
-            main: `${weekend.year} ${weekend.name} Lap Timings`,
+            main: `${year} ${name} Lap Timings`,
             sub: `Selected Lap | #${currentLap.number}`
           }),
           cards: new ListingCardsModel({
@@ -115,7 +118,7 @@ export const useRoundLapsQuery = () => {
                   <GainedInfoCell 
                     value={getValue().value}
                     gained={getValue().gained}
-                    link={`../${weekend.year}/${weekend.round}/${getValue().driver.id}`}
+                    link={`../${year}/${round}/${getValue().driver.id}`}
                     style={{ fontWeight: '500' }}
                   />
               },
@@ -230,3 +233,5 @@ const gap = (lap, driverId) => {
     ? 'Reference time'
     : `${prefix}${minutes}${gap.getSeconds()}.${ms}`
 }
+
+export default useRoundLapsQuery

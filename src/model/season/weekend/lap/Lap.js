@@ -2,9 +2,16 @@
 import Timing from './timing/Timing'
 
 class Lap {
-  constructor(data) {
-    this.number = data.number
-    this.timings = data.Timings.map(timing => new Timing(timing))
+  constructor({ number, timings }) {
+    this.number = number
+    this.timings = timings
+  }
+
+  static parser({ Lap: lap }) {
+    return new Lap({
+      number: lap.number,
+      timings: lap.Timings.map(t => Timing.parser({ Timing: t }))
+    })
   }
 }
 

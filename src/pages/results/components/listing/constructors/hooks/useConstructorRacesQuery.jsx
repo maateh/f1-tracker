@@ -35,7 +35,7 @@ import ListingCardsModel from '../../../../../../model/listing/ListingCards'
 import ListingTableModel from '../../../../../../model/listing/ListingTable'
 import QueryError from '../../../../../../model/error/QueryError'
 
-export const useConstructorRacesQuery = () => {
+const useConstructorRacesQuery = () => {
   const { year, id: constructorId } = useParams()
 
   return useQuery({
@@ -47,11 +47,13 @@ export const useConstructorRacesQuery = () => {
         if (!weekends) {
           throw new QueryError('No data found!', 404)
         }
+
+        const team = getTeam(weekends)
   
         return new ListingModel({
           title: new ListingTitleModel({
             main: `${year} Race Results`,
-            sub: `Selected Constructor | ${getTeam(weekends).name}`
+            sub: `Selected Constructor | ${team.name}`
           }),
           cards: new ListingCardsModel({
             styles: {
@@ -63,8 +65,8 @@ export const useConstructorRacesQuery = () => {
               {
                 title: 'Constructor Information',
                 summaries: [
-                  { title: 'Team Name', desc: getTeam(weekends).name, link: getTeam(weekends).wiki, icon: <EngineeringIcon /> },
-                  { title: 'Nationality', desc: getTeam(weekends).nationality, icon: <PublicIcon /> },
+                  { title: 'Team Name', desc: team.name, link: team.wiki, icon: <EngineeringIcon /> },
+                  { title: 'Nationality', desc: team.nationality, icon: <PublicIcon /> },
                   { title: 'Drivers', desc: driversQuantity(weekends), icon: <SportsMotorsportsIcon /> }
                 ],
               },
@@ -178,17 +180,17 @@ export const useConstructorRacesQuery = () => {
                 circuit: weekend.circuit
               },
               fl: {
-                value: faster(weekend).fastestLap.time,
-                lap: faster(weekend).fastestLap,
-                driver: fasterDriver(weekend)
+                value: faster(weekend.results).fastestLap.time,
+                lap: faster(weekend.results).fastestLap,
+                driver: fasterDriver(weekend.results)
               },
               laps: {
-                value: +completedLaps(weekend),
+                value: completedLaps(weekend.results),
                 weekend
               },
               points: {
-                value: +points(weekend),
-                scorers: scorers(weekend)
+                value: points(weekend.results),
+                scorers: scorers(weekend.results)
               },
             }))
           })
@@ -202,13 +204,13 @@ export const useConstructorRacesQuery = () => {
 
 // Helpers
 const getTeam = weekends => {
-  return weekends[0].result.race[0].constructor
+  return weekends[0].results.race[0].constructor
 }
 
 // Cards - Constructor Information
 const driversQuantity = weekends => {
   const quantity = weekends.map(w => 
-    w.result.race.map(r => r.driver.code)
+    w.results.race.map(r => r.driver.code)
   ).flat(1)
   return `${new Set(quantity).size} drivers drove for them`
 }
@@ -216,34 +218,34 @@ const driversQuantity = weekends => {
 // Cards - Constructor Achievements
 const win = weekends => {
   return weekends.map(w => 
-    w.result.race.filter(r => +r.position === 1)
+    w.results.race.filter(r => +r.position === 1)
   ).flat(1).length + ' times in this season'
 }
 
 const podium = weekends => {
   return weekends.map(w => 
-    w.result.race.filter(r => +r.position <= 3)
+    w.results.race.filter(r => +r.position <= 3)
   ).flat(1).length + ' times in this season'
 }
 
 const fastestLaps = weekends => {
-  return weekends[0].result.race[0].fastestLap.time === '-' 
+  return weekends[0].results.race[0].fastestLap.time === '-' 
     ? '-'
     : weekends.map(w => 
-        w.result.race.filter(r => +r.fastestLap.rank === 1)
+        w.results.race.filter(r => +r.fastestLap.rank === 1)
   ).flat(1).length + ' times in this season'
 }
 
 const scoringPositions = weekends => {
   return weekends.map(w => 
-    w.result.race.filter(r => +r.points > 0)
+    w.results.race.filter(r => +r.points > 0)
   ).flat(1).length + ' times in this season'
 }
 
 // Cards - Constructor Race Statuses
 const finished = weekends => {
   return weekends.map(w => 
-    w.result.race.filter(r => 
+    w.results.race.filter(r => 
       r.status.includes('Finished') || 
       r.status.includes('+'))
   ).flat(1).length + ' times in this season'
@@ -251,13 +253,13 @@ const finished = weekends => {
 
 const gotALap = weekends => {
   return weekends.map(w => 
-    w.result.race.filter(r => r.status.includes('+'))
+    w.results.race.filter(r => r.status.includes('+'))
   ).flat(1).length + ' times in this season'
 }
 
 const crashed = weekends => {
   return weekends.map(w => 
-    w.result.race.filter(r => 
+    w.results.race.filter(r => 
       r.status.includes('Accident') || 
       r.status.includes('Collision'))
   ).flat(1).length + ' times in this season'
@@ -265,7 +267,7 @@ const crashed = weekends => {
 
 const failures = weekends => {
   return weekends.map(w => 
-    w.result.race.filter(r => 
+    w.results.race.filter(r => 
       !r.status.includes('Finished') || 
       !r.status.includes('+') || 
       !r.status.includes('Accident') || 
@@ -274,34 +276,36 @@ const failures = weekends => {
 }
 
 // Table helpers
-const faster = weekend => {
-  return weekend.result.race
+const faster = results => {
+  return results.race
     .sort((acc, curr) => 
       Math.min(acc.fastestLap.rank, curr.fastestLap.rank))[0]
 }
 
-const fasterDriver = weekend => {
-  const result = faster(weekend)
+const fasterDriver = results => {
+  const result = faster(results)
   return result.fastestLap.time === '-' 
     ? '' 
     : result.driver
 }
 
-const completedLaps = weekend => {
-  return weekend.result.race.length > 1 
-    ? weekend.result.race
+const completedLaps = results => {
+  return results.race.length > 1 
+    ? +results.race
         .reduce((acc, curr) => +acc.laps + +curr.laps) 
-    : weekend.result.race[0].laps
+    : +results.race[0].laps
 }
 
-const points = weekend => {
-  return weekend.result.race
+const points = results => {
+  return +results.race
     .reduce((acc, curr) => +acc.points || acc + +curr.points, 0)
 }
 
-const scorers = weekend => {
-  return weekend.result.race
+const scorers = results => {
+  return results.race
     .reduce((acc, curr) => 
       `${acc} ${curr.driver.code}: ${curr.points} - `, '')
     .slice(0, -3)
 }
+
+export default useConstructorRacesQuery

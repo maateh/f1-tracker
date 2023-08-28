@@ -1,6 +1,6 @@
 // model
 import Weekend from './weekend/Weekend'
-import StandingsLists from './standings/StandingsList'
+import StandingsList from './standings/StandingsList'
 import Driver from './weekend/result/driver/Driver'
 import Constructor from './weekend/result/constructor/Constructor'
 
@@ -40,13 +40,13 @@ class Season {
 
 	static #parseWeekends({ weekends }) {
 		if (weekends && weekends.length) {
-		  return weekends.map(weekend => new Weekend(weekend))
+		  return weekends.map(weekend => Weekend.parser({ Race: weekend }))
 		}
 	}
 
 	static #parseStandings({ standings }) {
     if (standings && standings.length) {
-      return new StandingsLists(standings[0])
+      return StandingsList.parser({ data: standings[0] })
     }
 	}
 

@@ -1,5 +1,5 @@
 // hooks
-import { useConstructorRacesQuery } from "./hooks/useConstructorRacesQuery"
+import useConstructorRacesQuery from "./hooks/useConstructorRacesQuery"
 
 // components
 import Listing from "../../../../../components/listing/Listing"

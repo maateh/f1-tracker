@@ -1,5 +1,5 @@
 // hooks
-import { useSeasonQuery } from "./hooks/useSeasonQuery"
+import useSeasonQuery from "./hooks/useSeasonQuery"
 
 // components
 import Listing from "../../../../../components/listing/Listing"

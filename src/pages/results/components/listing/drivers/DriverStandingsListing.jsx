@@ -1,5 +1,5 @@
 // hooks
-import { useDriverStandingsQuery } from "./hooks/useDriverStandingsQuery"
+import useDriverStandingsQuery from "./hooks/useDriverStandingsQuery"
 
 // components
 import Listing from "../../../../../components/listing/Listing"

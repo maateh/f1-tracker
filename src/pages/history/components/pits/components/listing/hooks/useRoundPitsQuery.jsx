@@ -25,7 +25,7 @@ import LocalParkingIcon from '@mui/icons-material/LocalParking'
 import CalculateIcon from '@mui/icons-material/Calculate'
 import TimelapseIcon from '@mui/icons-material/Timelapse'
 
-export const useRoundPitsQuery = () => {
+const useRoundPitsQuery = () => {
   const { year, round } = useParams()
 
   return useQuery({
@@ -39,15 +39,17 @@ export const useRoundPitsQuery = () => {
           throw new QueryError('No data found!', 404)
         }
   
-        const weekend = new WeekendModel(pitsData.Races[0])
+        const { year, round, name, pits } = WeekendModel.parser({
+					Race: pitsData.Races[0],
+				})
         const { drivers } = SeasonModel.parser({ data: driversData })
         const pages = Math.ceil(info.total / 20)
 
-        const fastestPit = getFastestPit(weekend.pits)
+        const fastestPit = getFastestPit(pits)
   
         return new ListingModel({
           title: new ListingTitleModel({
-            main: `${weekend.year} ${weekend.name} Pit Stops`
+            main: `${year} ${name} Pit Stops`
           }),
           cards: new ListingCardsModel({
             styles: {
@@ -60,17 +62,17 @@ export const useRoundPitsQuery = () => {
               summaries: [
                 {
                   title: 'Pit Stops',
-                  desc: pitStopsAmount(weekend.pits),
+                  desc: pitStopsAmount(pits),
                   icon: <LocalParkingIcon />
                 },
                 {
                   title: 'Average Pits per Driver',
-                  desc: averagePerDriver(weekend.pits),
+                  desc: averagePerDriver(pits),
                   icon: <CalculateIcon />
                 },
                 {
                   title: 'Average Duration',
-                  desc: averageDuration(weekend.pits),
+                  desc: averageDuration(pits),
                   icon: <TimelapseIcon />
                 }
               ]
@@ -86,7 +88,7 @@ export const useRoundPitsQuery = () => {
                 cell: ({ cell: { getValue }}) => 
                   <SingleTableCell 
                     value={getValue().value}
-                    style={{ fontSize: '1.15rem', fontWeight: '600' }}
+                    style={{ fontSize: '1.15rem', fontWeight: '500' }}
                   />
               },
               {
@@ -119,8 +121,8 @@ export const useRoundPitsQuery = () => {
                 cell: ({ cell: { getValue }}) => 
                   <LinkingTableCell 
                     value={getValue().value} 
-                    link={`../${weekend.year}/${weekend.round}/${getValue().driver.id}`}
-                    style={{ fontSize: '1.1rem', fontWeight: 500}}
+                    link={`../${year}/${round}/${getValue().driver.id}`}
+                    style={{ fontSize: '1.1rem', fontWeight: '500' }}
                   />
               },
               {
@@ -136,7 +138,7 @@ export const useRoundPitsQuery = () => {
                   />
               },
             ],
-            data: weekend.pits.map(pit => ({
+            data: pits.map(pit => ({
               time: { value: pit.time },
               lap: { value: +pit.lap },
               stops: { value: +pit.stop },
@@ -209,3 +211,5 @@ const gap = (pit, fastestPit) => {
     ? 'Reference time'
     : `+${gap.getSeconds()}.${ms}`
 }
+
+export default useRoundPitsQuery

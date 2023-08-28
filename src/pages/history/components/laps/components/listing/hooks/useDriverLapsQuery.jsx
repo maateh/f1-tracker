@@ -29,7 +29,7 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 import UnfoldLessDoubleIcon from '@mui/icons-material/UnfoldLessDouble'
 import SportsScoreIcon from '@mui/icons-material/SportsScore'
 
-export const useDriverLapsQuery = () => {
+const useDriverLapsQuery = () => {
   const { year, round, driverId } = useParams()
 
   return useQuery({
@@ -43,8 +43,7 @@ export const useDriverLapsQuery = () => {
           throw new QueryError('No data found!', 404)
         }
   
-        const weekend = new WeekendModel(lapsData.Races[0])
-        const { laps } = weekend
+        const { year, round, name, laps } = WeekendModel.parser({ Race: lapsData.Races[0] })
         const pages = Math.ceil(info.total / 20)
         
         const result = new RaceModel(resultsData.Races[0].Results[0])
@@ -52,7 +51,7 @@ export const useDriverLapsQuery = () => {
 
         return new ListingModel({
           title: new ListingTitleModel({
-            main: `${weekend.year} ${weekend.name} Lap Timings`,
+            main: `${year} ${name} Lap Timings`,
             sub: `Selected Driver | ${driver.fullName}`
           }),
           cards: new ListingCardsModel({
@@ -103,7 +102,7 @@ export const useDriverLapsQuery = () => {
                   <GainedInfoCell
                     value={`#${getValue().value}`}
                     gained={getValue().gained}
-                    link={`../${weekend.year}/${weekend.round}/all?page=${getValue().value}`}
+                    link={`../${year}/${round}/all?page=${getValue().value}`}
                     style={{ fontWeight: '500', fontSize: '1.2rem' }}
                   />
               },
@@ -238,3 +237,5 @@ const gap = (timing, laps, index) => {
     ? 'First Lap Time'
     : `${prefix}${minutes}${gap.getSeconds()}.${ms}`
 }
+
+export default useDriverLapsQuery

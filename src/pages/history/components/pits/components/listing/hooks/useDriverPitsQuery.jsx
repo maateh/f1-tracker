@@ -23,7 +23,7 @@ import QueryError from "../../../../../../../model/error/QueryError"
 import LocalParkingIcon from '@mui/icons-material/LocalParking'
 import TimelapseIcon from '@mui/icons-material/Timelapse'
 
-export const useDriverPitsQuery = () => {
+const useDriverPitsQuery = () => {
   const { year, round, driverId } = useParams()
 
   return useQuery({
@@ -37,14 +37,14 @@ export const useDriverPitsQuery = () => {
           throw new QueryError('No data found!', 404)
         }
   
-        const weekend = new WeekendModel(pitsData.Races[0])
+        const { year, name, pits } = WeekendModel.parser({ Race: pitsData.Races[0] })
         const driver = new DriverModel(driverData.Drivers[0])
 
-        const fastestPit = getFastestPit(weekend.pits)
+        const fastestPit = getFastestPit(pits)
   
         return new ListingModel({
           title: new ListingTitleModel({
-            main: `${weekend.year} ${weekend.name} Pit Stops`,
+            main: `${year} ${name} Pit Stops`,
             sub: `Selected Driver | ${driver.fullName}`
           }),
           cards: new ListingCardsModel({
@@ -58,12 +58,12 @@ export const useDriverPitsQuery = () => {
               summaries: [
                 {
                   title: 'Pit Stops',
-                  desc: pitStopsAmount(weekend.pits),
+                  desc: pitStopsAmount(pits),
                   icon: <LocalParkingIcon />
                 },
                 {
                   title: 'Average Duration',
-                  desc: averageDuration(weekend.pits),
+                  desc: averageDuration(pits),
                   icon: <TimelapseIcon />
                 }
               ]
@@ -79,7 +79,7 @@ export const useDriverPitsQuery = () => {
                 cell: ({ cell: { getValue }}) =>
                   <SingleTableCell 
                     value={getValue().value}
-                    style={{ fontSize: '1.15rem', fontWeight: '600' }}
+                    style={{ fontSize: '1.15rem', fontWeight: '500' }}
                   />
               },
               {
@@ -117,7 +117,7 @@ export const useDriverPitsQuery = () => {
                   />
               },
             ],
-            data: weekend.pits.map(pit => ({
+            data: pits.map(pit => ({
               time: { value: pit.time },
               lap: { value: +pit.lap },
               stops: { value: +pit.stop },
@@ -172,3 +172,5 @@ const gap = (pit, fastestPit) => {
     ? 'Reference time'
     : `+${gap.getSeconds()}.${ms}`
 }
+
+export default useDriverPitsQuery

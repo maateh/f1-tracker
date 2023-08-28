@@ -1,24 +1,45 @@
 // model
 import Standings from './Standings'
 
-class StandingsLists {
-	constructor(data) {
-		this.rounds = data.round
-		this.parseDrivers(data)
-		this.parseConstructors(data)
+class StandingsList {
+	constructor({
+		year,
+		round,
+		drivers,
+		constructors
+	}) {
+		this.year = year
+		this.round = round
+		this.drivers = drivers
+		this.constructors = constructors
 	}
 
-	parseDrivers(data) {
-		if (data.DriverStandings) {
-			this.drivers = data.DriverStandings.map(st => new Standings(st))
+	static parser({ data }) {
+		return new StandingsList({
+			year: data.season,
+			round: data.round,
+			drivers: this.#parseDrivers({
+				driverStandings: data.DriverStandings
+			}),
+			constructors: this.#parseConstructors({
+				constructorStandings: data.ConstructorStandings
+			})
+		})
+	}
+
+	static #parseDrivers({ driverStandings }) {
+		if (driverStandings && driverStandings.length) {
+			return driverStandings
+				.map(st => Standings.parser({ data: st }))
 		}
 	}
 
-	parseConstructors(data) {
-		if (data.ConstructorStandings) {
-			this.constructors = data.ConstructorStandings.map(st => new Standings(st))
+	static #parseConstructors({ constructorStandings }) {
+		if (constructorStandings && constructorStandings.length) {
+			return constructorStandings
+				.map(st => Standings.parser({ data: st }))
 		}
 	}
 }
 
-export default StandingsLists
+export default StandingsList

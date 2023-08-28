@@ -1,5 +1,5 @@
 // hooks
-import { useConstructorStandingsQuery } from "./hooks/useConstructorStandingsQuery"
+import useConstructorStandingsQuery from "./hooks/useConstructorStandingsQuery"
 
 // components
 import Listing from "../../../../../components/listing/Listing"
