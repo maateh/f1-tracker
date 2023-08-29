@@ -1,6 +1,6 @@
 // models
-import Driver from '../weekend/result/driver/Driver'
-import Constructor from '../weekend/result/constructor/Constructor'
+import Driver from '../weekend/results/driver/Driver'
+import Constructor from '../weekend/results/constructor/Constructor'
 
 class Standings {
 	constructor({
@@ -19,30 +19,30 @@ class Standings {
     this.constructors = constructors
 	}
 
-  static parser({ data }) {
+  static parser({ Standings: standings }) {
     return new Standings({
-      position: data.position,
-      points: data.points,
-      wins: data.wins,
-      driver: this.#parseDriver({ driver: data.Driver }),
-      constructor: this.#parseConstructors({ constructor: data.Constructor }),
-      constructors: this.#parseConstructors({ constructors: data.Constructors })
+      position: standings.position,
+      points: standings.points,
+      wins: standings.wins,
+      driver: this.#parseDriver({ Driver: standings.Driver }),
+      constructor: this.#parseConstructors({ Constructor: standings.Constructor }),
+      constructors: this.#parseConstructors({ Constructors: standings.Constructors })
     })
   }
 
-	static #parseDriver({ driver }) {
+	static #parseDriver({ Driver: driver }) {
 		if (driver) {
-			return new Driver(driver)
+			return Driver.parser({ Driver: driver })
 		}
 	}
 
-	static #parseConstructors({ constructors, constructor }) {
+	static #parseConstructors({ Constructors: constructors, Constructor: constructor }) {
 		if (constructors && constructors.length) {
-			return constructors.map(c => new Constructor(c))
+			return constructors.map(c => Constructor.parser({ Constructor: c }))
 		}
 
 		if (constructor) {
-			return new Constructor(constructor)
+			return Constructor.parser({ Constructor: constructor })
 		}
 	}
 }

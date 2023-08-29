@@ -23,7 +23,7 @@ const useConstructorStandingsQuery = () => {
     queryKey: ['listing', 'constructorStandings', year],
     queryFn: () => constructorStandings(year)
       .then(({ data }) => {
-        const { year, standings } = SeasonModel.parser({ data })
+        const { year, standings } = SeasonModel.parser({ Season: data })
   
         if (!standings) {
           throw new QueryError('No data found!', 404)

@@ -6,6 +6,18 @@ class FastestLap {
     this.lap = lap
   }
 
+  static parser({ FastestLap: fastestLap }) {
+    return new FastestLap({
+      time: fastestLap.Time.time,
+      avgSpeed: {
+        speed: fastestLap.AverageSpeed.speed,
+        units: fastestLap.AverageSpeed.units,
+      },
+      rank: fastestLap.rank,
+      lap: fastestLap.lap,
+    })
+  }
+
   getAvgSpeed() {
     return this.avgSpeed 
      ? `${this.avgSpeed.speed} ${this.avgSpeed.units}`

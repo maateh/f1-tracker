@@ -26,7 +26,7 @@ export const useScheduleQuery = () => {
       WeekendModel.queryNext()
     ])
       .then(([{ data }, nextWeekend]) => {
-        const { weekends } = SeasonModel.parser({ data })
+        const { weekends } = SeasonModel.parser({ Season: data })
         
         return new ListingModel({
           title: new ListingTitleModel({

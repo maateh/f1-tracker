@@ -36,7 +36,7 @@ const useDriverQualifyingsQuery = () => {
     queryKey: ['listing', 'driverQualifyingsResults', year, driverId],
     queryFn: () => driverQualifyingsResults(year, driverId)
       .then(({ data }) => {
-        const { year, weekends } = SeasonModel.parser({ data })
+        const { year, weekends } = SeasonModel.parser({ Season: data })
   
         if (!weekends) {
           throw new QueryError('No data found!', 404)
@@ -72,7 +72,7 @@ const useDriverQualifyingsQuery = () => {
                   },
                   {
                     title: 'Date of Birth',
-                    desc: driver.dateOfBirth,
+                    desc: driver.formattedDateOfBirth,
                     icon: <CakeIcon />
                   },
                   {

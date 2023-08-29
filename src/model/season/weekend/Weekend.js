@@ -4,7 +4,7 @@ import { lastRound, nextRound } from '../../../api/season'
 // model
 import Circuit from './circuit/Circuit'
 import SessionList from './session/SessionList'
-import Result from './result/Result'
+import Results from './results/Results'
 import Lap from './lap/Lap'
 import PitStop from './pit/PitStop'
 import QueryError from '../../error/QueryError'
@@ -91,7 +91,7 @@ class Weekend {
 			Race.Results && 
 			Race.Results.length
 		) {
-			return new Result(Race)
+			return Results.parser({ Race })
 		}
 	}
 

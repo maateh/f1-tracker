@@ -14,7 +14,7 @@ import TimeCell from '../components/table/TimeCell'
 
 // models
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
-import RaceModel from "../../../../../../../model/season/weekend/result/race/Race"
+import RaceModel from "../../../../../../../model/season/weekend/results/race/Race"
 import ListingModel from "../../../../../../../model/listing/Listing"
 import ListingTitleModel from "../../../../../../../model/listing/ListingTitle"
 import ListingCardsModel from "../../../../../../../model/listing/ListingCards"
@@ -46,7 +46,7 @@ const useDriverLapsQuery = () => {
         const { year, round, name, laps } = WeekendModel.parser({ Race: lapsData.Races[0] })
         const pages = Math.ceil(info.total / 20)
         
-        const result = new RaceModel(resultsData.Races[0].Results[0])
+        const result = RaceModel.parser({ Result: resultsData.Races[0].Results[0] })
         const { driver } = result
 
         return new ListingModel({

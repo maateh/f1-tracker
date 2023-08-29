@@ -43,7 +43,7 @@ const useRoundPitsQuery = () => {
         const { year, round, name, pits } = WeekendModel.parser({
 					Race: pitsData.Races[0],
 				})
-        const { drivers } = SeasonModel.parser({ data: driversData })
+        const { drivers } = SeasonModel.parser({ Season: driversData })
         const pages = Math.ceil(info.total / 20)
 
         const fastestPit = getFastestPit(pits)

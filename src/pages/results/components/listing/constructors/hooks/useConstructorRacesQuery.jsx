@@ -42,7 +42,7 @@ const useConstructorRacesQuery = () => {
     queryKey: ['listing', 'constructorRacesResults', year, constructorId],
     queryFn: () => constructorRacesResults(year, constructorId)
       .then(({ data }) => {
-        const { year, weekends } = SeasonModel.parser({ data })
+        const { year, weekends } = SeasonModel.parser({ Season: data })
   
         if (!weekends) {
           throw new QueryError('No data found!', 404)

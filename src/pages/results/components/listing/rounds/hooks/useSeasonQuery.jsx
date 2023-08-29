@@ -15,8 +15,8 @@ import FastestLapCell from '../../components/table/FastestLapCell'
 
 // models
 import SeasonModel from "../../../../../../model/season/Season"
-import ResultModel from "../../../../../../model/season/weekend/result/Result"
-import QualifyingModel from "../../../../../../model/season/weekend/result/qualifying/Qualifying"
+import ResultsModel from "../../../../../../model/season/weekend/results/Results"
+import QualifyingModel from "../../../../../../model/season/weekend/results/qualifying/Qualifying"
 import ListingModel from "../../../../../../model/listing/Listing"
 import ListingTitleModel from "../../../../../../model/listing/ListingTitle"
 import ListingCardsModel from "../../../../../../model/listing/ListingCards"
@@ -45,14 +45,13 @@ const useSeasonQuery = () => {
     queryKey: ['listing', 'results', year], 
     queryFn: () => Promise.all([qualifyingsResults(year), racesResults(year)])
       .then(([{ data: qualifyingsData }, { data: racesData }]) => {
-        const { year, weekends } = SeasonModel.parser({ data: racesData })
+        const { year, weekends } = SeasonModel.parser({ Season: racesData })
   
         if (!weekends) {
           throw new QueryError('No data found!', 404)
         }
   
-        // TODO: Create an addResults() method in Weekend model instead of this
-        const qResults = qualifyingsData.Races.map(w => new ResultModel(w))
+        const qResults = qualifyingsData.Races.map(race => ResultsModel.parser({ Race: race }))
         if (qResults && qResults.length) {
           weekends.forEach((w, index) => {
             w.results.qualifying = qResults[index]?.qualifying
@@ -203,14 +202,14 @@ const useSeasonQuery = () => {
                 value: weekend.circuit.name,
                 circuit: weekend.circuit
               },
-              pole: { value: pole(weekend)?.time, pole: pole(weekend) },
+              pole: { value: pole(weekend.results).time, pole: pole(weekend.results) },
               winner: {
                 value: weekend.results.race[0].driver.fullName,
                 result: weekend.results.race[0]
               },
               fl: {
-                value: fastest(weekend)?.fastestLap.time,
-                result: fastest(weekend)
+                value: fastest(weekend.results)?.fastestLap.time,
+                result: fastest(weekend.results)
               },
               laps: {
                 value: +weekend.results.race[0].laps,
@@ -324,14 +323,14 @@ const failures = weekends => {
 
 
 // Table info
-const pole = weekend => {
-  return weekend.results.qualifying 
-    ? weekend.results.qualifying[0] 
-    : new QualifyingModel()
+const pole = results => {
+  return results.qualifying 
+    ? results.qualifying[0] 
+    : new QualifyingModel({})
 }
 
-const fastest = weekend => {
-  return weekend.results.race
+const fastest = results => {
+  return results.race
     .find(r => +r.fastestLap?.rank === 1)
 }
 

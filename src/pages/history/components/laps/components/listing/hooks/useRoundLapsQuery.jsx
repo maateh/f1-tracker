@@ -13,7 +13,7 @@ import TimeCell from "../components/table/TimeCell"
 
 // models
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
-import ResultModel from "../../../../../../../model/season/weekend/result/Result"
+import ResultsModel from "../../../../../../../model/season/weekend/results/Results"
 import ListingModel from "../../../../../../../model/listing/Listing"
 import ListingTitleModel from "../../../../../../../model/listing/ListingTitle"
 import ListingCardsModel from "../../../../../../../model/listing/ListingCards"
@@ -51,7 +51,7 @@ const useRoundLapsQuery = () => {
 					name,
 					laps: [currentLap],
 				} = WeekendModel.parser({ Race: lapData.Races[0] })
-        const { race: result } = new ResultModel(resultsData.Races[0])
+        const { race: result } = ResultsModel.parser({ Race: resultsData.Races[0] })
         const prevLap = prevLapData && WeekendModel.parser({ Race: prevLapData.Races[0] }).laps[0]
   
         return new ListingModel({

@@ -2,42 +2,39 @@
 import Standings from './Standings'
 
 class StandingsList {
-	constructor({
-		year,
-		round,
-		drivers,
-		constructors
-	}) {
+	constructor({ year, round, drivers, constructors }) {
 		this.year = year
 		this.round = round
 		this.drivers = drivers
 		this.constructors = constructors
 	}
 
-	static parser({ data }) {
+	static parser({ StandingsList: standingsList }) {
 		return new StandingsList({
-			year: data.season,
-			round: data.round,
+			year: standingsList.season,
+			round: standingsList.round,
 			drivers: this.#parseDrivers({
-				driverStandings: data.DriverStandings
+				DriverStandings: standingsList.DriverStandings,
 			}),
 			constructors: this.#parseConstructors({
-				constructorStandings: data.ConstructorStandings
-			})
+				ConstructorStandings: standingsList.ConstructorStandings,
+			}),
 		})
 	}
 
-	static #parseDrivers({ driverStandings }) {
+	static #parseDrivers({ DriverStandings: driverStandings }) {
 		if (driverStandings && driverStandings.length) {
-			return driverStandings
-				.map(st => Standings.parser({ data: st }))
+			return driverStandings.map(standings =>
+				Standings.parser({ Standings: standings })
+			)
 		}
 	}
 
-	static #parseConstructors({ constructorStandings }) {
+	static #parseConstructors({ ConstructorStandings: constructorStandings }) {
 		if (constructorStandings && constructorStandings.length) {
-			return constructorStandings
-				.map(st => Standings.parser({ data: st }))
+			return constructorStandings.map(standings =>
+				Standings.parser({ Standings: standings })
+			)
 		}
 	}
 }

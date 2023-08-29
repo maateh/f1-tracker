@@ -12,7 +12,7 @@ import DurationCell from "../components/table/DurationCell"
 
 // models
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
-import DriverModel from "../../../../../../../model/season/weekend/result/driver/Driver"
+import DriverModel from "../../../../../../../model/season/weekend/results/driver/Driver"
 import PitStopModel from "../../../../../../../model/season/weekend/pit/PitStop"
 import ListingModel from "../../../../../../../model/listing/Listing"
 import ListingTitleModel from "../../../../../../../model/listing/ListingTitle"
@@ -39,14 +39,14 @@ const useDriverPitsQuery = () => {
         }
   
         const { year, name, pits } = WeekendModel.parser({ Race: pitsData.Races[0] })
-        const driver = new DriverModel(driverData.Drivers[0])
+        const { fullName } = DriverModel.parser({ Driver: driverData.Drivers[0] })
 
         const fastestPit = getFastestPit(pits)
   
         return new ListingModel({
           title: new ListingTitleModel({
             main: `${year} ${name} Pit Stops`,
-            sub: `Selected Driver | ${driver.fullName}`
+            sub: `Selected Driver | ${fullName}`
           }),
           cards: new ListingCardsModel({
             styles: {
