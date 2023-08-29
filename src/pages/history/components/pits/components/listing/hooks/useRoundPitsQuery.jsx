@@ -14,6 +14,7 @@ import DurationCell from "../components/table/DurationCell"
 // models
 import SeasonModel from "../../../../../../../model/season/Season"
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
+import PitStopModel from "../../../../../../../model/season/weekend/pit/PitStop"
 import ListingModel from "../../../../../../../model/listing/Listing"
 import ListingTitleModel from "../../../../../../../model/listing/ListingTitle"
 import ListingCardsModel from "../../../../../../../model/listing/ListingCards"
@@ -174,24 +175,33 @@ const getFastestPit = pits => {
 
 // Card helpers
 const pitStopsAmount = pits => {
-  return `${pits.length} pit stops in the race`
+  return `There were ${pits.length} pit stops in this race`
 }
 
 const averagePerDriver = pits => {
   const drivers = pits.map(pit => pit.driverId)
   const average = +pits.length / new Set(drivers).size
-  return `${average.toFixed(3)} pit stops average`
+  return `There were ${average.toFixed(2)} pit stops on average`
 }
 
 const averageDuration = pits => {
-  const sum = pits.reduce((acc, curr) => acc + curr.getDurationInMs(), 0)
-  const averageTime = new Date(sum / pits.length)
+  let numberOfRelevantPits = 0
+  const sumInMs = pits.reduce((acc, curr) => {
+    const currentDuration = curr.getDurationInMs()
+    if (currentDuration <= PitStopModel.MAX_GAP) {
+      numberOfRelevantPits++
+      return acc + currentDuration
+    }
+    return acc
+  }, 0)
 
-  const seconds = averageTime.getSeconds()
-  const ms = averageTime.getMilliseconds()
+  const average = new Date(sumInMs / numberOfRelevantPits)
+
+  const seconds = average.getSeconds()
+  const ms = average.getMilliseconds()
     .toString()
     .padStart(3, '0')
-  return `${seconds}.${ms}s average pit stop duration`
+  return `The average duration was ${seconds}.${ms} seconds`
 }
 
 // Table helpers
@@ -209,6 +219,7 @@ const gap = (pit, fastestPit) => {
 
   return refTime === pitTime
     ? 'Reference time'
+    : gap > PitStopModel.MAX_GAP ? 'RED FLAG'
     : `+${gap.getSeconds()}.${ms}`
 }
 
