@@ -1,23 +1,18 @@
+import { useEffect } from 'react'
 import { intervalToDuration } from 'date-fns'
-import { useEffect, useState } from 'react'
 
-// TODO
-// mi van akkor, ha egy verseny véget ér - ugyanis nem lesz további referencia idő
-
-export const useTimer = (end) => {
-	const [duration, setDuration] = useState(intervalToDuration({ start: Date.now(), end }))
-
+export const useTimer = ({ duration, setDuration }) => {
 	useEffect(() => {
 		const intervalId = setInterval(() => {
-			setDuration(
-				intervalToDuration({ start: Date.now(), end })
-			)
+			setDuration(prev => prev - 1000)
 		}, 1000)
 
-		Object.values(duration).every(item => item === 0) && clearInterval(intervalId)
-		
+		if (duration <= 0) clearInterval(intervalId)
 		return () => clearInterval(intervalId)
-	}, [duration, end])
+	}, [duration, setDuration])
 
-	return { duration }
+	return {
+		isOver: duration <= 0,
+		...intervalToDuration({ start: 0, end: duration })
+	}
 }

@@ -8,6 +8,16 @@ class Session {
 		this.time = time
   }
 
+	static KEYS = {
+		RACE: 'race',
+		QUALIFYING: 'qualifying',
+		FP3: 'fp3',
+		FP2: 'fp2',
+		FP1: 'fp1',
+		SPRINT_RACE: 'sprint_race',
+		SPRINT_QUALIFYING: 'sprint_qualifying',
+	}
+
   get start() {
 		if (this.date && this.time) {
       return new Date(`${this.date}T${this.time}`).getTime()
@@ -19,7 +29,8 @@ class Session {
 	}
 
 	get end() {
-		return this.start && this.start + 3600000
+		const interval = this.key === Session.KEYS.RACE ? 5400000 : 3600000
+		return this.start && this.start + interval
 	}
 
 	isActive() {
@@ -29,6 +40,10 @@ class Session {
 
 	isOver() {
 		return this.end && this.end < Date.now()
+	}
+
+	getCountdown() {
+		return (this.isActive() ? this.end : this.start) - Date.now()
 	}
 
 	getFormattedDate(pattern) {

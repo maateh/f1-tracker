@@ -31,7 +31,7 @@ export const pitStops = async (year, round) => ergast({
   url: `/${year}/${round}/pitstops`,
   key: KEYS.RACE_TABLE,
   params: {
-    limit: 100
+    limit: 200
   }
 })
   .then(res => res)

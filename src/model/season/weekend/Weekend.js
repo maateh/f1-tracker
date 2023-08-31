@@ -34,22 +34,6 @@ class Weekend {
 		this.results = results
 		this.laps = laps
 		this.pits = pits
-
-
-		// this.round = data.round
-		// this.year = data.season
-
-		// this.name = data.raceName
-		// this.wiki = data.url
-		// this.circuit = new Circuit(data.Circuit)
-
-		// this.date = data.date
-		// this.time = data.time
-
-		// this.sessions = new SessionList(data)
-		// this.parseResult(data)
-		// this.parseLaps(data)
-		// this.parsePits(data)
 	}
 
 	static async queryLast() {
@@ -120,6 +104,10 @@ class Weekend {
 
 	isRemaining() {
 		return !this.isActive() && !this.isOver()
+	}
+	
+	getRelevantSession() {
+		return this.sessions.relevantSession
 	}
 }
 

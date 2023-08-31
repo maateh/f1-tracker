@@ -41,9 +41,9 @@ const Pagination = ({ pages, table }) => {
   const pagesRange = range(pagesCut.start, pagesCut.end)
   
   useEffect(() => {
-    table && table.setPageIndex(+searchParams.get('page') - 1)
     const search = `?${searchParams.toString()}`
     navigate({ search }, { replace: true })
+    table?.setPageIndex(+searchParams.get('page') - 1)
   }, [navigate, searchParams, table])
 
   return (

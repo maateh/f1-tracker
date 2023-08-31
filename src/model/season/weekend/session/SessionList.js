@@ -24,7 +24,7 @@ class SessionList {
 		if (Race.FirstPractice) {
 			practices.push(
 				new Session({
-					key: 'fp1',
+					key: Session.KEYS.FP1,
 					title: 'Free Practice 1',
 					...Race.FirstPractice,
 				})
@@ -36,7 +36,7 @@ class SessionList {
 
 			practices.push(
 				new Session({
-					key: 'fp2',
+					key: Session.KEYS.FP2,
 					title: 'Free Practice 2',
 					...Race.SecondPractice,
 				})
@@ -46,7 +46,7 @@ class SessionList {
 		if (Race.ThirdPractice) {
 			practices.push(
 				new Session({
-					key: 'fp3',
+					key: Session.KEYS.FP3,
 					title: 'Free Practice 3',
 					...Race.ThirdPractice,
 				})
@@ -61,12 +61,12 @@ class SessionList {
 
     return {
       qualifying: new Session({
-        key: 'sq',
+        key: Session.KEYS.SPRINT_QUALIFYING,
         title: 'Sprint Qualifying',
         ...Race.SecondPractice,
       }),
       race: new Session({
-        key: 'sr',
+        key: Session.KEYS.RACE,
         title: 'Sprint Race',
         ...Race.Sprint,
       })
@@ -76,14 +76,14 @@ class SessionList {
 	static #parseQualifying({ Race }) {
 		if (Race.Qualifying) {
 			return new Session({
-				key: 'qualifying',
+				key: Session.KEYS.QUALIFYING,
 				title: 'Qualifying',
 				...Race.Qualifying,
 			})
 		}
 
 		return new Session({
-			key: 'qualifying',
+			key: Session.KEYS.QUALIFYING,
 			title: 'Qualifying',
 		})
 	}
@@ -91,7 +91,7 @@ class SessionList {
 	static #parseRace({ Race }) {
 		if (Race.date && Race.time) {
 			return new Session({
-				key: 'race',
+				key: Session.KEYS.RACE,
 				title: 'Race Time!',
 				date: Race.date,
 				time: Race.time,
@@ -99,7 +99,7 @@ class SessionList {
 		}
 
 		return new Session({
-			key: 'race',
+			key: Session.KEYS.RACE,
 			title: 'Race Time!',
 			date: Race.date,
 		})

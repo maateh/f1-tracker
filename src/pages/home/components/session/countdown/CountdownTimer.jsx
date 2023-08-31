@@ -1,68 +1,81 @@
+import { useEffect, useState } from 'react'
+
 // hooks
 import { useTimer } from './hooks/useTimer'
 
 // context
 import { useWeekendContext } from '../../../context/hooks/useWeekendContext'
 
+// models
+import SessionModel from '../../../../../model/season/weekend/session/Session'
+
 // styles
 import './CountdownTimer.css'
 
-const CountdownTimer = ({ end }) => {
-	const {
-		weekend: {
-			sessions: { relevantSession }
-		}
-	} = useWeekendContext()
-	const { duration } = useTimer(end)
+const CountdownTimer = ({ session, setSession }) => {
+	const { weekend } = useWeekendContext()
 
-	// TODO
-	// ehelyett jó lenne nem az egész oldalt frissíteni
-	// hanem csak a session countdown cuccokat
+	const [duration, setDuration] = useState(session.getCountdown())
+	const { isOver, days, hours, minutes, seconds } = useTimer({
+		duration,
+		setDuration,
+	})
+
+	useEffect(() => {
+		setDuration(session.getCountdown())
+	}, [session])
+
 	const handleRefresh = () => {
-		window.location.reload()
+		if (session.key === SessionModel.KEYS.RACE && !session.isActive()) {
+			window.location.reload()
+		}
+		setSession(new SessionModel(weekend.getRelevantSession()))
 	}
 
 	return (
 		<div className="countdown-timer">
-			{duration && (
-				Object.values(duration).every(item => item === 0) ? (
-					<div>
-						{relevantSession.isActive() ? (
-							<p className="started">Session Ended!</p>
-						) : (
-							<p className="started">Session Started!</p>
-						)}
-						<span className="refresh" onClick={handleRefresh}>
-							Click to Refresh!
-						</span>
+			{isOver ? (
+				<div>
+					{session.isActive() ? (
+						<p className="started">Session Started!</p>
+					) : (
+						<p className="ended">Session Ended!</p>
+					)}
+					<span
+						className="refresh"
+						onClick={handleRefresh}
+					>
+						Click to Refresh!
+					</span>
+				</div>
+			) : (
+				<>
+					{days > 0 && (
+						<>
+							<div className="unit__container">
+								<span className="value">
+									{days.toString().padStart(2, '0')}
+								</span>
+								<p className="unit">days</p>
+							</div>
+							<span className="separator">:</span>
+						</>
+					)}
+					<div className="unit__container">
+						<span className="value">{hours.toString().padStart(2, '0')}</span>
+						<p className="unit">hours</p>
 					</div>
-				) : (
-					<>
-						{duration.days > 0 && (
-							<>
-								<div className="unit__container">
-									<span className="value">{duration.days}</span>
-									<p className="unit">days</p>
-								</div>
-								<span className="separator">:</span>
-							</>
-						)}
-						<div className="unit__container">
-							<span className="value">{duration.hours}</span>
-							<p className="unit">hours</p>
-						</div>
-						<span className="separator">:</span>
-						<div className="unit__container">
-							<span className="value">{duration.minutes}</span>
-							<p className="unit">minutes</p>
-						</div>
-						<span className="separator">:</span>
-						<div className="unit__container">
-							<span className="value">{duration.seconds}</span>
-							<p className="unit">seconds</p>
-						</div>
-					</>
-				)
+					<span className="separator">:</span>
+					<div className="unit__container">
+						<span className="value">{minutes.toString().padStart(2, '0')}</span>
+						<p className="unit">minutes</p>
+					</div>
+					<span className="separator">:</span>
+					<div className="unit__container">
+						<span className="value">{seconds.toString().padStart(2, '0')}</span>
+						<p className="unit">seconds</p>
+					</div>
+				</>
 			)}
 		</div>
 	)
