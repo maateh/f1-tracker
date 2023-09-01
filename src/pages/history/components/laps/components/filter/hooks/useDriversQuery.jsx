@@ -11,12 +11,12 @@ import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
 
 export const useDriversQuery = () => {
   const { dispatch } = useLapsFilterContext()
-  const { year, driverId } = useParams()
+  const { year, round, driverId } = useParams()
   const navigate = useNavigate()
 
   return useQuery({
 		queryKey: ['filter', 'driverList', year],
-		queryFn: () => FilterModel.queryDrivers({ year }),
+		queryFn: () => FilterModel.queryDrivers({ year, round }),
 		onSuccess: filter => dispatch({ 
       type: 'SET_DRIVERS', 
       payload: new FilterSelectorModel({

@@ -12,8 +12,7 @@ export const KEYS = {
 }
 
 export const ergast = async ({ url, key, params }) => {
-	return axios
-		.get(`${BASE_URL}${url}${URL_SUFFIX}`, { params })
+	return axios.get(`${BASE_URL}${url}${URL_SUFFIX}`, { params })
 		.then(({ data: { MRData: data } }) => ({
 			info: {
 				url: data.url,

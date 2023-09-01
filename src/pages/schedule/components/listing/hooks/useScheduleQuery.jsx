@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // api
-import { season } from "../../../../../api/season"
+import { season } from "../../../../../api/season/season"
 
 // components
 import ScheduleTitle from "../components/title/ScheduleTitle"

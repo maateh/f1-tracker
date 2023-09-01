@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // api
-import { driverQualifyingsResults } from "../../../../../../api/results"
+import { driverQualifyingsResults } from "../../../../../../api/results/qualifying/driverQualifyingsResults"
 
 // components
 import ResultsCard from "../../components/card/ResultsCard"
@@ -23,7 +23,6 @@ import SportsMotorsportsIcon from '@mui/icons-material/SportsMotorsports'
 import PublicIcon from '@mui/icons-material/Public'
 import CakeIcon from '@mui/icons-material/Cake'
 import TagIcon from '@mui/icons-material/Tag'
-
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium'
 import UnfoldLessDoubleIcon from '@mui/icons-material/UnfoldLessDouble'
 import StarHalfIcon from '@mui/icons-material/StarHalf'

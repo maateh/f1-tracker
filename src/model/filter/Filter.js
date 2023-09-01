@@ -1,5 +1,8 @@
 // api
-import { constructorList, driverList, season, seasonList } from '../../api/season'
+import { season } from '../../api/season/season'
+import { seasonList } from '../../api/season/seasonList'
+import { driverListFromRound, driverListFromSeason } from '../../api/drivers/driverList'
+import { constructorListFromSeason } from '../../api/constructors/constructorList'
 
 // model
 import FilterOption from './FilterOption'
@@ -54,8 +57,12 @@ class Filter {
 			})
 	}
 
-	static async queryDrivers({ year, label = 'Drivers' }) {
-		return driverList(year)
+	static async queryDrivers({ year, round, label = 'Drivers' }) {
+		const call = round 
+			? () => driverListFromRound(year, round)
+			: () => driverListFromSeason(year)
+
+		return call()
 			.then(({ data }) => new Filter({
         key: 'drivers',
         label,
@@ -71,7 +78,7 @@ class Filter {
 	}
 
 	static async queryConstructors({ year, label = 'Constructors' }) {
-		return constructorList(year)
+		return constructorListFromSeason(year)
 			.then(({ data }) => new Filter({
         key: 'constructors',
         label,

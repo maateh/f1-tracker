@@ -2,8 +2,8 @@ import { useQuery } from "react-query"
 import { useParams, useSearchParams } from "react-router-dom"
 
 // api
-import { raceLap } from "../../../../../../../api/history"
-import { raceResults } from "../../../../../../../api/results"
+import { raceLap } from "../../../../../../../api/laps/raceLap"
+import { raceResults } from "../../../../../../../api/results/race/raceResults"
 
 // components
 import SummaryCard from "../../../../../../../components/listing/cards/card/SummaryCard"

@@ -1,5 +1,6 @@
 // api
-import { lastRound, nextRound } from '../../../api/season'
+import { nextRound } from '../../../api/season/round/nextRound'
+import { lastRound } from '../../../api/season/round/lastRound'
 
 // model
 import Circuit from './circuit/Circuit'

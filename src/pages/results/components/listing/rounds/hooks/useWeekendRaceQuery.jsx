@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // api
-import { raceResults } from "../../../../../../api/results"
+import { raceResults } from "../../../../../../api/results/race/raceResults"
 
 // components
 import ResultsCard from "../../components/card/ResultsCard"
@@ -23,7 +23,6 @@ import QueryError from "../../../../../../model/error/QueryError"
 import LabelIcon from '@mui/icons-material/Label'
 import PublicIcon from '@mui/icons-material/Public'
 import ContactSupportIcon from '@mui/icons-material/ContactSupport'
-
 import SportsScoreIcon from '@mui/icons-material/SportsScore'
 import Timer10SelectIcon from '@mui/icons-material/Timer10Select'
 import ErrorIcon from '@mui/icons-material/Error'

@@ -2,8 +2,8 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // api
-import { driverPitStops } from "../../../../../../../api/history"
-import { driverInfo } from "../../../../../../../api/season"
+import { driverPitStops } from "../../../../../../../api/pitstops/driverPitStops"
+import { driver } from "../../../../../../../api/drivers/driver"
 
 // components
 import SummaryCard from "../../../../../../../components/listing/cards/card/SummaryCard"
@@ -31,7 +31,7 @@ const useDriverPitsQuery = () => {
     queryKey: ['listing', 'pits', year, round, driverId],
     queryFn: () => Promise.all([
       driverPitStops(year, round, driverId),
-      driverInfo(year, driverId)
+      driver(driverId)
     ])
       .then(([{ data: pitsData }, { data: driverData }]) => {
         if (!pitsData.Races || !pitsData.Races.length) {

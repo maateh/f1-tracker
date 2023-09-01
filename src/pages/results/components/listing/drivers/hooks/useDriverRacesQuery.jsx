@@ -2,7 +2,7 @@ import { useQuery } from "react-query"
 import { useParams } from "react-router-dom"
 
 // api
-import { driverRacesResults } from "../../../../../../api/results"
+import { driverRacesResults } from "../../../../../../api/results/race/driverRacesResults"
 
 // components
 import ResultsCard from "../../components/card/ResultsCard"

@@ -2,7 +2,8 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // api
-import { qualifyingsResults, racesResults } from "../../../../../../api/results"
+import { qualifyingsResults } from "../../../../../../api/results/qualifying/qualifyingsResults"
+import { racesResults } from "../../../../../../api/results/race/racesResults"
 
 // components
 import ResultsCard from "../../components/card/ResultsCard"
@@ -27,12 +28,10 @@ import QueryError from "../../../../../../model/error/QueryError"
 import EventIcon from '@mui/icons-material/Event'
 import SportsMotorsportsIcon from '@mui/icons-material/SportsMotorsports'
 import EngineeringIcon from '@mui/icons-material/Engineering'
-
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium'
 import CelebrationIcon from '@mui/icons-material/Celebration'
 import PlusOneIcon from '@mui/icons-material/PlusOne'
-
 import SportsScoreIcon from '@mui/icons-material/SportsScore'
 import Timer10SelectIcon from '@mui/icons-material/Timer10Select'
 import ErrorIcon from '@mui/icons-material/Error'
@@ -43,7 +42,10 @@ const useSeasonQuery = () => {
 
   return useQuery({
     queryKey: ['listing', 'results', year], 
-    queryFn: () => Promise.all([qualifyingsResults(year), racesResults(year)])
+    queryFn: () => Promise.all([
+      qualifyingsResults(year),
+      racesResults(year)
+    ])
       .then(([{ data: qualifyingsData }, { data: racesData }]) => {
         const { year, weekends } = SeasonModel.parser({ Season: racesData })
   

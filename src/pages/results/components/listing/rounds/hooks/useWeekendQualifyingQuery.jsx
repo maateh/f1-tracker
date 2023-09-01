@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
 // api
-import { qualifyingResults } from '../../../../../../api/results'
+import { qualifyingResults } from '../../../../../../api/results/qualifying/qualifyingResults'
 
 // components
 import ResultsCard from '../../components/card/ResultsCard'
