@@ -29,7 +29,7 @@ const LapsHistory = () => {
 	})
 
   return (
-    <section className="history-category__container">
+    <div className="history-category__container">
       {isLoading && <CircularProgress />}
       
       {year && round && (
@@ -41,7 +41,7 @@ const LapsHistory = () => {
       {isError && <p className="error__element">{error.message}</p>}
 
       <Outlet />
-    </section>
+    </div>
   )
 }
 

@@ -1,7 +1,8 @@
+// components
+import ConstructorsListing from "./components/listing/ConstructorsListing"
+
 const ConstructorsHistory = () => {
-  return (
-    <div>ConstructorsHistory</div>
-  )
+  return <ConstructorsListing />
 }
 
 export default ConstructorsHistory

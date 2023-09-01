@@ -6,8 +6,8 @@ import './HistoryChooser.css'
 const options = [
   { placeholder: 'Laps', value: 'laps' },
   { placeholder: 'Pit Stops', value: 'pits' },
-  { placeholder: 'Drivers (?)', value: 'drivers' },
-  { placeholder: 'Constructors (?)', value: 'constructors' },
+  { placeholder: 'Drivers', value: 'drivers' },
+  { placeholder: 'Constructors', value: 'constructors' },
 ]
 
 const HistoryChooser = () => {

@@ -117,7 +117,7 @@ const useDriverRacesQuery = () => {
                 title: 'Driver Race Statuses',
                 summaries: [
                   {
-                    title: 'Finished the Race',
+                    title: 'Finished Races',
                     desc: finished(weekends),
                     icon: <SportsScoreIcon />
                   },
@@ -127,8 +127,8 @@ const useDriverRacesQuery = () => {
                     icon: <Timer10SelectIcon />
                   },
                   {
-                    title: 'Crashed in Race',
-                    desc: crashed(weekends),
+                    title: 'Crashed in Races',
+                    desc: crashes(weekends),
                     icon: <ErrorIcon />
                   },
                   {
@@ -328,22 +328,22 @@ const gotALap = weekends => {
   ).flat(1).length + ' times in this season'
 }
 
-const crashed = weekends => {
-  return weekends.map(w => (
+const crashes = weekends => {
+  return weekends.map(w => 
     w.results.race.filter(r => 
       r.status.includes('Accident') || 
       r.status.includes('Collision'))
-  )).flat(1).length + ' times in this season'
+  ).flat(1).length + ' times in this season'
 }
 
 const failures = weekends => {
-  return weekends.map(w => (
+  return weekends.map(w => 
     w.results.race.filter(r => 
-      !r.status.includes('Finished') || 
-      !r.status.includes('+') || 
-      !r.status.includes('Accident') || 
+      !r.status.includes('Finished') &&
+      !r.status.includes('+') &&
+      !r.status.includes('Accident') && 
       !r.status.includes('Collision'))
-  )).flat(1).length + ' times in this season'
+  ).flat(1).length + ' times in this season'
 }
 
 export default useDriverRacesQuery

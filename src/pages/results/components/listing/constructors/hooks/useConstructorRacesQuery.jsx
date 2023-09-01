@@ -82,9 +82,9 @@ const useConstructorRacesQuery = () => {
               {
                 title: 'Constructor Race Statuses',
                 summaries: [
-                  { title: 'Finished the Race', desc: finished(weekends), icon: <SportsScoreIcon /> },
+                  { title: 'Finished Races', desc: finished(weekends), icon: <SportsScoreIcon /> },
                   { title: 'Got a Lap', desc: gotALap(weekends), icon: <Timer10SelectIcon /> },
-                  { title: 'Crashed in Race', desc: crashed(weekends), icon: <ErrorIcon /> },
+                  { title: 'Crashed in Races', desc: crashes(weekends), icon: <ErrorIcon /> },
                   { title: 'Mechanical Failures', desc: failures(weekends), icon: <WarningIcon /> }
                 ]
               },
@@ -257,7 +257,7 @@ const gotALap = weekends => {
   ).flat(1).length + ' times in this season'
 }
 
-const crashed = weekends => {
+const crashes = weekends => {
   return weekends.map(w => 
     w.results.race.filter(r => 
       r.status.includes('Accident') || 
@@ -268,9 +268,9 @@ const crashed = weekends => {
 const failures = weekends => {
   return weekends.map(w => 
     w.results.race.filter(r => 
-      !r.status.includes('Finished') || 
-      !r.status.includes('+') || 
-      !r.status.includes('Accident') || 
+      !r.status.includes('Finished') && 
+      !r.status.includes('+') && 
+      !r.status.includes('Accident') && 
       !r.status.includes('Collision'))
   ).flat(1).length + ' times in this season'
 }

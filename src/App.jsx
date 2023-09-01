@@ -102,11 +102,23 @@ const router = createBrowserRouter([
           },
           {
             path: "drivers",
-            element: <DriversHistory />
+            element: <DriversHistory />,
+            // children: [
+            //   {
+            //     path: ":driverId",
+            //     element: <DriverInfo />
+            //   }
+            // ]
           },
           {
             path: "constructors",
-            element: <ConstructorsHistory />
+            element: <ConstructorsHistory />,
+            // children: [
+            //   {
+            //     path: ":constructorId",
+            //     element: <ConstructorInfo />
+            //   }
+            // ]
           },
         ]
       },

@@ -71,9 +71,9 @@ const useWeekendRaceQuery = () => {
               {
                 title: 'Drivers Race Status',
                 summaries: [
-                  { title: 'Finished the Race', desc: finished(results), icon: <SportsScoreIcon /> },
+                  { title: 'Race Finishers', desc: finished(results), icon: <SportsScoreIcon /> },
                   { title: 'Drivers got a Lap', desc: gotALap(results), icon: <Timer10SelectIcon /> },
-                  { title: 'Crashed in Race', desc: crashed(results), icon: <ErrorIcon /> },
+                  { title: 'Crashes in the Race', desc: crashes(results), icon: <ErrorIcon /> },
                   { title: 'Mechanical Failures', desc: failures(results), icon: <WarningIcon /> }
                 ]
               },
@@ -198,7 +198,7 @@ const gotALap = results => {
     .length + ' drivers in this race'
 }
 
-const crashed = results => {
+const crashes = results => {
   return results.race.filter(r => 
     r.status.includes('Accident') || 
     r.status.includes('Collision')
@@ -207,9 +207,9 @@ const crashed = results => {
 
 const failures = results => {
   return results.race.filter(r => 
-    !r.status.includes('Finished') || 
-    !r.status.includes('+') || 
-    !r.status.includes('Accident') || 
+    !r.status.includes('Finished') && 
+    !r.status.includes('+') && 
+    !r.status.includes('Accident') && 
     !r.status.includes('Collision')
   ).length + ' drivers in this race'
 }

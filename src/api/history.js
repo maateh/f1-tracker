@@ -56,3 +56,26 @@ export const constructorPitStops = async (year, round, constructorId) => ergast(
   .catch(err => {
     throw new Error(err)
   })
+
+
+// Drivers
+export const drivers = async () => ergast({
+  url: '/drivers',
+  key: KEYS.DRIVER_TABLE
+})
+  .then(res => res)
+  .catch(err => {
+    throw new Error(err)
+  })
+
+
+// Constructors
+export const constructors = async () => ergast({
+  url: '/constructors',
+  key: KEYS.CONSTRUCTOR_TABLE
+})
+  .then(res => res)
+  .catch(err => {
+    throw new Error(err)
+  })
+
