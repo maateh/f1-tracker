@@ -5,7 +5,7 @@ const useConstructorsQuery = () => {
   const { constructorId } = useParams()
 
   return useQuery({
-    queryKey: ['listing', 'constructors'],
+    queryKey: ['listing', 'constructorList'],
     queryFn: () => {}
   })
 }

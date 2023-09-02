@@ -5,7 +5,7 @@ const useDriversQuery = () => {
   const { driverId } = useParams()
 
   return useQuery({
-    queryKey: ['listing', 'drivers'],
+    queryKey: ['listing', 'driverList'],
     queryFn: () => {}
   })
 }

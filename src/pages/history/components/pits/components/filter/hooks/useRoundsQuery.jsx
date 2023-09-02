@@ -7,6 +7,7 @@ import { usePitsFilterContext } from "../context/hooks/usePitsFilterContext"
 // models
 import FilterModel from "../../../../../../../model/filter/Filter"
 import FilterSelectorModel from "../../../../../../../model/filter/FilterSelector"
+import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
 
 export const useRoundsQuery = () => {
   const { dispatch } = usePitsFilterContext()
@@ -22,8 +23,8 @@ export const useRoundsQuery = () => {
         filter,
         param: round,
         searchable: true,
-        onChange: (value, { driverId }) => {
-          const route = `./${year}/${value}/${driverId}`
+        onChange: (value) => {
+          const route = `./${year}/${value}/${FilterOptionModel.ALL.value}`
           navigate(route, { replace: true })
         }
       })

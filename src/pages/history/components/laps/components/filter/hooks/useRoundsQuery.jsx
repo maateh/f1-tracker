@@ -7,6 +7,7 @@ import { useLapsFilterContext } from "../context/hooks/useLapsFilterContext"
 // models
 import FilterModel from "../../../../../../../model/filter/Filter"
 import FilterSelectorModel from "../../../../../../../model/filter/FilterSelector"
+import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
 
 export const useRoundsQuery = () => {
   const { dispatch } = useLapsFilterContext()
@@ -22,8 +23,8 @@ export const useRoundsQuery = () => {
         filter,
         param: round,
         searchable: true,
-        onChange: (value, { year, driverId }) => {
-          const pathname = `./${year}/${value}/${driverId}`
+        onChange: (value, { year }) => {
+          const pathname = `./${year}/${value}/${FilterOptionModel.ALL.value}`
           const search = '?page=1'
           navigate({ pathname, search }, { replace: true })
         }

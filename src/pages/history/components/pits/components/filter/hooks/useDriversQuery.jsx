@@ -15,7 +15,7 @@ export const useDriversQuery = () => {
   const navigate = useNavigate()
 
   return useQuery({
-    queryKey: ['filter', 'driverList', year],
+    queryKey: ['filter', 'driverList', year, round],
     queryFn: async () => FilterModel.queryDrivers({ year, round }),
     onSuccess: filter => dispatch({ 
       type: 'SET_DRIVERS', 
