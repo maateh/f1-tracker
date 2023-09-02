@@ -130,7 +130,7 @@ const useRoundPitsQuery = () => {
                 header: 'Pit Duration',
                 accessorKey: 'duration',
                 enableSorting: true,
-                sortingFn: 'default',
+                sortingFn: 'duration',
                 cell: ({ cell: { getValue }}) => 
                   <DurationCell
                     duration={getValue().value}

@@ -41,7 +41,15 @@ const ListingTable = ({ table: { columns, data, pages }}) => {
 					: a.getValue(id).value < b.getValue(id).value ? 1 : -1,
 			grid: (a, b, id) =>
 				+a.getValue(id).value < +b.getValue(id).value ||
-				isNaN(+b.getValue(id).value) ? 1 : -1
+				isNaN(+b.getValue(id).value) ? 1 : -1,
+			duration: (a, b, id) => {
+				if (a.getValue(id).value.includes(':') && b.getValue(id).value.includes(':')) {
+					return a.getValue(id).value < b.getValue(id).value ? 1 : -1
+				}
+				return a.getValue(id).value.includes(':') ? -1
+					: b.getValue(id).value.includes(':') ? 1
+					: a.getValue(id).value < b.getValue(id).value ? 1 : -1
+			}
 		}
 	})
 
