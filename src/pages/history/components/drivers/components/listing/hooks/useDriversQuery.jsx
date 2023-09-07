@@ -9,8 +9,8 @@ import DriverCard from "../components/card/DriverCard"
 // models
 import SeasonModel from '../../../../../../../model/season/Season'
 import ListingModel from '../../../../../../../model/listing/Listing'
-import ListingTitleModel from "../../../../../../../model/listing/ListingTitle"
-import ListingCards from "../../../../../../../model/listing/ListingCards"
+import TitleModel from "../../../../../../../model/listing/ListingTitle"
+import CardsModel from "../../../../../../../model/listing/ListingCards"
 import PaginationModel from "../../../../../../../model/listing/Pagination"
 import QueryError from '../../../../../../../model/error/QueryError'
 
@@ -31,10 +31,10 @@ const useDriversQuery = () => {
         const drivers = SeasonModel.parseDrivers({ Drivers: data.Drivers })
         
         return new ListingModel({
-          title: new ListingTitleModel({
+          title: new TitleModel({
             main: 'Formula 1 Drivers History (1950-)'
           }),
-          cards: new ListingCards({
+          cards: new CardsModel({
             layouts: drivers.map(driver => <DriverCard key={driver.id} driver={driver} />)
           }),
           pagination: new PaginationModel({

@@ -1,6 +1,12 @@
-const ConstructorCard = () => {
+// styles
+// import './ConstructorCard.css'
+
+const ConstructorCard = ({ constructor, lastRef }) => {
   return (
-    <div>ConstructorCard</div>
+    <li className="constructor-card__container" ref={lastRef ? lastRef : undefined}>
+      <h3 className="constructor-name">{constructor.name}</h3>
+      <p className="constructor-nationality">{constructor.nationality}</p>
+    </li>
   )
 }
 

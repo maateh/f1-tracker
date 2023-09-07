@@ -1,10 +1,11 @@
 import { KEYS, ergast } from "../ergast"
 
 // Get a list with all of the constructors in F1
-export async function constructorList() { // TODO: offset
+export async function constructorList(param) {
   return ergast({
     url: `/constructors`,
-    key: KEYS.CONSTRUCTOR_TABLE
+    key: KEYS.CONSTRUCTOR_TABLE,
+    param
   })
     .then(res => res)
     .catch(err => {

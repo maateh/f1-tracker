@@ -1,3 +1,6 @@
+// styles
+// import './DriverCard.css'
+
 const DriverCard = ({ driver, lastRef }) => {
   return (
     <li className="driver-card__container" ref={lastRef ? lastRef : undefined}>
