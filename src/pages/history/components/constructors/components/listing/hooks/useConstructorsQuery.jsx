@@ -37,7 +37,12 @@ const useConstructorsQuery = () => {
             main: 'Formula 1 Constructors History (1950-)'
           }),
           cards: new CardsModel({
-            layouts: constructors.map(constructor => <ConstructorCard key={constructor.id} constructor={constructor} />)
+            layouts: constructors.map(constructor => (
+              <ConstructorCard
+                key={constructor.id}
+                constructor={constructor}
+              />
+            ))
           }),
           pagination: new PaginationModel({
             total: info.total,

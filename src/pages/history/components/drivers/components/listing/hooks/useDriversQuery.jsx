@@ -35,7 +35,12 @@ const useDriversQuery = () => {
             main: 'Formula 1 Drivers History (1950-)'
           }),
           cards: new CardsModel({
-            layouts: drivers.map(driver => <DriverCard key={driver.id} driver={driver} />)
+            layouts: drivers.map(driver => (
+              <DriverCard
+                key={driver.id}
+                driver={driver}
+              />
+            ))
           }),
           pagination: new PaginationModel({
             total: info.total,
