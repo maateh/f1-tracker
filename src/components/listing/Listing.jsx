@@ -19,7 +19,7 @@ const Listing = ({ listing, loading, isError, error }) => {
 					{listing.title && <ListingTitle title={listing.title} />}
 					{listing.cards && <ListingCards cards={listing.cards} />}
 					{listing.table && <ListingTable table={listing.table} />}
-					{listing.pages && <Pagination pages={listing.pages} />}
+					{listing.pageQuantity && <Pagination pages={listing.pageQuantity} />}
 				</>
 			)}
 		</div>

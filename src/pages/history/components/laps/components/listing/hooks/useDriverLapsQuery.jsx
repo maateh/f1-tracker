@@ -139,7 +139,7 @@ const useDriverLapsQuery = () => {
                 gap: gap(lap.timings[0], laps, index)
               }
             })),
-            pages: +pages
+            pageQuantity: +pages
           })
         })
       })

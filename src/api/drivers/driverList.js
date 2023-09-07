@@ -1,10 +1,11 @@
 import { KEYS, ergast } from "../ergast"
 
 // Get a list with all of the drivers in F1
-export async function driverList() { // TODO: offset
+export async function driverList(params) { // TODO: offset
   return ergast({
     url: `/drivers`,
-    key: KEYS.DRIVER_TABLE
+    key: KEYS.DRIVER_TABLE,
+    params
   })
     .then(res => res)
     .catch(err => {

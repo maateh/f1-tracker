@@ -53,19 +53,19 @@ class Weekend {
 			})
 	}
 
-	static parser({ Race }) {
+	static parser({ Race: weekend }) {
 		return new Weekend({
-			round: Race.round,
-			year: Race.season,
-			name: Race.raceName,
-			wiki: Race.url,
-			date: Race.date,
-			time: Race.time,
-			circuit: Circuit.parser({ Circuit: Race.Circuit }),
-			sessions: SessionList.parser({ Race }),
-			results: this.#parseResults({ Race }),
-			laps: this.#parseLaps({ Laps: Race.Laps }),
-			pits: this.#parsePits({ PitStops: Race.PitStops })
+			round: weekend.round,
+			year: weekend.season,
+			name: weekend.raceName,
+			wiki: weekend.url,
+			date: weekend.date,
+			time: weekend.time,
+			circuit: Circuit.parser({ Circuit: weekend.Circuit }),
+			sessions: SessionList.parser({ Race: weekend }),
+			results: this.#parseResults({ Race: weekend }),
+			laps: this.#parseLaps({ Laps: weekend.Laps }),
+			pits: this.#parsePits({ PitStops: weekend.PitStops })
 		})
 	}
 

@@ -25,10 +25,10 @@ class Season {
 		return new Season({
 			year: season.season,
 			wiki: this.#parseWiki({ Url: season.url }),
-			weekends: this.#parseWeekends({ Races: season.Races }),
-			standings: this.#parseStandings({ StandingsLists: season.StandingsLists }),
-			drivers: this.#parseDrivers({ Drivers: season.Drivers }),
-			constructors: this.#parseConstructors({ Constructors: season.Constructors }),
+			weekends: this.parseWeekends({ Races: season.Races }),
+			standings: this.parseStandings({ StandingsLists: season.StandingsLists }),
+			drivers: this.parseDrivers({ Drivers: season.Drivers }),
+			constructors: this.parseConstructors({ Constructors: season.Constructors }),
 		})
 	}
 
@@ -36,25 +36,25 @@ class Season {
 		if (url) return url
 	}
 
-	static #parseWeekends({ Races: weekends }) {
+	static parseWeekends({ Races: weekends }) {
 		if (weekends && weekends.length) {
 		  return weekends.map(weekend => Weekend.parser({ Race: weekend }))
 		}
 	}
 
-	static #parseStandings({ StandingsLists: standingsLists }) {
+	static parseStandings({ StandingsLists: standingsLists }) {
     if (standingsLists && standingsLists.length) {
       return StandingsList.parser({ StandingsList: standingsLists[0] })
     }
 	}
 
-	static #parseDrivers({ Drivers: drivers }) {
+	static parseDrivers({ Drivers: drivers }) {
 		if (drivers && drivers.length) {
 			return drivers.map(driver => Driver.parser({ Driver: driver }))
 		}
 	}
 
-	static #parseConstructors({ Constructors: constructors }) {
+	static parseConstructors({ Constructors: constructors }) {
 		if (constructors && constructors.length) {
 			return constructors.map(constructor => Constructor.parser({ Constructor: constructor }))
 		}

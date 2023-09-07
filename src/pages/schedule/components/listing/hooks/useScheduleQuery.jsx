@@ -16,7 +16,7 @@ import ListingTitleModel from "../../../../../model/listing/ListingTitle"
 import ListingCardsModel from "../../../../../model/listing/ListingCards"
 import QueryError from "../../../../../model/error/QueryError"
 
-export const useScheduleQuery = () => {
+const useScheduleQuery = () => {
   const { year } = useParams()
 
   return useQuery({
@@ -26,7 +26,7 @@ export const useScheduleQuery = () => {
       WeekendModel.queryNext()
     ])
       .then(([{ data }, nextWeekend]) => {
-        const { weekends } = SeasonModel.parser({ Season: data })
+        const weekends = SeasonModel.parseWeekends({ Races: data.Races })
         
         return new ListingModel({
           title: new ListingTitleModel({
@@ -53,3 +53,5 @@ export const useScheduleQuery = () => {
       })
   })
 }
+
+export default useScheduleQuery

@@ -14,14 +14,14 @@ import Pagination from '../pagination/Pagination'
 // styles
 import './ListingTable.css'
 
-const ListingTable = ({ table: { columns, data, pages }}) => {
+const ListingTable = ({ table: { columns, data, pageQuantity }}) => {
 	const [sorting, setSorting] = useState([])
 
 	const table = useReactTable({
 		columns,
 		data,
 		getCoreRowModel: getCoreRowModel(),
-		getPaginationRowModel: pages && getPaginationRowModel(),
+		getPaginationRowModel: pageQuantity && getPaginationRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 		onSortingChange: setSorting,
 		initialState: {
@@ -62,7 +62,7 @@ const ListingTable = ({ table: { columns, data, pages }}) => {
 				</table>
 			</div>
 			
-			{pages && <Pagination pages={pages} table={table} />}
+			{pageQuantity && <Pagination pages={pageQuantity} table={table} />}
 		</>
 	)
 }

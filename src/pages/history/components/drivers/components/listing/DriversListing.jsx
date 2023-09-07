@@ -1,24 +1,60 @@
+import React, { useCallback, useRef } from "react"
+
 // hooks
 import useDriversQuery from "./hooks/useDriversQuery"
 
 // components
-import Listing from "../../../../../../components/listing/Listing"
+import ListingTitle from "../../../../../../components/listing/title/ListingTitle"
+import ListingCards from "../../../../../../components/listing/cards/ListingCards"
+import LoadingHandler from "../../../../../../components/loading/LoadingHandler"
 
 const DriversListing = () => {
 	const { 
-    data: listing,
-    isLoading: loading,
-    isError,
+    data,
+    fetchNextPage,
+    hasNextPage,
+		isFetchingNextPage,
+		isError,
     error
   } = useDriversQuery()
 
+	const observer = useRef()
+	const lastRef = useCallback(card => {
+		if (isFetchingNextPage) return
+		if (observer.current) observer.current.disconnect()
+
+		observer.current = new IntersectionObserver(cards => {
+			if (cards[0].isIntersecting && hasNextPage) {
+				fetchNextPage()
+			}
+		})
+		
+		if (card) observer.current.observe(card)
+	}, [isFetchingNextPage, fetchNextPage, hasNextPage])
+
 	return (
-		<Listing 
-			listing={listing}
-			loading={loading}
-			isError={isError}
-			error={error}
-		/>
+		<div className="listing__container">
+			{data?.pages && data.pages.length && (
+				<>
+					<ListingTitle title={data.pages[0].title} />
+
+					{data.pages.map(page => (
+						<ListingCards
+							key={page.pagination.currentPage}
+							cards={page.cards}
+							lastIndex={page.pagination.limit}
+							lastRef={lastRef}
+						/>
+					))}
+				</>
+			)}
+
+			<LoadingHandler
+				isLoading={isFetchingNextPage}
+				isError={isError}
+				error={error}
+			/>
+		</div>
 	)
 }
 

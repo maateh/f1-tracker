@@ -152,7 +152,7 @@ const useRoundPitsQuery = () => {
                 gap: gap(pit, fastestPit)
               }
             })),
-            pages: +pages
+            pageQuantity: +pages
           })
         })
       })

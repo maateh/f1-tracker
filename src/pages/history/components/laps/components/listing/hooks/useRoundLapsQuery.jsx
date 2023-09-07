@@ -144,7 +144,7 @@ const useRoundLapsQuery = () => {
               time: { value: timing.time, gap: gap(currentLap, timing.driverId) },
             }))
           }),
-          pages: +pages
+          pageQuantity: +pages
         })
       })
       .catch(err => {
