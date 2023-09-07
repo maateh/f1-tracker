@@ -12,9 +12,9 @@ import LinkingTableCell from '../../../../../../components/listing/table/cell/Li
 // models
 import WeekendModel from '../../../../../../model/season/weekend/Weekend'
 import ListingModel from "../../../../../../model/listing/Listing"
-import ListingTitleModel from "../../../../../../model/listing/ListingTitle"
-import ListingCardsModel from "../../../../../../model/listing/ListingCards"
-import ListingTableModel from "../../../../../../model/listing/ListingTable"
+import TitleModel from "../../../../../../model/listing/ListingTitle"
+import CardsModel from "../../../../../../model/listing/ListingCards"
+import TableModel from "../../../../../../model/listing/ListingTable"
 import QueryError from "../../../../../../model/error/QueryError"
 
 // icons
@@ -42,10 +42,10 @@ const useWeekendQualifyingQuery = () => {
         } = WeekendModel.parser({ Race: data.Races[0] })
 
         return new ListingModel({
-          title: new ListingTitleModel({
+          title: new TitleModel({
             main: `${year} ${name} Qualifying Results`
           }),
-          cards: new ListingCardsModel({
+          cards: new CardsModel({
             styles: {
               margin: '2rem',
               display: 'flex',
@@ -63,7 +63,7 @@ const useWeekendQualifyingQuery = () => {
               },
             ].map(card => <ResultsCard key={card.title} card={card} />)
           }),
-          table: new ListingTableModel({
+          table: new TableModel({
             columns: [
               {
                 header: 'Position',

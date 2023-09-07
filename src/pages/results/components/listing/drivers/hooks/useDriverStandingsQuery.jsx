@@ -12,8 +12,8 @@ import PointsCell from '../../components/table/PointsCell'
 // models
 import SeasonModel from "../../../../../../model/season/Season"
 import ListingModel from "../../../../../../model/listing/Listing"
-import ListingTitleModel from "../../../../../../model/listing/ListingTitle"
-import ListingTableModel from "../../../../../../model/listing/ListingTable"
+import TitleModel from "../../../../../../model/listing/ListingTitle"
+import TableModel from "../../../../../../model/listing/ListingTable"
 import QueryError from "../../../../../../model/error/QueryError"
 
 const useDriverStandingsQuery = () => {
@@ -30,10 +30,10 @@ const useDriverStandingsQuery = () => {
         }
   
         return new ListingModel({
-          title: new ListingTitleModel({
+          title: new TitleModel({
             main: `${year} Driver Standings`
           }),
-          table: new ListingTableModel({
+          table: new TableModel({
             columns: [
               {
                 header: 'Position',

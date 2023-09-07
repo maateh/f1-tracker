@@ -2,23 +2,35 @@
 import useDriverPitsQuery from "./hooks/useDriverPitsQuery"
 
 // components
-import Listing from "../../../../../../components/listing/Listing"
+import Title from '../../../../../../components/listing/title/ListingTitle'
+import Cards from '../../../../../../components/listing/cards/ListingCards'
+import Table from '../../../../../../components/listing/table/ListingTable'
+import LoadingHandler from '../../../../../../components/loading/LoadingHandler'
 
 const DriverPitsListing = () => {
 	const { 
     data: listing,
-    isLoading: loading,
+    isLoading,
     isError,
     error
   } = useDriverPitsQuery()
 
 	return (
-		<Listing 
-			listing={listing}
-			loading={loading}
-			isError={isError}
-			error={error}
-		/>
+		<div className="listing__container">
+			<LoadingHandler
+				isLoading={isLoading}
+				isError={isError}
+				error={error}
+			/>
+
+			{listing && (
+				<>
+					<Title title={listing.title} />
+					<Cards cards={listing.cards} />
+					<Table table={listing.table} />
+				</>
+			)}
+		</div>
 	)
 }
 

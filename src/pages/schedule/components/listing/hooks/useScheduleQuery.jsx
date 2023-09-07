@@ -28,24 +28,19 @@ const useScheduleQuery = () => {
       .then(([{ data }, nextWeekend]) => {
         const weekends = SeasonModel.parseWeekends({ Races: data.Races })
         
-        return new ListingModel({
-          title: new ListingTitleModel({
-            layout: <ScheduleTitle />
-          }),
-          cards: new ListingCardsModel({
-            styles: {
-              margin: '2rem 4rem',
-              display: 'grid',
-              gap: '4rem'
-            },
-            layouts: weekends.map(weekend => (
-              <WeekendCard
-                key={weekend.round}
-                weekend={weekend}
-                nextWeekend={nextWeekend}
-              />
-            ))
-          })
+        return new ListingCardsModel({
+          styles: {
+            margin: '2rem 4rem',
+            display: 'grid',
+            gap: '4rem'
+          },
+          layouts: weekends.map(weekend => (
+            <WeekendCard
+              key={weekend.round}
+              weekend={weekend}
+              nextWeekend={nextWeekend}
+            />
+          ))
         })
       })
       .catch(err => {

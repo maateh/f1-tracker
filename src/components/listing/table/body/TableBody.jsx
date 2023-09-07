@@ -1,7 +1,7 @@
 import { flexRender } from '@tanstack/react-table'
 
 // styles
-import '../ListingTable.css'
+import '../Table.css'
 
 const TableBody = ({ rows }) => {
   return (

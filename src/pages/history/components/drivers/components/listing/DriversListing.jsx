@@ -4,8 +4,8 @@ import React, { useCallback, useRef } from "react"
 import useDriversQuery from "./hooks/useDriversQuery"
 
 // components
-import ListingTitle from "../../../../../../components/listing/title/ListingTitle"
-import ListingCards from "../../../../../../components/listing/cards/ListingCards"
+import Title from "../../../../../../components/listing/title/ListingTitle"
+import Cards from "../../../../../../components/listing/cards/ListingCards"
 import LoadingHandler from "../../../../../../components/loading/LoadingHandler"
 
 const DriversListing = () => {
@@ -36,10 +36,10 @@ const DriversListing = () => {
 		<div className="listing__container">
 			{data?.pages && data.pages.length && (
 				<>
-					<ListingTitle title={data.pages[0].title} />
+					<Title title={data.pages[0].title} />
 
 					{data.pages.map(page => (
-						<ListingCards
+						<Cards
 							key={page.pagination.currentPage}
 							cards={page.cards}
 							lastIndex={page.pagination.limit}

@@ -4,7 +4,7 @@ import { flexRender } from '@tanstack/react-table'
 import TableSorting from './TableSorting'
 
 // styles
-import '../ListingTable.css'
+import '../Table.css'
 
 const TableHead = ({ headerGroups }) => {
   return (

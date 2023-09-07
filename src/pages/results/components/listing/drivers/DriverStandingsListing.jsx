@@ -2,24 +2,34 @@
 import useDriverStandingsQuery from "./hooks/useDriverStandingsQuery"
 
 // components
-import Listing from "../../../../../components/listing/Listing"
+import Title from '../../../../../components/listing/title/ListingTitle'
+import Table from '../../../../../components/listing/table/ListingTable'
+import LoadingHandler from '../../../../../components/loading/LoadingHandler'
 
 const DriverStandingsListing = () => {
   const {
     data: listing,
-    isLoading: loading,
+    isLoading,
     isError,
     error
   } = useDriverStandingsQuery()
 
-  return (
-    <Listing
-      listing={listing}
-      loading={loading}
-      isError={isError}
-      error={error}
-    />
-  )
+	return (
+		<div className="listing__container">
+			<LoadingHandler
+				isLoading={isLoading}
+				isError={isError}
+				error={error}
+			/>
+
+			{listing && (
+				<>
+					<Title title={listing.title} />
+					<Table table={listing.table} />
+				</>
+			)}
+		</div>
+	)
 }
 
 export default DriverStandingsListing

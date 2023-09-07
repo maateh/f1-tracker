@@ -1,14 +1,14 @@
-import React from 'react'
+import { cloneElement } from 'react'
 
 // styles
-import './ListingCards.css'
+import './Cards.css'
 
 const ListingCards = ({ cards: { styles, layouts }, lastIndex, lastRef }) => {
   return (
-    <ul className="listing-cards__container" style={styles}>
+    <ul className="cards__container" style={styles}>
       {layouts.map((layout, index) => {
         return index + 1 === lastIndex
-          ? React.cloneElement(layout, { lastRef })
+          ? cloneElement(layout, { lastRef })
           : layout
       })}
     </ul>

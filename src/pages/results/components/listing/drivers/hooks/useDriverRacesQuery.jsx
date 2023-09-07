@@ -15,9 +15,9 @@ import PointsCell from '../../components/table/PointsCell'
 // models
 import SeasonModel from "../../../../../../model/season/Season"
 import ListingModel from "../../../../../../model/listing/Listing"
-import ListingTitleModel from "../../../../../../model/listing/ListingTitle"
-import ListingCardsModel from "../../../../../../model/listing/ListingCards"
-import ListingTableModel from "../../../../../../model/listing/ListingTable"
+import TitleModel from "../../../../../../model/listing/ListingTitle"
+import CardsModel from "../../../../../../model/listing/ListingCards"
+import TableModel from "../../../../../../model/listing/ListingTable"
 import QueryError from "../../../../../../model/error/QueryError"
 
 // icons
@@ -25,12 +25,10 @@ import SportsMotorsportsIcon from '@mui/icons-material/SportsMotorsports'
 import PublicIcon from '@mui/icons-material/Public'
 import CakeIcon from '@mui/icons-material/Cake'
 import TagIcon from '@mui/icons-material/Tag'
-
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import CelebrationIcon from '@mui/icons-material/Celebration'
 import BoltIcon from '@mui/icons-material/Bolt'
 import PlusOneIcon from '@mui/icons-material/PlusOne'
-
 import SportsScoreIcon from '@mui/icons-material/SportsScore'
 import Timer10SelectIcon from '@mui/icons-material/Timer10Select'
 import ErrorIcon from '@mui/icons-material/Error'
@@ -52,11 +50,11 @@ const useDriverRacesQuery = () => {
         const driver = getDriver(weekends)
 
         return new ListingModel({
-          title: new ListingTitleModel({
+          title: new TitleModel({
             main: `${year} Race Results`,
             sub: `Selected Driver | ${driver.fullName} ${driver.formattedNumber}`
           }),
-          cards: new ListingCardsModel({
+          cards: new CardsModel({
             styles: {
               margin: '2rem',
               display: 'flex',
@@ -140,7 +138,7 @@ const useDriverRacesQuery = () => {
               },
             ].map(card => <ResultsCard key={card.title} card={card} />)
           }),
-          table: new ListingTableModel({
+          table: new TableModel({
             columns: [
               {
                 header: 'Round',

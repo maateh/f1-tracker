@@ -2,24 +2,34 @@
 import useConstructorStandingsQuery from "./hooks/useConstructorStandingsQuery"
 
 // components
-import Listing from "../../../../../components/listing/Listing"
+import Title from '../../../../../components/listing/title/ListingTitle'
+import Table from '../../../../../components/listing/table/ListingTable'
+import LoadingHandler from '../../../../../components/loading/LoadingHandler'
 
 const ConstructorStandingsListing = () => {
   const {
     data: listing,
-    isLoading: loading,
+    isLoading,
     isError,
     error
   } = useConstructorStandingsQuery()
 
-  return (
-    <Listing
-      listing={listing}
-      loading={loading}
-      isError={isError}
-      error={error}
-    />
-  )
+	return (
+		<div className="listing__container">
+			<LoadingHandler
+				isLoading={isLoading}
+				isError={isError}
+				error={error}
+			/>
+
+			{listing && (
+				<>
+					<Title title={listing.title} />
+					<Table table={listing.table} />
+				</>
+			)}
+		</div>
+	)
 }
 
 export default ConstructorStandingsListing

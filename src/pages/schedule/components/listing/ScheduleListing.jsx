@@ -2,14 +2,13 @@
 import useScheduleQuery from "./hooks/useScheduleQuery"
 
 // components
-import Listing from "../../../../components/listing/Listing"
-import LoadingHandler from "../../../../components/loading/LoadingHandler"
 import ScheduleTitle from "./components/title/ScheduleTitle"
-import ListingCards from "../../../../components/listing/cards/ListingCards"
+import Cards from "../../../../components/listing/cards/ListingCards"
+import LoadingHandler from "../../../../components/loading/LoadingHandler"
 
 const ScheduleListing = () => {
   const {
-    data: listing,
+    data: cards,
     isLoading,
     isError,
     error
@@ -23,10 +22,10 @@ const ScheduleListing = () => {
         error={error}
       />
 
-      {listing && (
+      {cards && (
         <>
           <ScheduleTitle />
-          <ListingCards cards={listing.cards} />
+          <Cards cards={cards} />
         </>
       )}
     </div>

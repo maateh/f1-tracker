@@ -13,9 +13,9 @@ import CircuitCell from "../../components/table/CircuitCell"
 // models
 import SeasonModel from "../../../../../../model/season/Season"
 import ListingModel from "../../../../../../model/listing/Listing"
-import ListingTitleModel from "../../../../../../model/listing/ListingTitle"
-import ListingCardsModel from "../../../../../../model/listing/ListingCards"
-import ListingTableModel from "../../../../../../model/listing/ListingTable"
+import TitleModel from "../../../../../../model/listing/ListingTitle"
+import CardsModel from "../../../../../../model/listing/ListingCards"
+import TableModel from "../../../../../../model/listing/ListingTable"
 import QueryError from "../../../../../../model/error/QueryError"
 
 // icons
@@ -44,11 +44,11 @@ const useDriverQualifyingsQuery = () => {
         const driver = getDriver(weekends)
   
         return new ListingModel({
-          title: new ListingTitleModel({
+          title: new TitleModel({
             main: `${year} Qualifying Results`,
             sub: `Selected Driver | ${driver.fullName} ${driver.formattedNumber}`
           }),
-          cards: new ListingCardsModel({
+          cards: new CardsModel({
             styles: {
               margin: '2rem',
               display: 'flex',
@@ -108,7 +108,7 @@ const useDriverQualifyingsQuery = () => {
               },
             ].map(card => <ResultsCard key={card.title} card={card} />)
           }),
-          table: new ListingTableModel({
+          table: new TableModel({
             columns: [
               {
                 header: 'Round',

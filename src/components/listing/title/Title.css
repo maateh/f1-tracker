@@ -1,5 +1,5 @@
 /* LISTING TITLE */
-.listing-title__container {
+.title__container {
   margin: 2rem auto;
   display: flex;
   flex-direction: column;
@@ -7,7 +7,7 @@
   align-items: center;
 }
 
-.listing-title__container > h2.listing-title-main {
+.title__container > h2.title-main {
   width: 100%;
   padding: 0.7rem 0;
 
@@ -22,7 +22,7 @@
   letter-spacing: 2px;
 }
 
-.listing-title__container > h3.listing-title-sub {
+.title__container > h3.title-sub {
   margin: 1rem 2rem;
   padding: 0.5rem 2.5rem;
 
@@ -38,18 +38,18 @@
 }
 
 @media (max-width: 40rem) {
-  .listing-title__container > h2.listing-title-main {
+  .title__container > h2.title-main {
     font-size: 1.8rem;
   }
 
-  .listing-title__container > h3.listing-title-sub {
+  .title__container > h3.title-sub {
     font-size: 1.1rem;
     padding: 0.5rem 1.2rem;
   }
 }
 
 @media (min-width: 121rem) {
-  .listing-title__container > h2.listing-title-main {
+  .title__container > h2.title-main {
     border-radius: 16px;
   }
 }

@@ -15,9 +15,10 @@ import TimeCell from '../components/table/TimeCell'
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
 import RaceModel from "../../../../../../../model/season/weekend/results/race/Race"
 import ListingModel from "../../../../../../../model/listing/Listing"
-import ListingTitleModel from "../../../../../../../model/listing/ListingTitle"
-import ListingCardsModel from "../../../../../../../model/listing/ListingCards"
-import ListingTableModel from "../../../../../../../model/listing/ListingTable"
+import TitleModel from "../../../../../../../model/listing/ListingTitle"
+import CardsModel from "../../../../../../../model/listing/ListingCards"
+import TableModel from "../../../../../../../model/listing/ListingTable"
+import PaginationModel from "../../../../../../../model/listing/Pagination"
 import QueryError from "../../../../../../../model/error/QueryError"
 
 // icons
@@ -42,18 +43,16 @@ const useDriverLapsQuery = () => {
           throw new QueryError('No data found!', 404)
         }
   
-        const { year, round, name, laps } = WeekendModel.parser({ Race: lapsData.Races[0] })
-        const pages = Math.ceil(info.total / 20)
-        
+        const { year, round, name, laps } = WeekendModel.parser({ Race: lapsData.Races[0] })        
         const result = RaceModel.parser({ Result: resultsData.Races[0].Results[0] })
         const { driver } = result
 
         return new ListingModel({
-          title: new ListingTitleModel({
+          title: new TitleModel({
             main: `${year} ${name} Lap Timings`,
             sub: `Selected Driver | ${driver.fullName}`
           }),
-          cards: new ListingCardsModel({
+          cards: new CardsModel({
             styles: {
               margin: '2rem',
               display: 'flex',
@@ -90,7 +89,7 @@ const useDriverLapsQuery = () => {
               ]
             }].map(card => <SummaryCard key={card.title} card={card} />)
           }),
-          table: new ListingTableModel({
+          table: new TableModel({
             columns: [
               {
                 header: 'Lap',
@@ -139,7 +138,9 @@ const useDriverLapsQuery = () => {
                 gap: gap(lap.timings[0], laps, index)
               }
             })),
-            pageQuantity: +pages
+            pagination: new PaginationModel({
+              pageQuantity: Math.ceil(info.total / 20)
+            })
           })
         })
       })

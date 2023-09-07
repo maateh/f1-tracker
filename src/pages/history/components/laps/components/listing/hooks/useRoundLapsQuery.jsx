@@ -15,9 +15,9 @@ import TimeCell from "../components/table/TimeCell"
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
 import ResultsModel from "../../../../../../../model/season/weekend/results/Results"
 import ListingModel from "../../../../../../../model/listing/Listing"
-import ListingTitleModel from "../../../../../../../model/listing/ListingTitle"
-import ListingCardsModel from "../../../../../../../model/listing/ListingCards"
-import ListingTableModel from "../../../../../../../model/listing/ListingTable"
+import TitleModel from "../../../../../../../model/listing/ListingTitle"
+import CardsModel from "../../../../../../../model/listing/ListingCards"
+import TableModel from "../../../../../../../model/listing/ListingTable"
 import QueryError from "../../../../../../../model/error/QueryError"
 
 // icons
@@ -26,6 +26,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import SpeedIcon from '@mui/icons-material/Speed'
 import AvTimerIcon from '@mui/icons-material/AvTimer'
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp'
+import PaginationModel from "../../../../../../../model/listing/Pagination"
 
 const useRoundLapsQuery = () => {
   const { year, round } = useParams()
@@ -44,7 +45,6 @@ const useRoundLapsQuery = () => {
           throw new QueryError('No data found!', 404)
         }
         
-        const pages = +resultsData.Races[0].Results[0].laps
         const {
 					year,
 					round,
@@ -55,11 +55,11 @@ const useRoundLapsQuery = () => {
         const prevLap = prevLapData && WeekendModel.parser({ Race: prevLapData.Races[0] }).laps[0]
   
         return new ListingModel({
-          title: new ListingTitleModel({
+          title: new TitleModel({
             main: `${year} ${name} Lap Timings`,
             sub: `Selected Lap | #${currentLap.number}`
           }),
-          cards: new ListingCardsModel({
+          cards: new CardsModel({
             styles: {
               margin: '2rem',
               display: 'flex',
@@ -96,7 +96,7 @@ const useRoundLapsQuery = () => {
               ]
             }].map(card => <SummaryCard key={card.title} card={card} />)
           }),
-          table: new ListingTableModel({
+          table: new TableModel({
             columns: [
               {
                 header: 'Position',
@@ -144,7 +144,9 @@ const useRoundLapsQuery = () => {
               time: { value: timing.time, gap: gap(currentLap, timing.driverId) },
             }))
           }),
-          pageQuantity: +pages
+          pagination: new PaginationModel({
+            pageQuantity: resultsData.Races[0].Results[0].laps
+          })
         })
       })
       .catch(err => {

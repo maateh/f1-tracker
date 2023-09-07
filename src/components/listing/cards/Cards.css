@@ -1,4 +1,4 @@
-.listing-cards__container {
+.cards__container {
   flex-flow: row wrap;
   grid-template-columns: repeat(3, 1fr);
 
@@ -8,13 +8,13 @@
 }
 
 @media (max-width: 95rem) {
-  .listing-cards__container {
+  .cards__container {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 60rem) {
-  .listing-cards__container {
+  .cards__container {
     grid-template-columns: 1fr;
   }
 }

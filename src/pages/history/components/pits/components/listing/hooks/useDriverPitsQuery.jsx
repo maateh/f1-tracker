@@ -15,9 +15,9 @@ import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
 import DriverModel from "../../../../../../../model/season/weekend/results/driver/Driver"
 import PitStopModel from "../../../../../../../model/season/weekend/pit/PitStop"
 import ListingModel from "../../../../../../../model/listing/Listing"
-import ListingTitleModel from "../../../../../../../model/listing/ListingTitle"
-import ListingCardsModel from "../../../../../../../model/listing/ListingCards"
-import ListingTableModel from "../../../../../../../model/listing/ListingTable"
+import TitleModel from "../../../../../../../model/listing/ListingTitle"
+import CardsModel from "../../../../../../../model/listing/ListingCards"
+import TableModel from "../../../../../../../model/listing/ListingTable"
 import QueryError from "../../../../../../../model/error/QueryError"
 
 // icons
@@ -44,11 +44,11 @@ const useDriverPitsQuery = () => {
         const fastestPit = getFastestPit(pits)
   
         return new ListingModel({
-          title: new ListingTitleModel({
+          title: new TitleModel({
             main: `${year} ${name} Pit Stops`,
             sub: `Selected Driver | ${fullName}`
           }),
-          cards: new ListingCardsModel({
+          cards: new CardsModel({
             styles: {
               margin: '2rem',
               display: 'flex',
@@ -70,7 +70,7 @@ const useDriverPitsQuery = () => {
               ]
             }].map(card => <SummaryCard key={card.title} card={card} />)
           }),
-          table: new ListingTableModel({
+          table: new TableModel({
             columns: [
               {
                 placeholder: 'Exact Time',

@@ -12,16 +12,16 @@ import TableBody from './body/TableBody'
 import Pagination from '../pagination/Pagination'
 
 // styles
-import './ListingTable.css'
+import './Table.css'
 
-const ListingTable = ({ table: { columns, data, pageQuantity }}) => {
+const ListingTable = ({ table: { columns, data, pagination }}) => {
 	const [sorting, setSorting] = useState([])
 
 	const table = useReactTable({
 		columns,
 		data,
 		getCoreRowModel: getCoreRowModel(),
-		getPaginationRowModel: pageQuantity && getPaginationRowModel(),
+		getPaginationRowModel: pagination && getPaginationRowModel(),
 		getSortedRowModel: getSortedRowModel(),
 		onSortingChange: setSorting,
 		initialState: {
@@ -55,14 +55,14 @@ const ListingTable = ({ table: { columns, data, pageQuantity }}) => {
 
 	return (
 		<>
-			<div className="listing-table__container">
+			<div className="table__container">
 				<table>
 					<TableHead headerGroups={table.getHeaderGroups()} />
 					<TableBody rows={table.getRowModel().rows} />
 				</table>
 			</div>
 			
-			{pageQuantity && <Pagination pages={pageQuantity} table={table} />}
+			{pagination && <Pagination pages={pagination.pageQuantity} table={table} />}
 		</>
 	)
 }

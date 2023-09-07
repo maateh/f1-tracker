@@ -16,9 +16,10 @@ import SeasonModel from "../../../../../../../model/season/Season"
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
 import PitStopModel from "../../../../../../../model/season/weekend/pit/PitStop"
 import ListingModel from "../../../../../../../model/listing/Listing"
-import ListingTitleModel from "../../../../../../../model/listing/ListingTitle"
-import ListingCardsModel from "../../../../../../../model/listing/ListingCards"
-import ListingTableModel from "../../../../../../../model/listing/ListingTable"
+import TitleModel from "../../../../../../../model/listing/ListingTitle"
+import CardsModel from "../../../../../../../model/listing/ListingCards"
+import TableModel from "../../../../../../../model/listing/ListingTable"
+import PaginationModel from "../../../../../../../model/listing/Pagination"
 import QueryError from "../../../../../../../model/error/QueryError"
 
 // icons
@@ -44,15 +45,13 @@ const useRoundPitsQuery = () => {
 					Race: pitsData.Races[0],
 				})
         const { drivers } = SeasonModel.parser({ Season: driversData })
-        const pages = Math.ceil(info.total / 20)
-
         const fastestPit = getFastestPit(pits)
   
         return new ListingModel({
-          title: new ListingTitleModel({
+          title: new TitleModel({
             main: `${year} ${name} Pit Stops`
           }),
-          cards: new ListingCardsModel({
+          cards: new CardsModel({
             styles: {
               margin: '2rem',
               display: 'flex',
@@ -79,7 +78,7 @@ const useRoundPitsQuery = () => {
               ]
             }].map(card => <SummaryCard key={card.title} card={card} />)
           }),
-          table: new ListingTableModel({
+          table: new TableModel({
             columns: [
               {
                 header: 'Exact Time',
@@ -152,7 +151,9 @@ const useRoundPitsQuery = () => {
                 gap: gap(pit, fastestPit)
               }
             })),
-            pageQuantity: +pages
+            pagination: new PaginationModel({
+              pageQuantity: Math.ceil(info.total / 20)
+            })
           })
         })
       })
