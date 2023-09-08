@@ -16,6 +16,8 @@ import DriversHistory from './pages/history/components/drivers/DriversHistory'
 import DriversListing from './pages/history/components/drivers/components/listing/DriversListing'
 import ConstructorsHistory from './pages/history/components/constructors/ConstructorsHistory'
 import ConstructorsListing from './pages/history/components/constructors/components/listing/ConstructorsListing'
+import DriverProfile from './pages/profile/driver/DriverProfile'
+import ConstructorProfile from './pages/profile/constructor/ConstructorProfile'
 
 import Loader from './components/loader/Loader'
 import NotFound from './components/error/NotFound'
@@ -112,10 +114,6 @@ const router = createBrowserRouter([
               }
             ]
           },
-          // {
-          //   path: "driver/:id",
-          //   element: <DriverInfo />
-          // },
           {
             path: "constructors",
             element: <ConstructorsHistory />,
@@ -126,10 +124,19 @@ const router = createBrowserRouter([
               }
             ]
           },
-          // {
-          //   path: "constructor/:id",
-          //   element: <ConstructorInfo />
-          // },
+        ]
+      },
+      {
+        path: "profile",
+        children: [
+          {
+            path: "driver/:id",
+            element: <DriverProfile />
+          },
+          {
+            path: "constructor/:id",
+            element: <ConstructorProfile />
+          },
         ]
       },
       {
