@@ -10,8 +10,12 @@ import ResultsPage from './pages/results/ResultsPage'
 import HistoryPage from './pages/history/HistoryPage'
 import LapsHistory from './pages/history/components/laps/LapsHistory'
 import PitsHistory from './pages/history/components/pits/PitsHistory'
+
 import DriversHistory from './pages/history/components/drivers/DriversHistory'
+import DriversListing from './pages/history/components/drivers/components/listing/DriversListing'
+
 import ConstructorsHistory from './pages/history/components/constructors/ConstructorsHistory'
+import ConstructorsListing from './pages/history/components/constructors/components/listing/ConstructorsListing'
 
 import Loader from './components/loader/Loader'
 import NotFound from './components/error/NotFound'
@@ -103,23 +107,31 @@ const router = createBrowserRouter([
           {
             path: "drivers",
             element: <DriversHistory />,
-            // children: [
-            //   {
-            //     path: ":driverId",
-            //     element: <DriverInfo />
-            //   }
-            // ]
+            children: [
+              {
+                path: ":year",
+                element: <DriversListing />
+              }
+            ]
           },
+          // {
+          //   path: "driver/:id",
+          //   element: <DriverInfo />
+          // },
           {
             path: "constructors",
             element: <ConstructorsHistory />,
-            // children: [
-            //   {
-            //     path: ":constructorId",
-            //     element: <ConstructorInfo />
-            //   }
-            // ]
+            children: [
+              {
+                path: ":year",
+                element: <ConstructorsListing />
+              }
+            ]
           },
+          // {
+          //   path: "constructor/:id",
+          //   element: <ConstructorInfo />
+          // },
         ]
       },
       {

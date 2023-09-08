@@ -1,5 +1,5 @@
 // styles
-// import './DriverCard.css'
+import './DriverCard.css'
 
 const DriverCard = ({ driver, lastRef }) => {
   return (

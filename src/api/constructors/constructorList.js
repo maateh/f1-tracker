@@ -14,10 +14,11 @@ export async function constructorList(params) {
 }
   
 // Get a list with all of the constructor from a specific season
-export async function constructorListFromSeason(year) {
+export async function constructorListFromSeason(year, params = { limit: 60 }) {
   return ergast({
     url: `/${year}/constructors`,
-    key: KEYS.CONSTRUCTOR_TABLE
+    key: KEYS.CONSTRUCTOR_TABLE,
+    params
   })
     .then(res => res)
     .catch(err => {

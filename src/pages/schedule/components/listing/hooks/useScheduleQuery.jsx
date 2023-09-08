@@ -5,15 +5,12 @@ import { useQuery } from "react-query"
 import { season } from "../../../../../api/season/season"
 
 // components
-import ScheduleTitle from "../components/title/ScheduleTitle"
 import WeekendCard from '../components/card/WeekendCard'
 
 // models
 import SeasonModel from "../../../../../model/season/Season"
 import WeekendModel from "../../../../../model/season/weekend/Weekend"
-import ListingModel from "../../../../../model/listing/Listing"
-import ListingTitleModel from "../../../../../model/listing/ListingTitle"
-import ListingCardsModel from "../../../../../model/listing/ListingCards"
+import CardsModel from "../../../../../model/listing/ListingCards"
 import QueryError from "../../../../../model/error/QueryError"
 
 const useScheduleQuery = () => {
@@ -28,7 +25,7 @@ const useScheduleQuery = () => {
       .then(([{ data }, nextWeekend]) => {
         const weekends = SeasonModel.parseWeekends({ Races: data.Races })
         
-        return new ListingCardsModel({
+        return new CardsModel({
           styles: {
             margin: '2rem 4rem',
             display: 'grid',

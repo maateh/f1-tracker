@@ -14,10 +14,11 @@ export async function driverList(params) {
 }
   
 // Get a list with all of the driver from a specific season
-export async function driverListFromSeason(year) {
+export async function driverListFromSeason(year, params = { limit: 60 }) {
   return ergast({
     url: `/${year}/drivers`,
-    key: KEYS.DRIVER_TABLE
+    key: KEYS.DRIVER_TABLE,
+    params
   })
     .then(res => res)
     .catch(err => {
@@ -26,10 +27,11 @@ export async function driverListFromSeason(year) {
 }
 
 // Get a list with all of the driver from a specific round in a season
-export async function driverListFromRound(year, round) {
+export async function driverListFromRound(year, round, params = { limit: 60 }) {
   return ergast({
     url: `/${year}/${round}/drivers`,
-    key: KEYS.DRIVER_TABLE
+    key: KEYS.DRIVER_TABLE,
+    params
   })
     .then(res => res)
     .catch(err => {

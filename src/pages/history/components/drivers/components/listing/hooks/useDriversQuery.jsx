@@ -1,7 +1,8 @@
+import { useParams } from "react-router-dom"
 import { useInfiniteQuery } from "react-query"
 
 // api
-import { driverList } from "../../../../../../../api/drivers/driverList"
+import { driverList, driverListFromSeason } from "../../../../../../../api/drivers/driverList"
 
 // components
 import DriverCard from "../components/card/DriverCard"
@@ -12,17 +13,24 @@ import ListingModel from '../../../../../../../model/listing/Listing'
 import TitleModel from "../../../../../../../model/listing/ListingTitle"
 import CardsModel from "../../../../../../../model/listing/ListingCards"
 import PaginationModel from "../../../../../../../model/listing/Pagination"
+import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
 import QueryError from '../../../../../../../model/error/QueryError'
 
 const useDriversQuery = () => {
+  const { year } = useParams()
+
+  const call = pageParam => year === FilterOptionModel.ALL.value 
+    ? driverList({ offset: pageParam * 30, limit: 30 })
+    : driverListFromSeason(year, { offset: pageParam * 30, limit: 30 })
+
   return useInfiniteQuery({
-    queryKey: ['listing', 'driverList'],
+    queryKey: ['listing', 'driverList', year],
     getNextPageParam: ({ pagination }) => {
       return pagination.currentPage < pagination.pageQuantity - 1
         ? pagination.currentPage + 1
         : undefined
     },
-    queryFn: ({ pageParam = 0 }) => driverList({ offset: pageParam * 30 })
+    queryFn: ({ pageParam = 0 }) => call(pageParam)
       .then(({ info, data }) => {
         if (!data.Drivers || !data.Drivers.length) {
           throw new QueryError('No data found!', 404)
@@ -32,9 +40,14 @@ const useDriversQuery = () => {
         
         return new ListingModel({
           title: new TitleModel({
-            main: 'Formula 1 Drivers History (1950-)'
+            main: `Formula 1 Drivers History (${year === FilterOptionModel.ALL.value ? 'since 1950' : `in ${year}`})`
           }),
           cards: new CardsModel({
+            styles: {
+              margin: '2rem 4rem',
+              display: 'grid',
+              gap: '4rem'
+            },
             layouts: drivers.map(driver => (
               <DriverCard
                 key={driver.id}

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react"
+import { useCallback, useRef } from "react"
 
 // hooks
 import useDriversQuery from "./hooks/useDriversQuery"

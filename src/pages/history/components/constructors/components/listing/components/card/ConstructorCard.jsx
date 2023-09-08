@@ -1,5 +1,5 @@
 // styles
-// import './ConstructorCard.css'
+import './ConstructorCard.css'
 
 const ConstructorCard = ({ constructor, lastRef }) => {
   return (
