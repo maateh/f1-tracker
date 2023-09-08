@@ -13,6 +13,7 @@ const ConstructorsListing = () => {
     data,
     fetchNextPage,
     hasNextPage,
+		isLoading,
 		isFetchingNextPage,
 		isError,
     error
@@ -50,7 +51,7 @@ const ConstructorsListing = () => {
 			)}
 
 			<LoadingHandler
-				isLoading={isFetchingNextPage}
+				isLoading={isLoading || isFetchingNextPage}
 				isError={isError}
 				error={error}
 			/>

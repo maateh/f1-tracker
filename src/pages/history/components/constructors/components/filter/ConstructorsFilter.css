@@ -1,0 +1,11 @@
+.constructors-filter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.constructors-filter .filter-selector > div {
+  width: 10rem;
+  margin: 1rem auto;
+}
