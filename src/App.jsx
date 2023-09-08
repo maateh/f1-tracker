@@ -5,15 +5,15 @@ import Main from './layouts/Main'
 
 // pages & components
 import Homepage from './pages/home/Homepage'
+
 import SchedulePage from './pages/schedule/SchedulePage'
+import ScheduleListing from './pages/schedule/components/listing/ScheduleListing'
 import ResultsPage from './pages/results/ResultsPage'
 import HistoryPage from './pages/history/HistoryPage'
 import LapsHistory from './pages/history/components/laps/LapsHistory'
 import PitsHistory from './pages/history/components/pits/PitsHistory'
-
 import DriversHistory from './pages/history/components/drivers/DriversHistory'
 import DriversListing from './pages/history/components/drivers/components/listing/DriversListing'
-
 import ConstructorsHistory from './pages/history/components/constructors/ConstructorsHistory'
 import ConstructorsListing from './pages/history/components/constructors/components/listing/ConstructorsListing'
 
@@ -21,7 +21,6 @@ import Loader from './components/loader/Loader'
 import NotFound from './components/error/NotFound'
 
 // loaders
-import { scheduleLoader } from './pages/schedule/loader/ScheduleLoader'
 import { resultsLoader } from './pages/results/loader/ResultsLoader'
 import { lapsLoader } from './pages/history/components/laps/loader/LapsLoader'
 import { pitsLoader } from './pages/history/components/pits/loader/PitsLoader'
@@ -41,8 +40,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: ":year",
-            element: <Loader />,
-            loader: scheduleLoader
+            element: <ScheduleListing />
           },
           {
             path: "*",

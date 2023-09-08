@@ -3,6 +3,7 @@ import { useQuery } from 'react-query'
 
 // components
 import ScheduleFilter from './components/filter/ScheduleFilter'
+import LoadingHandler from '../../components/loading/LoadingHandler'
 
 // context
 import { ScheduleFilterContextProvider } from './components/filter/context/ScheduleFilterContext'
@@ -10,8 +11,6 @@ import { ScheduleFilterContextProvider } from './components/filter/context/Sched
 // models
 import WeekendModel from '../../model/season/weekend/Weekend'
 
-// icons
-import CircularProgress from '@mui/material/CircularProgress'
 
 const ScheduleContent = () => {
 	const { year } = useParams()
@@ -27,8 +26,6 @@ const ScheduleContent = () => {
 
   return (
     <div className="schedule-content">
-      {isLoading && <CircularProgress />}
-
       {year && (
         <>
           <ScheduleFilterContextProvider>
@@ -37,7 +34,11 @@ const ScheduleContent = () => {
         </>
       )}
 
-      {isError && <p className="error__element">{error.message}</p>}
+      <LoadingHandler
+        isLoading={isLoading}
+        isError={isError}
+        error={error}
+      />
 
       <Outlet />
     </div>

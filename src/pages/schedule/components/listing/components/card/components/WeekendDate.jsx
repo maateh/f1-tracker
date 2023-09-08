@@ -6,8 +6,10 @@ const WeekendDate = ({ sessions }) => {
     <div className="weekend-date icon__container">
       <EventIcon />
       <span>
-        {sessions.practices &&
-          `${sessions.practices[0]?.getFormattedDate('MMM. dd.')} - `}
+        {sessions.practices && sessions.practices.length 
+          ? `${sessions.practices[0].getFormattedDate('MMM. dd.')} - `
+          : ''
+        }
         {sessions.race.getFormattedDate('MMM. dd.')}
       </span>
     </div>

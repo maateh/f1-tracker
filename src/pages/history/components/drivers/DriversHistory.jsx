@@ -1,8 +1,11 @@
 import { useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Outlet, useNavigate, useParams } from 'react-router-dom'
+
+// context
+import { DriversFilterContextProvider } from './components/filter/context/DriversFilterContext'
 
 // components
-import DriversListing from './components/listing/DriversListing'
+import DriversFilter from './components/filter/DriversFilter'
 
 // models
 import FilterOptionModel from '../../../../model/filter/FilterOption'
@@ -15,7 +18,19 @@ const DriversHistory = () => {
     if (!year) navigate(`./${FilterOptionModel.ALL.value}`, { replace: true })
   }, [year, navigate])
 
-  return year && <DriversListing />
+  return (
+    <div className="drivers-history">
+      {year && (
+        <>
+          <DriversFilterContextProvider>
+            <DriversFilter />
+          </DriversFilterContextProvider>
+        </>
+      )}
+
+      <Outlet />
+    </div>
+  )
 }
 
 export default DriversHistory
