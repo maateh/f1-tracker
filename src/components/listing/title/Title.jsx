@@ -1,7 +1,7 @@
 // styles
 import './Title.css'
 
-const ListingTitle = ({ title: { main, sub } }) => {
+const Title = ({ title: { main, sub } }) => {
 	return (
 		<div className="title__container">
 			{main && <h2 className="title-main">{main}</h2>}
@@ -10,4 +10,4 @@ const ListingTitle = ({ title: { main, sub } }) => {
 	)
 }
 
-export default ListingTitle
+export default Title

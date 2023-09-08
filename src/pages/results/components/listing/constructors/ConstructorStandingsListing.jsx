@@ -2,8 +2,8 @@
 import useConstructorStandingsQuery from "./hooks/useConstructorStandingsQuery"
 
 // components
-import Title from '../../../../../components/listing/title/ListingTitle'
-import Table from '../../../../../components/listing/table/ListingTable'
+import Title from '../../../../../components/listing/title/Title'
+import Table from '../../../../../components/listing/table/Table'
 import LoadingHandler from '../../../../../components/loading/LoadingHandler'
 
 const ConstructorStandingsListing = () => {

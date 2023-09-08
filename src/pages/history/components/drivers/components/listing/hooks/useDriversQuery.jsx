@@ -10,8 +10,8 @@ import DriverCard from "../components/card/DriverCard"
 // models
 import SeasonModel from '../../../../../../../model/season/Season'
 import ListingModel from '../../../../../../../model/listing/Listing'
-import TitleModel from "../../../../../../../model/listing/ListingTitle"
-import CardsModel from "../../../../../../../model/listing/ListingCards"
+import TitleModel from "../../../../../../../model/listing/Title"
+import CardsModel from "../../../../../../../model/listing/Cards"
 import PaginationModel from "../../../../../../../model/listing/Pagination"
 import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
 import QueryError from '../../../../../../../model/error/QueryError'

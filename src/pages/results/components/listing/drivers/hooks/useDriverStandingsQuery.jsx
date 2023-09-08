@@ -12,8 +12,8 @@ import PointsCell from '../../components/table/PointsCell'
 // models
 import SeasonModel from "../../../../../../model/season/Season"
 import ListingModel from "../../../../../../model/listing/Listing"
-import TitleModel from "../../../../../../model/listing/ListingTitle"
-import TableModel from "../../../../../../model/listing/ListingTable"
+import TitleModel from "../../../../../../model/listing/Title"
+import TableModel from "../../../../../../model/listing/Table"
 import QueryError from "../../../../../../model/error/QueryError"
 
 const useDriverStandingsQuery = () => {

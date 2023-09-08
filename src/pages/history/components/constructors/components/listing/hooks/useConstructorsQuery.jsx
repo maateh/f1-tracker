@@ -10,8 +10,8 @@ import ConstructorCard from "../components/card/ConstructorCard"
 // models
 import SeasonModel from "../../../../../../../model/season/Season"
 import ListingModel from "../../../../../../../model/listing/Listing"
-import TitleModel from "../../../../../../../model/listing/ListingTitle"
-import CardsModel from "../../../../../../../model/listing/ListingCards"
+import TitleModel from "../../../../../../../model/listing/Title"
+import CardsModel from "../../../../../../../model/listing/Cards"
 import PaginationModel from "../../../../../../../model/listing/Pagination"
 import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
 import QueryError from "../../../../../../../model/error/QueryError"
@@ -24,7 +24,7 @@ const useConstructorsQuery = () => {
     : constructorListFromSeason(year, { offset: pageParam * 30, limit: 30 })
 
   return useInfiniteQuery({
-    queryKey: ['listing', 'constructorList'],
+    queryKey: ['listing', 'constructorList', year],
     getNextPageParam: ({ pagination }) => {
       return pagination.currentPage < pagination.pageQuantity - 1
         ? pagination.currentPage + 1

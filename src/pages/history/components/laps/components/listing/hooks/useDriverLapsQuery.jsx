@@ -15,9 +15,9 @@ import TimeCell from '../components/table/TimeCell'
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
 import RaceModel from "../../../../../../../model/season/weekend/results/race/Race"
 import ListingModel from "../../../../../../../model/listing/Listing"
-import TitleModel from "../../../../../../../model/listing/ListingTitle"
-import CardsModel from "../../../../../../../model/listing/ListingCards"
-import TableModel from "../../../../../../../model/listing/ListingTable"
+import TitleModel from "../../../../../../../model/listing/Title"
+import CardsModel from "../../../../../../../model/listing/Cards"
+import TableModel from "../../../../../../../model/listing/Table"
 import PaginationModel from "../../../../../../../model/listing/Pagination"
 import QueryError from "../../../../../../../model/error/QueryError"
 

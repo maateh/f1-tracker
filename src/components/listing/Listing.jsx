@@ -1,7 +1,7 @@
 // components
-import ListingTitle from './title/ListingTitle'
-import ListingCards from './cards/ListingCards'
-import ListingTable from './table/ListingTable'
+import ListingTitle from './title/Title'
+import ListingCards from './cards/Cards'
+import ListingTable from './table/Table'
 import Pagination from './pagination/Pagination'
 import Error from '../error/Error'
 

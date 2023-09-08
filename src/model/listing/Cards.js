@@ -1,8 +1,8 @@
-class ListingCards {
+class Cards {
   constructor({ styles, layouts }) {
     this.styles = styles
     this.layouts = layouts
   }
 }
 
-export default ListingCards
+export default Cards

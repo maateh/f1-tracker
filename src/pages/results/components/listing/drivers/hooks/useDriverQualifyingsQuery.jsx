@@ -13,9 +13,9 @@ import CircuitCell from "../../components/table/CircuitCell"
 // models
 import SeasonModel from "../../../../../../model/season/Season"
 import ListingModel from "../../../../../../model/listing/Listing"
-import TitleModel from "../../../../../../model/listing/ListingTitle"
-import CardsModel from "../../../../../../model/listing/ListingCards"
-import TableModel from "../../../../../../model/listing/ListingTable"
+import TitleModel from "../../../../../../model/listing/Title"
+import CardsModel from "../../../../../../model/listing/Cards"
+import TableModel from "../../../../../../model/listing/Table"
 import QueryError from "../../../../../../model/error/QueryError"
 
 // icons

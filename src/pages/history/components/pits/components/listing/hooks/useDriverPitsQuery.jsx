@@ -15,9 +15,9 @@ import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
 import DriverModel from "../../../../../../../model/season/weekend/results/driver/Driver"
 import PitStopModel from "../../../../../../../model/season/weekend/pit/PitStop"
 import ListingModel from "../../../../../../../model/listing/Listing"
-import TitleModel from "../../../../../../../model/listing/ListingTitle"
-import CardsModel from "../../../../../../../model/listing/ListingCards"
-import TableModel from "../../../../../../../model/listing/ListingTable"
+import TitleModel from "../../../../../../../model/listing/Title"
+import CardsModel from "../../../../../../../model/listing/Cards"
+import TableModel from "../../../../../../../model/listing/Table"
 import QueryError from "../../../../../../../model/error/QueryError"
 
 // icons

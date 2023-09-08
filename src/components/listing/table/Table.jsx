@@ -14,7 +14,7 @@ import Pagination from '../pagination/Pagination'
 // styles
 import './Table.css'
 
-const ListingTable = ({ table: { columns, data, pagination }}) => {
+const Table = ({ table: { columns, data, pagination }}) => {
 	const [sorting, setSorting] = useState([])
 
 	const table = useReactTable({
@@ -67,4 +67,4 @@ const ListingTable = ({ table: { columns, data, pagination }}) => {
 	)
 }
 
-export default ListingTable
+export default Table

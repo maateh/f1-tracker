@@ -4,8 +4,8 @@ import { useCallback, useRef } from "react"
 import useConstructorsQuery from "./hooks/useConstructorsQuery"
 
 // components
-import Title from "../../../../../../components/listing/title/ListingTitle"
-import Cards from "../../../../../../components/listing/cards/ListingCards"
+import Title from "../../../../../../components/listing/title/Title"
+import Cards from "../../../../../../components/listing/cards/Cards"
 import LoadingHandler from "../../../../../../components/loading/LoadingHandler"
 
 const ConstructorsListing = () => {

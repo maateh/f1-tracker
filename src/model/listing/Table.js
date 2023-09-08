@@ -1,4 +1,4 @@
-class ListingTable {
+class Table {
   constructor({
     columns, 
     data, 
@@ -10,4 +10,4 @@ class ListingTable {
   }
 }
 
-export default ListingTable
+export default Table

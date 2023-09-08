@@ -10,7 +10,7 @@ import WeekendCard from '../components/card/WeekendCard'
 // models
 import SeasonModel from "../../../../../model/season/Season"
 import WeekendModel from "../../../../../model/season/weekend/Weekend"
-import CardsModel from "../../../../../model/listing/ListingCards"
+import CardsModel from "../../../../../model/listing/Cards"
 import QueryError from "../../../../../model/error/QueryError"
 
 const useScheduleQuery = () => {

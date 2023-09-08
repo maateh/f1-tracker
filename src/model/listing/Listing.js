@@ -1,7 +1,7 @@
 // models
-import Title from "./ListingTitle"
-import Cards from "./ListingCards"
-import Table from "./ListingTable"
+import Title from "./Title"
+import Cards from "./Cards"
+import Table from "./Table"
 import Pagination from "./Pagination"
 
 class Listing {

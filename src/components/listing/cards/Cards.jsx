@@ -3,7 +3,7 @@ import { cloneElement } from 'react'
 // styles
 import './Cards.css'
 
-const ListingCards = ({ cards: { styles, layouts }, lastIndex, lastRef }) => {
+const Cards = ({ cards: { styles, layouts }, lastIndex, lastRef }) => {
   return (
     <ul className="cards__container" style={styles}>
       {layouts.map((layout, index) => {
@@ -15,4 +15,4 @@ const ListingCards = ({ cards: { styles, layouts }, lastIndex, lastRef }) => {
   )
 }
 
-export default ListingCards
+export default Cards

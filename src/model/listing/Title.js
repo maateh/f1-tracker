@@ -1,8 +1,8 @@
-class ListingTitle {
+class Title {
   constructor({ main, sub }) {
     this.main = main
     this.sub = sub
   }
 }
 
-export default ListingTitle
+export default Title

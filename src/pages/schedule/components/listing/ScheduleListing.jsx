@@ -3,7 +3,7 @@ import useScheduleQuery from "./hooks/useScheduleQuery"
 
 // components
 import ScheduleTitle from "./components/title/ScheduleTitle"
-import Cards from "../../../../components/listing/cards/ListingCards"
+import Cards from "../../../../components/listing/cards/Cards"
 import LoadingHandler from "../../../../components/loading/LoadingHandler"
 
 const ScheduleListing = () => {

@@ -2,9 +2,9 @@
 import useDriverLapsQuery from './hooks/useDriverLapsQuery'
 
 // components
-import Title from '../../../../../../components/listing/title/ListingTitle'
-import Cards from '../../../../../../components/listing/cards/ListingCards'
-import Table from '../../../../../../components/listing/table/ListingTable'
+import Title from '../../../../../../components/listing/title/Title'
+import Cards from '../../../../../../components/listing/cards/Cards'
+import Table from '../../../../../../components/listing/table/Table'
 import LoadingHandler from '../../../../../../components/loading/LoadingHandler'
 
 const DriverLapsListing = () => {
