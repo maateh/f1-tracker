@@ -20,6 +20,7 @@ import CircuitsHistory from './pages/history/components/circuits/CircuitsHistory
 import CircuitsListing from './pages/history/components/circuits/components/listing/CircuitsListing'
 import DriverProfile from './pages/profile/driver/DriverProfile'
 import ConstructorProfile from './pages/profile/constructor/ConstructorProfile'
+import CircuitProfile from './pages/profile/circuit/CircuitProfile'
 
 import Loader from './components/loader/Loader'
 import NotFound from './components/error/NotFound'
@@ -149,10 +150,10 @@ const router = createBrowserRouter([
             path: "constructor/:id",
             element: <ConstructorProfile />
           },
-          // {
-          //   path: "circuit/:id",
-          //   element: <CircuitProfile />
-          // },
+          {
+            path: "circuit/:id",
+            element: <CircuitProfile />
+          },
         ]
       },
       {
