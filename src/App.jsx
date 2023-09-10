@@ -16,6 +16,8 @@ import DriversHistory from './pages/history/components/drivers/DriversHistory'
 import DriversListing from './pages/history/components/drivers/components/listing/DriversListing'
 import ConstructorsHistory from './pages/history/components/constructors/ConstructorsHistory'
 import ConstructorsListing from './pages/history/components/constructors/components/listing/ConstructorsListing'
+import CircuitsHistory from './pages/history/components/circuits/CircuitsHistory'
+import CircuitsListing from './pages/history/components/circuits/components/listing/CircuitsListing'
 import DriverProfile from './pages/profile/driver/DriverProfile'
 import ConstructorProfile from './pages/profile/constructor/ConstructorProfile'
 
@@ -124,6 +126,16 @@ const router = createBrowserRouter([
               }
             ]
           },
+          {
+            path: "circuits",
+            element: <CircuitsHistory />,
+            children: [
+              {
+                path: ":year",
+                element: <CircuitsListing />
+              }
+            ]
+          },
         ]
       },
       {
@@ -137,6 +149,10 @@ const router = createBrowserRouter([
             path: "constructor/:id",
             element: <ConstructorProfile />
           },
+          // {
+          //   path: "circuit/:id",
+          //   element: <CircuitProfile />
+          // },
         ]
       },
       {

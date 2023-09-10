@@ -8,6 +8,7 @@ export const KEYS = {
 	SEASON_TABLE: 'SeasonTable',
 	DRIVER_TABLE: 'DriverTable',
 	CONSTRUCTOR_TABLE: 'ConstructorTable',
+	CIRCUIT_TABLE: 'CircuitTable',
 	STANDINGS_TABLE: 'StandingsTable'
 }
 

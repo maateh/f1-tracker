@@ -3,6 +3,7 @@ import Weekend from './weekend/Weekend'
 import StandingsList from './standings/StandingsList'
 import Driver from './weekend/results/driver/Driver'
 import Constructor from './weekend/results/constructor/Constructor'
+import Circuit from './weekend/circuit/Circuit'
 
 class Season {
 	constructor({
@@ -29,6 +30,7 @@ class Season {
 			standings: this.parseStandings({ StandingsLists: season.StandingsLists }),
 			drivers: this.parseDrivers({ Drivers: season.Drivers }),
 			constructors: this.parseConstructors({ Constructors: season.Constructors }),
+			circuits: this.parseCircuits({ Circuits: season.Constructors }),
 		})
 	}
 
@@ -57,6 +59,12 @@ class Season {
 	static parseConstructors({ Constructors: constructors }) {
 		if (constructors && constructors.length) {
 			return constructors.map(constructor => Constructor.parser({ Constructor: constructor }))
+		}
+	}
+
+	static parseCircuits({ Circuits: circuits }) {
+		if (circuits && circuits.length) {
+			return circuits.map(circuit => Circuit.parser({ Circuit: circuit }))
 		}
 	}
 }

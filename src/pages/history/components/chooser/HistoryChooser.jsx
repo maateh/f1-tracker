@@ -8,6 +8,7 @@ const options = [
   { placeholder: 'Pit Stops', value: 'pits' },
   { placeholder: 'Drivers', value: 'drivers' },
   { placeholder: 'Constructors', value: 'constructors' },
+  { placeholder: 'Circuits', value: 'circuits' },
 ]
 
 const HistoryChooser = () => {
