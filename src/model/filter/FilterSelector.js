@@ -15,6 +15,15 @@ class FilterSelector {
     this.param = param
     return this
   }
+
+  static TYPES = {
+		SEASONS: { seasons: null },
+		STANDINGS: { standings: null },
+		ROUNDS: { rounds: null },
+		DRIVERS: { drivers: null },
+		CONSTRUCTORS: { constructors: null },
+		SESSIONS: { sessions: null },
+	}
 }
 
 export default FilterSelector

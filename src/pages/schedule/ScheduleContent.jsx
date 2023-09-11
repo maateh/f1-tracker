@@ -2,15 +2,18 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
 // components
-import ScheduleFilter from './components/filter/ScheduleFilter'
+import Filter from '../../components/filter/Filter'
 import LoadingHandler from '../../components/loading/LoadingHandler'
 
+// hooks
+import useScheduleFilterQueries from './components/filter/hooks/useScheduleFilterQueries'
+
 // context
-import { ScheduleFilterContextProvider } from './components/filter/context/ScheduleFilterContext'
+import { FilterContextProvider } from '../../components/filter/context/FilterContext'
 
 // models
 import WeekendModel from '../../model/season/weekend/Weekend'
-
+import FilterSelectorModel from '../../model/filter/FilterSelector'
 
 const ScheduleContent = () => {
 	const { year } = useParams()
@@ -28,9 +31,12 @@ const ScheduleContent = () => {
     <div className="schedule-content">
       {year && (
         <>
-          <ScheduleFilterContextProvider>
-            <ScheduleFilter />
-          </ScheduleFilterContextProvider>
+          <FilterContextProvider selectors={FilterSelectorModel.TYPES.SEASONS}>
+            <Filter
+              useFilterQueries={useScheduleFilterQueries}
+              skeletonCounter={1}
+            />
+          </FilterContextProvider>
         </>
       )}
 

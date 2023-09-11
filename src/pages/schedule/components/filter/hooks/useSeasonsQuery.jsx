@@ -2,14 +2,14 @@ import { useNavigate, useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // context
-import { useScheduleFilterContext } from "../context/hooks/useScheduleFilterContext"
+import { useFilterContext } from "../../../../../components/filter/context/hooks/useFilterContext"
 
 // models
 import FilterModel from "../../../../../model/filter/Filter"
 import FilterSelectorModel from "../../../../../model/filter/FilterSelector"
 
-export const useSeasonsQuery = () => {
-  const { dispatch } = useScheduleFilterContext()
+const useSeasonsQuery = () => {
+  const { dispatch } = useFilterContext()
   const { year } = useParams()
   const navigate = useNavigate()
 
@@ -22,8 +22,11 @@ export const useSeasonsQuery = () => {
         filter,
         param: year,
         searchable: true,
-        onChange: (value) => navigate(`./${value}`, { replace: true })
-      })
+        onChange: (value) => navigate(`./${value}`, { replace: true }),
+        enabled: () => true
+      }),
     })
   })
 }
+
+export default useSeasonsQuery
