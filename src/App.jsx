@@ -5,19 +5,18 @@ import Main from './layouts/Main'
 
 // pages & components
 import Homepage from './pages/home/Homepage'
-
 import SchedulePage from './pages/schedule/SchedulePage'
 import ScheduleListing from './pages/schedule/components/listing/ScheduleListing'
 import ResultsPage from './pages/results/ResultsPage'
 import HistoryPage from './pages/history/HistoryPage'
-import LapsHistory from './pages/history/components/laps/LapsHistory'
-import PitsHistory from './pages/history/components/pits/PitsHistory'
-import DriversHistory from './pages/history/components/drivers/DriversHistory'
-import DriversListing from './pages/history/components/drivers/components/listing/DriversListing'
-import ConstructorsHistory from './pages/history/components/constructors/ConstructorsHistory'
-import ConstructorsListing from './pages/history/components/constructors/components/listing/ConstructorsListing'
-import CircuitsHistory from './pages/history/components/circuits/CircuitsHistory'
-import CircuitsListing from './pages/history/components/circuits/components/listing/CircuitsListing'
+import LapsHistory from './pages/history/pages/laps/LapsHistory'
+import PitsHistory from './pages/history/pages/pits/PitsHistory'
+import DriversHistory from './pages/history/pages/drivers/DriversHistory'
+import DriversListing from './pages/history/pages/drivers/components/listing/DriversListing'
+import ConstructorsHistory from './pages/history/pages/constructors/ConstructorsHistory'
+import ConstructorsListing from './pages/history/pages/constructors/components/listing/ConstructorsListing'
+import CircuitsHistory from './pages/history/pages/circuits/CircuitsHistory'
+import CircuitsListing from './pages/history/pages/circuits/components/listing/CircuitsListing'
 import DriverProfile from './pages/profile/driver/DriverProfile'
 import ConstructorProfile from './pages/profile/constructor/ConstructorProfile'
 import CircuitProfile from './pages/profile/circuit/CircuitProfile'
@@ -27,8 +26,8 @@ import NotFound from './components/error/NotFound'
 
 // loaders
 import { resultsLoader } from './pages/results/loader/ResultsLoader'
-import { lapsLoader } from './pages/history/components/laps/loader/LapsLoader'
-import { pitsLoader } from './pages/history/components/pits/loader/PitsLoader'
+import { lapsLoader } from './pages/history/pages/laps/loader/LapsLoader'
+import { pitsLoader } from './pages/history/pages/pits/loader/PitsLoader'
 
 const router = createBrowserRouter([
   {
