@@ -2,15 +2,16 @@ import { useNavigate, useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // context
-import { usePitsFilterContext } from "../context/hooks/usePitsFilterContext"
+import useFilterContext from "../../../../../../../components/filter/context/hooks/useFilterContext"
+import { SET_SEASONS } from "../../../../../../../components/filter/context/FilterContextActions"
 
 // models
 import FilterModel from "../../../../../../../model/filter/Filter"
 import FilterSelectorModel from "../../../../../../../model/filter/FilterSelector"
 import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
 
-export const useSeasonsQuery = () => {
-  const { dispatch } = usePitsFilterContext()
+const useSeasonsQuery = () => {
+  const { dispatch } = useFilterContext()
   const { year } = useParams()
   const navigate = useNavigate()
 
@@ -18,7 +19,7 @@ export const useSeasonsQuery = () => {
     queryKey: ['filter', 'seasonList'],
 		queryFn: FilterModel.querySeasons,
 		onSuccess: filter => dispatch({ 
-      type: 'SET_SEASONS', 
+      type: SET_SEASONS, 
       payload: new FilterSelectorModel({
         filter,
         param: year,
@@ -26,8 +27,11 @@ export const useSeasonsQuery = () => {
         onChange: (value) => {
           const route = `./${value}/1/${FilterOptionModel.ALL.value}`
           navigate(route, { replace: true })
-        }
+        },
+        enabled: () => true
       })
     })
   })
 }
+
+export default useSeasonsQuery

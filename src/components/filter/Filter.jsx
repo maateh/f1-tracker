@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 // components
-import FilterSelector from './FilterSelector'
+import FilterSelector from './selector/FilterSelector'
 import SkeletonSelector from '../skeleton/SkeletonSelector'
 
 // context
@@ -23,8 +23,6 @@ const Filter = ({ useFilterQueries, paramsUpdater, skeletonCounter = 1 }) => {
 
 	return (
 		<div className="filter__container">
-			{console.log('selectors: ', selectors)}
-			{console.log('preloading: ', preloading)}
 			{preloading ? (
 				<SkeletonSelector counter={skeletonCounter} />
 			) : (

@@ -22,6 +22,7 @@ class FilterSelector {
 		ROUNDS: { rounds: null },
 		DRIVERS: { drivers: null },
 		CONSTRUCTORS: { constructors: null },
+		IDS: { ids: null },
 		SESSIONS: { sessions: null },
 	}
 }

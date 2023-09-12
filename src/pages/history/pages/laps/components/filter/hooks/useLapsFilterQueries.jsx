@@ -1,14 +1,13 @@
 // context
-import { useLapsFilterContext } from "../context/hooks/useLapsFilterContext"
+import useFilterContext from "../../../../../../../components/filter/context/hooks/useFilterContext"
 
 // hooks
-import { useSeasonsQuery } from "./useSeasonsQuery"
-import { useRoundsQuery } from "./useRoundsQuery"
-import { useDriversQuery } from "./useDriversQuery"
+import useSeasonsQuery from "./useSeasonsQuery"
+import useRoundsQuery from "./useRoundsQuery"
+import useDriversQuery from "./useDriversQuery"
 
-export const useLapsFilterQueries = () => {
-  const { selectors } = useLapsFilterContext()
-  
+const useLapsFilterQueries = () => {
+  const { selectors } = useFilterContext()
   const { isLoading: seasonsLoading, error: seasonsError } = useSeasonsQuery()
   const { isLoading: roundsLoading, error: roundsError } = useRoundsQuery()
   const { isLoading: driversLoading, error: driversError } = useDriversQuery()
@@ -19,3 +18,5 @@ export const useLapsFilterQueries = () => {
     error: seasonsError || roundsError || driversError
   }
 }
+
+export default useLapsFilterQueries

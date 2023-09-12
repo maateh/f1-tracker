@@ -2,7 +2,8 @@ import { useNavigate, useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // context
-import { useResultsFilterContext } from "../context/hooks/useResultsFilterContext"
+import useFilterContext from "../../../../../components/filter/context/hooks/useFilterContext"
+import { SET_IDS } from "../../../../../components/filter/context/FilterContextActions"
 
 // models
 import FilterModel from "../../../../../model/filter/Filter"
@@ -10,14 +11,14 @@ import FilterSelectorModel from "../../../../../model/filter/FilterSelector"
 import FilterOptionModel from "../../../../../model/filter/FilterOption"
 
 export const useIdsQuery = () => {
-  const { selectors, dispatch } = useResultsFilterContext()
+  const { selectors, dispatch } = useFilterContext()
   const { year, standings, id } = useParams()
   const navigate = useNavigate()
 
   return useQuery({
     ...idsQuery(year, standings),
     onSuccess: filter => dispatch({ 
-      type: 'SET_IDS', 
+      type: SET_IDS, 
       payload: new FilterSelectorModel({
         filter: filter.addOption(FilterOptionModel.ALL),
         param: id,

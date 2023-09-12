@@ -1,14 +1,18 @@
 import { useEffect } from 'react'
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
 
-// context
-import { ConstructorsFilterContextProvider } from './components/filter/context/ConstructorsFilterContext'
+// hooks
+import useConstructorsFilterQueries from './components/filter/hooks/useConstructorsFilterQueries'
 
 // components
-import ConstructorsFilter from './components/filter/ConstructorsFilter'
+import Filter from '../../../../components/filter/Filter'
+
+// context
+import FilterContextProvider from '../../../../components/filter/context/FilterContext'
 
 // models
 import FilterOptionModel from '../../../../model/filter/FilterOption'
+import FilterSelectorModel from '../../../../model/filter/FilterSelector'
 
 const ConstructorsHistory = () => {
   const { year } = useParams()
@@ -22,9 +26,9 @@ const ConstructorsHistory = () => {
     <div className="constructors-history">
       {year && (
         <>
-          <ConstructorsFilterContextProvider>
-            <ConstructorsFilter />
-          </ConstructorsFilterContextProvider>
+          <FilterContextProvider selectors={FilterSelectorModel.TYPES.SEASONS}>
+            <Filter useFilterQueries={useConstructorsFilterQueries} />
+          </FilterContextProvider>
         </>
       )}
 

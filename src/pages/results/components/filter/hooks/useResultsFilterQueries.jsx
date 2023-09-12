@@ -1,20 +1,21 @@
 import { useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 
-// context
-import { useResultsFilterContext } from "../context/hooks/useResultsFilterContext"
-
 // hooks
 import { useIdsQuery } from "./useIdsQuery"
 import { useSeasonsQuery } from "./useSeasonsQuery"
+
+// context
+import useFilterContext from "../../../../../components/filter/context/hooks/useFilterContext"
+import { SET_SESSIONS, SET_STANDINGS } from "../../../../../components/filter/context/FilterContextActions"
 
 // models
 import FilterSelectorModel from "../../../../../model/filter/FilterSelector"
 import FilterModel from "../../../../../model/filter/Filter"
 import FilterOptionModel from "../../../../../model/filter/FilterOption"
 
-export const useResultsFilterQueries = () => {
-  const { selectors, dispatch } = useResultsFilterContext()
+const useResultsFilterQueries = () => {
+  const { selectors, dispatch } = useFilterContext()
   const { standings, session } = useParams()
   const navigate = useNavigate()
 
@@ -36,7 +37,7 @@ export const useResultsFilterQueries = () => {
 }
 
 const loadStandings = (navigate, dispatch, standings) => dispatch({
-  type: 'SET_STANDINGS',
+  type: SET_STANDINGS,
   payload: new FilterSelectorModel({
     filter: new FilterModel({
       key: 'standings',
@@ -55,7 +56,7 @@ const loadStandings = (navigate, dispatch, standings) => dispatch({
 })
 
 const loadSessions = (navigate, dispatch, session) => dispatch({
-  type: 'SET_SESSIONS',
+  type: SET_SESSIONS,
   payload: new FilterSelectorModel({
     filter: new FilterModel({
 			key: 'sessions',
@@ -71,3 +72,5 @@ const loadSessions = (navigate, dispatch, session) => dispatch({
     enabled: ({ standings, id }) => standings.match('^(drivers|rounds)$') && id !== 'all'
   })
 })
+
+export default useResultsFilterQueries

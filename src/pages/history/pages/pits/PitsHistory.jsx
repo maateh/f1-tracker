@@ -2,13 +2,18 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
 // components
-import PitsFilter from './components/filter/PitsFilter'
+import Filter from '../../../../components/filter/Filter'
+
+// hooks
+import usePitsFilterQueries from './components/filter/hooks/usePitsFilterQueries'
 
 // context
-import { PitsFilterContextProvider } from './components/filter/context/PitsFilterContext'
+import FilterContextProvider from '../../../../components/filter/context/FilterContext'
+import { PITS_PARAMS_UPDATER } from '../../../../components/filter/context/FilterContextActions'
 
 // models
 import WeekendModel from "../../../../model/season/weekend/Weekend"
+import FilterSelectorModel from "../../../../model/filter/FilterSelector"
 
 // icons
 import CircularProgress from '@mui/material/CircularProgress'
@@ -32,9 +37,17 @@ const PitsHistory = () => {
       {isLoading && <CircularProgress />}
 
       {year && round && (
-        <PitsFilterContextProvider>
-          <PitsFilter />
-        </PitsFilterContextProvider>
+        <FilterContextProvider selectors={{
+          ...FilterSelectorModel.TYPES.SEASONS,
+          ...FilterSelectorModel.TYPES.ROUNDS,
+          ...FilterSelectorModel.TYPES.DRIVERS
+        }}>
+          <Filter
+            useFilterQueries={usePitsFilterQueries}
+            paramsUpdater={PITS_PARAMS_UPDATER}
+            skeletonCounter={3}
+          />
+        </FilterContextProvider>
       )}
 
       {isError && <p className="error__element">{error.message}</p>}

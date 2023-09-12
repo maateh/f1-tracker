@@ -3,6 +3,7 @@ import { useQuery } from "react-query"
 
 // context
 import useFilterContext from "../../../../../components/filter/context/hooks/useFilterContext"
+import { SET_SEASONS } from "../../../../../components/filter/context/FilterContextActions"
 
 // models
 import FilterModel from "../../../../../model/filter/Filter"
@@ -17,7 +18,7 @@ const useSeasonsQuery = () => {
     queryKey: ['filter', 'seasonList'],
 		queryFn: async () => FilterModel.querySeasons({ label: 'Select a Season' }),
 		onSuccess: filter => dispatch({ 
-      type: 'SET_SEASONS', 
+      type: SET_SEASONS, 
       payload: new FilterSelectorModel({
         filter,
         param: year,

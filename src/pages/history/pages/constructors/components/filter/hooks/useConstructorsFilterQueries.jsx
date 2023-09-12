@@ -1,12 +1,11 @@
 // context
-import { useConstructorsFilterContext } from "../context/hooks/useConstructorsFilterContext"
+import useFilterContext from "../../../../../../../components/filter/context/hooks/useFilterContext"
 
 // hooks
-import { useSeasonsQuery } from "./useSeasonsQuery"
+import useSeasonsQuery from "./useSeasonsQuery"
 
-export const useConstructorsFilterQueries = () => {
-  const { selectors } = useConstructorsFilterContext()
-
+const useConstructorsFilterQueries = () => {
+  const { selectors } = useFilterContext()
   const { isLoading: seasonsLoading, error: seasonsError } = useSeasonsQuery()
 
   return {
@@ -15,3 +14,5 @@ export const useConstructorsFilterQueries = () => {
     error: seasonsError
   }
 }
+
+export default useConstructorsFilterQueries

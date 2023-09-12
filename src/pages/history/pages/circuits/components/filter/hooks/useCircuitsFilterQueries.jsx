@@ -1,11 +1,11 @@
 // context
-import { useCircuitsFilterContext } from "../context/hooks/useCircuitsFilterContext"
+import useFilterContext from "../../../../../../../components/filter/context/hooks/useFilterContext"
 
 // hooks
-import { useSeasonsQuery } from "./useSeasonsQuery"
+import useSeasonsQuery from "./useSeasonsQuery"
 
-export const useCircuitsFilterQueries = () => {
-  const { selectors } = useCircuitsFilterContext()
+const useCircuitsFilterQueries = () => {
+  const { selectors } = useFilterContext()
 
   const { isLoading: seasonsLoading, error: seasonsError } = useSeasonsQuery()
 
@@ -15,3 +15,5 @@ export const useCircuitsFilterQueries = () => {
     error: seasonsError
   }
 }
+
+export default useCircuitsFilterQueries

@@ -1,14 +1,18 @@
 import { useEffect } from 'react'
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
 
-// context
-import { DriversFilterContextProvider } from './components/filter/context/DriversFilterContext'
-
 // components
-import DriversFilter from './components/filter/DriversFilter'
+import Filter from '../../../../components/filter/Filter'
+
+// hooks
+import useDriversFilterQueries from './components/filter/hooks/useDriversFilterQueries'
+
+// context
+import FilterContextProvider from '../../../../components/filter/context/FilterContext'
 
 // models
 import FilterOptionModel from '../../../../model/filter/FilterOption'
+import FilterSelectorModel from '../../../../model/filter/FilterSelector'
 
 const DriversHistory = () => {
   const { year } = useParams()
@@ -22,9 +26,9 @@ const DriversHistory = () => {
     <div className="drivers-history">
       {year && (
         <>
-          <DriversFilterContextProvider>
-            <DriversFilter />
-          </DriversFilterContextProvider>
+          <FilterContextProvider selectors={FilterSelectorModel.TYPES.SEASONS}>
+            <Filter useFilterQueries={useDriversFilterQueries} />
+          </FilterContextProvider>
         </>
       )}
 

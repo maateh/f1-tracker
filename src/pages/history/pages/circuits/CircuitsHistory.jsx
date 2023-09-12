@@ -1,14 +1,18 @@
 import { useEffect } from 'react'
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
 
-// context
-import { CircuitsFilterContextProvider } from './components/filter/context/CircuitsFilterContext'
-
 // components
-import CircuitsFilter from './components/filter/CircuitsFilter'
+import Filter from '../../../../components/filter/Filter'
+
+// hooks
+import useCircuitsFilterQueries from './components/filter/hooks/useCircuitsFilterQueries'
+
+// context
+import FilterContextProvider from '../../../../components/filter/context/FilterContext'
 
 // models
 import FilterOptionModel from '../../../../model/filter/FilterOption'
+import FilterSelectorModel from '../../../../model/filter/FilterSelector'
 
 const CircuitsHistory = () => {
   const { year } = useParams()
@@ -22,9 +26,9 @@ const CircuitsHistory = () => {
     <div className="circuits-history">
       {year && (
         <>
-          <CircuitsFilterContextProvider>
-            <CircuitsFilter />
-          </CircuitsFilterContextProvider>
+          <FilterContextProvider selectors={FilterSelectorModel.TYPES.SEASONS}>
+            <Filter useFilterQueries={useCircuitsFilterQueries} />
+          </FilterContextProvider>
         </>
       )}
 

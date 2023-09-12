@@ -1,12 +1,11 @@
 // context
-import { useDriversFilterContext } from "../context/hooks/useDriversFilterContext"
+import useFilterContext from "../../../../../../../components/filter/context/hooks/useFilterContext"
 
 // hooks
-import { useSeasonsQuery } from "./useSeasonsQuery"
+import useSeasonsQuery from "./useSeasonsQuery"
 
-export const useDriversFilterQueries = () => {
-  const { selectors } = useDriversFilterContext()
-
+const useDriversFilterQueries = () => {
+  const { selectors } = useFilterContext()
   const { isLoading: seasonsLoading, error: seasonsError } = useSeasonsQuery()
 
   return {
@@ -15,3 +14,5 @@ export const useDriversFilterQueries = () => {
     error: seasonsError
   }
 }
+
+export default useDriversFilterQueries

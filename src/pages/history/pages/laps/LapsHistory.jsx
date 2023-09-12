@@ -2,14 +2,19 @@ import { Outlet, useNavigate, useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // components
-import LapsFilter from "./components/filter/LapsFilter"
+import Filter from "../../../../components/filter/Filter"
+
+// hooks
+import useLapsFilterQueries from "./components/filter/hooks/useLapsFilterQueries"
 
 // context
-import { LapsFilterContextProvider } from "./components/filter/context/LapsFilterContext"
+import FilterContextProvider from "../../../../components/filter/context/FilterContext"
+import { LAPS_PARAMS_UPDATER } from "../../../../components/filter/context/FilterContextActions"
 
 // models
 import WeekendModel from "../../../../model/season/weekend/Weekend"
 import FilterOptionModel from "../../../../model/filter/FilterOption"
+import FilterSelectorModel from "../../../../model/filter/FilterSelector"
 
 // icons
 import CircularProgress from '@mui/material/CircularProgress'
@@ -33,9 +38,17 @@ const LapsHistory = () => {
       {isLoading && <CircularProgress />}
       
       {year && round && (
-        <LapsFilterContextProvider>
-          <LapsFilter />
-        </LapsFilterContextProvider>
+        <FilterContextProvider selectors={{
+          ...FilterSelectorModel.TYPES.SEASONS,
+          ...FilterSelectorModel.TYPES.ROUNDS,
+          ...FilterSelectorModel.TYPES.DRIVERS
+        }}>
+          <Filter
+            useFilterQueries={useLapsFilterQueries}
+            paramsUpdater={LAPS_PARAMS_UPDATER}
+            skeletonCounter={3}
+          />
+        </FilterContextProvider>
       )}
 
       {isError && <p className="error__element">{error.message}</p>}
