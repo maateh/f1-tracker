@@ -6,7 +6,6 @@ import useSeasonsQuery from "./useSeasonsQuery"
 
 const useCircuitsFilterQueries = () => {
   const { selectors } = useFilterContext()
-
   const { isLoading: seasonsLoading, error: seasonsError } = useSeasonsQuery()
 
   return {
