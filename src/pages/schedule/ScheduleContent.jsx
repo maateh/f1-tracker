@@ -9,7 +9,7 @@ import LoadingHandler from '../../components/loading/LoadingHandler'
 import useScheduleFilterQueries from './components/filter/hooks/useScheduleFilterQueries'
 
 // context
-import { FilterContextProvider } from '../../components/filter/context/FilterContext'
+import FilterContextProvider from '../../components/filter/context/FilterContext'
 
 // models
 import WeekendModel from '../../model/season/weekend/Weekend'

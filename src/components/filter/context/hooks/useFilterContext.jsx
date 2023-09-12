@@ -6,7 +6,7 @@ import { FilterContext } from "../FilterContext"
 // models
 import ContextError from "../../../../model/error/ContextError"
 
-export const useFilterContext = () => {
+const useFilterContext = () => {
   const context = useContext(FilterContext)
 
   if (!context) {
@@ -15,3 +15,5 @@ export const useFilterContext = () => {
   
   return context
 }
+
+export default useFilterContext

@@ -6,25 +6,25 @@ import FilterSelector from './FilterSelector'
 import SkeletonSelector from '../skeleton/SkeletonSelector'
 
 // context
-import { useFilterContext } from './context/hooks/useFilterContext'
+import useFilterContext from './context/hooks/useFilterContext'
 
 // styles
 import './Filter.css'
 
-const Filter = ({ useFilterQueries, skeletonCounter }) => {
+const Filter = ({ useFilterQueries, paramsUpdater, skeletonCounter = 1 }) => {
 	const params = useParams()
 	const { selectors, dispatch } = useFilterContext()
 	const { preloading, loading, error } = useFilterQueries()
 
 	useEffect(() => {
 		if (preloading) return
-		dispatch({ type: 'UPDATE_PARAMS', payload: params })
-	}, [preloading, params, dispatch])
+		if (paramsUpdater) dispatch({ type: paramsUpdater, payload: params })
+	}, [preloading, paramsUpdater, params, dispatch])
 
 	return (
 		<div className="filter__container">
-      {console.log('selectors: ', selectors)}
-      {console.log('preloading: ', preloading)}
+			{console.log('selectors: ', selectors)}
+			{console.log('preloading: ', preloading)}
 			{preloading ? (
 				<SkeletonSelector counter={skeletonCounter} />
 			) : (

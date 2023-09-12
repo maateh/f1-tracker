@@ -1,14 +1,5 @@
 import { createContext, useReducer } from 'react'
 
-const INITIAL_STATE = {
-	selectors: {
-		seasons: null,
-		standings: null,
-		ids: null,
-		sessions: null,
-	},
-}
-
 const dataReducer = (state, action) => {
 	switch (action.type) {
 		case 'SET_SEASONS':
@@ -31,21 +22,15 @@ const dataReducer = (state, action) => {
 				...state,
 				selectors: { ...state.selectors, sessions: action.payload },
 			}
-		case 'UPDATE_PARAMS':
+		case 'RESULTS_PARAMS_UPDATER':
 			return {
-				selectors: state.selectors.seasons ? {
-					...state.selectors,
+				...state,
+				selectors: {
 					seasons: state.selectors.seasons.updateParam(action.payload.year),
-				} : state.selectors.standings ? {
-					...state.selectors,
 					standings: state.selectors.standings.updateParam(action.payload.standings),
-				} : state.selectors.ids ? {
-					...state.selectors,
 					ids: state.selectors.ids.updateParam(action.payload.id),
-				} : state.selectors.sessions ? {
-					...state.selectors,
 					sessions: state.selectors.sessions.updateParam(action.payload.session || 'race'),
-				} : { ...state.selectors },
+				},
 			}
 		default:
 			return state
@@ -54,7 +39,7 @@ const dataReducer = (state, action) => {
 
 export const FilterContext = createContext()
 
-export const FilterContextProvider = ({ children, selectors }) => {
+const FilterContextProvider = ({ children, selectors }) => {
 	const [state, dispatch] = useReducer(dataReducer, { selectors })
 
 	return (
@@ -63,3 +48,5 @@ export const FilterContextProvider = ({ children, selectors }) => {
 		</FilterContext.Provider>
 	)
 }
+
+export default FilterContextProvider

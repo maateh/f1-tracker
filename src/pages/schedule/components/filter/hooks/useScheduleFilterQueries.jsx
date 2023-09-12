@@ -1,5 +1,5 @@
 // context
-import { useFilterContext } from "../../../../../components/filter/context/hooks/useFilterContext"
+import useFilterContext from "../../../../../components/filter/context/hooks/useFilterContext"
 
 // hooks
 import useSeasonsQuery from "./useSeasonsQuery"

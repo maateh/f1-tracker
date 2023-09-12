@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // context
-import { useFilterContext } from "../../../../../components/filter/context/hooks/useFilterContext"
+import useFilterContext from "../../../../../components/filter/context/hooks/useFilterContext"
 
 // models
 import FilterModel from "../../../../../model/filter/Filter"
