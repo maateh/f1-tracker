@@ -5,14 +5,15 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import Filter from '../../../../components/filter/Filter'
 
 // hooks
-import useCircuitsFilterQueries from './components/filter/hooks/useCircuitsFilterQueries'
+import useFilterQueries from '../../../../components/filter/hooks/useFilterQueries'
+import useSeasonsQuery from '../../../../components/filter/hooks/useSeasonsQuery'
 
 // context
 import FilterContextProvider from '../../../../components/filter/context/FilterContext'
 
 // models
-import FilterOptionModel from '../../../../model/filter/FilterOption'
 import FilterSelectorModel from '../../../../model/filter/FilterSelector'
+import FilterOptionModel from '../../../../model/filter/FilterOption'
 
 const CircuitsHistory = () => {
   const { year } = useParams()
@@ -27,7 +28,16 @@ const CircuitsHistory = () => {
       {year && (
         <>
           <FilterContextProvider selectors={FilterSelectorModel.TYPES.SEASONS}>
-            <Filter useFilterQueries={useCircuitsFilterQueries} />
+            <Filter 
+              useFilterQueries={
+                useFilterQueries.bind(this, [
+                  useSeasonsQuery.bind(this, {
+                    onChange: (value) => navigate(`./${value}`, { replace: true }),
+                    additionalOption: FilterOptionModel.ALL
+                  })
+                ])
+              }
+            />
           </FilterContextProvider>
         </>
       )}

@@ -33,7 +33,13 @@ const ScheduleContent = () => {
 				<>
 					<FilterContextProvider selectors={FilterSelectorModel.TYPES.SEASONS}>
 						<Filter
-							useFilterQueries={useFilterQueries.bind(this, [useSeasonsQuery])}
+              useFilterQueries={
+                useFilterQueries.bind(this, [
+                  useSeasonsQuery.bind(this, {
+                    onChange: (value) => navigate(`./${value}`, { replace: true }),
+                  })
+                ])
+              }
 							skeletonCounter={1}
 						/>
 					</FilterContextProvider>

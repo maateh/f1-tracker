@@ -5,7 +5,10 @@ import { useQuery } from 'react-query'
 import Filter from '../../../../components/filter/Filter'
 
 // hooks
-import usePitsFilterQueries from './components/filter/hooks/usePitsFilterQueries'
+import useFilterQueries from '../../../../components/filter/hooks/useFilterQueries'
+import useSeasonsQuery from '../../../../components/filter/hooks/useSeasonsQuery'
+import useRoundsQuery from '../../../../components/filter/hooks/useRoundsQuery'
+import useDriversQuery from '../../../../components/filter/hooks/useDriversQuery'
 
 // context
 import FilterContextProvider from '../../../../components/filter/context/FilterContext'
@@ -14,6 +17,7 @@ import { PITS_PARAMS_UPDATER } from '../../../../components/filter/context/Filte
 // models
 import WeekendModel from "../../../../model/season/weekend/Weekend"
 import FilterSelectorModel from "../../../../model/filter/FilterSelector"
+import FilterOptionModel from '../../../../model/filter/FilterOption'
 
 // icons
 import CircularProgress from '@mui/material/CircularProgress'
@@ -43,7 +47,30 @@ const PitsHistory = () => {
           ...FilterSelectorModel.TYPES.DRIVERS
         }}>
           <Filter
-            useFilterQueries={usePitsFilterQueries}
+            useFilterQueries={useFilterQueries.bind(this, [
+              useSeasonsQuery.bind(this, {
+                onChange: value => {
+                  const pathname = `./${value}/1/${FilterOptionModel.ALL.value}`
+                  const search = '?page=1'
+                  navigate({ pathname, search }, { replace: true })
+                }
+              }),
+              useRoundsQuery.bind(this, {
+                onChange: (value, { year }) => {
+                  const pathname = `./${year}/${value}/${FilterOptionModel.ALL.value}`
+                  const search = '?page=1'
+                  navigate({ pathname, search }, { replace: true })
+                }
+              }),
+              useDriversQuery.bind(this, {
+                onChange: (value, { year, round }) => {
+                  const pathname = `./${year}/${round}/${value}`
+                  const search = '?page=1'
+                  navigate({ pathname, search }, { replace: true })
+                },
+                additionalOption: FilterOptionModel.ALL
+              })
+            ])}
             paramsUpdater={PITS_PARAMS_UPDATER}
             skeletonCounter={3}
           />

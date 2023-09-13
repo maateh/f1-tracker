@@ -3,30 +3,30 @@ import { useQuery } from "react-query"
 
 // context
 import useFilterContext from "../context/hooks/useFilterContext"
-import { SET_SEASONS } from "../context/FilterContextActions"
+import { SET_DRIVERS } from "../context/FilterContextActions"
 
 // models
 import FilterModel from "../../../model/filter/Filter"
 import FilterSelectorModel from "../../../model/filter/FilterSelector"
 
-const useSeasonsQuery = ({ onChange, additionalOption }) => {
+const useDriversQuery = ({ onChange, additionalOption }) => {
   const { dispatch } = useFilterContext()
-  const { year } = useParams()
+  const { year, round, driverId } = useParams()
 
   return useQuery({
-    queryKey: ['filter', 'seasonList'],
-		queryFn: async () => FilterModel.querySeasons({ label: 'Select a Season' }),
+		queryKey: ['filter', 'driverList', year, round],
+		queryFn: () => FilterModel.queryDrivers({ year, round }),
 		onSuccess: filter => dispatch({ 
-      type: SET_SEASONS, 
+      type: SET_DRIVERS,
       payload: new FilterSelectorModel({
         filter: additionalOption ? filter.addOption(additionalOption) : filter,
-        param: year,
+        param: driverId,
         searchable: true,
         onChange,
         enabled: () => true
       })
     })
-  })
+	})
 }
 
-export default useSeasonsQuery
+export default useDriversQuery

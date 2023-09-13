@@ -2,7 +2,8 @@ import { useEffect } from 'react'
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
 
 // hooks
-import useConstructorsFilterQueries from './components/filter/hooks/useConstructorsFilterQueries'
+import useFilterQueries from '../../../../components/filter/hooks/useFilterQueries'
+import useSeasonsQuery from '../../../../components/filter/hooks/useSeasonsQuery'
 
 // components
 import Filter from '../../../../components/filter/Filter'
@@ -11,8 +12,8 @@ import Filter from '../../../../components/filter/Filter'
 import FilterContextProvider from '../../../../components/filter/context/FilterContext'
 
 // models
-import FilterOptionModel from '../../../../model/filter/FilterOption'
 import FilterSelectorModel from '../../../../model/filter/FilterSelector'
+import FilterOptionModel from '../../../../model/filter/FilterOption'
 
 const ConstructorsHistory = () => {
   const { year } = useParams()
@@ -27,7 +28,16 @@ const ConstructorsHistory = () => {
       {year && (
         <>
           <FilterContextProvider selectors={FilterSelectorModel.TYPES.SEASONS}>
-            <Filter useFilterQueries={useConstructorsFilterQueries} />
+            <Filter
+              useFilterQueries={
+                useFilterQueries.bind(this, [
+                  useSeasonsQuery.bind(this, {
+                    onChange: (value) => navigate(`./${value}`, { replace: true }),
+                    additionalOption: FilterOptionModel.ALL
+                  })
+                ])
+              }
+            />
           </FilterContextProvider>
         </>
       )}
