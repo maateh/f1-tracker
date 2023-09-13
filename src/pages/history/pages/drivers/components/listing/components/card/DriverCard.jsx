@@ -1,9 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-// icons
-import CakeIcon from '@mui/icons-material/Cake'
-import PublicIcon from '@mui/icons-material/Public'
-import LaunchIcon from '@mui/icons-material/Launch'
+// components
+import DriverName from './components/DriverName'
+import DriverDateOfBirth from './components/DriverDateOfBirth'
+import DriverNationality from './components/DriverNationality'
+import DriverWiki from './components/DriverWiki'
 
 // styles
 import './DriverCard.css'
@@ -17,26 +18,10 @@ const DriverCard = ({ driver, lastRef }) => {
       ref={lastRef || undefined}
       onClick={() => navigate(`/profile/driver/${driver.id}`)}
     >
-      <h3 className="driver-name">{driver.fullName} {driver.formattedNumber}</h3>
-      
-      <div className="driver-date-of-birth icon__container">
-        <CakeIcon fontSize='small' />
-        <span>{driver.formattedDateOfBirth}</span>
-      </div>
-
-      <div className="driver-nationality icon__container">
-        <PublicIcon fontSize='small' />
-        <span>{driver.nationality}</span>
-      </div>
-
-      <Link
-        className="driver-wiki__link icon__container"
-        onClick={e => e.stopPropagation()}
-        to={driver.wiki}
-      >
-        <LaunchIcon fontSize='small' />
-        <span>Wikipedia</span>
-      </Link>
+      <DriverName name={driver.fullName} number={driver.formattedNumber} />
+      <DriverDateOfBirth dateOfBirth={driver.formattedDateOfBirth} />
+      <DriverNationality nationality={driver.nationality} />
+      <DriverWiki link={driver.wiki} />
     </li>
   )
 }
