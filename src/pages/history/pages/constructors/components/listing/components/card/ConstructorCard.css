@@ -1,0 +1,88 @@
+.constructor-card__container {
+  height: 11.25rem;
+  width: 70%;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  
+  background: var(--secondary);
+
+  border-top: 8px solid var(--accent-orange);
+  border-left: 8px solid var(--accent-orange);
+  border-radius: 10px;
+
+  border-bottom: 6px solid var(--accent-orange);
+  border-right: 6px solid var(--accent-orange);
+  border-bottom-right-radius: 36px;
+  border-top-left-radius: 64px;
+
+  cursor: pointer;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+.constructor-card__container:hover,
+.constructor-card__container:active {
+  background: var(--accent-orange);
+}
+
+/* basic info */
+.constructor-card__container .constructor-name {
+  margin-top: 0.3rem;
+  margin-bottom: 0.2rem;
+
+  color: var(--text-color-light);
+  font-size: 1.7rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  text-shadow: 1px 1px 5px rgba(50, 50, 50, 0.3);
+  text-decoration: overline;
+}
+.constructor-card__container .constructor-nationality {
+  color: var(--text-color-light);
+  font-size: 1.4rem;
+  font-weight: lighter;
+}
+.constructor-card__container .constructor-wiki__link {
+  color: var(--text-color-light);
+  font-size: 1.2rem;
+  font-weight: lighter;
+}
+
+
+/* mobile styles */
+@media (max-width: 95rem) {
+  .constructor-card__container {
+    width: 32vw;
+  }
+}
+
+@media (max-width: 60rem) {
+  .constructor-card__container {
+    width: 50vw;
+  }
+}
+
+@media (max-width: 40rem) {
+  .constructor-card__container {
+    min-height: 10rem;
+    padding: 1rem;
+  }
+  .constructor-card__container .constructor-name {
+    font-size: 1.4rem;
+  }
+  .constructor-card__container .constructor-nationality {
+    font-size: 1.15rem;
+  }
+  .constructor-card__container .constructor-wiki__link {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 20rem) {
+  .constructor-card__container .constructor-name {
+    font-size: 1.2rem;
+  }
+}
