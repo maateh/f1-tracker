@@ -10,7 +10,7 @@ import FilterModel from "../../../../../model/filter/Filter"
 import FilterSelectorModel from "../../../../../model/filter/FilterSelector"
 import FilterOptionModel from "../../../../../model/filter/FilterOption"
 
-export const useIdsQuery = () => {
+const useIdsQuery = () => {
   const { selectors, dispatch } = useFilterContext()
   const { year, standings, id } = useParams()
   const navigate = useNavigate()
@@ -58,3 +58,5 @@ const constructorsQuery = year => ({
 	queryKey: ['filter', 'constructorList', year],
 	queryFn: async () => FilterModel.queryConstructors({ year }),
 })
+
+export default useIdsQuery

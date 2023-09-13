@@ -2,8 +2,8 @@ import { useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 
 // hooks
-import { useIdsQuery } from "./useIdsQuery"
-import { useSeasonsQuery } from "./useSeasonsQuery"
+import useIdsQuery from "./useIdsQuery"
+import useSeasonsQuery from "../../../../../components/filter/hooks/useSeasonsQuery"
 
 // context
 import useFilterContext from "../../../../../components/filter/context/hooks/useFilterContext"
@@ -19,7 +19,12 @@ const useResultsFilterQueries = () => {
   const { standings, session } = useParams()
   const navigate = useNavigate()
 
-  const { isLoading: seasonsLoading, error: seasonsError } = useSeasonsQuery()
+  const { isLoading: seasonsLoading, error: seasonsError } = useSeasonsQuery({
+    onChange: (value, { standings }) => {
+      const pathname = `./${value}/${standings}/${FilterOptionModel.ALL.value}`
+      navigate({ pathname }, { replace: true })
+    }
+  })
   const { isLoading: idsLoading, error: idsError } = useIdsQuery()
 
   useEffect(() => {
