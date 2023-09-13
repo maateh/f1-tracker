@@ -7,12 +7,14 @@
   --text-color-light: #ededee;
   --bg-color: #e0dcdc;
   --primary: #a32727;
-  --secondary: #413f3f;
+  --secondary: #444242;
   /* --secondary: #363535; */
   --highlight: #bb5d5d;
 
-  --accent-orange: #ddae2c;
-  --accent-yellow: #ddc95a;
+  --accent-orange: #dbac2a;
+  /* --accent-orange: #ddae2c; */
+  --accent-yellow: #ccb844;
+  /* --accent-yellow: #ddc95a; */
   --accent-green: #7cb95f;
   --accent-red: #d81919;
   --error: #e00f3c;

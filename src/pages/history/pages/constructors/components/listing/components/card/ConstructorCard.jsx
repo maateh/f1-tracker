@@ -17,18 +17,19 @@ const ConstructorCard = ({ constructor, lastRef }) => {
       onClick={() => navigate(`/profile/constructor/${constructor.id}`)}
     >
       <h3 className="constructor-name">{constructor.name}</h3>
+      
       <div className="constructor-nationality icon__container">
         <PublicIcon fontSize='small' />
         <span>{constructor.nationality}</span>
       </div>
+
       <Link
         className="constructor-wiki__link icon__container"
-
-        to={constructor.wiki}
         onClick={e => e.stopPropagation()}
+        to={constructor.wiki}
       >
         <LaunchIcon fontSize='small' />
-        <span>Wiki link</span>
+        <span>Wikipedia</span>
       </Link>
     </li>
   )
