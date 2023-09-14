@@ -34,30 +34,13 @@
 }
 
 
-/* links */
+/* links container */
 .navbar__container ul {
   width: 50%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 2rem;
-}
-
-.navbar__container li > a {
-  padding: 0.4rem 0.7rem;
-  font-size: 1.25rem;
-}
-.navbar__container li > a.active {
-  background: var(--highlight);
-  border-radius: 16px;
-
-  color: var(--text-color-light);
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-.navbar__container li > a:hover,
-.navbar__container li > a:active {
-  text-decoration: underline;
+  gap: 1.8rem;
 }
 
 
@@ -75,7 +58,7 @@
 }
 
 
-@media (max-width: 50rem) {
+@media (max-width: 55rem) {
   .navbar__container {
     padding: 1rem;
     flex-direction: column;

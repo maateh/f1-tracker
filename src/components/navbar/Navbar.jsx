@@ -3,10 +3,15 @@ import { NavLink } from "react-router-dom"
 
 // icons
 import Logo from '/logo.svg'
+import HomeIcon from '@mui/icons-material/Home'
+import EventIcon from '@mui/icons-material/Event'
+import SportsScoreIcon from '@mui/icons-material/SportsScore'
 import MenuIcon from '@mui/icons-material/Menu'
+import AutoStoriesIcon from '@mui/icons-material/AutoStories'
 
 // styles
 import './Navbar.css'
+import NavbarItem from "./NavbarItem"
 
 const Navbar = () => {
   const linksRef = useRef()
@@ -19,10 +24,10 @@ const Navbar = () => {
           <span>F1 tracker</span>
         </NavLink>
         <ul ref={linksRef}>
-          <li><NavLink to="/">Home</NavLink></li>
-          <li><NavLink to="/schedule">Schedule</NavLink></li>
-          <li><NavLink to="/results">Results</NavLink></li>
-          <li><NavLink to="/history">History</NavLink></li>
+          <NavbarItem title={'Home'} link={'/'} icon={<HomeIcon />} />
+          <NavbarItem title={'Schedule'} link={'/schedule'} icon={<EventIcon />} />
+          <NavbarItem title={'Results'} link={'/results'} icon={<SportsScoreIcon />} />
+          <NavbarItem title={'History'} link={'/history'} icon={<AutoStoriesIcon />} />
         </ul>
 
         <MenuIcon

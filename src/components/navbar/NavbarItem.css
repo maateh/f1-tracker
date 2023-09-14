@@ -1,0 +1,27 @@
+/* link */
+.navbar__container li > a.icon__container {
+  padding: 0.65rem 0.75rem;
+  font-size: 1.25rem;
+}
+
+.navbar__container li > a.icon__container.active {
+  background: var(--highlight);
+  border-radius: 4px;
+  border-top-left-radius: 28px;
+  border-bottom-right-radius: 16px;
+
+  color: var(--text-color-light);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.navbar__container li > a.icon__container:hover,
+.navbar__container li > a.icon__container:active {
+  text-decoration: underline;
+}
+
+/* icon container elements */
+.navbar__container li > a.icon__container > svg {
+  margin: 0;
+  margin-right: 0.7rem;
+}
