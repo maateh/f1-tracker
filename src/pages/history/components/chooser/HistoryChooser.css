@@ -31,11 +31,19 @@
 }
 
 .history-chooser > .history-categories__container > .category-option {
-  padding: 0.5rem 0.8rem;
+  padding: 0.6rem 1rem;
   margin: 1rem;
 
   background: var(--secondary);
-  border-radius: 8px;
+
+  border-top: 4px solid var(--highlight);
+  border-left: 4px solid var(--highlight);
+  border-radius: 4px;
+
+  border-bottom: 3px solid var(--highlight);
+  border-right: 3px solid var(--highlight);
+  border-top-left-radius: 28px;
+  border-bottom-right-radius: 16px;
 
   color: var(--text-color-light);
   font-size: 1.3rem;
@@ -43,23 +51,50 @@
   letter-spacing: 1px;
   cursor: pointer;
 }
-
-.history-chooser > .history-categories__container > .category-option.active {
-  background: var(--primary);
-  border-radius: 8px;
-
-  color: var(--text-color-light);
-  text-decoration: underline;
-  text-shadow: 3px 1px 2px rgba(50, 50, 50, 0.8);
+.history-chooser > .history-categories__container > .category-option.drivers {
+  border-color: var(--accent-yellow);
+}
+.history-chooser > .history-categories__container > .category-option.constructors {
+  border-color: var(--accent-orange);
+}
+.history-chooser > .history-categories__container > .category-option.circuits {
+  border-color: var(--accent-green);
 }
 
 .history-chooser > .history-categories__container > .category-option:hover,
 .history-chooser > .history-categories__container > .category-option:active {
   background: var(--highlight);
-  border-radius: 8px;
 
   color: var(--text-color-light);
-  text-shadow: none;
+  text-shadow: 2px 2px 2px rgba(100, 100, 100, 0.6);
+}
+.history-chooser > .history-categories__container > .category-option.drivers:hover,
+.history-chooser > .history-categories__container > .category-option.drivers:active {
+  background: var(--accent-yellow);
+}
+.history-chooser > .history-categories__container > .category-option.constructors:hover,
+.history-chooser > .history-categories__container > .category-option.constructors:active {
+  background: var(--accent-orange);
+}
+.history-chooser > .history-categories__container > .category-option.circuits:hover,
+.history-chooser > .history-categories__container > .category-option.circuits:active {
+  background: var(--accent-green);
+}
+
+.history-chooser > .history-categories__container > .category-option.active {
+  background: var(--highlight);
+
+  color: var(--text-color-light);
+  text-shadow: 2px 2px 2px rgba(100, 100, 100, 0.6);
+}
+.history-chooser > .history-categories__container > .category-option.active.drivers {
+  background: var(--accent-yellow);
+}
+.history-chooser > .history-categories__container > .category-option.active.constructors {
+  background: var(--accent-orange);
+}
+.history-chooser > .history-categories__container > .category-option.active.circuits {
+  background: var(--accent-green);
 }
 
 @media (max-width: 40rem) {

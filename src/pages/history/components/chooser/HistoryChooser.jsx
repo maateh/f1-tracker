@@ -19,7 +19,7 @@ const HistoryChooser = () => {
       <div className="history-categories__container">
         {options.map(option => (
           <NavLink
-            className="category-option"
+            className={`category-option ${option.value}`}
             key={option.value}
             to={`./${option.value}`}
             preventScrollReset={true}
