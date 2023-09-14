@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // api
-import { constructorStandings } from "../../../../../../api/standings/constructorStandings"
+import { constructorStandings } from "../../../../../../api/standings/constructor/constructorStandings"
 
 // components
 import SingleTableCell from "../../../../../../components/listing/table/cell/SingleTableCell"
