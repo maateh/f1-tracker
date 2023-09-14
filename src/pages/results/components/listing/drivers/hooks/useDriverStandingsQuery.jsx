@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // api
-import { driverStandings } from "../../../../../../api/standings/driverStandings"
+import { driverStandings } from "../../../../../../api/standings/season/driverStandings"
 
 // components
 import SingleTableCell from "../../../../../../components/listing/table/cell/SingleTableCell"

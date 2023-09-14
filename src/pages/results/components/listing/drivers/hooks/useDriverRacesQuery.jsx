@@ -2,7 +2,7 @@ import { useQuery } from "react-query"
 import { useParams } from "react-router-dom"
 
 // api
-import { driverRacesResults } from "../../../../../../api/results/race/driverRacesResults"
+import { driverRacesResultsFromSeason } from "../../../../../../api/results/race/driverRacesResults"
 
 // components
 import ResultsCard from "../../components/card/ResultsCard"
@@ -38,8 +38,8 @@ const useDriverRacesQuery = () => {
   const { year, id: driverId } = useParams()
 
   return useQuery({
-    queryKey: ['listing', 'driverRacesResults', year, driverId],
-    queryFn: () => driverRacesResults(year, driverId)
+    queryKey: ['listing', 'driverRacesResultsFromSeason', year, driverId],
+    queryFn: () => driverRacesResultsFromSeason(year, driverId)
       .then(({ data }) => {
         const { year, weekends } = SeasonModel.parser({ Season: data })
   

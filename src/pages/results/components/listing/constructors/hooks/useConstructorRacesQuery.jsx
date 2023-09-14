@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // api
-import { constructorRacesResults } from "../../../../../../api/results/race/constructorRacesResults"
+import { constructorRacesResultsFromSeason } from "../../../../../../api/results/race/constructorRacesResults"
 
 // components
 import ResultsCard from "../../components/card/ResultsCard"
@@ -37,8 +37,8 @@ const useConstructorRacesQuery = () => {
   const { year, id: constructorId } = useParams()
 
   return useQuery({
-    queryKey: ['listing', 'constructorRacesResults', year, constructorId],
-    queryFn: () => constructorRacesResults(year, constructorId)
+    queryKey: ['listing', 'constructorRacesResultsFromSeason', year, constructorId],
+    queryFn: () => constructorRacesResultsFromSeason(year, constructorId)
       .then(({ data }) => {
         const { year, weekends } = SeasonModel.parser({ Season: data })
   
