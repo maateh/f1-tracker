@@ -14,6 +14,8 @@ const dataReducer = (state, action) => {
 			return { ...state, circuit: action.payload }
     case actionType.SET_RACES_CARDS:
       return { ...state, cards: action.payload }
+    case actionType.ADD_RACES_CARDS:
+      return { ...state, cards: { ...state.cards, layouts: action.payload }}
     default:
       return state
   }

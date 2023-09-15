@@ -1,2 +1,3 @@
 export const SET_CIRCUIT = 'SET_CIRCUIT'
 export const SET_RACES_CARDS = 'SET_RACES_CARDS'
+export const ADD_RACES_CARDS = 'ADD_RACES_CARDS'

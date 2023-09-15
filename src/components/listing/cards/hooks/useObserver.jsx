@@ -3,17 +3,17 @@ import { useCallback, useRef } from 'react'
 const useObserver = ({ isFetchingNextPage, fetchNextPage, hasNextPage }) => {
 	const observer = useRef()
 
-	return useCallback(card => {
+	return useCallback(element => {
     if (isFetchingNextPage) return
     if (observer.current) observer.current.disconnect()
 
-    observer.current = new IntersectionObserver(cards => {
-      if (cards[0].isIntersecting && hasNextPage) {
+    observer.current = new IntersectionObserver(elements => {
+      if (elements[0].isIntersecting && hasNextPage) {
         fetchNextPage()
       }
     })
 
-    if (card) observer.current.observe(card)
+    if (element) observer.current.observe(element)
   }, [isFetchingNextPage, fetchNextPage, hasNextPage])
 }
 

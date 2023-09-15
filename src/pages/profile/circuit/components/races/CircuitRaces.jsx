@@ -15,6 +15,7 @@ import './CircuitRaces.css'
 const CircuitRaces = () => {
   const { cards } = useCircuitProfileContext()
   const {
+    data,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
@@ -31,19 +32,19 @@ const CircuitRaces = () => {
 
   return (
     <section className="circuit-races__container">
+      {cards && data && (
+        <Cards
+          cards={cards}
+          lastIndex={data.pages[data.pages.length - 1].limit}
+          lastRef={lastRef}
+        />
+      )}
+
       <LoadingHandler
         isLoading={isLoading}
         isError={isError}
         error={error}
       />
-
-      {cards && (
-        <Cards
-          cards={cards}
-          // lastIndex={}
-          // lastRef={}
-        />
-      )}
     </section>
   )
 }

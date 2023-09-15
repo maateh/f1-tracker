@@ -36,9 +36,7 @@ const useCircuitsQuery = () => {
           throw new QueryError('No data found!', 404)
         }
 
-        const circuits = SeasonModel.parseCircuits({
-          Circuits: data.Circuits,
-        })
+        const circuits = SeasonModel.parseCircuits({ Circuits: data.Circuits })
 
         return new ListingModel({
           title: new TitleModel({

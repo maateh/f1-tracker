@@ -1,13 +1,16 @@
 // styles
 import './CircuitRaceCard.css'
 
-const CircuitRaceCard = ({ weekend }) => {
+const CircuitRaceCard = ({ weekend, lastRef }) => {
   return (
-    <div className="circuit-race__card">
-      <h4>{weekend.name}</h4>
-      <p>Season: {weekend.year}</p>
+    <li
+      className="circuit-race__card"
+      ref={lastRef || undefined}
+    >
+      <h3>{weekend.year}</h3>
       <p>Round: {weekend.round}</p>
-    </div>
+      <p>{weekend.name}</p>
+    </li>
   )
 }
 

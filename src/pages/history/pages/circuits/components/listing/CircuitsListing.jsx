@@ -12,8 +12,8 @@ const CircuitsListing = () => {
     data,
     fetchNextPage,
     hasNextPage,
-		isLoading,
 		isFetchingNextPage,
+		isLoading,
 		isError,
     error
   } = useCircuitsQuery()
