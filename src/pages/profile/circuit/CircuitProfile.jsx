@@ -1,5 +1,6 @@
 // components
 import CircuitInformation from './components/information/CircuitInformation'
+import CircuitRaces from './components/races/CircuitRaces'
 
 // context
 import CircuitProfileContextProvider from './context/CircuitProfileContext'
@@ -12,6 +13,7 @@ const CircuitProfile = () => {
     <div className="circuit-profile__container">
       <CircuitProfileContextProvider>
         <CircuitInformation />
+        <CircuitRaces />
       </CircuitProfileContextProvider>
     </div>
   )

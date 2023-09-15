@@ -1,4 +1,4 @@
-import { KEYS, ergast } from "../ergast"
+import { KEYS, ergast } from "../../ergast"
 
 // Get a list with all of the races in this circuit
 export async function circuitRaces(circuitId) {

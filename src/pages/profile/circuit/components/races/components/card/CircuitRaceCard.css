@@ -1,6 +1,7 @@
-.circuit-profile__container {
+.circuit-race__card {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 0.5rem;
 }

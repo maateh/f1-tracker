@@ -5,15 +5,15 @@ import * as actionType from './CircuitProfileContextActions'
 
 const INITIAL_STATE = {
   circuit: null,
-  races: null
+  cards: null
 }
 
 const dataReducer = (state, action) => {
 	switch (action.type) {
 		case actionType.SET_CIRCUIT:
 			return { ...state, circuit: action.payload }
-    case actionType.SET_RACES:
-      return { ...state, races: action.payload }
+    case actionType.SET_RACES_CARDS:
+      return { ...state, cards: action.payload }
     default:
       return state
   }
