@@ -15,8 +15,8 @@ const DriverProfile = () => {
     <div className="driver-profile__container">
       <DriverProfileContextProvider>
         <DriverInformation />
-        <DriverAchievements />
         <DriverRaces />
+        <DriverAchievements />
         <DriverQualifyings />
       </DriverProfileContextProvider>
     </div>

@@ -1,7 +1,4 @@
 .constructor-profile__container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
+  display: grid;
+  grid-template-columns: 35% 30% 35%;
 }

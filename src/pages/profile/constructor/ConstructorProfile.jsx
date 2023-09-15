@@ -1,30 +1,18 @@
-// hooks
-import useConstructorQuery from './hooks/useConstructorQuery'
-
 // components
-import LoadingHandler from "../../../components/loading/LoadingHandler"
+import ConstructorInformation from './components/information/ConstructorInformation'
+
+// context
+import ConstructorProfileContextProvider from './context/ConstructorProfileContext'
 
 // styles
 import './ConstructorProfile.css'
 
 const ConstructorProfile = () => {
-  const {
-    data: constructor,
-    isLoading,
-    isError,
-    error
-  } = useConstructorQuery()
-
-  return isLoading || isError ? (
-    <LoadingHandler
-      isLoading={isLoading}
-      isError={isError}
-      error={error}
-    />
-  ) : (
+  return (
     <div className="constructor-profile__container">
-      <h2 className="constructor-name">{constructor.name}</h2>
-      <p className="constructor-nationality">{constructor.nationality}</p>
+      <ConstructorProfileContextProvider>
+        <ConstructorInformation />
+      </ConstructorProfileContextProvider>
     </div>
   )
 }
