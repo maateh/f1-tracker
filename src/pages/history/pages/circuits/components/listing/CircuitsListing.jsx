@@ -1,7 +1,6 @@
-import { useCallback, useRef } from "react"
-
 // hooks
 import useCircuitsQuery from "./hooks/useCircuitsQuery"
+import useObserver from "../../../../../../components/listing/cards/hooks/useObserver"
 
 // components
 import Title from "../../../../../../components/listing/title/Title"
@@ -19,19 +18,11 @@ const CircuitsListing = () => {
     error
   } = useCircuitsQuery()
 
-	const observer = useRef()
-	const lastRef = useCallback(card => {
-		if (isFetchingNextPage) return
-		if (observer.current) observer.current.disconnect()
-
-		observer.current = new IntersectionObserver(cards => {
-			if (cards[0].isIntersecting && hasNextPage) {
-				fetchNextPage()
-			}
-		})
-		
-		if (card) observer.current.observe(card)
-	}, [isFetchingNextPage, fetchNextPage, hasNextPage])
+	const lastRef = useObserver({
+		fetchNextPage,
+		hasNextPage,
+		isFetchingNextPage
+	})
 
 	return (
 		<div className="listing__container">

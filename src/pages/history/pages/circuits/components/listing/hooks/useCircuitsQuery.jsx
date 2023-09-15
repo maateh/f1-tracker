@@ -36,7 +36,7 @@ const useCircuitsQuery = () => {
           throw new QueryError('No data found!', 404)
         }
 
-        const Circuits = SeasonModel.parseCircuits({
+        const circuits = SeasonModel.parseCircuits({
           Circuits: data.Circuits,
         })
 
@@ -50,7 +50,7 @@ const useCircuitsQuery = () => {
               display: 'grid',
               gap: '4rem'
             },
-            layouts: Circuits.map(circuit => (
+            layouts: circuits.map(circuit => (
               <CircuitCard
                 key={circuit.id}
                 circuit={circuit}

@@ -4,6 +4,7 @@ import LoadingHandler from '../../../../../components/loading/LoadingHandler'
 
 // hooks
 import useCircuitRacesQuery from "./hooks/useCircuitRacesQuery"
+import useObserver from '../../../../../components/listing/cards/hooks/useObserver'
 
 // context
 import useCircuitProfileContext from "../../context/hooks/useCircuitProfileContext"
@@ -14,20 +15,35 @@ import './CircuitRaces.css'
 const CircuitRaces = () => {
   const { cards } = useCircuitProfileContext()
   const {
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
     isLoading,
     isError,
     error
   } = useCircuitRacesQuery()
 
-  return isLoading || isError || !cards ? (
-    <LoadingHandler
-      isLoading={isLoading}
-      isError={isError}
-      error={error}
-    />
-  ) : (
+  const lastRef = useObserver({
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage
+  })
+
+  return (
     <section className="circuit-races__container">
-      <Cards cards={cards} />
+      <LoadingHandler
+        isLoading={isLoading}
+        isError={isError}
+        error={error}
+      />
+
+      {cards && (
+        <Cards
+          cards={cards}
+          // lastIndex={}
+          // lastRef={}
+        />
+      )}
     </section>
   )
 }
