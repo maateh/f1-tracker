@@ -17,6 +17,10 @@ class Circuit {
 		})
 	}
 
+	getLocality() {
+		return `${this.location.country}, ${this.location.locality}`
+	}
+
 	getMapsLink() {
 		return `${GOOGLE_MAPS_LINK}?q=${this.location.lat},${this.location.long}`
 	}
