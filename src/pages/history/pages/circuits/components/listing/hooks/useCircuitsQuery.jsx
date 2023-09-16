@@ -9,7 +9,7 @@ import CircuitCard from "../components/card/CircuitCard"
 
 // context
 import useListingContext from "../../../../../../../components/listing/context/hooks/useListingContext"
-import { ADD_CARDS, SET_CARDS, SET_TITLE } from "../../../../../../../components/listing/context/ListingContextActions"
+import { ADD_CARDS_LAYOUTS, SET_CARDS, SET_TITLE } from "../../../../../../../components/listing/context/ListingContextActions"
 
 // models
 import SeasonModel from "../../../../../../../model/season/Season"
@@ -51,10 +51,13 @@ const useCircuitsQuery = () => {
           })
         }
 
-        const cardsLayouts = circuits.map(circuit => <CircuitCard key={circuit.id} circuit={circuit} />)
+        const cardsLayouts = circuits.map(circuit => (
+          <CircuitCard key={circuit.id} circuit={circuit} />
+        ))
+        
         dispatch({
-          type: cards ? ADD_CARDS : SET_CARDS,
-          payload: cards ? [...cards.layouts, cardsLayouts] 
+          type: cards ? ADD_CARDS_LAYOUTS : SET_CARDS,
+          payload: cards ? [...cards.layouts, ...cardsLayouts] 
             : new CardsModel({
               styles: {
                 margin: '2rem 4rem',

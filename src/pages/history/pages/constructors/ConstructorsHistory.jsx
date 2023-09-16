@@ -10,6 +10,7 @@ import Filter from '../../../../components/filter/Filter'
 
 // context
 import FilterContextProvider from '../../../../components/filter/context/FilterContext'
+import ListingContextProvider from '../../../../components/listing/context/ListingContext'
 
 // models
 import FilterSelectorModel from '../../../../model/filter/FilterSelector'
@@ -42,7 +43,9 @@ const ConstructorsHistory = () => {
         </>
       )}
 
-      <Outlet />
+      <ListingContextProvider>
+        <Outlet />
+      </ListingContextProvider>
     </div>
   )
 }

@@ -2,12 +2,16 @@
 import useConstructorsQuery from "./hooks/useConstructorsQuery"
 import useObserver from "../../../../../../components/listing/cards/hooks/useObserver"
 
+// context
+import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
+
 // components
 import Title from "../../../../../../components/listing/title/Title"
 import Cards from "../../../../../../components/listing/cards/Cards"
 import LoadingHandler from "../../../../../../components/loading/LoadingHandler"
 
 const ConstructorsListing = () => {
+	const { title, cards } = useListingContext()
 	const { 
     data,
     fetchNextPage,
@@ -26,18 +30,14 @@ const ConstructorsListing = () => {
 
 	return (
 		<div className="listing__container">
-			{data?.pages && data.pages.length && (
+			{title && cards && data && (
 				<>
-					<Title title={data.pages[0].title} />
-
-					{data.pages.map(page => (
-						<Cards
-							key={page.pagination.currentPage}
-							cards={page.cards}
-							lastIndex={page.pagination.limit}
-							lastRef={lastRef}
-						/>
-					))}
+					<Title title={title} />
+					<Cards
+						cards={cards}
+						lastIndex={data.pages[data.pages.length - 1].limit}
+						lastRef={lastRef}
+					/>
 				</>
 			)}
 

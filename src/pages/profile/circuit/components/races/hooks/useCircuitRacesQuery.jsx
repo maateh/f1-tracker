@@ -35,7 +35,7 @@ const useCircuitRacesQuery = () => {
         }
 
         const weekends = SeasonModel.parseWeekends({ Races: data.Races })
-        const layouts = weekends.map(weekend => (
+        const cardsLayouts = weekends.map(weekend => (
           <CircuitRaceCard
             key={weekend.date}
             weekend={weekend}
@@ -44,14 +44,14 @@ const useCircuitRacesQuery = () => {
 
         dispatch({
           type: cards ? ADD_RACES_CARDS : SET_RACES_CARDS,
-          payload: cards ? [...cards.layouts, layouts]
+          payload: cards ? [...cards.layouts, ...cardsLayouts]
             : new CardsModel({
             styles: {
               margin: '2rem 4rem',
               display: 'grid',
               gap: '4rem'
             },
-            layouts
+            layouts: cardsLayouts
           })
         })
 

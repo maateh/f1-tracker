@@ -16,7 +16,7 @@ const dataReducer = (state, action) => {
 			return { ...state, title: action.payload }
     case actionType.SET_CARDS:
       return { ...state, cards: action.payload }
-    case actionType.ADD_CARDS:
+    case actionType.ADD_CARDS_LAYOUTS:
       return { ...state, cards: { ...state.cards, layouts: action.payload }}
     case actionType.SET_TABLE:
       return { ...state, table: action.payload }

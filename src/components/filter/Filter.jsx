@@ -22,7 +22,7 @@ const Filter = ({ useFilterQueries, paramsUpdater, skeletonCounter = 1 }) => {
 	}, [preloading, paramsUpdater, params, dispatch])
 
 	return (
-		<div className="filter__container">
+		<ul className="filter__container">
 			{preloading ? (
 				<SkeletonSelector counter={skeletonCounter} />
 			) : (
@@ -39,7 +39,7 @@ const Filter = ({ useFilterQueries, paramsUpdater, skeletonCounter = 1 }) => {
 			)}
 
 			{error && <p className="error__element">{error.message}</p>}
-		</div>
+		</ul>
 	)
 }
 

@@ -13,7 +13,7 @@ const FilterSelector = ({ selector, loading }) => {
   }
 
   return (
-    <div className="filter-selector">
+    <li className="filter-selector">
       <label className={selector.filter.key}>
         <span>{selector.filter.label}</span>
         <Select
@@ -30,7 +30,7 @@ const FilterSelector = ({ selector, loading }) => {
           isLoading={loading}
         />
 			</label>
-    </div>
+    </li>
   )
 }
 
