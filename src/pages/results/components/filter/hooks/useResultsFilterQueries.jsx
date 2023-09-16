@@ -7,7 +7,6 @@ import useSeasonsFilterQuery from "../../../../../components/filter/hooks/useSea
 
 // context
 import useFilterContext from "../../../../../components/filter/context/hooks/useFilterContext"
-import { SET_SESSIONS, SET_STANDINGS } from "../../../../../components/filter/context/FilterContextActions"
 
 // models
 import FilterSelectorModel from "../../../../../model/filter/FilterSelector"
@@ -15,7 +14,7 @@ import FilterModel from "../../../../../model/filter/Filter"
 import FilterOptionModel from "../../../../../model/filter/FilterOption"
 
 const useResultsFilterQueries = () => {
-  const { selectors, dispatch } = useFilterContext()
+  const { selectors, setStandings, setSessions } = useFilterContext()
   const { standings, session } = useParams()
   const navigate = useNavigate()
 
@@ -28,9 +27,9 @@ const useResultsFilterQueries = () => {
   const { isLoading: idsLoading, error: idsError } = useIdsFilterQuery()
 
   useEffect(() => {
-    selectors.standings || loadStandings(navigate, dispatch, standings)
-    selectors.sessions || loadSessions(navigate, dispatch, session)
-  }, [navigate, dispatch, standings, session, selectors.standings, selectors.sessions])
+    selectors.standings || loadStandings(navigate, standings, setStandings)
+    selectors.sessions || loadSessions(navigate, session, setSessions)
+  }, [navigate, standings, session, setStandings, setSessions, selectors.standings, selectors.sessions])
   
   return {
     preloading: 
@@ -41,9 +40,8 @@ const useResultsFilterQueries = () => {
   }
 }
 
-const loadStandings = (navigate, dispatch, standings) => dispatch({
-  type: SET_STANDINGS,
-  payload: new FilterSelectorModel({
+const loadStandings = (navigate, standings, setStandings) => setStandings({
+  standings: new FilterSelectorModel({
     filter: new FilterModel({
       key: 'standings',
       label: 'Standings',
@@ -60,9 +58,8 @@ const loadStandings = (navigate, dispatch, standings) => dispatch({
   })
 })
 
-const loadSessions = (navigate, dispatch, session) => dispatch({
-  type: SET_SESSIONS,
-  payload: new FilterSelectorModel({
+const loadSessions = (navigate, session, setSessions) => setSessions({
+  sessions: new FilterSelectorModel({
     filter: new FilterModel({
 			key: 'sessions',
 			label: 'Sessions',

@@ -79,8 +79,67 @@ export const FilterContext = createContext()
 const FilterContextProvider = ({ children, selectors }) => {
 	const [state, dispatch] = useReducer(dataReducer, { selectors })
 
+	const setSeasons = ({ seasons }) => {
+		dispatch({
+			type: actionType.SET_SEASONS,
+			payload: seasons
+		})
+	}
+
+	const setStandings = ({ standings }) => {
+		dispatch({
+			type: actionType.SET_STANDINGS,
+			payload: standings
+		})
+	}
+
+	const setRounds = ({ rounds }) => {
+		dispatch({
+			type: actionType.SET_ROUNDS,
+			payload: rounds
+		})
+	}
+
+	const setDrivers = ({ drivers }) => {
+		dispatch({
+			type: actionType.SET_DRIVERS,
+			payload: drivers
+		})
+	}
+
+	const setConstructors = ({ constructors }) => {
+		dispatch({
+			type: actionType.SET_CONSTRUCTORS,
+			payload: constructors
+		})
+	}
+
+	const setIds = ({ ids }) => {
+		dispatch({
+			type: actionType.SET_IDS,
+			payload: ids
+		})
+	}
+
+	const setSessions = ({ sessions }) => {
+		dispatch({
+			type: actionType.SET_SESSIONS,
+			payload: sessions
+		})
+	}
+
 	return (
-		<FilterContext.Provider value={{ ...state, dispatch }}>
+		<FilterContext.Provider value={{
+			...state,
+			dispatch,
+			setSeasons,
+			setStandings,
+			setRounds,
+			setDrivers,
+			setConstructors,
+			setIds,
+			setSessions
+		}}>
 			{children}
 		</FilterContext.Provider>
 	)

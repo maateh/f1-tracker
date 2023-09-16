@@ -3,7 +3,6 @@ import { useQuery } from "react-query"
 
 // context
 import useFilterContext from "../../../../../components/filter/context/hooks/useFilterContext"
-import { SET_IDS } from "../../../../../components/filter/context/FilterContextActions"
 
 // models
 import FilterModel from "../../../../../model/filter/Filter"
@@ -11,15 +10,14 @@ import FilterSelectorModel from "../../../../../model/filter/FilterSelector"
 import FilterOptionModel from "../../../../../model/filter/FilterOption"
 
 const useIdsFilterQuery = () => {
-  const { selectors, dispatch } = useFilterContext()
+  const { selectors, setIds } = useFilterContext()
   const { year, standings, id } = useParams()
   const navigate = useNavigate()
 
   return useQuery({
     ...idsQuery(year, standings),
-    onSuccess: filter => dispatch({ 
-      type: SET_IDS, 
-      payload: new FilterSelectorModel({
+    onSuccess: filter => setIds({
+      ids: new FilterSelectorModel({
         filter: filter.addOption(FilterOptionModel.ALL),
         param: id,
         searchable: true,
