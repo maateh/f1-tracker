@@ -17,7 +17,6 @@ import useListingContext from "../../../../../../../components/listing/context/h
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
 import DriverModel from "../../../../../../../model/season/weekend/results/driver/Driver"
 import PitStopModel from "../../../../../../../model/season/weekend/pit/PitStop"
-import ListingModel from "../../../../../../../model/listing/Listing"
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import TableModel from "../../../../../../../model/listing/Table"
@@ -27,7 +26,7 @@ import QueryError from "../../../../../../../model/error/QueryError"
 import LocalParkingIcon from '@mui/icons-material/LocalParking'
 import TimelapseIcon from '@mui/icons-material/Timelapse'
 
-const useDriverPitsQuery = () => {
+const useDriverPitsListingQuery = () => {
   const { setTitle, setCards, setTable } = useListingContext()
   const { year, round, driverId } = useParams()
 
@@ -194,4 +193,4 @@ const gap = (pit, fastestPit) => {
     : `+${gap.getSeconds()}.${ms}`
 }
 
-export default useDriverPitsQuery
+export default useDriverPitsListingQuery

@@ -18,7 +18,6 @@ import useListingContext from "../../../../../../../components/listing/context/h
 import SeasonModel from "../../../../../../../model/season/Season"
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
 import PitStopModel from "../../../../../../../model/season/weekend/pit/PitStop"
-import ListingModel from "../../../../../../../model/listing/Listing"
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import TableModel from "../../../../../../../model/listing/Table"
@@ -30,7 +29,7 @@ import LocalParkingIcon from '@mui/icons-material/LocalParking'
 import CalculateIcon from '@mui/icons-material/Calculate'
 import TimelapseIcon from '@mui/icons-material/Timelapse'
 
-const useRoundPitsQuery = () => {
+const useRoundPitsListingQuery = () => {
   const { setTitle, setCards, setTable } = useListingContext()
   const { year, round } = useParams()
 
@@ -234,4 +233,4 @@ const gap = (pit, fastestPit) => {
     : `+${gap.getSeconds()}.${ms}`
 }
 
-export default useRoundPitsQuery
+export default useRoundPitsListingQuery

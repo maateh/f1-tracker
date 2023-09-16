@@ -1,5 +1,5 @@
 // hooks
-import useConstructorsQuery from "./hooks/useConstructorsQuery"
+import useConstructorsListingQuery from "./hooks/useConstructorsListingQuery"
 import useObserver from "../../../../../../components/listing/cards/hooks/useObserver"
 
 // components
@@ -20,7 +20,7 @@ const ConstructorsListing = () => {
 		isLoading,
 		isError,
     error
-  } = useConstructorsQuery()
+  } = useConstructorsListingQuery()
 
 	const lastRef = useObserver({
 		fetchNextPage,

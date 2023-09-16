@@ -13,7 +13,7 @@ import WeekendModel from "../../../../../model/season/weekend/Weekend"
 import CardsModel from "../../../../../model/listing/Cards"
 import QueryError from "../../../../../model/error/QueryError"
 
-const useScheduleQuery = () => {
+const useScheduleListingQuery = () => {
   const { year } = useParams()
 
   return useQuery({
@@ -46,4 +46,4 @@ const useScheduleQuery = () => {
   })
 }
 
-export default useScheduleQuery
+export default useScheduleListingQuery

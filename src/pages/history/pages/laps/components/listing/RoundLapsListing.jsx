@@ -1,5 +1,5 @@
 // hooks
-import useRoundLapsQuery from "./hooks/useRoundLapsQuery"
+import useRoundLapsListingQuery from "./hooks/useRoundLapsListingQuery"
 
 // components
 import Title from '../../../../../../components/listing/title/Title'
@@ -17,7 +17,7 @@ const RoundLapsListing = () => {
     isLoading,
     isError,
     error
-  } = useRoundLapsQuery()
+  } = useRoundLapsListingQuery()
 
 	return (
 		<div className="listing__container">

@@ -31,7 +31,7 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 import UnfoldLessDoubleIcon from '@mui/icons-material/UnfoldLessDouble'
 import SportsScoreIcon from '@mui/icons-material/SportsScore'
 
-const useDriverLapsQuery = () => {
+const useDriverLapsListingQuery = () => {
   const { setTitle, setCards, setTable } = useListingContext()
   const { year, round, driverId } = useParams()
 
@@ -247,4 +247,4 @@ const gap = (timing, laps, index) => {
     : `${prefix}${minutes}${gap.getSeconds()}.${ms}`
 }
 
-export default useDriverLapsQuery
+export default useDriverLapsListingQuery

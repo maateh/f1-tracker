@@ -6,7 +6,7 @@ import Filter from '../../../../components/filter/Filter'
 
 // hooks
 import useFilterQueries from '../../../../components/filter/hooks/useFilterQueries'
-import useSeasonsQuery from '../../../../components/filter/hooks/useSeasonsQuery'
+import useSeasonsFilterQuery from '../../../../components/filter/hooks/useSeasonsFilterQuery'
 
 // context
 import FilterContextProvider from '../../../../components/filter/context/FilterContext'
@@ -32,7 +32,7 @@ const DriversHistory = () => {
             <Filter
               useFilterQueries={
                 useFilterQueries.bind(this, [
-                  useSeasonsQuery.bind(this, {
+                  useSeasonsFilterQuery.bind(this, {
                     onChange: (value) => navigate(`./${value}`, { replace: true }),
                     additionalOption: FilterOptionModel.ALL
                   })

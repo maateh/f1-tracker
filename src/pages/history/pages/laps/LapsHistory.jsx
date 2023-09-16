@@ -6,9 +6,9 @@ import Filter from "../../../../components/filter/Filter"
 
 // hooks
 import useFilterQueries from "../../../../components/filter/hooks/useFilterQueries"
-import useSeasonsQuery from "../../../../components/filter/hooks/useSeasonsQuery"
-import useRoundsQuery from "../../../../components/filter/hooks/useRoundsQuery"
-import useDriversQuery from "../../../../components/filter/hooks/useDriversQuery"
+import useSeasonsFilterQuery from "../../../../components/filter/hooks/useSeasonsFilterQuery"
+import useRoundsFilterQuery from "../../../../components/filter/hooks/useRoundsFilterQuery"
+import useDriversFilterQuery from "../../../../components/filter/hooks/useDriversFilterQuery"
 
 // context
 import FilterContextProvider from "../../../../components/filter/context/FilterContext"
@@ -49,21 +49,21 @@ const LapsHistory = () => {
         }}>
           <Filter
             useFilterQueries={useFilterQueries.bind(this, [
-              useSeasonsQuery.bind(this, {
+              useSeasonsFilterQuery.bind(this, {
                 onChange: value => {
                   const pathname = `./${value}/1/${FilterOptionModel.ALL.value}`
                   const search = '?page=1'
                   navigate({ pathname, search }, { replace: true })
                 }
               }),
-              useRoundsQuery.bind(this, {
+              useRoundsFilterQuery.bind(this, {
                 onChange: (value, { year }) => {
                   const pathname = `./${year}/${value}/${FilterOptionModel.ALL.value}`
                   const search = '?page=1'
                   navigate({ pathname, search }, { replace: true })
                 }
               }),
-              useDriversQuery.bind(this, {
+              useDriversFilterQuery.bind(this, {
                 onChange: (value, { year, round }) => {
                   const pathname = `./${year}/${round}/${value}`
                   const search = '?page=1'

@@ -2,10 +2,10 @@ import { useParams } from "react-router-dom"
 import { useInfiniteQuery } from "react-query"
 
 // api
-import { circuitList, circuitListFromSeason } from "../../../../../../../api/circuits/circuitList"
+import { constructorList, constructorListFromSeason } from "../../../../../../../api/constructors/constructorList"
 
 // components
-import CircuitCard from "../components/card/CircuitCard"
+import ConstructorCard from "../components/card/ConstructorCard"
 
 // context
 import useListingContext from "../../../../../../../components/listing/context/hooks/useListingContext"
@@ -18,16 +18,16 @@ import PaginationModel from "../../../../../../../model/listing/Pagination"
 import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
 import QueryError from "../../../../../../../model/error/QueryError"
 
-const useCircuitsQuery = () => {
+const useConstructorsListingQuery = () => {
   const { cards, setTitle, setCards, updateCardsLayouts } = useListingContext()
   const { year } = useParams()
 
   const call = pageParam => year === FilterOptionModel.ALL.value 
-    ? circuitList({ offset: pageParam * 30, limit: 30 })
-    : circuitListFromSeason(year, { offset: pageParam * 30, limit: 30 })
+    ? constructorList({ offset: pageParam * 30, limit: 30 })
+    : constructorListFromSeason(year, { offset: pageParam * 30, limit: 30 })
 
   return useInfiniteQuery({
-    queryKey: ['listing', 'circuitList', year],
+    queryKey: ['listing', 'constructorList', year],
     getNextPageParam: ({ currentPage, pageQuantity }) => {
       return currentPage < pageQuantity - 1
         ? currentPage + 1
@@ -35,18 +35,23 @@ const useCircuitsQuery = () => {
     },
     queryFn: ({ pageParam = 0 }) => call(pageParam)
       .then(({ info, data }) => {
-        if (!data.Circuits || !data.Circuits.length) {
+        if (!data.Constructors || !data.Constructors.length) {
           throw new QueryError('No data found!', 404)
         }
 
-        const circuits = SeasonModel.parseCircuits({ Circuits: data.Circuits })
-        const cardsLayouts = circuits.map(circuit => (
-          <CircuitCard key={circuit.id} circuit={circuit} />
+        const constructors = SeasonModel.parseConstructors({
+          Constructors: data.Constructors,
+        })
+        const cardsLayouts = constructors.map(constructor => (
+          <ConstructorCard
+            key={constructor.id}
+            constructor={constructor}
+          />
         ))
 
         setTitle({
           title: new TitleModel({
-            main: `Formula 1 Circuits History (${year === FilterOptionModel.ALL.value ? 'since 1950' : `in ${year}`})`
+            main: `Formula 1 Constructors History (${year === FilterOptionModel.ALL.value ? 'since 1950' : `in ${year}`})`
           })
         })
 
@@ -80,4 +85,4 @@ const useCircuitsQuery = () => {
   })
 }
 
-export default useCircuitsQuery
+export default useConstructorsListingQuery

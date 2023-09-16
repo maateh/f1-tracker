@@ -18,8 +18,8 @@ import PaginationModel from "../../../../../../../model/listing/Pagination"
 import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
 import QueryError from '../../../../../../../model/error/QueryError'
 
-const useDriversQuery = () => {
-  const { title, cards, setTitle, setCards, updateCardsLayouts } = useListingContext()
+const useDriversListingQuery = () => {
+  const { cards, setTitle, setCards, updateCardsLayouts } = useListingContext()
   const { year } = useParams()
 
   const call = pageParam => year === FilterOptionModel.ALL.value 
@@ -83,4 +83,4 @@ const useDriversQuery = () => {
   })
 }
 
-export default useDriversQuery
+export default useDriversListingQuery

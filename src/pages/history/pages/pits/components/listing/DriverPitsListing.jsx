@@ -1,5 +1,5 @@
 // hooks
-import useDriverPitsQuery from "./hooks/useDriverPitsQuery"
+import useDriverPitsListingQuery from "./hooks/useDriverPitsListingQuery"
 
 // components
 import Title from '../../../../../../components/listing/title/Title'
@@ -16,7 +16,7 @@ const DriverPitsListing = () => {
     isLoading,
     isError,
     error
-  } = useDriverPitsQuery()
+  } = useDriverPitsListingQuery()
 
 	return (
 		<div className="listing__container">

@@ -1,5 +1,5 @@
 // hooks
-import useScheduleQuery from "./hooks/useScheduleQuery"
+import useScheduleListingQuery from "./hooks/useScheduleListingQuery"
 
 // components
 import ScheduleTitle from "./components/title/ScheduleTitle"
@@ -12,7 +12,7 @@ const ScheduleListing = () => {
     isLoading,
     isError,
     error
-  } = useScheduleQuery()
+  } = useScheduleListingQuery()
 
   return (
     <div className="listing__container">

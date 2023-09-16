@@ -1,5 +1,5 @@
 // hooks
-import useCircuitsQuery from "./hooks/useCircuitsQuery"
+import useCircuitsListingQuery from "./hooks/useCircuitsListingQuery"
 import useObserver from "../../../../../../components/listing/cards/hooks/useObserver"
 
 
@@ -21,7 +21,7 @@ const CircuitsListing = () => {
 		isLoading,
 		isError,
     error
-  } = useCircuitsQuery()
+  } = useCircuitsListingQuery()
 
 	const lastRef = useObserver({
 		fetchNextPage,

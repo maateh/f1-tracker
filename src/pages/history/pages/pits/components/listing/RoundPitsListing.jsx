@@ -1,5 +1,5 @@
 // hooks
-import useRoundPitsQuery from "./hooks/useRoundPitsQuery"
+import useRoundPitsListingQuery from "./hooks/useRoundPitsListingQuery"
 
 // components
 import Title from '../../../../../../components/listing/title/Title'
@@ -16,7 +16,7 @@ const RoundPitsListing = () => {
     isLoading,
     isError,
     error
-  } = useRoundPitsQuery()
+  } = useRoundPitsListingQuery()
 
 	return (
 		<div className="listing__container">

@@ -1,5 +1,5 @@
 // hooks
-import useDriverLapsQuery from './hooks/useDriverLapsQuery'
+import useDriverLapsListingQuery from './hooks/useDriverLapsListingQuery'
 
 // components
 import Title from '../../../../../../components/listing/title/Title'
@@ -16,7 +16,7 @@ const DriverLapsListing = () => {
     isLoading,
     isError,
     error
-  } = useDriverLapsQuery()
+  } = useDriverLapsListingQuery()
 
 	return (
 		<div className="listing__container">

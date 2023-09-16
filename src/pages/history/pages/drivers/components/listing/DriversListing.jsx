@@ -1,5 +1,5 @@
 // hooks
-import useDriversQuery from "./hooks/useDriversQuery"
+import useDriversListingQuery from "./hooks/useDriversListingQuery"
 import useObserver from "../../../../../../components/listing/cards/hooks/useObserver"
 
 // components
@@ -20,7 +20,7 @@ const DriversListing = () => {
 		isLoading,
 		isError,
     error
-  } = useDriversQuery()
+  } = useDriversListingQuery()
 
 	const lastRef = useObserver({
 		fetchNextPage,

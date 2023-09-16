@@ -17,7 +17,6 @@ import useListingContext from "../../../../../../../components/listing/context/h
 // models
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
 import ResultsModel from "../../../../../../../model/season/weekend/results/Results"
-import ListingModel from "../../../../../../../model/listing/Listing"
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import TableModel from "../../../../../../../model/listing/Table"
@@ -31,7 +30,7 @@ import AvTimerIcon from '@mui/icons-material/AvTimer'
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp'
 import PaginationModel from "../../../../../../../model/listing/Pagination"
 
-const useRoundLapsQuery = () => {
+const useRoundLapsListingQuery = () => {
   const { setTitle, setCards, setTable, setPagination } = useListingContext()
   const { year, round } = useParams()
   const [searchParams] = useSearchParams()
@@ -249,4 +248,4 @@ const gap = (lap, driverId) => {
     : `${prefix}${minutes}${gap.getSeconds()}.${ms}`
 }
 
-export default useRoundLapsQuery
+export default useRoundLapsListingQuery

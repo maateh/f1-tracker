@@ -3,7 +3,7 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom'
 
 // hooks
 import useFilterQueries from '../../../../components/filter/hooks/useFilterQueries'
-import useSeasonsQuery from '../../../../components/filter/hooks/useSeasonsQuery'
+import useSeasonsFilterQuery from '../../../../components/filter/hooks/useSeasonsFilterQuery'
 
 // components
 import Filter from '../../../../components/filter/Filter'
@@ -32,7 +32,7 @@ const ConstructorsHistory = () => {
             <Filter
               useFilterQueries={
                 useFilterQueries.bind(this, [
-                  useSeasonsQuery.bind(this, {
+                  useSeasonsFilterQuery.bind(this, {
                     onChange: (value) => navigate(`./${value}`, { replace: true }),
                     additionalOption: FilterOptionModel.ALL
                   })
