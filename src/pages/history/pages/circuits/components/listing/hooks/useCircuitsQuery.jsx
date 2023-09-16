@@ -7,9 +7,12 @@ import { circuitList, circuitListFromSeason } from "../../../../../../../api/cir
 // components
 import CircuitCard from "../components/card/CircuitCard"
 
+// context
+import useListingContext from "../../../../../../../components/listing/context/hooks/useListingContext"
+import { ADD_CARDS, SET_CARDS, SET_TITLE } from "../../../../../../../components/listing/context/ListingContextActions"
+
 // models
 import SeasonModel from "../../../../../../../model/season/Season"
-import ListingModel from "../../../../../../../model/listing/Listing"
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import PaginationModel from "../../../../../../../model/listing/Pagination"
@@ -17,6 +20,7 @@ import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
 import QueryError from "../../../../../../../model/error/QueryError"
 
 const useCircuitsQuery = () => {
+  const { title, cards, dispatch } = useListingContext()
   const { year } = useParams()
 
   const call = pageParam => year === FilterOptionModel.ALL.value 
@@ -25,9 +29,9 @@ const useCircuitsQuery = () => {
 
   return useInfiniteQuery({
     queryKey: ['listing', 'circuitList', year],
-    getNextPageParam: ({ pagination }) => {
-      return pagination.currentPage < pagination.pageQuantity - 1
-        ? pagination.currentPage + 1
+    getNextPageParam: ({ currentPage, pageQuantity }) => {
+      return currentPage < pageQuantity - 1
+        ? currentPage + 1
         : undefined
     },
     queryFn: ({ pageParam = 0 }) => call(pageParam)
@@ -38,29 +42,34 @@ const useCircuitsQuery = () => {
 
         const circuits = SeasonModel.parseCircuits({ Circuits: data.Circuits })
 
-        return new ListingModel({
-          title: new TitleModel({
-            main: `Formula 1 Circuits History (${year === FilterOptionModel.ALL.value ? 'since 1950' : `in ${year}`})`
-          }),
-          cards: new CardsModel({
-            styles: {
-              margin: '2rem 4rem',
-              display: 'grid',
-              gap: '4rem'
-            },
-            layouts: circuits.map(circuit => (
-              <CircuitCard
-                key={circuit.id}
-                circuit={circuit}
-              />
-            ))
-          }),
-          pagination: new PaginationModel({
-            total: info.total,
-            limit: info.limit,
-            pageQuantity: Math.ceil(info.total / info.limit),
-            currentPage: pageParam
+        if (!title) {
+          dispatch({
+            type: SET_TITLE,
+            payload: new TitleModel({
+              main: `Formula 1 Circuits History (${year === FilterOptionModel.ALL.value ? 'since 1950' : `in ${year}`})`
+            })
           })
+        }
+
+        const cardsLayouts = circuits.map(circuit => <CircuitCard key={circuit.id} circuit={circuit} />)
+        dispatch({
+          type: cards ? ADD_CARDS : SET_CARDS,
+          payload: cards ? [...cards.layouts, cardsLayouts] 
+            : new CardsModel({
+              styles: {
+                margin: '2rem 4rem',
+                display: 'grid',
+                gap: '4rem'
+              },
+              layouts: cardsLayouts
+            })
+        })
+
+        return new PaginationModel({
+          total: info.total,
+          limit: info.limit,
+          pageQuantity: Math.ceil(info.total / info.limit),
+          currentPage: pageParam
         })
       })
       .catch(err => {
