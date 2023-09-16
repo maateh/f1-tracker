@@ -7,7 +7,11 @@ import Title from "../../../../../../components/listing/title/Title"
 import Cards from "../../../../../../components/listing/cards/Cards"
 import LoadingHandler from "../../../../../../components/loading/LoadingHandler"
 
+// context
+import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
+
 const DriversListing = () => {
+	const { title, cards } = useListingContext()
 	const { 
     data,
     fetchNextPage,
@@ -26,18 +30,14 @@ const DriversListing = () => {
 
 	return (
 		<div className="listing__container">
-			{data?.pages && data.pages.length && (
+			{title && cards && data && (
 				<>
-					<Title title={data.pages[0].title} />
-
-					{data.pages.map(page => (
-						<Cards
-							key={page.pagination.currentPage}
-							cards={page.cards}
-							lastIndex={page.pagination.limit}
-							lastRef={lastRef}
-						/>
-					))}
+					<Title title={title} />
+					<Cards
+						cards={cards}
+						lastIndex={data.pages[data.pages.length - 1].limit}
+						lastRef={lastRef}
+					/>
 				</>
 			)}
 

@@ -32,8 +32,51 @@ export const ListingContext = createContext()
 const ListingContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(dataReducer, INITIAL_STATE)
 
+  const setTitle = ({ title }) => {
+    dispatch({
+      type: actionType.SET_TITLE,
+      payload: title
+    })
+  }
+
+  const setCards = ({ cards }) => {
+    dispatch({
+      type: actionType.SET_CARDS,
+      payload: cards
+    })
+  }
+
+  const updateCardsLayouts = ({ layouts }) => {
+    dispatch({
+      type: actionType.ADD_CARDS_LAYOUTS,
+      payload: layouts
+    })
+  }
+
+  const setTable = ({ table }) => {
+    dispatch({
+      type: actionType.SET_TABLE,
+      payload: table
+    })
+  }
+
+  const setPagination = ({ pagination }) => {
+    dispatch({
+      type: actionType.SET_PAGINATION,
+      payload: pagination
+    })
+  }
+
   return (
-    <ListingContext.Provider value={{ ...state, dispatch }}>
+    <ListingContext.Provider value={{
+      ...state,
+      dispatch,
+      setTitle,
+      setCards,
+      updateCardsLayouts,
+      setTable,
+      setPagination
+    }}>
       {children}
     </ListingContext.Provider>
   )

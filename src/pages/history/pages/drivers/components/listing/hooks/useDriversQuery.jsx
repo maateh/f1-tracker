@@ -7,9 +7,11 @@ import { driverList, driverListFromSeason } from "../../../../../../../api/drive
 // components
 import DriverCard from "../components/card/DriverCard"
 
+// context
+import useListingContext from "../../../../../../../components/listing/context/hooks/useListingContext"
+
 // models
 import SeasonModel from '../../../../../../../model/season/Season'
-import ListingModel from '../../../../../../../model/listing/Listing'
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import PaginationModel from "../../../../../../../model/listing/Pagination"
@@ -17,6 +19,7 @@ import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
 import QueryError from '../../../../../../../model/error/QueryError'
 
 const useDriversQuery = () => {
+  const { title, cards, setTitle, setCards, updateCardsLayouts } = useListingContext()
   const { year } = useParams()
 
   const call = pageParam => year === FilterOptionModel.ALL.value 
@@ -25,9 +28,9 @@ const useDriversQuery = () => {
 
   return useInfiniteQuery({
     queryKey: ['listing', 'driverList', year],
-    getNextPageParam: ({ pagination }) => {
-      return pagination.currentPage < pagination.pageQuantity - 1
-        ? pagination.currentPage + 1
+    getNextPageParam: ({ currentPage, pageQuantity }) => {
+      return currentPage < pageQuantity - 1
+        ? currentPage + 1
         : undefined
     },
     queryFn: ({ pageParam = 0 }) => call(pageParam)
@@ -37,30 +40,41 @@ const useDriversQuery = () => {
         }
 
         const drivers = SeasonModel.parseDrivers({ Drivers: data.Drivers })
-        
-        return new ListingModel({
+        const cardsLayouts = drivers.map(driver => (
+          <DriverCard
+            key={driver.id}
+            driver={driver}
+          />
+        ))
+
+        setTitle({
           title: new TitleModel({
             main: `Formula 1 Drivers History (${year === FilterOptionModel.ALL.value ? 'since 1950' : `in ${year}`})`
-          }),
-          cards: new CardsModel({
-            styles: {
-              margin: '2rem 4rem',
-              display: 'grid',
-              gap: '4rem'
-            },
-            layouts: drivers.map(driver => (
-              <DriverCard
-                key={driver.id}
-                driver={driver}
-              />
-            ))
-          }),
-          pagination: new PaginationModel({
-            total: info.total,
-            limit: info.limit,
-            pageQuantity: Math.ceil(info.total / info.limit),
-            currentPage: pageParam
           })
+        })
+        
+        if (cards) {
+          updateCardsLayouts({
+            layouts: [...cards.layouts, ...cardsLayouts]
+          })
+        } else {
+          setCards({
+            cards: new CardsModel({
+              styles: {
+                margin: '2rem 4rem',
+                display: 'grid',
+                gap: '4rem'
+              },
+              layouts: cardsLayouts
+            })
+          })
+        }
+
+        return new PaginationModel({
+          total: info.total,
+          limit: info.limit,
+          pageQuantity: Math.ceil(info.total / info.limit),
+          currentPage: pageParam
         })
       })
       .catch(err => {

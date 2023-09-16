@@ -9,7 +9,6 @@ import CircuitCard from "../components/card/CircuitCard"
 
 // context
 import useListingContext from "../../../../../../../components/listing/context/hooks/useListingContext"
-import { ADD_CARDS_LAYOUTS, SET_CARDS, SET_TITLE } from "../../../../../../../components/listing/context/ListingContextActions"
 
 // models
 import SeasonModel from "../../../../../../../model/season/Season"
@@ -20,7 +19,7 @@ import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
 import QueryError from "../../../../../../../model/error/QueryError"
 
 const useCircuitsQuery = () => {
-  const { title, cards, dispatch } = useListingContext()
+  const { cards, setTitle, setCards, updateCardsLayouts } = useListingContext()
   const { year } = useParams()
 
   const call = pageParam => year === FilterOptionModel.ALL.value 
@@ -41,24 +40,23 @@ const useCircuitsQuery = () => {
         }
 
         const circuits = SeasonModel.parseCircuits({ Circuits: data.Circuits })
-
-        if (!title) {
-          dispatch({
-            type: SET_TITLE,
-            payload: new TitleModel({
-              main: `Formula 1 Circuits History (${year === FilterOptionModel.ALL.value ? 'since 1950' : `in ${year}`})`
-            })
-          })
-        }
-
         const cardsLayouts = circuits.map(circuit => (
           <CircuitCard key={circuit.id} circuit={circuit} />
         ))
-        
-        dispatch({
-          type: cards ? ADD_CARDS_LAYOUTS : SET_CARDS,
-          payload: cards ? [...cards.layouts, ...cardsLayouts] 
-            : new CardsModel({
+
+        setTitle({
+          title: new TitleModel({
+            main: `Formula 1 Circuits History (${year === FilterOptionModel.ALL.value ? 'since 1950' : `in ${year}`})`
+          })
+        })
+
+        if (cards) {
+          updateCardsLayouts({
+            layouts: [...cards.layouts, ...cardsLayouts]
+          })
+        } else {
+          setCards({
+            cards: new CardsModel({
               styles: {
                 margin: '2rem 4rem',
                 display: 'grid',
@@ -66,7 +64,8 @@ const useCircuitsQuery = () => {
               },
               layouts: cardsLayouts
             })
-        })
+          })
+        }
 
         return new PaginationModel({
           total: info.total,
