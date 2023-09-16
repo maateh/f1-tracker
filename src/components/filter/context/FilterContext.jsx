@@ -42,7 +42,6 @@ const dataReducer = (state, action) => {
 			}
 		case actionType.RESULTS_PARAMS_UPDATER:
 			return {
-				...state,
 				selectors: {
 					seasons: state.selectors.seasons.updateParam(action.payload.year),
 					standings: state.selectors.standings.updateParam(
@@ -54,7 +53,7 @@ const dataReducer = (state, action) => {
 					),
 				},
 			}
-		case action.LAPS_PARAMS_UPDATER:
+		case actionType.LAPS_PARAMS_UPDATER:
 			return {
 				selectors: {
 					seasons: state.selectors.seasons.updateParam(action.payload.year),
@@ -62,7 +61,7 @@ const dataReducer = (state, action) => {
 					drivers: state.selectors.drivers.updateParam(action.payload.driverId)
 				},
 			}
-		case action.PITS_PARAMS_UPDATER:
+		case actionType.PITS_PARAMS_UPDATER:
 			return {
 				selectors: {
 					seasons: state.selectors.seasons.updateParam(action.payload.year),

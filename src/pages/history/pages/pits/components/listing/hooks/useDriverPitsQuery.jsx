@@ -10,6 +10,9 @@ import SummaryCard from "../../../../../../../components/listing/cards/card/Summ
 import SingleTableCell from "../../../../../../../components/listing/table/cell/SingleTableCell"
 import DurationCell from "../components/table/DurationCell"
 
+// context
+import useListingContext from "../../../../../../../components/listing/context/hooks/useListingContext"
+
 // models
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
 import DriverModel from "../../../../../../../model/season/weekend/results/driver/Driver"
@@ -25,6 +28,7 @@ import LocalParkingIcon from '@mui/icons-material/LocalParking'
 import TimelapseIcon from '@mui/icons-material/Timelapse'
 
 const useDriverPitsQuery = () => {
+  const { setTitle, setCards, setTable } = useListingContext()
   const { year, round, driverId } = useParams()
 
   return useQuery({
@@ -43,11 +47,14 @@ const useDriverPitsQuery = () => {
 
         const fastestPit = getFastestPit(pits)
   
-        return new ListingModel({
+        setTitle({
           title: new TitleModel({
             main: `${year} ${name} Pit Stops`,
             sub: `Selected Driver | ${fullName}`
-          }),
+          })
+        })
+
+        setCards({
           cards: new CardsModel({
             styles: {
               margin: '2rem',
@@ -69,7 +76,10 @@ const useDriverPitsQuery = () => {
                 }
               ]
             }].map(card => <SummaryCard key={card.title} card={card} />)
-          }),
+          })
+        })
+
+        setTable({
           table: new TableModel({
             columns: [
               {

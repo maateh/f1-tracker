@@ -8,9 +8,12 @@ import Table from '../../../../../../components/listing/table/Table'
 import Pagination from "../../../../../../components/listing/pagination/Pagination"
 import LoadingHandler from '../../../../../../components/loading/LoadingHandler'
 
+// context
+import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
+
 const RoundLapsListing = () => {
-	const { 
-    data: listing,
+	const { title, cards, table, pagination } = useListingContext()
+	const {
     isLoading,
     isError,
     error
@@ -24,12 +27,12 @@ const RoundLapsListing = () => {
 				error={error}
 			/>
 
-			{listing && (
+			{title && cards && table && pagination && (
 				<>
-					<Title title={listing.title} />
-					<Cards cards={listing.cards} />
-					<Table table={listing.table} />
-					<Pagination pages={listing.pagination.pageQuantity} />
+					<Title title={title} />
+					<Cards cards={cards} />
+					<Table table={table} />
+					<Pagination pages={pagination.pageQuantity} />
 				</>
 			)}
 		</div>

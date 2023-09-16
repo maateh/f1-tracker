@@ -7,9 +7,12 @@ import Cards from '../../../../../../components/listing/cards/Cards'
 import Table from '../../../../../../components/listing/table/Table'
 import LoadingHandler from '../../../../../../components/loading/LoadingHandler'
 
+// context
+import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
+
 const RoundPitsListing = () => {
+	const { title, cards, table } = useListingContext()
 	const { 
-    data: listing,
     isLoading,
     isError,
     error
@@ -23,11 +26,11 @@ const RoundPitsListing = () => {
 				error={error}
 			/>
 
-			{listing && (
+			{title && cards && table && (
 				<>
-					<Title title={listing.title} />
-					<Cards cards={listing.cards} />
-					<Table table={listing.table} />
+					<Title title={title} />
+					<Cards cards={cards} />
+					<Table table={table} />
 				</>
 			)}
 		</div>

@@ -12,6 +12,7 @@ import useDriversQuery from '../../../../components/filter/hooks/useDriversQuery
 
 // context
 import FilterContextProvider from '../../../../components/filter/context/FilterContext'
+import ListingContextProvider from '../../../../components/listing/context/ListingContext'
 import { PITS_PARAMS_UPDATER } from '../../../../components/filter/context/FilterContextActions'
 
 // models
@@ -79,7 +80,9 @@ const PitsHistory = () => {
 
       {isError && <p className="error__element">{error.message}</p>}
 
-      <Outlet />
+      <ListingContextProvider>
+        <Outlet />
+      </ListingContextProvider>
     </div>
   )
 }

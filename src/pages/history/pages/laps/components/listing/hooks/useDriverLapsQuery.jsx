@@ -11,10 +11,12 @@ import SingleTableCell from "../../../../../../../components/listing/table/cell/
 import GainedInfoCell from "../components/table/GainedInfoCell"
 import TimeCell from '../components/table/TimeCell'
 
+// context
+import useListingContext from '../../../../../../../components/listing/context/hooks/useListingContext'
+
 // models
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
 import RaceModel from "../../../../../../../model/season/weekend/results/race/Race"
-import ListingModel from "../../../../../../../model/listing/Listing"
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import TableModel from "../../../../../../../model/listing/Table"
@@ -30,6 +32,7 @@ import UnfoldLessDoubleIcon from '@mui/icons-material/UnfoldLessDouble'
 import SportsScoreIcon from '@mui/icons-material/SportsScore'
 
 const useDriverLapsQuery = () => {
+  const { setTitle, setCards, setTable } = useListingContext()
   const { year, round, driverId } = useParams()
 
   return useQuery({
@@ -47,11 +50,14 @@ const useDriverLapsQuery = () => {
         const result = RaceModel.parser({ Result: resultsData.Races[0].Results[0] })
         const { driver } = result
 
-        return new ListingModel({
+        setTitle({
           title: new TitleModel({
             main: `${year} ${name} Lap Timings`,
             sub: `Selected Driver | ${driver.fullName}`
-          }),
+          })
+        })
+
+        setCards({
           cards: new CardsModel({
             styles: {
               margin: '2rem',
@@ -88,7 +94,10 @@ const useDriverLapsQuery = () => {
                 },
               ]
             }].map(card => <SummaryCard key={card.title} card={card} />)
-          }),
+          })
+        })
+
+        setTable({
           table: new TableModel({
             columns: [
               {

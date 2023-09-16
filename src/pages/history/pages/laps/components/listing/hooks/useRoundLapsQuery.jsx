@@ -11,6 +11,9 @@ import SingleTableCell from "../../../../../../../components/listing/table/cell/
 import GainedInfoCell from "../components/table/GainedInfoCell"
 import TimeCell from "../components/table/TimeCell"
 
+// context
+import useListingContext from "../../../../../../../components/listing/context/hooks/useListingContext"
+
 // models
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
 import ResultsModel from "../../../../../../../model/season/weekend/results/Results"
@@ -29,6 +32,7 @@ import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp
 import PaginationModel from "../../../../../../../model/listing/Pagination"
 
 const useRoundLapsQuery = () => {
+  const { setTitle, setCards, setTable, setPagination } = useListingContext()
   const { year, round } = useParams()
   const [searchParams] = useSearchParams()
   const lap = searchParams.get('page') || 1
@@ -49,16 +53,19 @@ const useRoundLapsQuery = () => {
 					year,
 					round,
 					name,
-					laps: [currentLap],
+					laps: [currentLap]
 				} = WeekendModel.parser({ Race: lapData.Races[0] })
         const { race: result } = ResultsModel.parser({ Race: resultsData.Races[0] })
         const prevLap = prevLapData && WeekendModel.parser({ Race: prevLapData.Races[0] }).laps[0]
   
-        return new ListingModel({
+        setTitle({
           title: new TitleModel({
             main: `${year} ${name} Lap Timings`,
             sub: `Selected Lap | #${currentLap.number}`
-          }),
+          })
+        })
+
+        setCards({
           cards: new CardsModel({
             styles: {
               margin: '2rem',
@@ -95,7 +102,10 @@ const useRoundLapsQuery = () => {
                 },
               ]
             }].map(card => <SummaryCard key={card.title} card={card} />)
-          }),
+          })
+        })
+
+        setTable({
           table: new TableModel({
             columns: [
               {
@@ -143,7 +153,10 @@ const useRoundLapsQuery = () => {
               },
               time: { value: timing.time, gap: gap(currentLap, timing.driverId) },
             }))
-          }),
+          })
+        })
+
+        setPagination({
           pagination: new PaginationModel({
             pageQuantity: resultsData.Races[0].Results[0].laps
           })
