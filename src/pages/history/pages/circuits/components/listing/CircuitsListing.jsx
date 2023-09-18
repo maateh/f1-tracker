@@ -2,7 +2,6 @@
 import useCircuitsListingQuery from "./hooks/useCircuitsListingQuery"
 import useObserver from "../../../../../../components/listing/cards/hooks/useObserver"
 
-
 // components
 import Title from "../../../../../../components/listing/title/Title"
 import Cards from "../../../../../../components/listing/cards/Cards"

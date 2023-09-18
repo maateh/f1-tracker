@@ -55,7 +55,7 @@ const useDriversListingQuery = () => {
         
         if (cards) {
           updateCardsLayouts({
-            layouts: [...cards.layouts, ...cardsLayouts]
+            layouts: pageParam === 0 ? cardsLayouts : [...cards.layouts, ...cardsLayouts]
           })
         } else {
           setCards({
