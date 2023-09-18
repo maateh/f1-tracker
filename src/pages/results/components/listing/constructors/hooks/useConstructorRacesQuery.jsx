@@ -60,11 +60,7 @@ const useConstructorRacesQuery = () => {
 
         setCards({
           cards: new CardsModel({
-            styles: {
-              margin: '2rem',
-              display: 'flex',
-              gap: '1.5rem'
-            },
+            styles: CardsModel.FLEX_STYLES,
             layouts: [
               {
                 title: 'Constructor Information',

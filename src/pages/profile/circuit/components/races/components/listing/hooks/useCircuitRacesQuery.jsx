@@ -47,7 +47,10 @@ const useCircuitRacesQuery = () => {
           })
         } else {
           setCards({
-            cards: new CardsModel({ layouts: cardsLayouts })
+            cards: new CardsModel({
+              styles: CardsModel.GRID_STYLES,
+              layouts: cardsLayouts
+            })
           })
         }
 

@@ -31,6 +31,7 @@ const useScheduleListingQuery = () => {
         
         setCards({
           cards: new CardsModel({
+            styles: CardsModel.GRID_STYLES,
             layouts: weekends.map(weekend => (
               <WeekendCard
                 key={weekend.round}
