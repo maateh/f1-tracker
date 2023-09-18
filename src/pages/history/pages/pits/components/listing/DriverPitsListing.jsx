@@ -20,13 +20,13 @@ const DriverPitsListing = () => {
 
 	return (
 		<div className="listing__container">
-			<LoadingHandler
-				isLoading={isLoading}
-				isError={isError}
-				error={error}
-			/>
-
-			{title && cards && table && (
+			{isLoading || isError ? (
+				<LoadingHandler
+					isLoading={isLoading}
+					isError={isError}
+					error={error}
+				/>
+			) : title && cards && table && (
 				<>
 					<Title title={title} />
 					<Cards cards={cards} />
