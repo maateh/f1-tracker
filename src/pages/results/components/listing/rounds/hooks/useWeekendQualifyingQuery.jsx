@@ -9,9 +9,11 @@ import ResultsCard from '../../components/card/ResultsCard'
 import SingleTableCell from '../../../../../../components/listing/table/cell/SingleTableCell'
 import LinkingTableCell from '../../../../../../components/listing/table/cell/LinkingTableCell'
 
+// context
+import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
+
 // models
 import WeekendModel from '../../../../../../model/season/weekend/Weekend'
-import ListingModel from "../../../../../../model/listing/Listing"
 import TitleModel from "../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../model/listing/Cards"
 import TableModel from "../../../../../../model/listing/Table"
@@ -23,6 +25,7 @@ import PublicIcon from '@mui/icons-material/Public'
 import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 
 const useWeekendQualifyingQuery = () => {
+  const { setTitle, setCards, setTable } = useListingContext()
   const { year, id: round } = useParams()
 
   return useQuery({
@@ -41,10 +44,13 @@ const useWeekendQualifyingQuery = () => {
           results
         } = WeekendModel.parser({ Race: data.Races[0] })
 
-        return new ListingModel({
+        setTitle({
           title: new TitleModel({
             main: `${year} ${name} Qualifying Results`
-          }),
+          })
+        })
+
+        setCards({
           cards: new CardsModel({
             styles: {
               margin: '2rem',
@@ -62,7 +68,10 @@ const useWeekendQualifyingQuery = () => {
                 ]
               },
             ].map(card => <ResultsCard key={card.title} card={card} />)
-          }),
+          })
+        })
+
+        setTable({
           table: new TableModel({
             columns: [
               {

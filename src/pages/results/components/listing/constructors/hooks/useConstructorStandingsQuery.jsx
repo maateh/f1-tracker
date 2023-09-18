@@ -2,21 +2,24 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // api
-import { constructorStandings } from "../../../../../../api/standings/constructor/constructorStandings"
+import { constructorStandings } from "../../../../../../api/standings/season/constructorStandings"
 
 // components
 import SingleTableCell from "../../../../../../components/listing/table/cell/SingleTableCell"
 import LinkingTableCell from "../../../../../../components/listing/table/cell/LinkingTableCell"
 import PointsCell from "../../components/table/PointsCell"
 
+// context
+import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
+
 // models
 import SeasonModel from '../../../../../../model/season/Season'
-import ListingModel from '../../../../../../model/listing/Listing'
 import TitleModel from '../../../../../../model/listing/Title'
 import TableModel from '../../../../../../model/listing/Table'
 import QueryError from '../../../../../../model/error/QueryError'
 
 const useConstructorStandingsQuery = () => {
+  const { setTitle, setTable } = useListingContext()
   const { year } = useParams()
 
   return useQuery({
@@ -29,10 +32,13 @@ const useConstructorStandingsQuery = () => {
           throw new QueryError('No data found!', 404)
         }
         
-        return new ListingModel({
+        setTitle({
           title: new TitleModel({
             main: `${year} Constructor Standings`
-          }),
+          })
+        })
+
+        setTable({
           table: new TableModel({
             columns: [
               {

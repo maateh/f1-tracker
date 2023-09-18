@@ -11,9 +11,11 @@ import LinkingTableCell from "../../../../../../components/listing/table/cell/Li
 import FastestLapCell from '../../components/table/FastestLapCell'
 import PointsCell from '../../components/table/PointsCell'
 
+// context
+import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
+
 // models
 import WeekendModel from "../../../../../../model/season/weekend/Weekend"
-import ListingModel from "../../../../../../model/listing/Listing"
 import TitleModel from "../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../model/listing/Cards"
 import TableModel from "../../../../../../model/listing/Table"
@@ -29,6 +31,7 @@ import ErrorIcon from '@mui/icons-material/Error'
 import WarningIcon from '@mui/icons-material/Warning'
 
 const useWeekendRaceQuery = () => {
+  const { setTitle, setCards, setTable } = useListingContext()
   const { year, id: round } = useParams()
 
   return useQuery({
@@ -46,11 +49,14 @@ const useWeekendRaceQuery = () => {
           wiki,
           results
         } = WeekendModel.parser({ Race: data.Races[0] })
-        
-        return new ListingModel({
+
+        setTitle({
           title: new TitleModel({
             main: `${year} ${name} Race Results`
-          }),
+          })
+        })
+
+        setCards({
           cards: new CardsModel({
             styles: {
               margin: '2rem',
@@ -77,7 +83,10 @@ const useWeekendRaceQuery = () => {
                 ]
               },
             ].map(card => <ResultsCard key={card.title} card={card} />)
-          }),
+          })
+        })
+
+        setTable({
           table: new TableModel({
             columns: [
               {

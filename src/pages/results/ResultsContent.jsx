@@ -10,6 +10,7 @@ import useResultsFilterQueries from './components/filter/hooks/useResultsFilterQ
 // context
 import FilterContextProvider from '../../components/filter/context/FilterContext'
 import { RESULTS_PARAMS_UPDATER } from '../../components/filter/context/FilterContextActions'
+import ListingContextProvider from '../../components/listing/context/ListingContext'
 
 // models
 import WeekendModel from '../../model/season/weekend/Weekend'
@@ -53,7 +54,9 @@ const ResultsContent = () => {
 
 			{isError && <p className="error__element">{error.message}</p>}
 
-			<Outlet />
+			<ListingContextProvider>
+				<Outlet />
+			</ListingContextProvider>
 		</div>
 	)
 }

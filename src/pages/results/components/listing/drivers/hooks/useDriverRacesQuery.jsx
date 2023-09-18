@@ -12,9 +12,11 @@ import CircuitCell from "../../components/table/CircuitCell"
 import FastestLapCell from "../../components/table/FastestLapCell"
 import PointsCell from '../../components/table/PointsCell'
 
+// context
+import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
+
 // models
 import SeasonModel from "../../../../../../model/season/Season"
-import ListingModel from "../../../../../../model/listing/Listing"
 import TitleModel from "../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../model/listing/Cards"
 import TableModel from "../../../../../../model/listing/Table"
@@ -35,6 +37,7 @@ import ErrorIcon from '@mui/icons-material/Error'
 import WarningIcon from '@mui/icons-material/Warning'
 
 const useDriverRacesQuery = () => {
+  const { setTitle, setCards, setTable } = useListingContext()
   const { year, id: driverId } = useParams()
 
   return useQuery({
@@ -49,11 +52,14 @@ const useDriverRacesQuery = () => {
   
         const driver = getDriver(weekends)
 
-        return new ListingModel({
+        setTitle({
           title: new TitleModel({
             main: `${year} Race Results`,
             sub: `Selected Driver | ${driver.fullName} ${driver.formattedNumber}`
-          }),
+          })
+        })
+
+        setCards({
           cards: new CardsModel({
             styles: {
               margin: '2rem',
@@ -137,7 +143,10 @@ const useDriverRacesQuery = () => {
                 ]
               },
             ].map(card => <ResultsCard key={card.title} card={card} />)
-          }),
+          })
+        })
+
+        setTable({
           table: new TableModel({
             columns: [
               {

@@ -9,14 +9,17 @@ import SingleTableCell from "../../../../../../components/listing/table/cell/Sin
 import LinkingTableCell from "../../../../../../components/listing/table/cell/LinkingTableCell"
 import PointsCell from '../../components/table/PointsCell'
 
+// context
+import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
+
 // models
 import SeasonModel from "../../../../../../model/season/Season"
-import ListingModel from "../../../../../../model/listing/Listing"
 import TitleModel from "../../../../../../model/listing/Title"
 import TableModel from "../../../../../../model/listing/Table"
 import QueryError from "../../../../../../model/error/QueryError"
 
 const useDriverStandingsQuery = () => {
+  const { setTitle, setTable } = useListingContext()
   const { year } = useParams()
 
   return useQuery({
@@ -29,10 +32,13 @@ const useDriverStandingsQuery = () => {
           throw new QueryError('No data found!', 404)
         }
   
-        return new ListingModel({
+        setTitle({
           title: new TitleModel({
             main: `${year} Driver Standings`
-          }),
+          })
+        })
+
+        setTable({
           table: new TableModel({
             columns: [
               {

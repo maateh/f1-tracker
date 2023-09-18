@@ -10,9 +10,11 @@ import SingleTableCell from "../../../../../../components/listing/table/cell/Sin
 import LinkingTableCell from "../../../../../../components/listing/table/cell/LinkingTableCell"
 import CircuitCell from "../../components/table/CircuitCell"
 
+// context
+import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
+
 // models
 import SeasonModel from "../../../../../../model/season/Season"
-import ListingModel from "../../../../../../model/listing/Listing"
 import TitleModel from "../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../model/listing/Cards"
 import TableModel from "../../../../../../model/listing/Table"
@@ -29,6 +31,7 @@ import StarHalfIcon from '@mui/icons-material/StarHalf'
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt'
 
 const useDriverQualifyingsQuery = () => {
+  const { setTitle, setCards, setTable } = useListingContext()
   const { year, id: driverId } = useParams()
 
   return useQuery({
@@ -43,11 +46,14 @@ const useDriverQualifyingsQuery = () => {
 
         const driver = getDriver(weekends)
   
-        return new ListingModel({
+        setTitle({
           title: new TitleModel({
             main: `${year} Qualifying Results`,
             sub: `Selected Driver | ${driver.fullName} ${driver.formattedNumber}`
-          }),
+          })
+        })
+
+        setCards({
           cards: new CardsModel({
             styles: {
               margin: '2rem',
@@ -107,7 +113,10 @@ const useDriverQualifyingsQuery = () => {
                 ]
               },
             ].map(card => <ResultsCard key={card.title} card={card} />)
-          }),
+          })
+        })
+
+        setTable({
           table: new TableModel({
             columns: [
               {

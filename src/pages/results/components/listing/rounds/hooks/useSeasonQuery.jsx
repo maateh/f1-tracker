@@ -14,11 +14,13 @@ import PoleCell from '../../components/table/PoleCell'
 import WinnerCell from '../../components/table/WinnerCell'
 import FastestLapCell from '../../components/table/FastestLapCell'
 
+// context
+import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
+
 // models
 import SeasonModel from "../../../../../../model/season/Season"
 import ResultsModel from "../../../../../../model/season/weekend/results/Results"
 import QualifyingModel from "../../../../../../model/season/weekend/results/qualifying/Qualifying"
-import ListingModel from "../../../../../../model/listing/Listing"
 import TitleModel from "../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../model/listing/Cards"
 import TableModel from "../../../../../../model/listing/Table"
@@ -38,6 +40,7 @@ import ErrorIcon from '@mui/icons-material/Error'
 import WarningIcon from '@mui/icons-material/Warning'
 
 const useSeasonQuery = () => {
+  const { setTitle, setCards, setTable } = useListingContext()
   const { year } = useParams()
 
   return useQuery({
@@ -60,10 +63,13 @@ const useSeasonQuery = () => {
           })
         }
   
-        return new ListingModel({
+        setTitle({
           title: new TitleModel({
             main: `${year} Season Results`
-          }),
+          })
+        })
+
+        setCards({
           cards: new CardsModel({
             styles: {
               margin: '2rem',
@@ -98,7 +104,10 @@ const useSeasonQuery = () => {
                 ]
               },
             ].map(card => <ResultsCard key={card.title} card={card} />)
-          }),
+          })
+        })
+
+        setTable({
           table: new TableModel({
             columns: [
               {

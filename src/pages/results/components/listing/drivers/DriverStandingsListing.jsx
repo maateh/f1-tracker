@@ -6,9 +6,12 @@ import Title from '../../../../../components/listing/title/Title'
 import Table from '../../../../../components/listing/table/Table'
 import LoadingHandler from '../../../../../components/loading/LoadingHandler'
 
+// context
+import useListingContext from '../../../../../components/listing/context/hooks/useListingContext'
+
 const DriverStandingsListing = () => {
+	const { title, table } = useListingContext()
   const {
-    data: listing,
     isLoading,
     isError,
     error
@@ -16,16 +19,16 @@ const DriverStandingsListing = () => {
 
 	return (
 		<div className="listing__container">
-			<LoadingHandler
-				isLoading={isLoading}
-				isError={isError}
-				error={error}
-			/>
-
-			{listing && (
+			{isLoading || isError ? (
+				<LoadingHandler
+					isLoading={isLoading}
+					isError={isError}
+					error={error}
+				/>
+			) : title && table && (
 				<>
-					<Title title={listing.title} />
-					<Table table={listing.table} />
+					<Title title={title} />
+					<Table table={table} />
 				</>
 			)}
 		</div>
