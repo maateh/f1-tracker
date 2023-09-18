@@ -2,23 +2,22 @@ import { useParams } from 'react-router-dom'
 import { useInfiniteQuery } from 'react-query'
 
 // api
-import { circuitRaces } from '../../../../../../api/circuits/races/circuitRaces'
+import { circuitRaces } from '../../../../../../../../api/circuits/races/circuitRaces'
 
 // components
 import CircuitRaceCard from '../components/card/CircuitRaceCard'
 
 // context
-import useCircuitProfileContext from '../../../context/hooks/useCircuitProfileContext'
-import { ADD_RACES_CARDS, SET_RACES_CARDS } from '../../../context/CircuitProfileContextActions'
+import useListingContext from '../../../../../../../../components/listing/context/hooks/useListingContext'
 
 // models
-import SeasonModel from '../../../../../../model/season/Season'
-import CardsModel from '../../../../../../model/listing/Cards'
-import PaginationModel from '../../../../../../model/listing/Pagination'
-import QueryError from '../../../../../../model/error/QueryError'
+import SeasonModel from '../../../../../../../../model/season/Season'
+import CardsModel from '../../../../../../../../model/listing/Cards'
+import PaginationModel from '../../../../../../../../model/listing/Pagination'
+import QueryError from '../../../../../../../../model/error/QueryError'
 
 const useCircuitRacesQuery = () => {
-  const { cards, dispatch } = useCircuitProfileContext()
+  const { cards, setCards, updateCardsLayouts } = useListingContext()
   const { id } = useParams()
 
   return useInfiniteQuery({
@@ -42,18 +41,15 @@ const useCircuitRacesQuery = () => {
           />
         ))
 
-        dispatch({
-          type: cards ? ADD_RACES_CARDS : SET_RACES_CARDS,
-          payload: cards ? [...cards.layouts, ...cardsLayouts]
-            : new CardsModel({
-            styles: {
-              margin: '2rem 4rem',
-              display: 'grid',
-              gap: '4rem'
-            },
-            layouts: cardsLayouts
+        if (cards) {
+          updateCardsLayouts({
+            layouts: [...cards.layouts, ...cardsLayouts]
           })
-        })
+        } else {
+          setCards({
+            cards: new CardsModel({ layouts: cardsLayouts })
+          })
+        }
 
         return new PaginationModel({
           total: info.total,

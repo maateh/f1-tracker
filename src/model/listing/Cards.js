@@ -1,5 +1,12 @@
 class Cards {
-  constructor({ styles, layouts }) {
+  constructor({
+    styles = {
+      margin: '2rem 4rem',
+      display: 'grid',
+      gap: '4rem'
+    },
+    layouts
+  }) {
     this.styles = styles
     this.layouts = layouts
   }

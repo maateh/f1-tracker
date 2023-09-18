@@ -59,14 +59,7 @@ const useDriversListingQuery = () => {
           })
         } else {
           setCards({
-            cards: new CardsModel({
-              styles: {
-                margin: '2rem 4rem',
-                display: 'grid',
-                gap: '4rem'
-              },
-              layouts: cardsLayouts
-            })
+            cards: new CardsModel({ layouts: cardsLayouts })
           })
         }
 
