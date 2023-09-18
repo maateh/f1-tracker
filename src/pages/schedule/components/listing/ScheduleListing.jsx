@@ -6,9 +6,12 @@ import ScheduleTitle from "./components/title/ScheduleTitle"
 import Cards from "../../../../components/listing/cards/Cards"
 import LoadingHandler from "../../../../components/loading/LoadingHandler"
 
+// context
+import useListingContext from '../../../../components/listing/context/hooks/useListingContext'
+
 const ScheduleListing = () => {
+  const { cards } = useListingContext()
   const {
-    data: cards,
     isLoading,
     isError,
     error
@@ -16,13 +19,13 @@ const ScheduleListing = () => {
 
   return (
     <div className="listing__container">
-      <LoadingHandler
-        isLoading={isLoading}
-        isError={isError}
-        error={error}
-      />
-
-      {cards && (
+      {isLoading || isError ? (
+        <LoadingHandler
+          isLoading={isLoading}
+          isError={isError}
+          error={error}
+        />
+      ) : cards && (
         <>
           <ScheduleTitle />
           <Cards cards={cards} />

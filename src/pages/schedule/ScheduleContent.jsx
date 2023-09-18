@@ -11,6 +11,7 @@ import useSeasonsFilterQuery from '../../components/filter/hooks/useSeasonsFilte
 
 // context
 import FilterContextProvider from '../../components/filter/context/FilterContext'
+import ListingContextProvider from '../../components/listing/context/ListingContext'
 
 // models
 import WeekendModel from '../../model/season/weekend/Weekend'
@@ -20,7 +21,7 @@ const ScheduleContent = () => {
 	const { year } = useParams()
 	const navigate = useNavigate()
 
-	const { isLoading, isError, error } = useQuery({
+	useQuery({
 		queryKey: ['lastRound'],
 		queryFn: WeekendModel.queryLast,
 		onSuccess: ({ year }) => navigate(`./${year}`, { replace: true }),
@@ -46,9 +47,9 @@ const ScheduleContent = () => {
 				</>
 			)}
 
-			<LoadingHandler isLoading={isLoading} isError={isError} error={error} />
-
-			<Outlet />
+			<ListingContextProvider>
+				<Outlet />
+			</ListingContextProvider>
 		</div>
 	)
 }
