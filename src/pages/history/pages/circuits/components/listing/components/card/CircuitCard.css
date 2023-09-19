@@ -1,6 +1,6 @@
 .circuit-card__container {
   height: 11.25rem;
-  width: 70%;
+  width: 85%;
   margin: 0 auto;
   padding: 0.4rem 1rem;
   
@@ -15,6 +15,7 @@
   border-bottom-right-radius: 36px;
   border-top-left-radius: 64px;
 
+  text-align: center;
   cursor: pointer;
   
   display: flex;
@@ -80,9 +81,6 @@
   .circuit-card__container .circuit-locality {
     font-size: 1.15rem;
   }
-  .circuit-card__container .circuit-wiki__link {
-    font-size: 1rem;
-  }
 }
 
 @media (max-width: 20rem) {
@@ -92,9 +90,5 @@
   }
   .circuit-card__container .circuit-locality {
     font-size: 1rem;
-  }
-  .circuit-card__container .circuit-wiki__link {
-    margin-top: 0.25rem;
-    position: relative;
   }
 }

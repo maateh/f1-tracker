@@ -1,3 +1,8 @@
+.linking__container {
+  width: fit-content;
+  align-self: center;
+}
+
 .linking__container.small {
   margin: 0.25rem;
 }
@@ -80,4 +85,69 @@
 }
 .linking__container.icon__container.large > svg:last-of-type {
   font-size: 1.10rem;
+}
+
+
+/* mobile screens */
+@media (max-width: 40rem) {
+  .linking__container.small {
+    margin: 0.25rem;
+  }
+  .linking__container.medium {
+    margin: 0.35rem;
+  }
+  .linking__container.large {
+    margin: 0.45rem;
+  }
+  
+  /* text */
+  .linking__container.small > span.link-text {
+    font-size: 0.9rem;
+  }
+  .linking__container.medium > span.link-text {
+    font-size: 1.25rem;
+  }
+  .linking__container.large > span.link-text {
+    font-size: 1.55rem;
+  }
+  
+  /* icons */
+  .linking__container.icon__container > svg:first-of-type {
+    margin-right: 0.4rem;
+  }
+  .linking__container.icon__container.small > svg:first-of-type {
+    font-size: 1.25rem;
+  }
+  .linking__container.icon__container.medium > svg:first-of-type {
+    font-size: 1.5rem;
+  }
+  .linking__container.icon__container.large > svg:first-of-type {
+    font-size: 1.75rem;
+  }
+  
+  .linking__container.icon__container.small > svg:last-of-type {
+    font-size: 0.9rem;
+  }
+  .linking__container.icon__container.medium > svg:last-of-type {
+    font-size: 1rem;
+  }
+  .linking__container.icon__container.large > svg:last-of-type {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 20rem) {
+  /* positioning */
+  .linking__container.top {
+    position: relative;
+  }
+  .linking__container.bottom {
+    position: relative;
+  }
+  .linking__container.left {
+    position: relative;
+  }
+  .linking__container.right {
+    position: relative;
+  }
 }
