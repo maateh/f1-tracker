@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 
 // components
+import Linking from "../../../../../components/linking/Linking"
 import LoadingHandler from "../../../../../components/loading/LoadingHandler"
 
 // hooks
@@ -9,8 +10,10 @@ import useCircuitInformationQuery from "./hooks/useCircuitInformationQuery"
 // context
 import useCircuitProfileContext from "../../context/hooks/useCircuitProfileContext"
 
+// constants
+import { SIZE_LARGE } from "../../../../../components/linking/LinkingConstants"
+
 // icons
-import LaunchIcon from '@mui/icons-material/Launch'
 import MapIcon from '@mui/icons-material/Map'
 
 // styles
@@ -33,14 +36,15 @@ const CircuitInformation = () => {
   ) : (
     <section className="circuit-information__container">
       <h2 className="circuit-name page__title">{circuit.name}</h2>
-      <Link
-        className="circuit-locality icon__container"
-        to={circuit.getMapsLink()}
-      >
-        <MapIcon />
-        <span>{circuit.getLocality()}</span>
-        <LaunchIcon />
-      </Link>
+
+      <Linking
+        text={circuit.getLocality()}
+        tooltipText="Open on Maps"
+        link={circuit.getMapsLink()}
+        icon={<MapIcon />}
+        size={SIZE_LARGE}
+        launchIcon={true}
+      />
     </section>
   )
 }

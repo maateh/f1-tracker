@@ -1,0 +1,83 @@
+.linking__container.small {
+  margin: 0.25rem;
+}
+.linking__container.medium {
+  margin: 0.35rem;
+}
+.linking__container.large {
+  margin: 0.5rem;
+}
+
+/* positioning */
+.linking__container.top {
+  position: absolute;
+  top: 0;
+}
+.linking__container.bottom {
+  position: absolute;
+  bottom: 0;
+}
+.linking__container.left {
+  position: absolute;
+  left: 0;
+}
+.linking__container.right {
+  position: absolute;
+  right: 0;
+}
+
+/* text */
+.linking__container > span.link-text {
+  color: var(--text-color);
+}
+.linking__container.dark > span.link-text {
+  color: var(--text-color-light);
+}
+.linking__container.small > span.link-text {
+  font-size: 1rem;
+  font-weight: 500;
+}
+.linking__container.medium > span.link-text {
+  font-size: 1.45rem;
+  font-weight: 500;
+}
+.linking__container.large > span.link-text {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+/* icons */
+.linking__container.icon__container > svg:first-of-type {
+  margin-right: 0.5rem;
+  color: var(--text-color);
+}
+.linking__container.icon__container.dark > svg:first-of-type {
+  color: var(--text-color-light);
+}
+.linking__container.icon__container.small > svg:first-of-type {
+  font-size: 1.35rem;
+}
+.linking__container.icon__container.medium > svg:first-of-type {
+  font-size: 1.7rem;
+}
+.linking__container.icon__container.large > svg:first-of-type {
+  font-size: 2rem;
+}
+
+.linking__container.icon__container > svg:last-of-type {
+  margin-left: 0.2rem;
+  color: var(--text-color);
+  align-self: flex-start;
+}
+.linking__container.icon__container.dark > svg:last-of-type {
+  color: var(--text-color-light);
+}
+.linking__container.icon__container.small > svg:last-of-type {
+  font-size: 0.95rem;
+}
+.linking__container.icon__container.medium > svg:last-of-type {
+  font-size: 1.05rem;
+}
+.linking__container.icon__container.large > svg:last-of-type {
+  font-size: 1.10rem;
+}

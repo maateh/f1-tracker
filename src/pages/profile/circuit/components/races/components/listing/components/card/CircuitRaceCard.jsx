@@ -1,17 +1,21 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Tooltip } from '@mui/material'
 
+// constans
+import { POS_BOTTOM_LEFT, SIZE_SMALL } from '../../../../../../../../../components/linking/LinkingConstants'
+
 // icons
-import LaunchIcon from '@mui/icons-material/Launch'
+import PublicIcon from '@mui/icons-material/Public'
 
 // styles
 import './CircuitRaceCard.css'
+import Linking from '../../../../../../../../../components/linking/Linking'
 
 const CircuitRaceCard = ({ weekend, lastRef }) => {
   const navigate = useNavigate()
 
   return (
-    <Tooltip title="Race results" followCursor={true} placement="top" arrow>
+    <Tooltip title="Race results" placement='top' arrow>
       <li
         className="circuit-race-card__container"
         ref={lastRef || undefined}
@@ -22,14 +26,15 @@ const CircuitRaceCard = ({ weekend, lastRef }) => {
         <p className="weekend-round">Round: #{weekend.round}</p>
         <p className="weekend-name">{weekend.name}</p>
 
-        <Link
-          className="weekend-wiki__link icon__container"
-          onClick={e => e.stopPropagation()}
-          to={weekend.wiki}
-        >
-          <LaunchIcon fontSize="small" />
-          <span>Wikipedia</span>
-        </Link>
+        <Linking
+          text="Wikipedia"
+          tooltipText="Go to wikipedia page"
+          link={weekend.wiki}
+          icon={<PublicIcon />}
+          launchIcon={true}
+          size={SIZE_SMALL}
+          positioningClasses={POS_BOTTOM_LEFT}
+        />
       </li>
     </Tooltip>
   )

@@ -69,24 +69,12 @@
   color: var(--text-color-light);
 }
 
-
-.circuit-race-card__container .weekend-wiki__link.icon__container > svg {
-  color: var(--text-color);
-}
-.circuit-race-card__container:active .weekend-wiki__link.icon__container > svg,
-.circuit-race-card__container:hover .weekend-wiki__link.icon__container > svg {
+/* link */
+.circuit-race-card__container:active .linking__container > span.link-text,
+.circuit-race-card__container:hover .linking__container > span.link-text {
   color: var(--text-color-light);
 }
-.circuit-race-card__container .weekend-wiki__link {
-  color: var(--text-color);
-  font-size: 1.1rem;
-  font-weight: 400;
-
-  position: absolute;
-  left: 0.5rem;
-  bottom: 0.25rem;
-}
-.circuit-race-card__container:active .weekend-wiki__link,
-.circuit-race-card__container:hover .weekend-wiki__link {
+.circuit-race-card__container:active .linking__container.icon__container > svg,
+.circuit-race-card__container:hover .linking__container.icon__container > svg {
   color: var(--text-color-light);
 }
