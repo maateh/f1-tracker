@@ -11,7 +11,7 @@ const TableSorting = ({ column }) => {
   }
 
   return (
-    <span className="listing-table-sorting__icon">
+    <span className="table-sorting__icon">
       {column.getCanSort() && sortedby[column.getIsSorted()]}
     </span>
   )

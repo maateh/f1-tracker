@@ -1,23 +1,17 @@
 import { Link } from "react-router-dom"
 
-const CircuitCell = ({
-	circuit: {
-		name,
-		location: { country, locality },
-		maps
-	}
-}) => {
+const CircuitCell = ({ circuit }) => {
 	return (
 		<>
 			<Link
 				style={{ fontWeight: '500', cursor: 'pointer' }}
-				to={maps}
+				to={`/profile/circuit/${circuit.id}`}
 			>
-				{name}
+				{circuit.name}
 			</Link>
 
 			<p style={{ fontWeight: '300', fontSize: '0.9rem' }}>
-				{country}, {locality}
+				{circuit.getLocality()}
 			</p>
 		</>
 	)
