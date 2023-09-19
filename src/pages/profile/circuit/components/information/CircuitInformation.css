@@ -7,8 +7,13 @@
 
 /* info */
 .circuit-information__container .circuit-races-amount {
+  margin: 0 1rem;
   font-size: 2rem;
   font-weight: 600;
+  text-align: center;
+
+  display: flex;
+  flex-flow: row wrap;
 }
 .circuit-information__container .circuit-races-amount span.highlight {
   font-size: 2.1rem;
@@ -22,27 +27,38 @@
   font-size: 2.5rem;
 }
 
-/* links */
-.circuit-information__container .circuit-locality.icon__container > svg:first-of-type {
-  margin-right: 0.5rem;
-  color: var(--text-color);
-  font-size: 2rem;
-}
-.circuit-information__container .circuit-locality {
-  color: var(--text-color);
-  font-size: 1.8rem;
-  font-weight: 400;
-}
-.circuit-information__container .circuit-locality.icon__container > svg:last-of-type {
-  margin-left: 0.2rem;
-  color: var(--text-color);
-  font-size: 1rem;
-  align-self: flex-start;
+@media (max-width: 40rem) {
+  .circuit-information__container .circuit-races-amount {
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+  .circuit-information__container .circuit-races-amount span.highlight {
+    font-size: 1.7rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+  }
+  .circuit-information__container .circuit-races-amount.icon__container > svg {
+    margin-right: 0.4rem;
+    font-size: 1.8rem;
+  }
 }
 
+@media (max-width: 30rem) {
+  .circuit-information__container .circuit-races-amount.icon__container > svg {
+    display: none;
+  }
+}
+
+/* links */
 .circuit-information__container .links__container {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+
+@media (max-width: 40rem) {
+  .circuit-information__container .links__container {
+    flex-direction: column;
+  }
 }

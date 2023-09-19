@@ -148,3 +148,6 @@ label span {
   color: var(--text-color-light);
   vertical-align: text-bottom;
 }
+.icon__container.dark svg {
+  color: var(--text-color);
+}

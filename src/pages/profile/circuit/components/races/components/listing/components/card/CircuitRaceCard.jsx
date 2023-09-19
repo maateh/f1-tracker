@@ -8,6 +8,8 @@ import Linking from '../../../../../../../../../components/linking/Linking'
 import { POS_BOTTOM_LEFT, SIZE_SMALL } from '../../../../../../../../../components/linking/LinkingConstants'
 
 // icons
+import EventIcon from '@mui/icons-material/Event'
+import LabelIcon from '@mui/icons-material/Label'
 import PublicIcon from '@mui/icons-material/Public'
 
 // styles
@@ -24,9 +26,17 @@ const CircuitRaceCard = ({ weekend, lastRef }) => {
         onClick={() => navigate(`/results/${weekend.year}/rounds/${weekend.round}/race`)}
       >
         <h3 className="weekend-year">{weekend.year}</h3>
-        <h3 className="weekend-date">{weekend.sessions.race.getFormattedDate('MMMM dd.')}</h3>
-        <p className="weekend-round">Round: #{weekend.round}</p>
-        <p className="weekend-name">{weekend.name}</p>
+        <p className="weekend-date icon__container dark">
+          <EventIcon />
+          <span>{weekend.sessions.race.getFormattedDate('MMMM dd.')}</span>
+        </p>
+        <Tooltip title="Round of the season" followCursor={true}>
+          <p className="weekend-round">#{weekend.round}</p>
+        </Tooltip>
+        <p className="weekend-name icon__container dark">
+          <LabelIcon />
+          <span>{weekend.name}</span>
+        </p>
 
         <Linking
           text="Wikipedia"
