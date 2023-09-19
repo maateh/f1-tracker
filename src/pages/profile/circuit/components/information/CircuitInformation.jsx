@@ -11,6 +11,7 @@ import useCircuitProfileContext from "../../context/hooks/useCircuitProfileConte
 
 // icons
 import LaunchIcon from '@mui/icons-material/Launch'
+import MapIcon from '@mui/icons-material/Map'
 
 // styles
 import './CircuitInformation.css'
@@ -31,13 +32,14 @@ const CircuitInformation = () => {
     />
   ) : (
     <section className="circuit-information__container">
-      <h2 className="circuit-name">{circuit.name}</h2>
+      <h2 className="circuit-name page__title">{circuit.name}</h2>
       <Link
         className="circuit-locality icon__container"
         to={circuit.getMapsLink()}
       >
-        <LaunchIcon fontSize='small' />
+        <MapIcon />
         <span>{circuit.getLocality()}</span>
+        <LaunchIcon />
       </Link>
     </section>
   )
