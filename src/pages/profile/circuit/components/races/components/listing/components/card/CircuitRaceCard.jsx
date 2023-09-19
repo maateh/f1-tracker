@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import { Tooltip } from '@mui/material'
 
+// components
+import Linking from '../../../../../../../../../components/linking/Linking'
+
 // constans
 import { POS_BOTTOM_LEFT, SIZE_SMALL } from '../../../../../../../../../components/linking/LinkingConstants'
 
@@ -9,7 +12,6 @@ import PublicIcon from '@mui/icons-material/Public'
 
 // styles
 import './CircuitRaceCard.css'
-import Linking from '../../../../../../../../../components/linking/Linking'
 
 const CircuitRaceCard = ({ weekend, lastRef }) => {
   const navigate = useNavigate()
@@ -28,7 +30,7 @@ const CircuitRaceCard = ({ weekend, lastRef }) => {
 
         <Linking
           text="Wikipedia"
-          tooltipText="Go to wikipedia page"
+          tooltipText="Go to Wikipedia page"
           link={weekend.wiki}
           icon={<PublicIcon />}
           launchIcon={true}

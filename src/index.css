@@ -59,6 +59,7 @@ a:active {
   font-size: 4.5rem;
   font-weight: 800;
   font-variant: small-caps;
+  text-align: center;
   letter-spacing: 1px;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 

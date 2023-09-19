@@ -3,30 +3,33 @@ import { useQuery } from "react-query"
 
 // api
 import { circuit } from "../../../../../../api/circuits/circuit"
+import { circuitRaces } from "../../../../../../api/circuits/races/circuitRaces"
 
 // context
 import useCircuitProfileContext from "../../../context/hooks/useCircuitProfileContext"
-import { SET_CIRCUIT } from "../../../context/CircuitProfileContextActions"
 
 // models
 import CircuitModel from "../../../../../../model/season/weekend/circuit/Circuit"
 import QueryError from "../../../../../../model/error/QueryError"
 
 const useCircuitInformationQuery = () => {
-  const { dispatch } = useCircuitProfileContext()
+  const { setCircuit, setRacesAmount } = useCircuitProfileContext()
   const { id } = useParams()
 
   return useQuery({
     queryKey: ['circuit', id],
-    queryFn: () => circuit(id)
-    .then(({ data }) => {
+    queryFn: () => Promise.all([circuit(id), circuitRaces(id, { offset: 0, limit: 0 })])
+    .then(([{ data }, { info }]) => {
       if (!data.Circuits || !data.Circuits.length) {
         throw new QueryError('No data found!', 404)
       }
 
-      dispatch({
-        type: SET_CIRCUIT,
-        payload: CircuitModel.parser({ Circuit: data.Circuits[0] })
+      setCircuit({
+        circuit: CircuitModel.parser({ Circuit: data.Circuits[0] })
+      })
+
+      setRacesAmount({
+        racesAmount: info.total
       })
     })
     .catch(err => {

@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom"
-
 // components
 import Linking from "../../../../../components/linking/Linking"
 import LoadingHandler from "../../../../../components/loading/LoadingHandler"
@@ -11,23 +9,25 @@ import useCircuitInformationQuery from "./hooks/useCircuitInformationQuery"
 import useCircuitProfileContext from "../../context/hooks/useCircuitProfileContext"
 
 // constants
-import { SIZE_LARGE } from "../../../../../components/linking/LinkingConstants"
+import { SIZE_LARGE, SIZE_MEDIUM } from "../../../../../components/linking/LinkingConstants"
 
 // icons
+import InfoIcon from '@mui/icons-material/Info';
 import MapIcon from '@mui/icons-material/Map'
+import PublicIcon from '@mui/icons-material/Public'
 
 // styles
 import './CircuitInformation.css'
 
 const CircuitInformation = () => {
-  const { circuit } = useCircuitProfileContext()
+  const { circuit, racesAmount } = useCircuitProfileContext()
   const {
     isLoading,
     isError,
     error
   } = useCircuitInformationQuery()
 
-  return isLoading || isError || !circuit ? (
+  return isLoading || isError || !circuit || !racesAmount ? (
     <LoadingHandler
       isLoading={isLoading}
       isError={isError}
@@ -36,15 +36,32 @@ const CircuitInformation = () => {
   ) : (
     <section className="circuit-information__container">
       <h2 className="circuit-name page__title">{circuit.name}</h2>
+      <div className="circuit-races-amount icon__container">
+        <InfoIcon />
+        <p>
+          Total of <span className="highlight">{racesAmount}</span> races at this track so far!
+        </p>
+      </div>
 
-      <Linking
-        text={circuit.getLocality()}
-        tooltipText="Open on Maps"
-        link={circuit.getMapsLink()}
-        icon={<MapIcon />}
-        size={SIZE_LARGE}
-        launchIcon={true}
-      />
+      <div className="links__container">
+        <Linking
+          text={circuit.getLocality()}
+          tooltipText="Open on Maps"
+          link={circuit.getMapsLink()}
+          icon={<MapIcon />}
+          size={SIZE_LARGE}
+          launchIcon={true}
+        />
+
+        <Linking
+          text='Wikipedia page'
+          tooltipText="Go to Wikipedia page"
+          link={circuit.wiki}
+          icon={<PublicIcon />}
+          size={SIZE_MEDIUM}
+          launchIcon={true}
+        />
+      </div>
     </section>
   )
 }
