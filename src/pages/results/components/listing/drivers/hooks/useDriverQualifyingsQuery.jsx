@@ -63,7 +63,7 @@ const useDriverQualifyingsQuery = () => {
                   {
                     title: 'Full Name',
                     desc: driver.fullName,
-                    link: driver.wiki,
+                    link: `/profile/driver/${driver.id}`,
                     icon: <SportsMotorsportsIcon />
                   },
                   {

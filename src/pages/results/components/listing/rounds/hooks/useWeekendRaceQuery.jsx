@@ -63,10 +63,29 @@ const useWeekendRaceQuery = () => {
               {
                 title: 'Weekend Information',
                 summaries: [
-                  { title: 'Circuit Name', desc: circuit.name, link: circuit.getMapsLink(), icon: <LabelIcon /> },
-                  { title: 'Country, City', desc: `${circuit.location.country}, ${circuit.location.locality}`, icon: <PublicIcon /> },
-                  { title: 'Wikipedia (Circuit)', desc: 'Click here for more!', link: circuit.wiki, icon: <ContactSupportIcon /> },
-                  { title: 'Wikipedia (Weekend)', desc: 'Click here for more!', link: wiki, icon: <ContactSupportIcon /> },
+                  {
+                    title: 'Circuit Name',
+                    desc: circuit.name,
+                    link: `/profile/circuit/${circuit.id}`,
+                    icon: <LabelIcon />
+                  },
+                  {
+                    title: 'Country, City',
+                    desc: `${circuit.location.country}, ${circuit.location.locality}`,
+                    link: circuit.getMapsLink(),
+                    icon: <PublicIcon />
+                  },
+                  {
+                    title: 'Wikipedia (Circuit)',
+                    desc: 'Click here for more!',
+                    link: circuit.wiki,
+                    icon: <ContactSupportIcon />
+                  },
+                  {
+                    title: 'Wikipedia (Weekend)',
+                    desc: 'Click here for more!',
+                    link: wiki, icon: <ContactSupportIcon />
+                  }
                 ]
               },
               {

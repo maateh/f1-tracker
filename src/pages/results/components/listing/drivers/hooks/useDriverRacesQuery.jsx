@@ -68,7 +68,8 @@ const useDriverRacesQuery = () => {
                 summaries: [
                   {
                     title: 'Full Name',
-                    desc: driver.fullName, link: driver.wiki,
+                    desc: driver.fullName,
+                    link: `/profile/driver/${driver.id}`,
                     icon: <SportsMotorsportsIcon />
                   },
                   {

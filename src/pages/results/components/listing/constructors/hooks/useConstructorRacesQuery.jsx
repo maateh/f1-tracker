@@ -65,27 +65,72 @@ const useConstructorRacesQuery = () => {
               {
                 title: 'Constructor Information',
                 summaries: [
-                  { title: 'Team Name', desc: team.name, link: team.wiki, icon: <EngineeringIcon /> },
-                  { title: 'Nationality', desc: team.nationality, icon: <PublicIcon /> },
-                  { title: 'Drivers', desc: driversQuantity(weekends), icon: <SportsMotorsportsIcon /> }
+                  {
+                    title: 'Team Name',
+                    desc: team.name,
+                    link: `/profile/constructor/${team.id}`,
+                    icon: <EngineeringIcon />
+                  },
+                  {
+                    title: 'Nationality',
+                    desc: team.nationality,
+                    icon: <PublicIcon />
+                  },
+                  {
+                    title: 'Drivers',
+                    desc: driversQuantity(weekends),
+                    icon: <SportsMotorsportsIcon />
+                  }
                 ],
               },
               {
                 title: 'Constructor Achievements',
                 summaries: [
-                  { title: 'Win a Race', desc: win(weekends), icon: <EmojiEventsIcon /> },
-                  { title: 'Podium Finish', desc: podium(weekends), icon: <CelebrationIcon /> },
-                  { title: 'Fastest Lap', desc: fastestLaps(weekends), icon: <BoltIcon /> },
-                  { title: 'Scoring Positions', desc: scoringPositions(weekends), icon: <PlusOneIcon /> }
+                  {
+                    title: 'Win a Race',
+                    desc: win(weekends),
+                    icon: <EmojiEventsIcon />
+                  },
+                  {
+                    title: 'Podium Finish',
+                    desc: podium(weekends),
+                    icon: <CelebrationIcon />
+                  },
+                  {
+                    title: 'Fastest Lap',
+                    desc: fastestLaps(weekends),
+                    icon: <BoltIcon />
+                  },
+                  {
+                    title: 'Scoring Positions',
+                    desc: scoringPositions(weekends),
+                    icon: <PlusOneIcon />
+                  }
                 ]
               },
               {
                 title: 'Constructor Race Statuses',
                 summaries: [
-                  { title: 'Finished Races', desc: finished(weekends), icon: <SportsScoreIcon /> },
-                  { title: 'Got a Lap', desc: gotALap(weekends), icon: <Timer10SelectIcon /> },
-                  { title: 'Crashed in Races', desc: crashes(weekends), icon: <ErrorIcon /> },
-                  { title: 'Mechanical Failures', desc: failures(weekends), icon: <WarningIcon /> }
+                  {
+                    title: 'Finished Races',
+                    desc: finished(weekends),
+                    icon: <SportsScoreIcon />
+                  },
+                  {
+                    title: 'Got a Lap',
+                    desc: gotALap(weekends),
+                    icon: <Timer10SelectIcon />
+                  },
+                  {
+                    title: 'Crashed in Races',
+                    desc: crashes(weekends),
+                    icon: <ErrorIcon />
+                  },
+                  {
+                    title: 'Mechanical Failures',
+                    desc: failures(weekends),
+                    icon: <WarningIcon />
+                  }
                 ]
               },
             ].map(card => <SummaryCard key={card.title} card={card} />)
