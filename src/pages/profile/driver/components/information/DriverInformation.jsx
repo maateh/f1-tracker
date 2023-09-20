@@ -2,8 +2,10 @@
 import LoadingHandler from '../../../../../components/loading/LoadingHandler'
 
 // hooks
-import useDriverProfileContext from '../../context/hooks/useDriverProfileContext'
 import useDriverInformationQuery from './hooks/useDriverInformationQuery'
+
+// context
+import useDriverProfileContext from '../../context/hooks/useDriverProfileContext'
 
 // styles
 import './DriverInformation.css'

@@ -26,11 +26,12 @@ const useConstructorStandingsQuery = () => {
     queryKey: ['listing', 'constructorStandings', year],
     queryFn: () => constructorStandings(year)
       .then(({ data }) => {
-        const { year, standings } = SeasonModel.parser({ Season: data })
-  
-        if (!standings) {
+        if (!data.StandingsLists || !data.StandingsLists.length) {
           throw new QueryError('No data found!', 404)
         }
+
+        const { year, standings: [standings] } = SeasonModel.parser({ Season: data })
+  
         
         setTitle({
           title: new TitleModel({

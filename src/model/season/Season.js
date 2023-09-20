@@ -46,7 +46,7 @@ class Season {
 
 	static parseStandings({ StandingsLists: standingsLists }) {
     if (standingsLists && standingsLists.length) {
-      return StandingsList.parser({ StandingsList: standingsLists[0] })
+      return standingsLists.map(sl => StandingsList.parser({ StandingsList: sl }))
     }
 	}
 
