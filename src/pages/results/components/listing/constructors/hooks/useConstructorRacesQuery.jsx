@@ -5,7 +5,7 @@ import { useQuery } from "react-query"
 import { constructorRacesResultsFromSeason } from "../../../../../../api/results/race/constructorRacesResults"
 
 // components
-import ResultsCard from "../../components/card/ResultsCard"
+import SummaryCard from "../../../../../../components/listing/cards/card/SummaryCard"
 import SingleTableCell from "../../../../../../components/listing/table/cell/SingleTableCell"
 import LinkingTableCell from "../../../../../../components/listing/table/cell/LinkingTableCell"
 import CircuitCell from "../../components/table/CircuitCell"
@@ -88,7 +88,7 @@ const useConstructorRacesQuery = () => {
                   { title: 'Mechanical Failures', desc: failures(weekends), icon: <WarningIcon /> }
                 ]
               },
-            ].map(card => <ResultsCard key={card.title} card={card} />)
+            ].map(card => <SummaryCard key={card.title} card={card} />)
           })
         })
 
@@ -115,7 +115,8 @@ const useConstructorRacesQuery = () => {
                   <LinkingTableCell
                     value={getValue().value}
                     link={`/results/${getValue().weekend.year}/rounds/${getValue().weekend.round}/race`}
-                    style={{ fontWeight: '600' }}
+                    launchIcon={false}
+                    style={{ fontWeight: '600', fontSize: '1.1rem' }}
                   />
               },
               {
@@ -156,6 +157,7 @@ const useConstructorRacesQuery = () => {
                   <LinkingTableCell
                     value={`${getValue().value} laps`}
                     link={`/history/laps/${getValue().weekend.year}/${getValue().weekend.round}/all`}
+                    launchIcon={true}
                     style={{ fontWeight: '500', fontSize: '1.1rem' }}
                   />
               },

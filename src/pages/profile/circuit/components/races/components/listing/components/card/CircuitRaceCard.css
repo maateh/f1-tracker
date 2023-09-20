@@ -90,6 +90,10 @@
 .circuit-race-card__container:hover .linking__container > span.link-text {
   color: var(--text-color-light);
 }
+.circuit-race-card__container:active .linking__container:active > span.link-text,
+.circuit-race-card__container:hover .linking__container:hover > span.link-text {
+  text-decoration: underline var(--text-color-light);
+}
 .circuit-race-card__container:active .linking__container.icon__container > svg,
 .circuit-race-card__container:hover .linking__container.icon__container > svg {
   color: var(--text-color-light);

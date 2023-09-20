@@ -59,9 +59,10 @@ const useDriverStandingsQuery = () => {
                 sortingFn: 'default',
                 cell: ({ cell: { getValue }}) => 
                   <LinkingTableCell
-                    value={getValue().value}
+                    value={`${getValue().value} ${getValue().driver.formattedNumber}`}
                     link={`/results/${year}/drivers/${getValue().driver.id}/race`}
-                    style={{ fontWeight: '500' }}
+                    launchIcon={false}
+                    style={{ fontWeight: '500', fontSize: '1.15rem' }}
                   />
               },
               {
@@ -73,7 +74,8 @@ const useDriverStandingsQuery = () => {
                   <LinkingTableCell
                     value={getValue().value}
                     link={`/results/${year}/constructors/${getValue().constructor.id}`}
-                    style={{ fontWeight: '500' }}
+                    launchIcon={false}
+                    style={{ fontWeight: '500', fontSize: '1.1rem' }}
                   />
               },
               {

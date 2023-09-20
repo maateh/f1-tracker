@@ -1,16 +1,17 @@
 .linking__container {
   width: fit-content;
   align-self: center;
+  text-align: center;
 }
 
 .linking__container.small {
-  margin: 0.25rem;
+  margin: 0.25rem auto;
 }
 .linking__container.medium {
-  margin: 0.35rem;
+  margin: 0.35rem auto;
 }
 .linking__container.large {
-  margin: 0.5rem;
+  margin: 0.5rem auto;
 }
 
 /* positioning */
@@ -35,8 +36,16 @@
 .linking__container > span.link-text {
   color: var(--text-color);
 }
+.linking__container:active > span.link-text,
+.linking__container:hover > span.link-text {
+  text-decoration: underline var(--text-color);
+}
 .linking__container.dark > span.link-text {
   color: var(--text-color-light);
+}
+.linking__container.dark:active > span.link-text,
+.linking__container.dark:hover > span.link-text {
+  text-decoration: underline var(--text-color-light);
 }
 .linking__container.small > span.link-text {
   font-size: 1rem;
@@ -69,35 +78,29 @@
   font-size: 2rem;
 }
 
-.linking__container.icon__container > svg:last-of-type {
+.linking__container.icon__container > svg.launch-icon {
   margin-left: 0.2rem;
   color: var(--text-color);
   align-self: flex-start;
 }
-.linking__container.icon__container.dark > svg:last-of-type {
+.linking__container.icon__container.dark > svg.launch-icon {
   color: var(--text-color-light);
 }
-.linking__container.icon__container.small > svg:last-of-type {
+.linking__container.icon__container.small > svg.launch-icon {
   font-size: 0.95rem;
 }
-.linking__container.icon__container.medium > svg:last-of-type {
+.linking__container.icon__container.medium > svg.launch-icon {
   font-size: 1.05rem;
 }
-.linking__container.icon__container.large > svg:last-of-type {
+.linking__container.icon__container.large > svg.launch-icon {
   font-size: 1.10rem;
 }
 
 
 /* mobile screens */
 @media (max-width: 40rem) {
-  .linking__container.small {
-    margin: 0.25rem;
-  }
-  .linking__container.medium {
-    margin: 0.35rem;
-  }
   .linking__container.large {
-    margin: 0.45rem;
+    margin: 0.45rem auto;
   }
   
   /* text */
@@ -125,13 +128,13 @@
     font-size: 1.75rem;
   }
   
-  .linking__container.icon__container.small > svg:last-of-type {
+  .linking__container.icon__container.small > svg.launch-icon {
     font-size: 0.9rem;
   }
-  .linking__container.icon__container.medium > svg:last-of-type {
+  .linking__container.icon__container.medium > svg.launch-icon {
     font-size: 1rem;
   }
-  .linking__container.icon__container.large > svg:last-of-type {
+  .linking__container.icon__container.large > svg.launch-icon {
     font-size: 1.05rem;
   }
 }

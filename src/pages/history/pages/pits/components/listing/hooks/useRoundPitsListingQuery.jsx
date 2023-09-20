@@ -127,6 +127,7 @@ const useRoundPitsListingQuery = () => {
                   <LinkingTableCell 
                     value={getValue().value} 
                     link={`../${year}/${round}/${getValue().driver.id}`}
+                    launchIcon={false}
                     style={{ fontSize: '1.1rem', fontWeight: '500' }}
                   />
               },

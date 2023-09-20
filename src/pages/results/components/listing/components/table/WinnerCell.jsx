@@ -1,23 +1,37 @@
-import { Link, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
+
+// components
+import Linking from "../../../../../../components/linking/Linking"
+
+// constants
+import { SIZE_SMALL } from "../../../../../../components/linking/LinkingConstants"
 
 const WinnerCell = ({ result: { driver, constructor } }) => {
 	const { year } = useParams()
 
 	return (
 		<>
-			<Link 
-				style={{ display: 'block', fontWeight: '600' }}
-				to={`/results/${year}/drivers/${driver.id}/race`}
-			>
-        {driver.fullName}
-      </Link>
+			<Linking
+				text={driver.fullName}
+				link={`/results/${year}/drivers/${driver.id}/race`}
+				launchIcon={false}
+				size={SIZE_SMALL}
+				textStyles={{
+					fontSize: '1.1rem',
+					fontWeight: '600'
+				}}
+			/>
 
-			<Link 
-				style={{ display: 'block', fontWeight: '300', fontSize: '1rem' }}
-				to={`/results/${year}/constructors/${constructor.id}`}
-			>
-        {constructor.name}
-      </Link>
+			<Linking
+				text={constructor.name}
+				link={`/results/${year}/constructors/${constructor.id}`}
+				launchIcon={false}
+				size={SIZE_SMALL}
+				textStyles={{
+					fontSize: '1rem',
+					fontWeight: '300'
+				}}
+			/>
 		</>
 	)
 }

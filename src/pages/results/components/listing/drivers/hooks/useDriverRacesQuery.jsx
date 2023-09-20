@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom"
 import { driverRacesResultsFromSeason } from "../../../../../../api/results/race/driverRacesResults"
 
 // components
-import ResultsCard from "../../components/card/ResultsCard"
+import SummaryCard from "../../../../../../components/listing/cards/card/SummaryCard"
 import SingleTableCell from "../../../../../../components/listing/table/cell/SingleTableCell"
 import LinkingTableCell from "../../../../../../components/listing/table/cell/LinkingTableCell"
 import CircuitCell from "../../components/table/CircuitCell"
@@ -138,7 +138,7 @@ const useDriverRacesQuery = () => {
                   }
                 ]
               },
-            ].map(card => <ResultsCard key={card.title} card={card} />)
+            ].map(card => <SummaryCard key={card.title} card={card} />)
           })
         })
 
@@ -165,7 +165,8 @@ const useDriverRacesQuery = () => {
                   <LinkingTableCell
                     value={getValue().value}
                     link={`/results/${year}/rounds/${getValue().weekend.round}/race`}
-                    style={{ fontWeight: '600' }}
+                    launchIcon={false}
+                    style={{ fontWeight: '600', fontSize: '1.1rem' }}
                   />
               },
               {
@@ -217,6 +218,7 @@ const useDriverRacesQuery = () => {
                   <LinkingTableCell
                     value={`${getValue().value} laps`}
                     link={`/history/laps/${year}/${getValue().weekend.round}/${driver.id}`}
+                    launchIcon={true}
                     style={{ fontWeight: '500', fontSize: '1.1rem' }}
                   />
               },

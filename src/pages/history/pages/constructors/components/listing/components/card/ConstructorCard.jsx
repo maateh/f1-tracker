@@ -1,9 +1,14 @@
 import { useNavigate } from 'react-router-dom'
 
 // components
-import ConstructorName from './components/ConstructorName'
-import ConstructorNationality from './components/ConstructorNationality'
-import ConstructorWiki from './components/ConstructorWiki'
+import Linking from '../../../../../../../../components/linking/Linking'
+
+// constants
+import { POS_BOTTOM_LEFT, SIZE_SMALL } from '../../../../../../../../components/linking/LinkingConstants'
+
+// icons
+import FlagIcon from '@mui/icons-material/Flag'
+import PublicIcon from '@mui/icons-material/Public'
 
 // styles
 import './ConstructorCard.css'
@@ -17,9 +22,22 @@ const ConstructorCard = ({ constructor, lastRef }) => {
       ref={lastRef || undefined}
       onClick={() => navigate(`/profile/constructor/${constructor.id}`)}
     >
-      <ConstructorName name={constructor.name} />
-      <ConstructorNationality nationality={constructor.nationality} />
-      <ConstructorWiki link={constructor.wiki} />
+      <h3 className="constructor-name">{constructor.name}</h3>
+      <p className="constructor-nationality icon__container">
+        <FlagIcon fontSize='small' />
+        <span>{constructor.nationality}</span>
+      </p>
+
+      <Linking
+        text="Wikipedia"
+        tooltipText="Go to the Wikipedia page"
+        link={constructor.wiki}
+        icon={<PublicIcon />}
+        launchIcon={true}
+        size={SIZE_SMALL}
+        positioningClasses={POS_BOTTOM_LEFT}
+        darkMode={true}
+      />
     </li>
   )
 }

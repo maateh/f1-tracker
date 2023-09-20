@@ -1,6 +1,6 @@
 .driver-card__container {
   height: 11.25rem;
-  width: 70%;
+  width: 85%;
   margin: 0 auto;
   padding: 0.4rem 1rem;
   
@@ -15,6 +15,7 @@
   border-bottom-right-radius: 36px;
   border-top-left-radius: 64px;
 
+  text-align: center;
   cursor: pointer;
   
   display: flex;
@@ -49,15 +50,6 @@
   font-size: 1.4rem;
   font-weight: 400;
 }
-.driver-card__container .driver-wiki__link {
-  color: var(--text-color-light);
-  font-size: 1.1rem;
-  font-weight: 300;
-
-  position: absolute;
-  left: 0.5rem;
-  bottom: 0.25rem;
-}
 
 
 /* mobile styles */
@@ -87,9 +79,6 @@
   .driver-card__container .driver-nationality {
     font-size: 1.15rem;
   }
-  .driver-card__container .driver-wiki__link {
-    font-size: 1rem;
-  }
 }
 
 @media (max-width: 20rem) {
@@ -99,9 +88,5 @@
   }
   .driver-card__container .driver-nationality {
     font-size: 1rem;
-  }
-  .driver-card__container .driver-wiki__link {
-    margin-top: 0.25rem;
-    position: relative;
   }
 }

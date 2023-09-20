@@ -46,15 +46,6 @@
   font-size: 1.4rem;
   font-weight: 300;
 }
-.circuit-card__container .circuit-wiki__link {
-  color: var(--text-color-light);
-  font-size: 1.1rem;
-  font-weight: 300;
-
-  position: absolute;
-  left: 0.5rem;
-  bottom: 0.25rem;
-}
 
 
 /* mobile styles */

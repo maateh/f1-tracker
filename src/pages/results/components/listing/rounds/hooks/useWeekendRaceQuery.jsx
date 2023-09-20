@@ -5,7 +5,7 @@ import { useQuery } from "react-query"
 import { raceResults } from "../../../../../../api/results/race/raceResults"
 
 // components
-import ResultsCard from "../../components/card/ResultsCard"
+import SummaryCard from "../../../../../../components/listing/cards/card/SummaryCard"
 import SingleTableCell from "../../../../../../components/listing/table/cell/SingleTableCell"
 import LinkingTableCell from "../../../../../../components/listing/table/cell/LinkingTableCell"
 import FastestLapCell from '../../components/table/FastestLapCell'
@@ -78,7 +78,7 @@ const useWeekendRaceQuery = () => {
                   { title: 'Mechanical Failures', desc: failures(results), icon: <WarningIcon /> }
                 ]
               },
-            ].map(card => <ResultsCard key={card.title} card={card} />)
+            ].map(card => <SummaryCard key={card.title} card={card} />)
           })
         })
 
@@ -103,9 +103,10 @@ const useWeekendRaceQuery = () => {
                 sortingFn: 'default',
                 cell: ({ cell: { getValue }}) => 
                   <LinkingTableCell
-                    value={getValue().value}
+                    value={`${getValue().value} ${getValue().driver.formattedNumber}`}
                     link={`/results/${year}/drivers/${getValue().driver.id}/race`}
-                    style={{ fontWeight: '500' }}
+                    launchIcon={false}
+                    style={{ fontWeight: '500', fontSize: '1.1rem' }}
                   />
               },
               {
@@ -117,7 +118,8 @@ const useWeekendRaceQuery = () => {
                   <LinkingTableCell
                     value={getValue().value}
                     link={`/results/${year}/constructors/${getValue().constructor.id}`}
-                    style={{ fontWeight: '500' }}
+                    launchIcon={false}
+                    style={{ fontWeight: '500', fontSize: '1.05rem' }}
                   />
               },
               {

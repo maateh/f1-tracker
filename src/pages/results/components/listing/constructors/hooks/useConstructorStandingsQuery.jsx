@@ -61,7 +61,8 @@ const useConstructorStandingsQuery = () => {
                   <LinkingTableCell
                     value={getValue().value}
                     link={`/results/${year}/constructors/${getValue().constructor.id}`}
-                    style={{ fontWeight: '500' }}
+                    launchIcon={false}
+                    style={{ fontWeight: '500', fontSize: '1.1rem' }}
                   />
               },
               {

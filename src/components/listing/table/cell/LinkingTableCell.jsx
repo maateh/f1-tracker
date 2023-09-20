@@ -1,10 +1,18 @@
-import { Link } from "react-router-dom"
+// components
+import Linking from "../../../linking/Linking"
 
-const LinkingTableCell = ({ value, link, style }) => {
+// constants
+import { SIZE_SMALL } from "../../../linking/LinkingConstants"
+
+const LinkingTableCell = ({ value, link, launchIcon, style }) => {
   return (
-    <Link style={style} to={link}>
-      {value}
-    </Link>
+    <Linking
+      text={value}
+      link={link}
+      launchIcon={launchIcon}
+      size={SIZE_SMALL}
+      textStyles={style}
+    />
   )
 }
 

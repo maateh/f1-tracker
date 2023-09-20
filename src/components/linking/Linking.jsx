@@ -7,17 +7,29 @@ import LaunchIcon from '@mui/icons-material/Launch'
 // styles
 import './Linking.css'
 
-const Linking = ({ link, text, tooltipText, icon, launchIcon, size, positioningClasses, darkMode, textStyles }) => {
+const Linking = ({
+  link,
+  text,
+  tooltipText,
+  icon,
+  launchIcon,
+  size,
+  positioningClasses,
+  darkMode,
+  linkStyles,
+  textStyles
+}) => {
   return (
     <Tooltip title={tooltipText} arrow>
       <Link
         className={`linking__container icon__container ${size} ${darkMode ? 'dark' : ''} ${positioningClasses}`}
+        style={linkStyles}
         onClick={e => e.stopPropagation()}
         to={link}
       >
         {icon}
         <span className="link-text" style={textStyles}>{text}</span>
-        {launchIcon && <LaunchIcon fontSize='small' />}
+        {launchIcon && <LaunchIcon className='launch-icon' fontSize='small' />}
       </Link>
     </Tooltip>
   )

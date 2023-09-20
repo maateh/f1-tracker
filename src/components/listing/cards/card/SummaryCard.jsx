@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom'
+// components
+import Linking from '../../../linking/Linking'
 
-// icons
-import LaunchIcon from '@mui/icons-material/Launch'
+// constants
+import { SIZE_SMALL } from '../../../linking/LinkingConstants'
 
 // styles
 import './SummaryCard.css'
@@ -14,18 +15,20 @@ const SummaryCard = ({ card }) => {
       <div className="summaries__container">
         {card.summaries.map(summary => (
           <div className="summary" key={summary.title}>
-            <div className="icon__container">
+            <p className="icon__container">
               <span className="summary-icon">{summary.icon}</span>
               <span className="summary-title">{summary.title}</span>
-            </div>
+            </p>
 
             {summary.link ? (
-              <Link 
-                className="summary-desc icon__container"
-                to={summary.link}
-              >
-                <LaunchIcon fontSize='small' />{summary.desc}
-              </Link>
+              <Linking
+                text={summary.desc}
+                link={summary.link}
+                launchIcon={true}
+                darkMode={true}
+                size={SIZE_SMALL}
+                textStyles={{ fontSize: '1.1rem', fontWeight: '300' }}
+              />
             ) : (
               <p className="summary-desc">{summary.desc}</p>
             )}

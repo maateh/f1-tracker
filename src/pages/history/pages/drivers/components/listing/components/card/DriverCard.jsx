@@ -1,10 +1,15 @@
 import { useNavigate } from 'react-router-dom'
 
 // components
-import DriverName from './components/DriverName'
-import DriverDateOfBirth from './components/DriverDateOfBirth'
-import DriverNationality from './components/DriverNationality'
-import DriverWiki from './components/DriverWiki'
+import Linking from '../../../../../../../../components/linking/Linking'
+
+// constants
+import { POS_BOTTOM_LEFT, SIZE_SMALL } from '../../../../../../../../components/linking/LinkingConstants'
+
+// icons
+import CakeIcon from '@mui/icons-material/Cake'
+import FlagIcon from '@mui/icons-material/Flag'
+import PublicIcon from '@mui/icons-material/Public'
 
 // styles
 import './DriverCard.css'
@@ -18,10 +23,26 @@ const DriverCard = ({ driver, lastRef }) => {
       ref={lastRef || undefined}
       onClick={() => navigate(`/profile/driver/${driver.id}`)}
     >
-      <DriverName name={driver.fullName} number={driver.formattedNumber} />
-      <DriverDateOfBirth dateOfBirth={driver.formattedDateOfBirth} />
-      <DriverNationality nationality={driver.nationality} />
-      <DriverWiki link={driver.wiki} />
+      <h3 className="driver-name">{driver.fullName} {driver.formattedNumber}</h3>
+      <p className="driver-date-of-birth icon__container">
+        <CakeIcon fontSize='small' />
+        <span>{driver.dateOfBirth}</span>
+      </p>
+      <p className="driver-nationality icon__container">
+        <FlagIcon fontSize='small' />
+        <span>{driver.nationality}</span>
+      </p>
+      
+      <Linking
+        text="Wikipedia"
+        tooltipText="Go to the Wikipedia page"
+        link={constructor.wiki}
+        icon={<PublicIcon />}
+        launchIcon={true}
+        size={SIZE_SMALL}
+        positioningClasses={POS_BOTTOM_LEFT}
+        darkMode={true}
+      />
     </li>
   )
 }

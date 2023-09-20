@@ -5,7 +5,7 @@ import { useQuery } from 'react-query'
 import { qualifyingResults } from '../../../../../../api/results/qualifying/qualifyingResults'
 
 // components
-import ResultsCard from '../../components/card/ResultsCard'
+import SummaryCard from '../../../../../../components/listing/cards/card/SummaryCard'
 import SingleTableCell from '../../../../../../components/listing/table/cell/SingleTableCell'
 import LinkingTableCell from '../../../../../../components/listing/table/cell/LinkingTableCell'
 
@@ -63,7 +63,7 @@ const useWeekendQualifyingQuery = () => {
                   { title: 'Wikipedia (Weekend)', desc: 'Click here for more!', link: wiki, icon: <ContactSupportIcon /> },
                 ]
               },
-            ].map(card => <ResultsCard key={card.title} card={card} />)
+            ].map(card => <SummaryCard key={card.title} card={card} />)
           })
         })
 
@@ -88,9 +88,10 @@ const useWeekendQualifyingQuery = () => {
                 sortingFn: 'default',
                 cell: ({ cell: { getValue }}) => 
                   <LinkingTableCell
-                    value={getValue().value}
+                    value={`${getValue().value} ${getValue().driver.formattedNumber}`}
                     link={`/results/${year}/drivers/${getValue().driver.id}/race`}
-                    style={{ fontWeight: '500' }}
+                    launchIcon={false}
+                    style={{ fontWeight: '500', fontSize: '1.1rem' }}
                   />
               },
               {
@@ -102,7 +103,8 @@ const useWeekendQualifyingQuery = () => {
                   <LinkingTableCell
                     value={getValue().value}
                     link={`/results/${year}/constructors/${getValue().constructor.id}`}
-                    style={{ fontWeight: '500' }}
+                    launchIcon={false}
+                    style={{ fontWeight: '500', fontSize: '1.05rem' }}
                   />
               },
               {
