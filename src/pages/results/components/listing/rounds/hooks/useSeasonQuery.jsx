@@ -44,7 +44,7 @@ const useSeasonQuery = () => {
   const { year } = useParams()
 
   return useQuery({
-    queryKey: ['listing', 'results', year], 
+    queryKey: ['listing', 'qualifyingsResults', 'racesResults', year], 
     queryFn: () => Promise.all([
       qualifyingsResults(year),
       racesResults(year)
