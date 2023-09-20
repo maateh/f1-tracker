@@ -29,8 +29,8 @@ const dataReducer = (state, action) => {
 
 export const ListingContext = createContext()
 
-const ListingContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(dataReducer, INITIAL_STATE)
+const ListingContextProvider = ({ children, initialState }) => {
+  const [state, dispatch] = useReducer(dataReducer, initialState || INITIAL_STATE)
 
   const setTitle = ({ title }) => {
     dispatch({

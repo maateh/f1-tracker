@@ -3,6 +3,7 @@ import DriverInformation from './components/information/DriverInformation'
 import DriverAchievements from './components/achievements/DriverAchievements'
 import DriverRaces from './components/races/DriverRaces'
 import DriverQualifyings from './components/qualifyings/DriverQualifyings'
+import DriverSeasons from './components/seasons/DriverSeasons'
 
 // context
 import DriverProfileContextProvider from './context/DriverProfileContext'
@@ -18,6 +19,7 @@ const DriverProfile = () => {
         <DriverRaces />
         <DriverAchievements />
         <DriverQualifyings />
+        <DriverSeasons />
       </DriverProfileContextProvider>
     </div>
   )

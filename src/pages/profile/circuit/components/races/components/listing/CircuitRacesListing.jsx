@@ -3,7 +3,7 @@ import Cards from "../../../../../../../components/listing/cards/Cards"
 import LoadingHandler from "../../../../../../../components/loading/LoadingHandler"
 
 // hooks
-import useCircuitRacesQuery from "./hooks/useCircuitRacesQuery"
+import useCircuitRacesListingQuery from "./hooks/useCircuitRacesListingQuery"
 import useObserver from "../../../../../../../components/listing/cards/hooks/useObserver"
 
 // context
@@ -19,7 +19,7 @@ const CircuitRacesListing = () => {
     isLoading,
     isError,
     error
-  } = useCircuitRacesQuery()
+  } = useCircuitRacesListingQuery()
 
   const lastRef = useObserver({
     fetchNextPage,

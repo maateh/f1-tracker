@@ -16,7 +16,7 @@ import CardsModel from '../../../../../../../../model/listing/Cards'
 import PaginationModel from '../../../../../../../../model/listing/Pagination'
 import QueryError from '../../../../../../../../model/error/QueryError'
 
-const useCircuitRacesQuery = () => {
+const useCircuitRacesListingQuery = () => {
   const { cards, setCards, updateCardsLayouts } = useListingContext()
   const { id } = useParams()
 
@@ -67,4 +67,4 @@ const useCircuitRacesQuery = () => {
   })
 }
 
-export default useCircuitRacesQuery
+export default useCircuitRacesListingQuery
