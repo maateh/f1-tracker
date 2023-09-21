@@ -1,29 +1,29 @@
 // components
-import DriverSeasonsListing from "./components/listing/DriverSeasonsListing"
+import ConstructorSeasonsListing from "./components/listing/ConstructorSeasonsListing"
 import LoadingHandler from "../../../../../components/loading/LoadingHandler"
 
 // hooks
-import useDriverSeasonsListing from "./hooks/useDriverSeasonsListing"
+import useConstructorSeasonsListing from "./hooks/useConstructorSeasonsListing"
 
 // context
 import ListingContextProvider from "../../../../../components/listing/context/ListingContext"
 
-const DriverSeasons = () => {
-  const { cards } = useDriverSeasonsListing()
+const ConstructorSeasons = () => {
+  const { cards } = useConstructorSeasonsListing()
 
   return (
-    <section className="driver-seasons__container">
+    <section className="constructor-seasons__container">
       {!cards ? (
         <LoadingHandler
           isLoading={!cards}
         />
       ) : (
         <ListingContextProvider initialState={{ cards }}>
-          <DriverSeasonsListing />
+          <ConstructorSeasonsListing />
         </ListingContextProvider>
       )}
     </section>
   )
 }
 
-export default DriverSeasons
+export default ConstructorSeasons

@@ -6,14 +6,13 @@ import { constructor } from '../../../../../../api/constructors/constructor'
 
 // context
 import useConstructorProfileContext from '../../../context/hooks/useConstructorProfileContext'
-import { SET_CONSTRUCTOR } from "../../../context/ConstructorProfileContextActions"
 
 // models
 import ConstructorModel from "../../../../../../model/season/weekend/results/constructor/Constructor"
 import QueryError from "../../../../../../model/error/QueryError"
 
 const useConstructorInformationQuery = () => {
-  const { dispatch } = useConstructorProfileContext()
+  const { setConstructor } = useConstructorProfileContext()
   const { id } = useParams()
 
   return useQuery({
@@ -24,9 +23,8 @@ const useConstructorInformationQuery = () => {
           throw new QueryError('No data found!', 404)
         }
 
-        dispatch({
-          type: SET_CONSTRUCTOR,
-          payload: ConstructorModel.parser({ Constructor: data.Constructors[0] })
+        setConstructor({
+          constructor: ConstructorModel.parser({ Constructor: data.Constructors[0] })
         })
       })
       .catch(err => {

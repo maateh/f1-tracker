@@ -7,7 +7,7 @@ import useDriverProfileContext from '../../../context/hooks/useDriverProfileCont
 // models
 import CardsModel from '../../../../../../model/listing/Cards'
 
-const useDriverSeasonsListingParser = () => {
+const useDriverSeasonsListing = () => {
   const { standings: standingsLists } = useDriverProfileContext()
 
   if (!standingsLists) return { cards: null }
@@ -27,4 +27,4 @@ const useDriverSeasonsListingParser = () => {
   }
 }
 
-export default useDriverSeasonsListingParser
+export default useDriverSeasonsListing
