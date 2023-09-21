@@ -15,14 +15,13 @@ import PublicIcon from '@mui/icons-material/Public'
 // styles
 import './CircuitRaceCard.css'
 
-const CircuitRaceCard = ({ weekend, lastRef }) => {
+const CircuitRaceCard = ({ weekend }) => {
   const navigate = useNavigate()
 
   return (
     <Tooltip title="Race results" placement='top' arrow>
       <li
         className="circuit-race-card__container"
-        ref={lastRef || undefined}
         onClick={() => navigate(`/results/${weekend.year}/rounds/${weekend.round}/race`)}
       >
         <h3 className="weekend-year">{weekend.year}</h3>

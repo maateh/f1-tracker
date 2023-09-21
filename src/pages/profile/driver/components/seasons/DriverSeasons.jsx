@@ -8,8 +8,11 @@ import useDriverSeasonsListing from "./hooks/useDriverSeasonsListing"
 // context
 import ListingContextProvider from "../../../../../components/listing/context/ListingContext"
 
+// styles
+import './DriverSeasons.css'
+
 const DriverSeasons = () => {
-  const { cards } = useDriverSeasonsListing()
+  const { title, cards } = useDriverSeasonsListing()
 
   return (
     <section className="driver-seasons__container">
@@ -18,7 +21,7 @@ const DriverSeasons = () => {
           isLoading={!cards}
         />
       ) : (
-        <ListingContextProvider initialState={{ cards }}>
+        <ListingContextProvider initialState={{ title, cards }}>
           <DriverSeasonsListing />
         </ListingContextProvider>
       )}

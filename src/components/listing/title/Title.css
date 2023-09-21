@@ -5,6 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .title__container > h2.title-main {
@@ -45,6 +46,16 @@
   .title__container > h3.title-sub {
     font-size: 1.1rem;
     padding: 0.5rem 1.2rem;
+  }
+}
+
+@media (max-width: 20rem) {
+  .title__container > h2.title-main {
+    font-size: 1.35rem;
+  }
+
+  .title__container > h3.title-sub {
+    font-size: 1rem;
   }
 }
 
