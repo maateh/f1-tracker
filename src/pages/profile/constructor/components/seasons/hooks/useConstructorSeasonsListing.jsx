@@ -5,6 +5,7 @@ import ConstructorSeasonCard from '../components/listing/components/card/Constru
 import useConstructorProfileContext from '../../../context/hooks/useConstructorProfileContext'
 
 // models
+import TitleModel from '../../../../../../model/listing/Title'
 import CardsModel from '../../../../../../model/listing/Cards'
 
 const useConstructorSeasonsListing = () => {
@@ -20,6 +21,9 @@ const useConstructorSeasonsListing = () => {
   ))
 
   return {
+    title: new TitleModel({
+      main: 'Constructor participated seasons'
+    }),
     cards: new CardsModel({
       styles: CardsModel.GRID_STYLES,
       layouts: cardsLayouts

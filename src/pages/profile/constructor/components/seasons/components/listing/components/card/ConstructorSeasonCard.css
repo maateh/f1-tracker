@@ -1,0 +1,111 @@
+.constructor-season-card__container {
+  height: 12rem;
+  width: 80%;
+  margin: 0 auto;
+  padding: 0.4rem 1rem;
+  
+  background: var(--accent-yellow);
+
+  border-top: 6px solid var(--secondary);
+  border-left: 6px solid var(--secondary);
+  border-radius: 10px;
+
+  border-bottom: 4px solid var(--secondary);
+  border-right: 4px solid var(--secondary);
+  border-bottom-right-radius: 36px;
+  border-top-left-radius: 64px;
+
+  text-align: center;
+  cursor: pointer;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.constructor-season-card__container:active,
+.constructor-season-card__container:hover {
+  background: var(--secondary);
+}
+
+/* standings year */
+.constructor-season-card__container .standings-year {
+  color: var(--text-color);
+  font-size: 2.1rem;
+  font-weight: 700;
+  text-decoration: overline var(--secondary);
+  letter-spacing: 2px;
+}
+.constructor-season-card__container:active .standings-year,
+.constructor-season-card__container:hover .standings-year {
+  color: var(--text-color-light);
+  text-decoration: overline var(--text-color-light);
+}
+
+/* season rounds */
+.constructor-season-card__container .standings-rounds {
+  color: var(--text-color);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.constructor-season-card__container:active .standings-rounds,
+.constructor-season-card__container:hover .standings-rounds,
+.constructor-season-card__container:active .standings-rounds > svg,
+.constructor-season-card__container:hover .standings-rounds > svg {
+  color: var(--text-color-light);
+}
+
+
+/* links */
+.constructor-season-card__container:active .linking__container > span.link-text,
+.constructor-season-card__container:hover .linking__container > span.link-text {
+  color: var(--text-color-light);
+}
+.constructor-season-card__container:active .linking__container:active > span.link-text,
+.constructor-season-card__container:hover .linking__container:hover > span.link-text {
+  text-decoration: underline var(--text-color-light);
+}
+.constructor-season-card__container:active .linking__container.icon__container > svg,
+.constructor-season-card__container:hover .linking__container.icon__container > svg {
+  color: var(--text-color-light);
+}
+
+
+
+/* mobile styles */
+@media (max-width: 95rem) {
+  .constructor-season-card__container {
+    width: 32vw;
+  }
+}
+
+@media (max-width: 60rem) {
+  .constructor-season-card__container {
+    width: 50vw;
+  }
+}
+
+@media (max-width: 40rem) {
+  .constructor-season-card__container {
+    height: fit-content;
+    min-height: 12rem;
+  }
+  .constructor-season-card__container .standings-year {
+    font-size: 1.4rem;
+  }
+  .constructor-season-card__container .standings-rounds {
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 20rem) {
+  .constructor-season-card__container .standings-year {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+  }
+  .constructor-season-card__container .standings-rounds {
+    font-size: 1rem;
+  }
+}

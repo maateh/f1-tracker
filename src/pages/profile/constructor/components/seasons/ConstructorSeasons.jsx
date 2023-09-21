@@ -8,8 +8,11 @@ import useConstructorSeasonsListing from "./hooks/useConstructorSeasonsListing"
 // context
 import ListingContextProvider from "../../../../../components/listing/context/ListingContext"
 
+// styles
+import './ConstructorSeasons.css'
+
 const ConstructorSeasons = () => {
-  const { cards } = useConstructorSeasonsListing()
+  const { title, cards } = useConstructorSeasonsListing()
 
   return (
     <section className="constructor-seasons__container">
@@ -18,7 +21,7 @@ const ConstructorSeasons = () => {
           isLoading={!cards}
         />
       ) : (
-        <ListingContextProvider initialState={{ cards }}>
+        <ListingContextProvider initialState={{ title, cards }}>
           <ConstructorSeasonsListing />
         </ListingContextProvider>
       )}
