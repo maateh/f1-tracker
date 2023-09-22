@@ -1,77 +1,45 @@
-.circuit-race-card__container {
-  height: 12rem;
-  width: 80%;
-  margin: 0 auto;
-  padding: 0.4rem 1rem;
-  
-  background: var(--accent-green);
-
-  border-top: 6px solid var(--secondary);
-  border-left: 6px solid var(--secondary);
-  border-radius: 10px;
-
-  border-bottom: 4px solid var(--secondary);
-  border-right: 4px solid var(--secondary);
-  border-bottom-right-radius: 36px;
-  border-top-left-radius: 64px;
-
-  text-align: center;
-  cursor: pointer;
-  
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-.circuit-race-card__container:active,
-.circuit-race-card__container:hover {
-  background: var(--secondary);
-}
-
 /* weekend year */
-.circuit-race-card__container .weekend-year {
+.card__container .weekend-year {
   color: var(--text-color);
   font-size: 2.1rem;
   font-weight: 700;
   text-decoration: overline var(--secondary);
   letter-spacing: 2px;
 }
-.circuit-race-card__container:active .weekend-year,
-.circuit-race-card__container:hover .weekend-year {
+.card__container:active .weekend-year,
+.card__container:hover .weekend-year {
   color: var(--text-color-light);
   text-decoration: overline var(--text-color-light);
 }
 
 /* weekend date */
-.circuit-race-card__container .weekend-date {
+.card__container .weekend-date {
   color: var(--text-color);
   font-size: 1.2rem;
   font-weight: 500;
 }
-.circuit-race-card__container:active .weekend-date,
-.circuit-race-card__container:hover .weekend-date,
-.circuit-race-card__container:active .weekend-date > svg,
-.circuit-race-card__container:hover .weekend-date > svg {
+.card__container:active .weekend-date,
+.card__container:hover .weekend-date,
+.card__container:active .weekend-date > svg,
+.card__container:hover .weekend-date > svg {
   color: var(--text-color-light);
 }
 
 /* weekend name */
-.circuit-race-card__container .weekend-name {
+.card__container .weekend-name {
   color: var(--text-color);
   font-size: 1.2rem;
   font-weight: 400;
 }
-.circuit-race-card__container:active .weekend-name,
-.circuit-race-card__container:hover .weekend-name,
-.circuit-race-card__container:active .weekend-name > svg,
-.circuit-race-card__container:hover .weekend-name > svg {
+.card__container:active .weekend-name,
+.card__container:hover .weekend-name,
+.card__container:active .weekend-name > svg,
+.card__container:hover .weekend-name > svg {
   color: var(--text-color-light);
 }
 
 /* weekend round */
-.circuit-race-card__container .weekend-round {
+.card__container .weekend-round {
   color: var(--text-color);
   font-size: 1.4rem;
   font-weight: 700;
@@ -80,64 +48,48 @@
   top: 0.35rem;
   right: 0.5rem;
 }
-.circuit-race-card__container:active .weekend-round,
-.circuit-race-card__container:hover .weekend-round {
+.card__container:active .weekend-round,
+.card__container:hover .weekend-round {
   color: var(--text-color-light);
 }
 
 /* links */
-.circuit-race-card__container:active .linking__container > span.link-text,
-.circuit-race-card__container:hover .linking__container > span.link-text {
+.card__container:active .linking__container > span.link-text,
+.card__container:hover .linking__container > span.link-text {
   color: var(--text-color-light);
 }
-.circuit-race-card__container:active .linking__container:active > span.link-text,
-.circuit-race-card__container:hover .linking__container:hover > span.link-text {
+.card__container:active .linking__container:active > span.link-text,
+.card__container:hover .linking__container:hover > span.link-text {
   text-decoration: underline var(--text-color-light);
 }
-.circuit-race-card__container:active .linking__container.icon__container > svg,
-.circuit-race-card__container:hover .linking__container.icon__container > svg {
+.card__container:active .linking__container.icon__container > svg,
+.card__container:hover .linking__container.icon__container > svg {
   color: var(--text-color-light);
 }
 
 
 /* mobile styles */
-@media (max-width: 95rem) {
-  .circuit-race-card__container {
-    width: 32vw;
-  }
-}
-
-@media (max-width: 60rem) {
-  .circuit-race-card__container {
-    width: 50vw;
-  }
-}
-
 @media (max-width: 40rem) {
-  .circuit-race-card__container {
-    height: fit-content;
-    min-height: 12rem;
-  }
-  .circuit-race-card__container .weekend-year {
+  .card__container .weekend-year {
     font-size: 1.4rem;
   }
-  .circuit-race-card__container .weekend-date {
+  .card__container .weekend-date {
     font-size: 1.15rem;
   }
-  .circuit-race-card__container .weekend-name {
+  .card__container .weekend-name {
     font-size: 1rem;
   }
 }
 
 @media (max-width: 20rem) {
-  .circuit-race-card__container .weekend-year {
+  .card__container .weekend-year {
     margin-top: 1rem;
     font-size: 1.2rem;
   }
-  .circuit-race-card__container .weekend-date {
+  .card__container .weekend-date {
     font-size: 1rem;
   }
-  .circuit-race-card__container .weekend-name {
+  .card__container .weekend-name {
     margin-top: 0.25rem;
     position: relative;
   }

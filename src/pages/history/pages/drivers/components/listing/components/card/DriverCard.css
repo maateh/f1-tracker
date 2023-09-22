@@ -1,35 +1,4 @@
-.driver-card__container {
-  height: 11.25rem;
-  width: 85%;
-  margin: 0 auto;
-  padding: 0.4rem 1rem;
-  
-  background: var(--secondary);
-
-  border-top: 8px solid var(--accent-yellow);
-  border-left: 8px solid var(--accent-yellow);
-  border-radius: 10px;
-
-  border-bottom: 6px solid var(--accent-yellow);
-  border-right: 6px solid var(--accent-yellow);
-  border-bottom-right-radius: 36px;
-  border-top-left-radius: 64px;
-
-  text-align: center;
-  cursor: pointer;
-  
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-}
-.driver-card__container:hover,
-.driver-card__container:active {
-  background: var(--accent-yellow);
-}
-
-/* basic info */
-.driver-card__container .driver-name {
+.card__container .driver-name {
   color: var(--text-color-light);
   font-size: 1.7rem;
   font-weight: 700;
@@ -38,14 +7,14 @@
   text-shadow: 1px 1px 5px rgba(50, 50, 50, 0.3);
   text-decoration: overline;
 }
-.driver-card__container .driver-date-of-birth {
+.card__container .driver-date-of-birth {
   margin-bottom: 0.2rem;
 
   color: var(--text-color-light);
   font-size: 1.15rem;
   font-weight: 300;
 }
-.driver-card__container .driver-nationality {
+.card__container .driver-nationality {
   color: var(--text-color-light);
   font-size: 1.4rem;
   font-weight: 400;
@@ -53,40 +22,24 @@
 
 
 /* mobile styles */
-@media (max-width: 95rem) {
-  .driver-card__container {
-    width: 32vw;
-  }
-}
-
-@media (max-width: 60rem) {
-  .driver-card__container {
-    width: 50vw;
-  }
-}
-
 @media (max-width: 40rem) {
-  .driver-card__container {
-    height: fit-content;
-    min-height: 10rem;
-  }
-  .driver-card__container .driver-name {
+  .card__container .driver-name {
     font-size: 1.4rem;
   }
-  .driver-card__container .driver-date-of-birth {
+  .card__container .driver-date-of-birth {
     font-size: 1rem;
   }
-  .driver-card__container .driver-nationality {
+  .card__container .driver-nationality {
     font-size: 1.15rem;
   }
 }
 
 @media (max-width: 20rem) {
-  .driver-card__container .driver-name {
+  .card__container .driver-name {
     margin-top: 1rem;
     font-size: 1.2rem;
   }
-  .driver-card__container .driver-nationality {
+  .card__container .driver-nationality {
     font-size: 1rem;
   }
 }
