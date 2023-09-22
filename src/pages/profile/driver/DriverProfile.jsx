@@ -13,7 +13,7 @@ import './DriverProfile.css'
 
 const DriverProfile = () => {
   return (
-    <div className="driver-profile__container">
+    <div className="driver-profile__container page__container">
       <DriverProfileContextProvider>
         <DriverInformation />
         <DriverRaces />

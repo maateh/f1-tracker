@@ -10,7 +10,7 @@ import './CircuitProfile.css'
 
 const CircuitProfile = () => {
   return (
-    <div className="circuit-profile__container">
+    <div className="circuit-profile__container page__container">
       <CircuitProfileContextProvider>
         <CircuitInformation />
         <CircuitRaces />

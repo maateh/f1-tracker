@@ -9,7 +9,7 @@ const DriverSeasonsListing = () => {
   const { title, cards } = useListingContext()
 
   return (
-    <div className="driver-seasons-listing__container">
+    <div className="listing__container">
       <Title title={title} />
       <Cards cards={cards} />
     </div>

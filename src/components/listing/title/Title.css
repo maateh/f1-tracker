@@ -10,6 +10,7 @@
 
 .title__container > h2.title-main {
   width: 100%;
+  max-width: 80rem;
   padding: 0.7rem 0;
 
   background: var(--secondary);
@@ -59,7 +60,7 @@
   }
 }
 
-@media (min-width: 121rem) {
+@media (min-width: 81rem) {
   .title__container > h2.title-main {
     border-radius: 16px;
   }

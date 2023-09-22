@@ -13,7 +13,7 @@ import './ConstructorProfile.css'
 
 const ConstructorProfile = () => {
   return (
-    <div className="constructor-profile__container">
+    <div className="constructor-profile__container page__container">
       <ConstructorProfileContextProvider>
         <ConstructorInformation />
         <ConstructorRaces />
