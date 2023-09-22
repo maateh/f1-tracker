@@ -153,4 +153,23 @@
   .linking__container.right {
     position: relative;
   }
+
+  /* text */
+  .linking__container.medium > span.link-text {
+    font-size: 1.1rem;
+  }
+  .linking__container.large > span.link-text {
+    font-size: 1.3rem;
+  }
+
+  /* icons */
+  .linking__container.icon__container.small > svg:first-of-type {
+    font-size: 1.25rem;
+  }
+  .linking__container.icon__container.medium > svg:first-of-type {
+    font-size: 1.3rem;
+  }
+  .linking__container.icon__container.large > svg:first-of-type {
+    font-size: 1.5rem;
+  }
 }
