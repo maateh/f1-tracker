@@ -5,8 +5,8 @@ import Card from '../../../../../../../../components/listing/cards/card/Card'
 import Linking from '../../../../../../../../components/linking/Linking'
 
 // constants
-import { COLOR_SECONDARY, COLOR_YELLOW, MEDIUM_SIZE_CARD } from '../../../../../../../../components/listing/cards/card/CardConstants'
-import { POS_BOTTOM_LEFT, SIZE_SMALL } from '../../../../../../../../components/linking/LinkingConstants'
+import { CARD_COLOR_SECONDARY, CARD_COLOR_YELLOW, CARD_SIZE_MEDIUM } from '../../../../../../../../components/listing/cards/card/CardConstants'
+import { LINKING_POS_BOTTOM_LEFT, LINKING_SIZE_SMALL } from '../../../../../../../../components/linking/LinkingConstants'
 
 // icons
 import CakeIcon from '@mui/icons-material/Cake'
@@ -22,9 +22,9 @@ const DriverCard = ({ driver, lastRef }) => {
   return (
     <Card
       tooltipText="Open Driver's Profile"
-      size={MEDIUM_SIZE_CARD}
-      bgColor={COLOR_SECONDARY}
-      borderColor={COLOR_YELLOW}
+      size={CARD_SIZE_MEDIUM}
+      bgColor={CARD_COLOR_SECONDARY}
+      borderColor={CARD_COLOR_YELLOW}
       invertOnHover={true}
       onClick={() => navigate(`/profile/driver/${driver.id}`)}
       lastRef={lastRef}
@@ -45,8 +45,8 @@ const DriverCard = ({ driver, lastRef }) => {
         link={constructor.wiki}
         icon={<PublicIcon />}
         launchIcon={true}
-        size={SIZE_SMALL}
-        positioningClasses={POS_BOTTOM_LEFT}
+        size={LINKING_SIZE_SMALL}
+        positioningClasses={LINKING_POS_BOTTOM_LEFT}
         darkMode={true}
       />
     </Card>

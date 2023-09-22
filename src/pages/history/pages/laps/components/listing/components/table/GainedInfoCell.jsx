@@ -2,7 +2,7 @@
 import Linking from '../../../../../../../../components/linking/Linking'
 
 // constants
-import { SIZE_SMALL } from '../../../../../../../../components/linking/LinkingConstants'
+import { LINKING_SIZE_SMALL } from '../../../../../../../../components/linking/LinkingConstants'
 
 // icons
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp'
@@ -16,7 +16,7 @@ const GainedInfoCell = ({ value, gained, link, style }) => {
           text={value}
           link={link}
           launchIcon={false}
-          size={SIZE_SMALL}
+          size={LINKING_SIZE_SMALL}
           textStyles={style || {
             fontSize: '1.1rem',
             fontWeight: '500'

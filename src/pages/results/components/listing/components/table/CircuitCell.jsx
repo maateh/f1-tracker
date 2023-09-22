@@ -2,7 +2,7 @@
 import Linking from "../../../../../../components/linking/Linking"
 
 // constants
-import { SIZE_SMALL } from "../../../../../../components/linking/LinkingConstants"
+import { LINKING_SIZE_SMALL } from "../../../../../../components/linking/LinkingConstants"
 
 const CircuitCell = ({ circuit }) => {
 	return (
@@ -11,7 +11,7 @@ const CircuitCell = ({ circuit }) => {
 				text={circuit.name}
 				link={`/profile/circuit/${circuit.id}`}
 				launchIcon={true}
-				size={SIZE_SMALL}
+				size={LINKING_SIZE_SMALL}
 				textStyles={{
 					fontSize: '1.05rem',
 					fontWeight: '500'

@@ -5,8 +5,8 @@ import Card from '../../../../../../../../components/listing/cards/card/Card'
 import Linking from '../../../../../../../../components/linking/Linking'
 
 // constants
-import { COLOR_GREEN, COLOR_SECONDARY, MEDIUM_SIZE_CARD } from '../../../../../../../../components/listing/cards/card/CardConstants'
-import { POS_BOTTOM_LEFT, SIZE_MEDIUM, SIZE_SMALL } from '../../../../../../../../components/linking/LinkingConstants'
+import { CARD_COLOR_GREEN, CARD_COLOR_SECONDARY, CARD_SIZE_MEDIUM } from '../../../../../../../../components/listing/cards/card/CardConstants'
+import { LINKING_POS_BOTTOM_LEFT, LINKING_SIZE_MEDIUM, LINKING_SIZE_SMALL } from '../../../../../../../../components/linking/LinkingConstants'
 
 // icons
 import MyLocationIcon from '@mui/icons-material/MyLocation'
@@ -21,9 +21,9 @@ const CircuitCard = ({ circuit, lastRef }) => {
   return (
     <Card
       tooltipText="Open Circuit's profile"
-      size={MEDIUM_SIZE_CARD}
-      bgColor={COLOR_SECONDARY}
-      borderColor={COLOR_GREEN}
+      size={CARD_SIZE_MEDIUM}
+      bgColor={CARD_COLOR_SECONDARY}
+      borderColor={CARD_COLOR_GREEN}
       invertOnHover={true}
       onClick={() => navigate(`/profile/circuit/${circuit.id}`)}
       lastRef={lastRef}
@@ -36,7 +36,7 @@ const CircuitCard = ({ circuit, lastRef }) => {
         link={circuit.getMapsLink()}
         icon={<MyLocationIcon />}
         launchIcon={true}
-        size={SIZE_MEDIUM}
+        size={LINKING_SIZE_MEDIUM}
         darkMode={true}
       />
 
@@ -46,8 +46,8 @@ const CircuitCard = ({ circuit, lastRef }) => {
         link={circuit.wiki}
         icon={<PublicIcon />}
         launchIcon={true}
-        size={SIZE_SMALL}
-        positioningClasses={POS_BOTTOM_LEFT}
+        size={LINKING_SIZE_SMALL}
+        positioningClasses={LINKING_POS_BOTTOM_LEFT}
         darkMode={true}
       />
     </Card>

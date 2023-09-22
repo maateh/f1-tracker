@@ -6,8 +6,8 @@ import Card from '../../../../../../../../../components/listing/cards/card/Card'
 import Linking from '../../../../../../../../../components/linking/Linking'
 
 // constans
-import { COLOR_GREEN, COLOR_SECONDARY, MEDIUM_SIZE_CARD } from '../../../../../../../../../components/listing/cards/card/CardConstants'
-import { POS_BOTTOM_LEFT, SIZE_SMALL } from '../../../../../../../../../components/linking/LinkingConstants'
+import { CARD_COLOR_GREEN, CARD_COLOR_SECONDARY, CARD_SIZE_MEDIUM } from '../../../../../../../../../components/listing/cards/card/CardConstants'
+import { LINKING_POS_BOTTOM_LEFT, LINKING_SIZE_SMALL } from '../../../../../../../../../components/linking/LinkingConstants'
 
 // icons
 import EventIcon from '@mui/icons-material/Event'
@@ -23,9 +23,9 @@ const CircuitRaceCard = ({ weekend }) => {
   return (
     <Card
       tooltipText="Race results"
-      size={MEDIUM_SIZE_CARD}
-      bgColor={COLOR_GREEN}
-      borderColor={COLOR_SECONDARY}
+      size={CARD_SIZE_MEDIUM}
+      bgColor={CARD_COLOR_GREEN}
+      borderColor={CARD_COLOR_SECONDARY}
       invertOnHover={true}
       onClick={() => navigate(`/results/${weekend.year}/rounds/${weekend.round}/race`)}
     >
@@ -48,8 +48,8 @@ const CircuitRaceCard = ({ weekend }) => {
         link={weekend.wiki}
         icon={<PublicIcon />}
         launchIcon={true}
-        size={SIZE_SMALL}
-        positioningClasses={POS_BOTTOM_LEFT}
+        size={LINKING_SIZE_SMALL}
+        positioningClasses={LINKING_POS_BOTTOM_LEFT}
       />
     </Card>
   )

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Linking from '../../../../../../../../components/linking/Linking'
 
 // constants
-import { POS_BOTTOM_LEFT, SIZE_SMALL } from '../../../../../../../../components/linking/LinkingConstants'
+import { LINKING_POS_BOTTOM_LEFT, LINKING_SIZE_SMALL } from '../../../../../../../../components/linking/LinkingConstants'
 
 // icons
 import FlagIcon from '@mui/icons-material/Flag'
@@ -34,8 +34,8 @@ const ConstructorCard = ({ constructor, lastRef }) => {
         link={constructor.wiki}
         icon={<PublicIcon />}
         launchIcon={true}
-        size={SIZE_SMALL}
-        positioningClasses={POS_BOTTOM_LEFT}
+        size={LINKING_SIZE_SMALL}
+        positioningClasses={LINKING_POS_BOTTOM_LEFT}
         darkMode={true}
       />
     </li>

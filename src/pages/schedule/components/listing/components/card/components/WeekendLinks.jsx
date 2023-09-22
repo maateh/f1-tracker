@@ -2,7 +2,7 @@
 import Linking from '../../../../../../../components/linking/Linking'
 
 // constants
-import { SIZE_SMALL } from '../../../../../../../components/linking/LinkingConstants'
+import { LINKING_SIZE_SMALL } from '../../../../../../../components/linking/LinkingConstants'
 
 // icons
 import SegmentIcon from '@mui/icons-material/Segment'
@@ -17,7 +17,7 @@ const WeekendLinks = ({ weekend }) => {
         link={`/results/${weekend.year}/rounds/${weekend.round}/race`}
         icon={<SegmentIcon />}
         launchIcon={false}
-        size={SIZE_SMALL}
+        size={LINKING_SIZE_SMALL}
         darkMode={true}
       />
 
@@ -27,7 +27,7 @@ const WeekendLinks = ({ weekend }) => {
         link={weekend.wiki}
         icon={<InfoIcon />}
         launchIcon={false}
-        size={SIZE_SMALL}
+        size={LINKING_SIZE_SMALL}
         darkMode={true}
       />
     </div>

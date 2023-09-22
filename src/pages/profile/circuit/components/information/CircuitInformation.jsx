@@ -9,7 +9,7 @@ import useCircuitInformationQuery from "./hooks/useCircuitInformationQuery"
 import useCircuitProfileContext from "../../context/hooks/useCircuitProfileContext"
 
 // constants
-import { SIZE_MEDIUM } from "../../../../../components/linking/LinkingConstants"
+import { LINKING_SIZE_MEDIUM } from "../../../../../components/linking/LinkingConstants"
 
 // icons
 import InfoIcon from '@mui/icons-material/Info';
@@ -49,7 +49,7 @@ const CircuitInformation = () => {
           tooltipText="Open on Maps"
           link={circuit.getMapsLink()}
           icon={<MapIcon />}
-          size={SIZE_MEDIUM}
+          size={LINKING_SIZE_MEDIUM}
           launchIcon={true}
         />
 
@@ -58,7 +58,7 @@ const CircuitInformation = () => {
           tooltipText="Go to Wikipedia page"
           link={circuit.wiki}
           icon={<PublicIcon />}
-          size={SIZE_MEDIUM}
+          size={LINKING_SIZE_MEDIUM}
           launchIcon={true}
         />
       </div>

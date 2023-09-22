@@ -2,7 +2,7 @@
 import Linking from "../../../linking/Linking"
 
 // constants
-import { SIZE_SMALL } from "../../../linking/LinkingConstants"
+import { LINKING_SIZE_SMALL } from "../../../linking/LinkingConstants"
 
 const LinkingTableCell = ({ value, link, launchIcon, style }) => {
   return (
@@ -10,7 +10,7 @@ const LinkingTableCell = ({ value, link, launchIcon, style }) => {
       text={value}
       link={link}
       launchIcon={launchIcon}
-      size={SIZE_SMALL}
+      size={LINKING_SIZE_SMALL}
       textStyles={style}
     />
   )

@@ -6,8 +6,8 @@ import Card from '../../../../../../../../../components/listing/cards/card/Card'
 import Linking from '../../../../../../../../../components/linking/Linking'
 
 // constants
-import { COLOR_ORANGE, COLOR_SECONDARY, MEDIUM_SIZE_CARD } from '../../../../../../../../../components/listing/cards/card/CardConstants'
-import { POS_BOTTOM_LEFT, SIZE_SMALL } from '../../../../../../../../../components/linking/LinkingConstants'
+import { CARD_COLOR_ORANGE, CARD_COLOR_SECONDARY, CARD_SIZE_MEDIUM } from '../../../../../../../../../components/listing/cards/card/CardConstants'
+import { LINKING_POS_BOTTOM_LEFT, LINKING_SIZE_SMALL } from '../../../../../../../../../components/linking/LinkingConstants'
 
 // icons
 import EventAvailableIcon from '@mui/icons-material/EventAvailable'
@@ -24,9 +24,9 @@ const ConstructorSeasonCard = ({ standings }) => {
   return (
     <Card
       tooltipText="Constructor's season results"
-      size={MEDIUM_SIZE_CARD}
-      bgColor={COLOR_ORANGE}
-      borderColor={COLOR_SECONDARY}
+      size={CARD_SIZE_MEDIUM}
+      bgColor={CARD_COLOR_ORANGE}
+      borderColor={CARD_COLOR_SECONDARY}
       invertOnHover={true}
       onClick={() => navigate(`/results/${standings.year}/constructors/${results.constructor.id}/race`)}      
     >
@@ -46,8 +46,8 @@ const ConstructorSeasonCard = ({ standings }) => {
         link={`/results/${standings.year}/constructors/all`}
         icon={<SegmentIcon />}
         launchIcon={true}
-        size={SIZE_SMALL}
-        positioningClasses={POS_BOTTOM_LEFT}
+        size={LINKING_SIZE_SMALL}
+        positioningClasses={LINKING_POS_BOTTOM_LEFT}
       />
     </Card>
   )

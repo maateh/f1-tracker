@@ -2,7 +2,7 @@
 import Linking from '../../../linking/Linking'
 
 // constants
-import { SIZE_SMALL } from '../../../linking/LinkingConstants'
+import { LINKING_SIZE_SMALL } from '../../../linking/LinkingConstants'
 
 // styles
 import './SummaryCard.css'
@@ -26,7 +26,7 @@ const SummaryCard = ({ card }) => {
                 link={summary.link}
                 launchIcon={true}
                 darkMode={true}
-                size={SIZE_SMALL}
+                size={LINKING_SIZE_SMALL}
                 textStyles={{ fontSize: '1.1rem', fontWeight: '300' }}
               />
             ) : (
