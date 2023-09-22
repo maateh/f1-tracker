@@ -12,7 +12,7 @@ import useCircuitProfileContext from "../../context/hooks/useCircuitProfileConte
 import { LINKING_SIZE_MEDIUM } from "../../../../../components/linking/LinkingConstants"
 
 // icons
-import InfoIcon from '@mui/icons-material/Info';
+import InfoIcon from '@mui/icons-material/Info'
 import MapIcon from '@mui/icons-material/Map'
 import PublicIcon from '@mui/icons-material/Public'
 
@@ -36,12 +36,13 @@ const CircuitInformation = () => {
   ) : (
     <section className="circuit-information__container">
       <h2 className="circuit-name page__title">{circuit.name}</h2>
-      <div className="circuit-races-amount icon__container">
+      
+      <p className="circuit-races-amount icon__container">
         <InfoIcon />
-        <p>
+        <span>
           Total of <span className="highlight">{racesAmount}</span> races at this track so far!
-        </p>
-      </div>
+        </span>
+      </p>
 
       <div className="links__container">
         <Linking
@@ -55,7 +56,7 @@ const CircuitInformation = () => {
 
         <Linking
           text='Wikipedia page'
-          tooltipText="Go to Wikipedia page"
+          tooltipText="Go to the Wikipedia page"
           link={circuit.wiki}
           icon={<PublicIcon />}
           size={LINKING_SIZE_MEDIUM}

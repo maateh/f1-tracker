@@ -22,7 +22,7 @@ const useDriverSeasonsListing = () => {
 
   return {
     title: new TitleModel({
-      main: 'Driver Participated Seasons'
+      main: "Driver's Participated Seasons"
     }),
     cards: new CardsModel({
       styles: CardsModel.GRID_STYLES,

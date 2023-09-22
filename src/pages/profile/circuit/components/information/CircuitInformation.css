@@ -7,7 +7,8 @@
 
 /* info */
 .circuit-information__container .circuit-races-amount {
-  margin: 0 1rem;
+  margin: 0 2rem;
+  margin-bottom: 1rem;
   font-size: 2rem;
   font-weight: 600;
   text-align: center;
@@ -20,7 +21,6 @@
   font-weight: 700;
   letter-spacing: 4px;
 }
-
 .circuit-information__container .circuit-races-amount.icon__container > svg {
   margin-right: 0.7rem;
   color: var(--text-color);
@@ -29,6 +29,7 @@
 
 @media (max-width: 40rem) {
   .circuit-information__container .circuit-races-amount {
+    margin-bottom: 2rem;
     font-size: 1.6rem;
     font-weight: 500;
   }
@@ -40,12 +41,6 @@
   .circuit-information__container .circuit-races-amount.icon__container > svg {
     margin-right: 0.4rem;
     font-size: 1.8rem;
-  }
-}
-
-@media (max-width: 30rem) {
-  .circuit-information__container .circuit-races-amount.icon__container > svg {
-    display: none;
   }
 }
 

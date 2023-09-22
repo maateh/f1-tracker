@@ -22,7 +22,7 @@ const useConstructorSeasonsListing = () => {
 
   return {
     title: new TitleModel({
-      main: 'Constructor participated seasons'
+      main: "Constructor's participated seasons"
     }),
     cards: new CardsModel({
       styles: CardsModel.GRID_STYLES,

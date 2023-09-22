@@ -44,7 +44,7 @@ const CircuitRaceCard = ({ weekend }) => {
 
       <Linking
         text="Wikipedia"
-        tooltipText="Go to Wikipedia page"
+        tooltipText="Go to the Wikipedia page"
         link={weekend.wiki}
         icon={<PublicIcon />}
         launchIcon={true}
