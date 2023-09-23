@@ -22,7 +22,7 @@ const Linking = ({
   return (
     <Tooltip title={tooltipText} arrow>
       <Link
-        className={`linking__container icon__container ${size} ${darkMode ? 'dark' : ''} ${positioningClasses}`}
+        className={`linking__container icon__container ${size || ''} ${darkMode ? 'dark' : ''} ${positioningClasses || ''}`}
         style={linkStyles}
         onClick={e => e.stopPropagation()}
         to={link}
