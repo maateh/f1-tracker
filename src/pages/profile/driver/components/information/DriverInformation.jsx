@@ -38,20 +38,20 @@ const DriverInformation = () => {
     <section className="driver-information__container">
       <h2 className="driver-name page__title">{driver.fullName}</h2>
 
-      <div className="driver-profile-data__container">
+      <div className="driver-information-data__container">
         <p className="driver-tag icon__container">
           <AlternateEmailIcon />
           <span>{driver.code} {driver.formattedNumber}</span>
         </p>
 
-        <p className="driver-nationality icon__container">
-          <FlagIcon />
-          <span>{driver.nationality}</span>
-        </p>
-
         <p className="driver-date-of-birth icon__container">
           <CakeIcon />
           <span>{driver.formattedDateOfBirth}</span>
+        </p>
+
+        <p className="driver-nationality icon__container">
+          <FlagIcon />
+          <span>{driver.nationality}</span>
         </p>
       </div>
 

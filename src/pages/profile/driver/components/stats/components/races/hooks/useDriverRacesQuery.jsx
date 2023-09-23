@@ -2,14 +2,14 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // api
-import { driverRacesResults } from '../../../../../../api/results/race/driverRacesResults'
+import { driverRacesResults } from '../../../../../../../../api/results/race/driverRacesResults'
 
 // context
-import useDriverProfileContext from "../../../context/hooks/useDriverProfileContext"
+import useDriverProfileContext from "../../../../../context/hooks/useDriverProfileContext"
 
 // models
-import SeasonModel from "../../../../../../model/season/Season"
-import QueryError from "../../../../../../model/error/QueryError"
+import SeasonModel from "../../../../../../../../model/season/Season"
+import QueryError from "../../../../../../../../model/error/QueryError"
 
 const useDriverRacesQuery = () => {
   const { setRaces } = useDriverProfileContext()

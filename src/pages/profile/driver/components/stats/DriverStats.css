@@ -1,0 +1,68 @@
+.driver-stats__container {
+  display: grid;
+  grid-template-columns: 35% 30% 35%;
+}
+
+@media (max-width: 60rem) {
+  .driver-stats__container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* GLOBAL STATS STYLES */
+/* stats title */
+.driver-stats__container h3.driver-stats__title {
+  margin: 1rem auto;
+  font-size: 2rem;
+  font-weight: 800;
+  text-decoration: overline;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+/* stats data container */
+.driver-stats-data__container {
+  width: 80%;
+  margin: auto;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 0.25rem;
+}
+
+/* stat wrapper */
+.driver-stats-data__container .driver-stat-data__wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+@media (max-width: 60rem) {
+  .driver-stats-data__container .driver-stat-data__wrapper {
+    width: 60%;
+    margin: auto;
+  }
+}
+
+/* stat label */
+.driver-stats-data__container .driver-stat-data__wrapper p.driver-stat-label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-align: start;
+}
+.driver-stats-data__container .driver-stat-data__wrapper p.icon__container > svg {
+  font-size: 1.8rem;
+}
+
+/* stat data */
+.driver-stats-data__container .driver-stat-data__wrapper span.driver-stat-data {
+  margin-left: 1.5rem;
+  color: var(--highlight);
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: end;
+}

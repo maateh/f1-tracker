@@ -9,18 +9,23 @@
   gap: 0.2rem;
 }
 
-/* profile data */
-.driver-information__container .driver-profile-data__container {
+/* information data */
+.driver-information__container h2.driver-name.page__title {
+  margin-bottom: 0.8rem;
+}
+.driver-information__container .driver-information-data__container {
   margin-bottom: 1rem;
+
   display: flex;
   flex-flow: row wrap;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   text-align: center;
-  gap: 0.7rem 3rem;
+  gap: 0.5rem 3rem;
+  
   position: relative;
 }
-.driver-information__container .driver-profile-data__container > p.icon__container > svg {
+.driver-information__container .driver-information-data__container > p.icon__container > svg {
   color: var(--text-color);
 }
 
@@ -47,6 +52,12 @@
 
 /* mobile styles */
 @media (max-width: 40rem) {
+  .driver-information__container .driver-information-data__container {
+    /* information data */
+    flex-direction: column;
+    align-items: start;
+  }
+
   /* driver tag */
   .driver-information__container .driver-tag {
     font-size: 1.5rem;
