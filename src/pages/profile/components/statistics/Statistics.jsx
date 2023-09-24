@@ -9,6 +9,7 @@ const Statistics = ({ title, stats, useStatsQuery }) => {
   // TODO - queries
 	// const { data, isLoading, isError, error } = useStatsQuery()
 
+	// TODO - loading layouts
 	// return isLoading || isError || error ? (
   //   <LoadingHandler
   //     isLoading={isLoading}

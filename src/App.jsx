@@ -17,9 +17,9 @@ import ConstructorsHistory from './pages/history/pages/constructors/Constructors
 import ConstructorsListing from './pages/history/pages/constructors/components/listing/ConstructorsListing'
 import CircuitsHistory from './pages/history/pages/circuits/CircuitsHistory'
 import CircuitsListing from './pages/history/pages/circuits/components/listing/CircuitsListing'
-import DriverProfile from './pages/profile/driver/DriverProfile'
-import ConstructorProfile from './pages/profile/constructor/ConstructorProfile'
-import CircuitProfile from './pages/profile/circuit/CircuitProfile'
+import DriverProfile from './pages/profile/pages/driver/DriverProfile'
+import ConstructorProfile from './pages/profile/pages/constructor/ConstructorProfile'
+import CircuitProfile from './pages/profile/pages/circuit/CircuitProfile'
 
 import Loader from './components/loader/Loader'
 import NotFound from './components/error/NotFound'
