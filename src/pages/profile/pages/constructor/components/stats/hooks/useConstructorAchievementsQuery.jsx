@@ -23,6 +23,8 @@ const useConstructorAchievementsQuery = () => {
           throw new QueryError('No data found!', 404)
         }
 
+        // TODO: parse instead of dispatch
+        // This dispatch is necessary here (because of listing)
         setStandings({
           standings: SeasonModel.parseStandings({ StandingsLists: data.StandingsLists })
         })

@@ -5,9 +5,7 @@ import * as actionType from './ConstructorProfileContextActions'
 
 const INITIAL_STATE = {
   constructor: null,
-  standings: null,
-  races: null,
-  qualifyings: null
+  standings: null
 }
 
 const dataReducer = (state, action) => {
@@ -16,10 +14,6 @@ const dataReducer = (state, action) => {
 			return { ...state, constructor: action.payload }
     case actionType.SET_STANDINGS:
       return { ...state, standings: action.payload }
-    case actionType.SET_RACES_RESULTS:
-			return { ...state, races: action.payload }
-    case actionType.SET_QUALIFYINGS_RESULTS:
-      return { ...state, qualifyings: action.payload }
     default:
       return state
   }
@@ -44,28 +38,12 @@ const ConstructorProfileContextProvider = ({ children }) => {
     })
   }
 
-  const setRaces = ({ races }) => {
-    dispatch({
-      type: actionType.SET_RACES_RESULTS,
-      payload: races
-    })
-  }
-
-  const setQualifyings = ({ qualifyings }) => {
-    dispatch({
-      type: actionType.SET_QUALIFYINGS_RESULTS,
-      payload: qualifyings
-    })
-  }
-
   return (
     <ConstructorProfileContext.Provider value={{
       ...state,
       dispatch,
       setConstructor,
-      setStandings,
-      setRaces,
-      setQualifyings
+      setStandings
     }}>
       {children}
     </ConstructorProfileContext.Provider>
