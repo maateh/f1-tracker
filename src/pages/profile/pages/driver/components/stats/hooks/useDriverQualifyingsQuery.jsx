@@ -2,17 +2,13 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // api
-import { driverQualifyingsResults } from '../../../../../../api/results/qualifying/driverQualifyingsResults'
-
-// context
-import useDriverProfileContext from "../../../context/hooks/useDriverProfileContext"
+import { driverQualifyingsResults } from '../../../../../../../api/results/qualifying/driverQualifyingsResults'
 
 // models
-import SeasonModel from "../../../../../../model/season/Season"
-import QueryError from "../../../../../../model/error/QueryError"
+import SeasonModel from "../../../../../../../model/season/Season"
+import QueryError from "../../../../../../../model/error/QueryError"
 
 const useDriverQualifyingsQuery = () => {
-  const { setQualifyings } = useDriverProfileContext()
   const { id } = useParams()
 
   return useQuery({
@@ -23,9 +19,10 @@ const useDriverQualifyingsQuery = () => {
           throw new QueryError('No data found!', 404)
         }
 
-        setQualifyings({
-          qualifyings: SeasonModel.parseWeekends({ Races: data.Races })
-        })
+        // TODO: parse instead of dispatch
+        // setQualifyings({
+        //   qualifyings: SeasonModel.parseWeekends({ Races: data.Races })
+        // })
       })
       .catch(err => {
         throw new QueryError(err.message, err.code)
