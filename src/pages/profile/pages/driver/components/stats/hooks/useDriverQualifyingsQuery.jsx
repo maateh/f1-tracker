@@ -8,6 +8,13 @@ import { driverQualifyingsResults } from '../../../../../../../api/results/quali
 import SeasonModel from "../../../../../../../model/season/Season"
 import QueryError from "../../../../../../../model/error/QueryError"
 
+// icons
+import AlarmOnIcon from '@mui/icons-material/AlarmOn'
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium'
+import UnfoldLessDoubleIcon from '@mui/icons-material/UnfoldLessDouble'
+import StarHalfIcon from '@mui/icons-material/StarHalf'
+import StarBorderIcon from '@mui/icons-material/StarBorder'
+
 const useDriverQualifyingsQuery = () => {
   const { id } = useParams()
 
@@ -19,10 +26,35 @@ const useDriverQualifyingsQuery = () => {
           throw new QueryError('No data found!', 404)
         }
 
-        // TODO: parse instead of dispatch
-        // setQualifyings({
-        //   qualifyings: SeasonModel.parseWeekends({ Races: data.Races })
-        // })
+        const qualifyings = SeasonModel.parseWeekends({ Races: data.Races })
+        
+        return [
+          {
+            label: "Best qualifying result",
+            data: "#x",
+            icon: <AlarmOnIcon />
+          },
+          {
+            label: "Qualifyings won",
+            data: "x times",
+            icon: <WorkspacePremiumIcon />
+          },
+          {
+            label: "Reached the front row",
+            data: "x times",
+            icon: <UnfoldLessDoubleIcon />
+          },
+          {
+            label: "Reached Q3",
+            data: "x times",
+            icon: <StarHalfIcon />
+          },
+          {
+            label: "Reached Q2",
+            data: "x times",
+            icon: <StarBorderIcon />
+          }
+        ]
       })
       .catch(err => {
         throw new QueryError(err.message, err.code)
