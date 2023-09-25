@@ -1,6 +1,6 @@
 // model
 import Weekend from './weekend/Weekend'
-import StandingsList from './standings/StandingsList'
+import Standings from './standings/Standings'
 import Driver from './weekend/results/driver/Driver'
 import Constructor from './weekend/results/constructor/Constructor'
 import Circuit from './weekend/circuit/Circuit'
@@ -44,9 +44,9 @@ class Season {
 		}
 	}
 
-	static parseStandings({ StandingsLists: standingsLists }) {
-    if (standingsLists && standingsLists.length) {
-      return standingsLists.map(sl => StandingsList.parser({ StandingsList: sl }))
+	static parseStandings({ StandingsLists: standingsList }) {
+    if (standingsList && standingsList.length) {
+      return standingsList.map(standings => Standings.parser({ StandingsList: standings }))
     }
 	}
 

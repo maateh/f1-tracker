@@ -1,6 +1,11 @@
 // components
 import Statistics from '../../../../components/statistics/Statistics'
 
+// hooks
+import useDriverRacesQuery from './hooks/useDriverRacesQuery'
+import useDriverAchievementsQuery from './hooks/useDriverAchievementsQuery'
+import useDriverQualifyingsQuery from './hooks/useDriverQualifyingsQuery'
+
 // icons
 import SportsScoreIcon from '@mui/icons-material/SportsScore'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
@@ -98,9 +103,23 @@ const MOCK_QUALIFYINGS = [
 const DriverStats = () => {
   return (
     <section className="driver-stats__container">
-      <Statistics title="Races Results" stats={MOCK_RACES} />
-      <Statistics title="Achievements" stats={MOCK_ACHIEVEMENTS} />
-      <Statistics title="Qualifyings Results" stats={MOCK_QUALIFYINGS} />
+      <Statistics
+        title="Races Results"
+        stats={MOCK_RACES}
+        useStatsQuery={useDriverRacesQuery}
+      />
+
+      <Statistics
+        title="Achievements"
+        stats={MOCK_ACHIEVEMENTS}
+        useStatsQuery={useDriverAchievementsQuery}
+      />
+
+      <Statistics
+        title="Qualifyings Results"
+        stats={MOCK_QUALIFYINGS}
+        useStatsQuery={useDriverQualifyingsQuery}
+      />
     </section>
   )
 }

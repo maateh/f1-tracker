@@ -1,48 +1,40 @@
-// models
-import Driver from '../weekend/results/driver/Driver'
-import Constructor from '../weekend/results/constructor/Constructor'
+// model
+import StandingsResult from './StandingsResult'
 
 class Standings {
-	constructor({
-    position,
-    points,
-    wins,
-    driver,
-    constructor,
-    constructors
-  }) {
-		this.position = position
-		this.points = points
-		this.wins = wins
-    this.driver = driver
-    this.constructor = constructor
-    this.constructors = constructors
+	constructor({ year, round, drivers, constructors }) {
+		this.year = year
+		this.round = round
+		this.drivers = drivers
+		this.constructors = constructors
+	}
+	
+	static parser({ StandingsList: standings }) {
+		return new Standings({
+			year: standings.season,
+			round: standings.round,
+			drivers: this.parseDrivers({
+				DriverStandings: standings.DriverStandings,
+			}),
+			constructors: this.parseConstructors({
+				ConstructorStandings: standings.ConstructorStandings,
+			}),
+		})
 	}
 
-  static parser({ Standings: standings }) {
-    return new Standings({
-      position: standings.position,
-      points: standings.points,
-      wins: standings.wins,
-      driver: this.#parseDriver({ Driver: standings.Driver }),
-      constructor: this.#parseConstructors({ Constructor: standings.Constructor }),
-      constructors: this.#parseConstructors({ Constructors: standings.Constructors })
-    })
-  }
-
-	static #parseDriver({ Driver: driver }) {
-		if (driver) {
-			return Driver.parser({ Driver: driver })
+	static parseDrivers({ DriverStandings: standings }) {
+		if (standings && standings.length) {
+			return standings.map(result =>
+				StandingsResult.parser({ StandingsResult: result })
+			)
 		}
 	}
 
-	static #parseConstructors({ Constructors: constructors, Constructor: constructor }) {
-		if (constructors && constructors.length) {
-			return constructors.map(c => Constructor.parser({ Constructor: c }))
-		}
-
-		if (constructor) {
-			return Constructor.parser({ Constructor: constructor })
+	static parseConstructors({ ConstructorStandings: standings }) {
+		if (standings && standings.length) {
+			return standings.map(result =>
+				StandingsResult.parser({ StandingsResult: result })
+			)
 		}
 	}
 }

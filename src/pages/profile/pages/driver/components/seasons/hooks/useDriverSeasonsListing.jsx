@@ -9,11 +9,11 @@ import TitleModel from '../../../../../../../model/listing/Title'
 import CardsModel from '../../../../../../../model/listing/Cards'
 
 const useDriverSeasonsListing = () => {
-  const { standings: standingsLists } = useDriverProfileContext()
+  const { standingsList } = useDriverProfileContext()
 
-  if (!standingsLists) return { cards: null }
+  if (!standingsList) return { cards: null }
   
-  const cardsLayouts = standingsLists.map(standings => (
+  const cardsLayouts = standingsList.map(standings => (
     <DriverSeasonCard
       key={standings.year}
       standings={standings}
