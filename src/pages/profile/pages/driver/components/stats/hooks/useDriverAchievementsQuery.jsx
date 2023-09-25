@@ -28,8 +28,6 @@ const useDriverAchievementsQuery = () => {
           throw new QueryError('No data found!', 404)
         }
 
-        // TODO: parse instead of dispatch
-        // This dispatch is necessary here (because of listing)
         const standingsList = SeasonModel.parseStandings({
 					StandingsLists: data.StandingsLists,
 				})

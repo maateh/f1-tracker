@@ -1,6 +1,11 @@
 // components
 import Statistics from '../../../../components/statistics/Statistics'
 
+// hooks
+import useConstructorRacesQuery from './hooks/useConstructorRacesQuery'
+import useConstructorAchievementsQuery from './hooks/useConstructorAchievementsQuery'
+import useConstructorQualifyingsQuery from './hooks/useConstructorQualifyingsQuery'
+
 // icons
 import SportsScoreIcon from '@mui/icons-material/SportsScore'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
@@ -20,6 +25,7 @@ import StarHalfIcon from '@mui/icons-material/StarHalf'
 
 // styles
 import './ConstructorStats.css'
+
 
 const MOCK_RACES = [
   {
@@ -103,9 +109,23 @@ const MOCK_QUALIFYINGS = [
 const ConstructorStats = () => {
   return (
     <section className="constructor-stats__container">
-      <Statistics title="Races Results" stats={MOCK_RACES} />
-      <Statistics title="Achievements" stats={MOCK_ACHIEVEMENTS} />
-      <Statistics title="Qualifyings Results" stats={MOCK_QUALIFYINGS} />
+      <Statistics
+        title="Races Results"
+        stats={MOCK_RACES}
+        useStatsQuery={useConstructorRacesQuery}
+      />
+
+      <Statistics
+        title="Achievements"
+        stats={MOCK_ACHIEVEMENTS}
+        useStatsQuery={useConstructorAchievementsQuery}
+      />
+
+      <Statistics
+        title="Qualifyings Results"
+        stats={MOCK_QUALIFYINGS}
+        useStatsQuery={useConstructorQualifyingsQuery}
+      />
     </section>
   )
 }

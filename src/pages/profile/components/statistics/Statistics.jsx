@@ -17,7 +17,6 @@ const Statistics = ({ title, stats: mockStats, useStatsQuery }) => {
 			error={error}
 		/>
 	) : (
-		// return (
 		<div className="stats__container">
 			<h3 className="stats__title">{title}</h3>
 

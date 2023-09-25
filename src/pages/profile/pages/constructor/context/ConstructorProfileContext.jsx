@@ -5,15 +5,15 @@ import * as actionType from './ConstructorProfileContextActions'
 
 const INITIAL_STATE = {
   constructor: null,
-  standings: null
+  standingsList: null
 }
 
 const dataReducer = (state, action) => {
 	switch (action.type) {
 		case actionType.SET_CONSTRUCTOR:
 			return { ...state, constructor: action.payload }
-    case actionType.SET_STANDINGS:
-      return { ...state, standings: action.payload }
+    case actionType.SET_STANDINGS_LIST:
+      return { ...state, standingsList: action.payload }
     default:
       return state
   }
@@ -31,10 +31,10 @@ const ConstructorProfileContextProvider = ({ children }) => {
     })
   }
   
-  const setStandings = ({ standings }) => {
+  const setStandingsList = ({ standingsList }) => {
     dispatch({
-      type: actionType.SET_STANDINGS,
-      payload: standings
+      type: actionType.SET_STANDINGS_LIST,
+      payload: standingsList
     })
   }
 
@@ -43,7 +43,7 @@ const ConstructorProfileContextProvider = ({ children }) => {
       ...state,
       dispatch,
       setConstructor,
-      setStandings
+      setStandingsList
     }}>
       {children}
     </ConstructorProfileContext.Provider>

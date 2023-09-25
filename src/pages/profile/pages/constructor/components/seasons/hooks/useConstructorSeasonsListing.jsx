@@ -9,11 +9,11 @@ import TitleModel from '../../../../../../../model/listing/Title'
 import CardsModel from '../../../../../../../model/listing/Cards'
 
 const useConstructorSeasonsListing = () => {
-  const { standings: standingsLists } = useConstructorProfileContext()
+  const { standingsList } = useConstructorProfileContext()
 
-  if (!standingsLists) return { cards: null }
+  if (!standingsList) return { cards: null }
   
-  const cardsLayouts = standingsLists.map(standings => (
+  const cardsLayouts = standingsList.map(standings => (
     <ConstructorSeasonCard
       key={standings.year}
       standings={standings}
