@@ -27,6 +27,8 @@ const useConstructorRacesQuery = () => {
         }
 
         const weekends = SeasonModel.parseWeekends({ Races: data.Races })
+        const winsAmount = racesWon(weekends)
+        const podiumsAmount = podiums(weekends)
 
         return [
           {
@@ -41,17 +43,32 @@ const useConstructorRacesQuery = () => {
           },
           {
             label: "Races won",
-            data: racesWon(weekends),
+            data: `x${winsAmount}`,
+            icon: <EmojiEventsIcon />
+          },
+          {
+            label: "Win rate",
+            data: calculateRate(weekends, winsAmount),
             icon: <EmojiEventsIcon />
           },
           {
             label: "Podium finishes",
-            data: podiums(weekends),
+            data: `x${podiumsAmount}`,
+            icon: <Looks3Icon />
+          },
+          {
+            label: "Podium rate",
+            data: calculateRate(weekends, podiumsAmount),
             icon: <Looks3Icon />
           },
           {
             label: "Finished in scoring positions",
-            data: scoringPositions(weekends),
+            data: `x${scoringPositions(weekends)}`,
+            icon: <PlusOneIcon />
+          },
+          {
+            label: "Scoring rate (at least 1 driver)",
+            data: calculateRate(weekends, scoringPositions(weekends, true)),
             icon: <PlusOneIcon />
           }
         ]
@@ -74,7 +91,7 @@ function bestResult(weekends) {
 }
 
 function racesWon(weekends) {
-  return 'x' + weekends.reduce((acc, curr) => {
+  return weekends.reduce((acc, curr) => {
     return +curr.results.race[0].position === 1
       ? acc + 1
       : acc
@@ -82,17 +99,21 @@ function racesWon(weekends) {
 }
 
 function podiums(weekends) {
-  return 'x' + weekends.reduce((acc, curr) => {
+  return weekends.reduce((acc, curr) => {
     const results = curr.results.race.filter(result => result.position <= 3)
     return results.length + acc
   }, 0)
 }
 
-function scoringPositions(weekends) {
-  return 'x' + weekends.reduce((acc, curr) => {
+function scoringPositions(weekends, atLeastOne = false) {
+  return weekends.reduce((acc, curr) => {
     const results = curr.results.race.filter(result => result.points > 0)
-    return results.length + acc
+    return results.length && atLeastOne ? acc + 1 : results.length + acc
   }, 0)
+}
+
+function calculateRate(weekends, amount) {
+  return (+amount / +weekends.length * 100).toFixed(2) + '%'
 }
 
 export default useConstructorRacesQuery

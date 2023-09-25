@@ -15,6 +15,8 @@ import QueryError from "../../../../../../../model/error/QueryError"
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import FlagCircleIcon from '@mui/icons-material/FlagCircle'
 import StarsIcon from '@mui/icons-material/Stars'
+import KeyboardCapslockIcon from '@mui/icons-material/KeyboardCapslock'
+import ControlPointDuplicateIcon from '@mui/icons-material/ControlPointDuplicate'
 
 const useDriverAchievementsQuery = () => {
   const { setStandingsList } = useDriverProfileContext()
@@ -48,6 +50,16 @@ const useDriverAchievementsQuery = () => {
             label: "Best championship standings result",
             data: bestResult(standingsList),
             icon: <StarsIcon />
+          },
+          {
+            label: "Highest points of a season",
+            data: highestPoints(standingsList),
+            icon: <KeyboardCapslockIcon />
+          },
+          {
+            label: "Total points",
+            data: totalPoints(standingsList),
+            icon: <ControlPointDuplicateIcon />
           }
         ]
       })
@@ -71,11 +83,25 @@ function participations(standingsList) {
 }
 
 function bestResult(standingsList) {
-  return '#' + standingsList.reduce((prev, curr) => {
-    const prevPos = isNaN(prev) ? prev.drivers[0].position : prev
-    const currPos = curr.drivers[0].position
+  return '#' + standingsList.reduce((prevPos, curr) => {
+    const currPos = +curr.drivers[0].position
     return Math.min(prevPos, currPos)
+  }, +standingsList[0].drivers[0].position)
+}
+
+function highestPoints(standingsList) {
+  const standings = standingsList.reduce((prev, curr) => {
+    const prevPoints = +prev.drivers[0].points
+    const currPoints = +curr.drivers[0].points
+    return prevPoints > currPoints ? prev : curr
   })
+  return `${standings.drivers[0].points} points (${standings.year})`
+}
+
+function totalPoints(standingsList) {
+  return standingsList.reduce((acc, curr) => {
+    return acc + +curr.drivers[0].points
+  }, +standingsList[0].drivers[0].points) + ' points'
 }
 
 export default useDriverAchievementsQuery

@@ -27,6 +27,9 @@ const useDriverRacesQuery = () => {
         }
 
         const weekends = SeasonModel.parseWeekends({ Races: data.Races })
+        const winsAmount = racesWon(weekends)
+        const podiumsAmount = podiums(weekends)
+        const scoringPosAmount = scoringPositions(weekends)
 
         return [
           {
@@ -41,17 +44,32 @@ const useDriverRacesQuery = () => {
           },
           {
             label: "Races won",
-            data: racesWon(weekends),
+            data: `x${winsAmount}`,
+            icon: <EmojiEventsIcon />
+          },
+          {
+            label: "Win rate",
+            data: calculateRate(weekends, winsAmount),
             icon: <EmojiEventsIcon />
           },
           {
             label: "Podium finishes",
-            data: podiums(weekends),
+            data: `x${podiumsAmount}`,
+            icon: <Looks3Icon />
+          },
+          {
+            label: "Podium rate",
+            data: calculateRate(weekends, podiumsAmount),
             icon: <Looks3Icon />
           },
           {
             label: "Finished in scoring positions",
-            data: scoringPositions(weekends),
+            data: `x${scoringPosAmount}`,
+            icon: <PlusOneIcon />
+          },
+          {
+            label: "Scoring rate",
+            data: calculateRate(weekends, scoringPosAmount),
             icon: <PlusOneIcon />
           }
         ]
@@ -74,7 +92,7 @@ function bestResult(weekends) {
 }
 
 function racesWon(weekends) {
-  return 'x' + weekends.reduce((acc, curr) => {
+  return weekends.reduce((acc, curr) => {
     return +curr.results.race[0].position === 1
       ? acc + 1
       : acc
@@ -82,7 +100,7 @@ function racesWon(weekends) {
 }
 
 function podiums(weekends) {
-  return 'x' + weekends.reduce((acc, curr) => {
+  return weekends.reduce((acc, curr) => {
     return +curr.results.race[0].position <= 3
       ? acc + 1
       : acc
@@ -90,11 +108,15 @@ function podiums(weekends) {
 }
 
 function scoringPositions(weekends) {
-  return 'x' + weekends.reduce((acc, curr) => {
+  return weekends.reduce((acc, curr) => {
     return +curr.results.race[0].points > 0
       ? acc + 1
       : acc
   }, 0)
+}
+
+function calculateRate(weekends, amount) {
+  return (+amount / +weekends.length * 100).toFixed(2) + '%'
 }
 
 export default useDriverRacesQuery

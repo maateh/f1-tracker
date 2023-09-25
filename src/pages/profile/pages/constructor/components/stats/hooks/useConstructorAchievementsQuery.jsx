@@ -15,6 +15,8 @@ import QueryError from "../../../../../../../model/error/QueryError"
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import FlagCircleIcon from '@mui/icons-material/FlagCircle'
 import StarsIcon from '@mui/icons-material/Stars'
+import KeyboardCapslockIcon from '@mui/icons-material/KeyboardCapslock'
+import ControlPointDuplicateIcon from '@mui/icons-material/ControlPointDuplicate'
 
 const useConstructorAchievementsQuery = () => {
   const { setStandingsList } = useConstructorProfileContext()
@@ -48,6 +50,16 @@ const useConstructorAchievementsQuery = () => {
             label: "Best championship standings result",
             data: bestResult(standingsList),
             icon: <StarsIcon />
+          },
+          {
+            label: "Highest points of a season",
+            data: highestPoints(standingsList),
+            icon: <KeyboardCapslockIcon />
+          },
+          {
+            label: "Total points",
+            data: totalPoints(standingsList),
+            icon: <ControlPointDuplicateIcon />
           }
         ]
       })
@@ -76,6 +88,21 @@ function bestResult(standingsList) {
     const currPos = curr.constructors[0].position
     return Math.min(prevPos, currPos)
   })
+}
+
+function highestPoints(standingsList) {
+  const standings = standingsList.reduce((prev, curr) => {
+    const prevPoints = +prev.constructors[0].points
+    const currPoints = +curr.constructors[0].points
+    return prevPoints > currPoints ? prev : curr
+  })
+  return `${standings.constructors[0].points} points (${standings.year})`
+}
+
+function totalPoints(standingsList) {
+  return standingsList.reduce((acc, curr) => {
+    return acc + +curr.constructors[0].points
+  }, +standingsList[0].constructors[0].points) + ' points'
 }
 
 export default useConstructorAchievementsQuery
