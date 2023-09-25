@@ -52,12 +52,17 @@ const useConstructorRacesQuery = () => {
             icon: <EmojiEventsIcon />
           },
           {
-            label: "Podium finishes",
+            label: "Podium finishes (at least 1 driver)",
             data: `x${podiumsAmount}`,
             icon: <Looks3Icon />
           },
           {
-            label: "Podium rate",
+            label: "Double podium finishes",
+            data: `x${podiums(weekends, true)}`,
+            icon: <Looks3Icon />
+          },
+          {
+            label: "Podium rate (at least 1 driver)",
             data: calculateRate(weekends, podiumsAmount),
             icon: <Looks3Icon />
           },
@@ -98,10 +103,10 @@ function racesWon(weekends) {
   }, 0)
 }
 
-function podiums(weekends) {
+function podiums(weekends, double = false) {
   return weekends.reduce((acc, curr) => {
     const results = curr.results.race.filter(result => result.position <= 3)
-    return results.length + acc
+    return results.length && double ? acc + 1 : results.length + acc
   }, 0)
 }
 
