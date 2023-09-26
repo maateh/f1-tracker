@@ -1,0 +1,13 @@
+.stats-holder__container {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  row-gap: 3.5rem;
+}
+
+@media (max-width: 75rem) {
+  .stats-holder__container {
+    flex-direction: column;
+  }
+}

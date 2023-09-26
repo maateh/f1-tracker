@@ -18,7 +18,7 @@ import StarsIcon from '@mui/icons-material/Stars'
 import KeyboardCapslockIcon from '@mui/icons-material/KeyboardCapslock'
 import ControlPointDuplicateIcon from '@mui/icons-material/ControlPointDuplicate'
 
-const useConstructorAchievementsQuery = () => {
+const useConstructorStandingsStatsQuery = () => {
   const { setStandingsList } = useConstructorProfileContext()
   const { id } = useParams()
 
@@ -105,4 +105,4 @@ function totalPoints(standingsList) {
   }, +standingsList[0].constructors[0].points) + ' points'
 }
 
-export default useConstructorAchievementsQuery
+export default useConstructorStandingsStatsQuery

@@ -16,7 +16,7 @@ import UnfoldLessDoubleIcon from '@mui/icons-material/UnfoldLessDouble'
 import StarHalfIcon from '@mui/icons-material/StarHalf'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 
-const useDriverQualifyingsQuery = () => {
+const useDriverQualifyingsStatsQuery = () => {
   const { id } = useParams()
 
   return useQuery({
@@ -134,4 +134,4 @@ function calculateRate(weekends, amount) {
   return (+amount / +weekends.length * 100).toFixed(2) + '%'
 }
 
-export default useDriverQualifyingsQuery
+export default useDriverQualifyingsStatsQuery

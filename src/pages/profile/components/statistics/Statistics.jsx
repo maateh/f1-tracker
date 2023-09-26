@@ -5,7 +5,7 @@ import LoadingHandler from '../../../../components/loading/LoadingHandler'
 // styles
 import './Statistics.css'
 
-const Statistics = ({ title, useStatsQuery }) => {
+const Statistics = ({ title, note, useStatsQuery }) => {
 	const { data: stats, isLoading, isError, error } = useStatsQuery()
 
 	// TODO - loading layouts
@@ -29,6 +29,8 @@ const Statistics = ({ title, useStatsQuery }) => {
 					/>
 				))}
 			</div>
+
+			{note && <p className="stats__note">{note}</p>}
 		</div>
 	)
 }

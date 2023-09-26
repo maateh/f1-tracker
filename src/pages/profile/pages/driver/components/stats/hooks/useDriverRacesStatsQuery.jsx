@@ -15,7 +15,7 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import Looks3Icon from '@mui/icons-material/Looks3'
 import PlusOneIcon from '@mui/icons-material/PlusOne'
 
-const useDriverRacesQuery = () => {
+const useDriverRacesStatsQuery = () => {
   const { id } = useParams()
 
   return useQuery({
@@ -110,4 +110,4 @@ function calculateRate(weekends, amount) {
   return (+amount / +weekends.length * 100).toFixed(2) + '%'
 }
 
-export default useDriverRacesQuery
+export default useDriverRacesStatsQuery

@@ -18,7 +18,7 @@ import StarsIcon from '@mui/icons-material/Stars'
 import KeyboardCapslockIcon from '@mui/icons-material/KeyboardCapslock'
 import ControlPointDuplicateIcon from '@mui/icons-material/ControlPointDuplicate'
 
-const useDriverAchievementsQuery = () => {
+const useDriverStandingsStatsQuery = () => {
   const { setStandingsList } = useDriverProfileContext()
   const { id } = useParams()
 
@@ -104,4 +104,4 @@ function totalPoints(standingsList) {
   }, +standingsList[0].drivers[0].points) + ' points'
 }
 
-export default useDriverAchievementsQuery
+export default useDriverStandingsStatsQuery

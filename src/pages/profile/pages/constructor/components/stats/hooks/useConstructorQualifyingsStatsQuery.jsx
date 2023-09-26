@@ -17,7 +17,7 @@ import DoneAllIcon from '@mui/icons-material/DoneAll'
 import StarHalfIcon from '@mui/icons-material/StarHalf'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 
-const useConstructorQualifyingsQuery = () => {
+const useConstructorQualifyingsStatsQuery = () => {
   const { id } = useParams()
 
   return useQuery({
@@ -162,4 +162,4 @@ function calculateRate(weekends, amount) {
   return (+amount / +weekends.length * 100).toFixed(2) + '%'
 }
 
-export default useConstructorQualifyingsQuery
+export default useConstructorQualifyingsStatsQuery

@@ -16,7 +16,7 @@ import Looks3Icon from '@mui/icons-material/Looks3'
 import ChecklistIcon from '@mui/icons-material/Checklist'
 import PlusOneIcon from '@mui/icons-material/PlusOne'
 
-const useConstructorRacesQuery = () => {
+const useConstructorRacesStatsQuery = () => {
   const { id } = useParams()
 
   return useQuery({
@@ -127,4 +127,4 @@ function calculateRate(weekends, amount) {
   return (+amount / +weekends.length * 100).toFixed(2) + '%'
 }
 
-export default useConstructorRacesQuery
+export default useConstructorRacesStatsQuery
