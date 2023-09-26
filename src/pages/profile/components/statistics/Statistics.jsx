@@ -5,8 +5,7 @@ import LoadingHandler from '../../../../components/loading/LoadingHandler'
 // styles
 import './Statistics.css'
 
-const Statistics = ({ title, stats: mockStats, useStatsQuery }) => {
-	// TODO - queries
+const Statistics = ({ title, useStatsQuery }) => {
 	const { data: stats, isLoading, isError, error } = useStatsQuery()
 
 	// TODO - loading layouts
@@ -21,7 +20,7 @@ const Statistics = ({ title, stats: mockStats, useStatsQuery }) => {
 			<h3 className="stats__title">{title}</h3>
 
 			<div className="stats-data__container">
-				{(stats ? stats : mockStats).map((stat, index) => (
+				{stats.map((stat, index) => (
 					<Statistic
 						key={index}
 						label={stat.label}
