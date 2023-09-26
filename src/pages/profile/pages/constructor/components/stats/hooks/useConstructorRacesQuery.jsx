@@ -13,6 +13,7 @@ import SportsScoreIcon from '@mui/icons-material/SportsScore'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import Looks3Icon from '@mui/icons-material/Looks3'
+import ChecklistIcon from '@mui/icons-material/Checklist'
 import PlusOneIcon from '@mui/icons-material/PlusOne'
 
 const useConstructorRacesQuery = () => {
@@ -28,7 +29,10 @@ const useConstructorRacesQuery = () => {
 
         const weekends = SeasonModel.parseWeekends({ Races: data.Races })
         const winsAmount = racesWon(weekends)
+        const doublePodiumsAmount = podiums(weekends, true)
         const podiumsAmount = podiums(weekends)
+        const doubleScoringPosAmount = scoringPositions(weekends)
+        const scoringPosAmount = scoringPositions(weekends, true)
 
         return [
           {
@@ -43,37 +47,37 @@ const useConstructorRacesQuery = () => {
           },
           {
             label: "Races won",
-            data: `x${winsAmount}`,
+            data: winsAmount
+              ? `x${winsAmount} | ${calculateRate(weekends, winsAmount)}`
+              : '-',
             icon: <EmojiEventsIcon />
-          },
-          {
-            label: "Win rate",
-            data: calculateRate(weekends, winsAmount),
-            icon: <EmojiEventsIcon />
-          },
-          {
-            label: "Podium finishes (at least 1 driver)",
-            data: `x${podiumsAmount}`,
-            icon: <Looks3Icon />
           },
           {
             label: "Double podium finishes",
-            data: `x${podiums(weekends, true)}`,
+            data: doublePodiumsAmount
+              ? `x${doublePodiumsAmount} | ${calculateRate(weekends, doublePodiumsAmount)}`
+              : '-',
             icon: <Looks3Icon />
           },
           {
-            label: "Podium rate (at least 1 driver)",
-            data: calculateRate(weekends, podiumsAmount),
+            label: "Podium finishes (at least 1 driver)",
+            data: podiumsAmount
+              ? `x${podiumsAmount} | ${calculateRate(weekends, podiumsAmount)}`
+              : '-',
             icon: <Looks3Icon />
           },
           {
-            label: "Finished in scoring positions",
-            data: `x${scoringPositions(weekends)}`,
-            icon: <PlusOneIcon />
+            label: "Finished in scoring positions (both drivers)",
+            data: doubleScoringPosAmount
+              ? `x${doubleScoringPosAmount} | ${calculateRate(weekends, doubleScoringPosAmount)}`
+              : '-',
+            icon: <ChecklistIcon />
           },
           {
-            label: "Scoring rate (at least 1 driver)",
-            data: calculateRate(weekends, scoringPositions(weekends, true)),
+            label: "Finished in scoring positions (at least 1 driver)",
+            data: scoringPosAmount
+              ? `x${scoringPosAmount} | ${calculateRate(weekends, scoringPosAmount)}`
+              : '-',
             icon: <PlusOneIcon />
           }
         ]
@@ -112,8 +116,10 @@ function podiums(weekends, double = false) {
 
 function scoringPositions(weekends, atLeastOne = false) {
   return weekends.reduce((acc, curr) => {
-    const results = curr.results.race.filter(result => result.points > 0)
-    return results.length && atLeastOne ? acc + 1 : results.length + acc
+    const results = atLeastOne
+      ? curr.results.race.some(result => result.points > 0)
+      : curr.results.race.every(result => result.points > 0)
+    return results ? acc + 1 : acc
   }, 0)
 }
 

@@ -44,32 +44,23 @@ const useDriverRacesQuery = () => {
           },
           {
             label: "Races won",
-            data: `x${winsAmount}`,
-            icon: <EmojiEventsIcon />
-          },
-          {
-            label: "Win rate",
-            data: calculateRate(weekends, winsAmount),
+            data: winsAmount
+              ? `x${winsAmount} | ${calculateRate(weekends, winsAmount)}`
+              : '-',
             icon: <EmojiEventsIcon />
           },
           {
             label: "Podium finishes",
-            data: `x${podiumsAmount}`,
-            icon: <Looks3Icon />
-          },
-          {
-            label: "Podium rate",
-            data: calculateRate(weekends, podiumsAmount),
+            data: podiumsAmount
+              ? `x${podiumsAmount} | ${calculateRate(weekends, podiumsAmount)}`
+              : '-',
             icon: <Looks3Icon />
           },
           {
             label: "Finished in scoring positions",
-            data: `x${scoringPosAmount}`,
-            icon: <PlusOneIcon />
-          },
-          {
-            label: "Scoring rate",
-            data: calculateRate(weekends, scoringPosAmount),
+            data: scoringPosAmount
+              ? `x${scoringPosAmount} | ${calculateRate(weekends, scoringPosAmount)}`
+              : '-',
             icon: <PlusOneIcon />
           }
         ]

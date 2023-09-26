@@ -36,24 +36,19 @@ const useDriverQualifyingsQuery = () => {
         // INFO
         // The current qualification system was introduced in 2006.
         // Before that there were no Q2 and Q3 sessions in qualifyings.
-        const additionalStats = weekends[0].year >= 2006 ? [
+        const additionalStats = weekends.some(w => w.year >= 2006) ? [
           {
             label: "Reached Q3",
-            data: q3Amount ? `x${q3Amount}` : '-',
-            icon: <StarHalfIcon />
-          },          {
-            label: "Reached Q3 rate",
-            data: calculateRate(weekends, q3Amount),
+            data: q3Amount
+              ? `x${q3Amount} | ${calculateRate(weekends, q3Amount)}`
+              : '-',
             icon: <StarHalfIcon />
           },
           {
             label: "Reached Q2",
-            data: q2Amount ? `x${q2Amount}` : '-',
-            icon: <StarBorderIcon />
-          },
-          {
-            label: "Reached Q2 rate",
-            data: calculateRate(weekends, q2Amount),
+            data: q2Amount
+              ? `x${q2Amount} | ${calculateRate(weekends, q2Amount)}`
+              : '-',
             icon: <StarBorderIcon />
           }
         ] : []
@@ -71,22 +66,16 @@ const useDriverQualifyingsQuery = () => {
           },
           {
             label: "Qualifyings won",
-            data: winsAmount ? `x${winsAmount}` : '-',
-            icon: <WorkspacePremiumIcon />
-          },
-          {
-            label: "Win rate",
-            data: calculateRate(weekends, winsAmount),
+            data: winsAmount
+              ? `x${winsAmount} | ${calculateRate(weekends, winsAmount)}`
+              : '-',
             icon: <WorkspacePremiumIcon />
           },
           {
             label: "Reached the front row",
-            data: frontRowsAmount ? `x${frontRowsAmount}` : '-',
-            icon: <UnfoldLessDoubleIcon />
-          },
-          {
-            label: "Front rows rate",
-            data: calculateRate(weekends, frontRowsAmount),
+            data: frontRowsAmount
+              ? `x${frontRowsAmount} | ${calculateRate(weekends, frontRowsAmount)}`
+              : '-',
             icon: <UnfoldLessDoubleIcon />
           },
           ...additionalStats
