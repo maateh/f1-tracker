@@ -1,0 +1,94 @@
+/* achievement wrapper */
+.achievements__container .achievement__wrapper {
+  width: 100%;
+  max-width: 50rem;
+
+  display: grid;
+  grid-template-columns: 30% 70%;
+}
+@media (max-width: 60rem) {
+  .achievements__container .achievement__wrapper {
+    width: 95%;
+  }
+}
+@media (max-width: 20rem) {
+  .achievements__container .achievement__wrapper {
+    width: 100%;
+    margin: auto;
+  }
+}
+
+/* stat label */
+.achievements__container .achievement__wrapper p.achievement-label {
+  justify-self: start;
+
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-variant: small-caps;
+  letter-spacing: 0.05rem;
+  text-align: start;
+}
+.achievements__container .achievement__wrapper p.icon__container > svg {
+  font-size: 1.6rem;
+}
+@media (max-width: 40rem) {
+  .achievements__container .achievement__wrapper p.achievement-label {
+    font-size: 1rem;
+  }
+  .achievements__container .achievement__wrapper p.icon__container > svg {
+    font-size: 1.4rem;
+  }
+}
+@media (max-width: 20rem) {
+  .achievements__container .achievement__wrapper p.achievement-label {
+    font-size: 0.9rem;
+  }
+  .achievements__container .achievement__wrapper p.icon__container > svg {
+    font-size: 1.25rem;
+  }
+}
+
+/* achievement data */
+.achievements__container .achievement__wrapper p.achievement-data__wrapper {
+  margin-left: 1.5rem;
+  
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.02rem;
+  text-align: end;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: end;
+  align-items: center;
+}
+@media (max-width: 40rem) {
+  .achievements__container .achievement__wrapper p.achievement-data__wrapper {
+    margin-left: 0.7rem;
+    font-size: 1.05rem;
+
+    flex-flow: column wrap;
+    justify-content: space-around;
+    align-items: end;
+  }
+}
+@media (max-width: 20rem) {
+  .achievements__container .achievement__wrapper p.achievement-data__wrapper {
+    margin-left: 0.5rem;
+    font-size: 0.95rem;
+    letter-spacing: normal;
+  }
+}
+
+.achievements__container .achievement__wrapper p.achievement-data__wrapper .achievement-data-name {
+  flex: 1 1 32%;
+  width: min-content;
+}
+.achievements__container .achievement__wrapper p.achievement-data__wrapper .achievement-data-date {
+  flex: 1 1 32%;
+  width: min-content;
+}
+.achievements__container .achievement__wrapper p.achievement-data__wrapper .achievement-data-achieved {
+  flex: 1 1 32%;
+  width: min-content;
+}

@@ -1,3 +1,6 @@
+// styles
+import './Statistic.css'
+
 const Statistic = ({ label, data, icon }) => {
   return (
     <div className="stat-data__wrapper icon__container dark">

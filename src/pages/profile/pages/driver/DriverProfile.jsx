@@ -5,18 +5,21 @@ import Statistics from '../../components/statistics/Statistics'
 import DriverSeasons from './components/seasons/DriverSeasons'
 
 // hooks
+import useDriverAchievements from './components/achievements/hooks/useDriverAchievements'
 import useDriverRacesStatsQuery from './components/stats/hooks/useDriverRacesStatsQuery'
 import useDriverStandingsStatsQuery from './components/stats/hooks/useDriverStandingsStatsQuery'
 import useDriverQualifyingsStatsQuery from './components/stats/hooks/useDriverQualifyingsStatsQuery'
 
 // context
 import DriverProfileContextProvider from './context/DriverProfileContext'
+import Achievements from '../../components/achievements/Achievements'
 
 const DriverProfile = () => {
   return (
     <div className="driver-profile__container page__container">
       <DriverProfileContextProvider>
         <DriverInformation />
+        <Achievements useAchievements={useDriverAchievements} />
         <StatisticsHolder>
           <Statistics
             title="Races Statistics"
