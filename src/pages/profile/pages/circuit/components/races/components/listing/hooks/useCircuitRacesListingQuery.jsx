@@ -11,7 +11,7 @@ import CircuitRaceCard from '../components/card/CircuitRaceCard'
 import useListingContext from '../../../../../../../../../components/listing/context/hooks/useListingContext'
 
 // models
-import SeasonModel from '../../../../../../../../../model/season/Season'
+import WeekendModel from '../../../../../../../../../model/season/weekend/Weekend'
 import CardsModel from '../../../../../../../../../model/listing/Cards'
 import PaginationModel from '../../../../../../../../../model/listing/Pagination'
 import QueryError from '../../../../../../../../../model/error/QueryError'
@@ -33,7 +33,7 @@ const useCircuitRacesListingQuery = () => {
           throw new QueryError('No data found!', 404)
         }
 
-        const weekends = SeasonModel.parseWeekends({ Races: data.Races })
+        const weekends = WeekendModel.parseList({ Races: data.Races })
         const cardsLayouts = weekends.map(weekend => (
           <CircuitRaceCard
             key={weekend.date}

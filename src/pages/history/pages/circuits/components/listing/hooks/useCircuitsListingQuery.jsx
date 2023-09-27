@@ -11,7 +11,7 @@ import CircuitCard from "../components/card/CircuitCard"
 import useListingContext from "../../../../../../../components/listing/context/hooks/useListingContext"
 
 // models
-import SeasonModel from "../../../../../../../model/season/Season"
+import CircuitModel from "../../../../../../../model/season/weekend/circuit/Circuit"
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import PaginationModel from "../../../../../../../model/listing/Pagination"
@@ -39,7 +39,7 @@ const useCircuitsListingQuery = () => {
           throw new QueryError('No data found!', 404)
         }
 
-        const circuits = SeasonModel.parseCircuits({ Circuits: data.Circuits })
+        const circuits = CircuitModel.parseList({ Circuits: data.Circuits })
         const cardsLayouts = circuits.map(circuit => (
           <CircuitCard key={circuit.id} circuit={circuit} />
         ))

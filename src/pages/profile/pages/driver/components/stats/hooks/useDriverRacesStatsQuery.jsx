@@ -5,7 +5,7 @@ import { useQuery } from "react-query"
 import { driverRacesResults } from '../../../../../../../api/results/race/driverRacesResults'
 
 // models
-import SeasonModel from "../../../../../../../model/season/Season"
+import WeekendModel from '../../../../../../../model/season/weekend/Weekend'
 import QueryError from "../../../../../../../model/error/QueryError"
 
 // icons
@@ -26,7 +26,7 @@ const useDriverRacesStatsQuery = () => {
           throw new QueryError('No data found!', 404)
         }
 
-        const weekends = SeasonModel.parseWeekends({ Races: data.Races })
+        const weekends = WeekendModel.parseList({ Races: data.Races })
         const winsAmount = racesWon(weekends)
         const podiumsAmount = podiums(weekends)
         const scoringPosAmount = scoringPositions(weekends)

@@ -53,6 +53,12 @@ class Weekend {
 			})
 	}
 
+	static parseList({ Races: weekends }) {
+		if (weekends && weekends.length) {
+		  return weekends.map(weekend => this.parser({ Race: weekend }))
+		}
+	}
+
 	static parser({ Race: weekend }) {
 		return new Weekend({
 			round: weekend.round,

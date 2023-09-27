@@ -9,6 +9,12 @@ class Standings {
 		this.constructors = constructors
 	}
 	
+	static parseList({ StandingsLists: standingsList }) {
+    if (standingsList && standingsList.length) {
+      return standingsList.map(standings => this.parser({ StandingsList: standings }))
+    }
+	}
+
 	static parser({ StandingsList: standings }) {
 		return new Standings({
 			year: standings.season,

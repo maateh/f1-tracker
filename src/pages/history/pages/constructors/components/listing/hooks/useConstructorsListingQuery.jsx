@@ -11,7 +11,7 @@ import ConstructorCard from "../components/card/ConstructorCard"
 import useListingContext from "../../../../../../../components/listing/context/hooks/useListingContext"
 
 // models
-import SeasonModel from "../../../../../../../model/season/Season"
+import ConstructorModel from "../../../../../../../model/season/weekend/results/constructor/Constructor"
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import PaginationModel from "../../../../../../../model/listing/Pagination"
@@ -39,9 +39,10 @@ const useConstructorsListingQuery = () => {
           throw new QueryError('No data found!', 404)
         }
 
-        const constructors = SeasonModel.parseConstructors({
+        const constructors = ConstructorModel.parseList({
           Constructors: data.Constructors,
         })
+        
         const cardsLayouts = constructors.map(constructor => (
           <ConstructorCard
             key={constructor.id}

@@ -11,7 +11,7 @@ import DriverCard from "../components/card/DriverCard"
 import useListingContext from "../../../../../../../components/listing/context/hooks/useListingContext"
 
 // models
-import SeasonModel from '../../../../../../../model/season/Season'
+import DriverModel from "../../../../../../../model/season/weekend/results/driver/Driver"
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import PaginationModel from "../../../../../../../model/listing/Pagination"
@@ -39,7 +39,7 @@ const useDriversListingQuery = () => {
           throw new QueryError('No data found!', 404)
         }
 
-        const drivers = SeasonModel.parseDrivers({ Drivers: data.Drivers })
+        const drivers = DriverModel.parseList({ Drivers: data.Drivers })
         const cardsLayouts = drivers.map(driver => (
           <DriverCard
             key={driver.id}

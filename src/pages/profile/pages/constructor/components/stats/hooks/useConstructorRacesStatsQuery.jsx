@@ -5,7 +5,7 @@ import { useQuery } from "react-query"
 import { constructorRacesResults } from '../../../../../../../api/results/race/constructorRacesResults'
 
 // models
-import SeasonModel from "../../../../../../../model/season/Season"
+import WeekendModel from '../../../../../../../model/season/weekend/Weekend'
 import QueryError from "../../../../../../../model/error/QueryError"
 
 // icons
@@ -27,7 +27,7 @@ const useConstructorRacesStatsQuery = () => {
           throw new QueryError('No data found!', 404)
         }
 
-        const weekends = SeasonModel.parseWeekends({ Races: data.Races })
+        const weekends = WeekendModel.parseList({ Races: data.Races })
         const winsAmount = racesWon(weekends)
         const doublePodiumsAmount = podiums(weekends, true)
         const podiumsAmount = podiums(weekends)

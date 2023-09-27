@@ -18,7 +18,7 @@ import FastestLapCell from '../../components/table/FastestLapCell'
 import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
 
 // models
-import SeasonModel from "../../../../../../model/season/Season"
+import WeekendModel from "../../../../../../model/season/weekend/Weekend"
 import ResultsModel from "../../../../../../model/season/weekend/results/Results"
 import QualifyingModel from "../../../../../../model/season/weekend/results/qualifying/Qualifying"
 import TitleModel from "../../../../../../model/listing/Title"
@@ -50,12 +50,11 @@ const useSeasonQuery = () => {
       racesResults(year)
     ])
       .then(([{ data: qualifyingsData }, { data: racesData }]) => {
-        const { year, weekends } = SeasonModel.parser({ Season: racesData })
-  
-        if (!weekends) {
+        if (!racesData.Races || !racesData.Races.length) {
           throw new QueryError('No data found!', 404)
         }
-  
+
+        const weekends = WeekendModel.parseList({ Races: racesData.Races })
         const qResults = qualifyingsData.Races.map(race => ResultsModel.parser({ Race: race }))
         if (qResults && qResults.length) {
           weekends.forEach((w, index) => {

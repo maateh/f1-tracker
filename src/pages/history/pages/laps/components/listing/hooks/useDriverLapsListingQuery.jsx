@@ -46,14 +46,13 @@ const useDriverLapsListingQuery = () => {
           throw new QueryError('No data found!', 404)
         }
   
-        const { year, round, name, laps } = WeekendModel.parser({ Race: lapsData.Races[0] })        
+        const weekend = WeekendModel.parser({ Race: lapsData.Races[0] })        
         const result = RaceModel.parser({ Result: resultsData.Races[0].Results[0] })
-        const { driver } = result
 
         setTitle({
           title: new TitleModel({
-            main: `${year} ${name} Lap Timings`,
-            sub: `Selected Driver | ${driver.fullName}`
+            main: `${year} ${weekend.name} Lap Timings`,
+            sub: `Selected Driver | ${result.driver.fullName}`
           })
         })
 
@@ -65,12 +64,12 @@ const useDriverLapsListingQuery = () => {
               summaries: [
                 {
                   title: 'Fastest Lap Time',
-                  desc: fastestTime(laps),
+                  desc: fastestTime(weekend.laps),
                   icon: <SpeedIcon />
                 },
                 {
                   title: 'Average Lap Time',
-                  desc: averageTime(laps),
+                  desc: averageTime(weekend.laps),
                   icon: <AvTimerIcon />
                 },
                 {
@@ -84,9 +83,9 @@ const useDriverLapsListingQuery = () => {
                   icon: <SportsScoreIcon />
                 },
                 {
-                  title: gainedTitle(laps, result),
-                  desc: gainedPositions(laps, result),
-                  icon: gainedIcon(laps, result)
+                  title: gainedTitle(weekend.laps, result),
+                  desc: gainedPositions(weekend.laps, result),
+                  icon: gainedIcon(weekend.laps, result)
                 },
               ]
             }].map(card => <SummaryCard key={card.title} card={card} />)
@@ -132,15 +131,15 @@ const useDriverLapsListingQuery = () => {
                   />
               },
             ],
-            data: laps.map((lap, index) => ({
+            data: weekend.laps.map((lap, index) => ({
               lap: {
                 value: +lap.number,
-                gained: gainedForRound(lap.timings[0], result, laps, index)
+                gained: gainedForRound(lap.timings[0], result, weekend.laps, index)
               },
               position: { value: +lap.timings[0].position },
               time: {
                 value: lap.timings[0].time,
-                gap: gap(lap.timings[0], laps, index)
+                gap: gap(lap.timings[0], weekend.laps, index)
               }
             })),
             pagination: new PaginationModel({

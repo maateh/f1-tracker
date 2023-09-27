@@ -11,7 +11,6 @@ import WeekendCard from '../components/card/WeekendCard'
 import useListingContext from '../../../../../components/listing/context/hooks/useListingContext'
 
 // models
-import SeasonModel from "../../../../../model/season/Season"
 import WeekendModel from "../../../../../model/season/weekend/Weekend"
 import CardsModel from "../../../../../model/listing/Cards"
 import QueryError from "../../../../../model/error/QueryError"
@@ -27,8 +26,8 @@ const useScheduleListingQuery = () => {
       WeekendModel.queryNext()
     ])
       .then(([{ data }, nextWeekend]) => {
-        const weekends = SeasonModel.parseWeekends({ Races: data.Races })
-        
+        const weekends = WeekendModel.parseList({ Races: data.Races })
+
         setCards({
           cards: new CardsModel({
             styles: CardsModel.GRID_STYLES,

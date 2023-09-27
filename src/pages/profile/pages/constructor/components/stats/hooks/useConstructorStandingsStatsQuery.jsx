@@ -8,7 +8,7 @@ import { constructorStandings } from '../../../../../../../api/standings/constru
 import useConstructorProfileContext from "../../../context/hooks/useConstructorProfileContext"
 
 // models
-import SeasonModel from "../../../../../../../model/season/Season"
+import StandingsModel from "../../../../../../../model/season/standings/Standings"
 import QueryError from "../../../../../../../model/error/QueryError"
 
 // icons
@@ -30,7 +30,7 @@ const useConstructorStandingsStatsQuery = () => {
           throw new QueryError('No data found!', 404)
         }
 
-        const standingsList = SeasonModel.parseStandings({
+        const standingsList = StandingsModel.parseList({
 					StandingsLists: data.StandingsLists,
 				})
         setStandingsList({ standingsList })

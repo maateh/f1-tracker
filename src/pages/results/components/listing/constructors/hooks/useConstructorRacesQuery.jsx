@@ -16,7 +16,7 @@ import PointsCell from "../../components/table/PointsCell"
 import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
 
 // models
-import SeasonModel from '../../../../../../model/season/Season'
+import WeekendModel from "../../../../../../model/season/weekend/Weekend"
 import TitleModel from '../../../../../../model/listing/Title'
 import CardsModel from '../../../../../../model/listing/Cards'
 import TableModel from '../../../../../../model/listing/Table'
@@ -43,12 +43,11 @@ const useConstructorRacesQuery = () => {
     queryKey: ['listing', 'constructorRacesResultsFromSeason', year, constructorId],
     queryFn: () => constructorRacesResultsFromSeason(year, constructorId)
       .then(({ data }) => {
-        const { year, weekends } = SeasonModel.parser({ Season: data })
-  
-        if (!weekends) {
+        if (!data.Races || !data.Races.length) {
           throw new QueryError('No data found!', 404)
         }
 
+        const weekends = WeekendModel.parseList({ Races: data.Races })
         const team = getTeam(weekends)
   
         setTitle({

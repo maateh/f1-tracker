@@ -6,6 +6,12 @@ class Constructor {
 		this.nationality = nationality
 	}
 
+	static parseList({ Constructors: constructors }) {
+		if (constructors && constructors.length) {
+			return constructors.map(constructor => this.parser({ Constructor: constructor }))
+		}
+	}
+
 	static parser({ Constructor: constructor }) {
 		return new Constructor({
 			id: constructor.constructorId,

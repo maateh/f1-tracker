@@ -15,8 +15,8 @@ import DurationCell from "../components/table/DurationCell"
 import useListingContext from "../../../../../../../components/listing/context/hooks/useListingContext"
 
 // models
-import SeasonModel from "../../../../../../../model/season/Season"
 import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
+import DriverModel from "../../../../../../../model/season/weekend/results/driver/Driver"
 import PitStopModel from "../../../../../../../model/season/weekend/pit/PitStop"
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
@@ -41,18 +41,23 @@ const useRoundPitsListingQuery = () => {
     ])
       .then(([{ info, data: pitsData }, { data: driversData }]) => {
         if (!pitsData.Races || !pitsData.Races.length) {
-          throw new QueryError('No data found!', 404)
+          throw new QueryError('No pits data found!', 404)
+        }
+        if (!driversData.Drivers || !driversData.Drivers.length) {
+          throw new QueryError('No drivers data found!', 404)
         }
   
-        const { year, round, name, pits } = WeekendModel.parser({
-					Race: pitsData.Races[0],
+        const weekend = WeekendModel.parser({
+					Race: pitsData.Races[0]
 				})
-        const { drivers } = SeasonModel.parser({ Season: driversData })
-        const fastestPit = getFastestPit(pits)
+        const drivers = DriverModel.parseList({
+					Drivers: driversData.Drivers
+				})
+        const fastestPit = getFastestPit(weekend.pits)
   
         setTitle({
           title: new TitleModel({
-            main: `${year} ${name} Pit Stops`
+            main: `${year} ${weekend.name} Pit Stops`
           })
         })
 
@@ -64,17 +69,17 @@ const useRoundPitsListingQuery = () => {
               summaries: [
                 {
                   title: 'Pit Stops',
-                  desc: pitStopsAmount(pits),
+                  desc: pitStopsAmount(weekend.pits),
                   icon: <LocalParkingIcon />
                 },
                 {
                   title: 'Average Pits per Driver',
-                  desc: averagePerDriver(pits),
+                  desc: averagePerDriver(weekend.pits),
                   icon: <CalculateIcon />
                 },
                 {
                   title: 'Average Duration',
-                  desc: averageDuration(pits),
+                  desc: averageDuration(weekend.pits),
                   icon: <TimelapseIcon />
                 }
               ]
@@ -144,7 +149,7 @@ const useRoundPitsListingQuery = () => {
                   />
               },
             ],
-            data: pits.map(pit => ({
+            data: weekend.pits.map(pit => ({
               time: { value: pit.time },
               lap: { value: +pit.lap },
               stops: { value: +pit.stop },

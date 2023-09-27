@@ -8,6 +8,12 @@ class Circuit {
 		this.location = location
 	}
 
+	static parseList({ Circuits: circuits }) {
+		if (circuits && circuits.length) {
+			return circuits.map(circuit => this.parser({ Circuit: circuit }))
+		}
+	}
+
 	static parser({ Circuit: circuit }) {
 		return new Circuit({
 			id: circuit.circuitId,

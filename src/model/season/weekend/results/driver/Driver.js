@@ -21,6 +21,12 @@ class Driver {
     this.nationality = nationality
   }
 
+	static parseList({ Drivers: drivers }) {
+		if (drivers && drivers.length) {
+			return drivers.map(driver => this.parser({ Driver: driver }))
+		}
+	}
+
   static parser({ Driver: driver }) {
     return new Driver({
       id: driver.driverId,
