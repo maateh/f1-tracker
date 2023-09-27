@@ -51,7 +51,7 @@
   align-items: center;
   row-gap: 0.4rem;
 }
-@media (max-width: 60rem) {
+@media (max-width: 70rem) {
   .achievements-holder__container .achievements__container {
     width: 85%;
     row-gap: 0.75rem;

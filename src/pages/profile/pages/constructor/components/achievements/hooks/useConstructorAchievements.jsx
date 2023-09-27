@@ -1,9 +1,6 @@
 // context
 import useConstructorProfileContext from "../../../context/hooks/useConstructorProfileContext"
 
-// models
-
-
 // icons
 import LooksOneIcon from '@mui/icons-material/LooksOne'
 import SportsMotorsportsIcon from '@mui/icons-material/SportsMotorsports';
@@ -12,10 +9,10 @@ import StarBorderIcon from '@mui/icons-material/StarBorder'
 import AlarmOnIcon from '@mui/icons-material/AlarmOn'
 
 const useConstructorAchievements = () => {
-  const { standingsList } = useConstructorProfileContext()
+  const { standingsList, races, qualifyings } = useConstructorProfileContext()
 
-  if (!standingsList) return {
-    isLoading: true
+  if (!standingsList || !races || !qualifyings) {
+    return { achievements: null }
   }
 
   const achievements = [
@@ -38,20 +35,6 @@ const useConstructorAchievements = () => {
       icon: <EventBusyIcon />
     },
     {
-      label: 'First Drivers',
-      data: {
-        name: 'Driver Name1, Driver Name2', // + drivers profile link
-      },
-      icon: <SportsMotorsportsIcon />
-    },
-    {
-      label: 'Current/Last Drivers',
-      data: {
-        name: 'Driver Name1, Driver Name2', // + drivers profile link
-      },
-      icon: <SportsMotorsportsIcon />
-    },
-    {
       label: 'Best Race Result',
       data: {
         name: 'TestTestTest Grand Prix',
@@ -68,6 +51,20 @@ const useConstructorAchievements = () => {
         date: 'xxxx.xx.',
       },
       icon: <AlarmOnIcon />
+    },
+    {
+      label: 'First Drivers',
+      data: {
+        name: 'Driver Name1, Driver Name2', // + drivers profile link
+      },
+      icon: <SportsMotorsportsIcon />
+    },
+    {
+      label: 'Current/Last Drivers',
+      data: {
+        name: 'Driver Name1, Driver Name2', // + drivers profile link
+      },
+      icon: <SportsMotorsportsIcon />
     }
   ]
 

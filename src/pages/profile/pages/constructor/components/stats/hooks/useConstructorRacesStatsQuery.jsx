@@ -4,6 +4,9 @@ import { useQuery } from "react-query"
 // api
 import { constructorRacesResults } from '../../../../../../../api/results/race/constructorRacesResults'
 
+// context
+import useConstructorProfileContext from "../../../context/hooks/useConstructorProfileContext"
+
 // models
 import WeekendModel from '../../../../../../../model/season/weekend/Weekend'
 import QueryError from "../../../../../../../model/error/QueryError"
@@ -17,6 +20,7 @@ import ChecklistIcon from '@mui/icons-material/Checklist'
 import PlusOneIcon from '@mui/icons-material/PlusOne'
 
 const useConstructorRacesStatsQuery = () => {
+  const { setRaces } = useConstructorProfileContext()
   const { id } = useParams()
 
   return useQuery({
@@ -28,6 +32,8 @@ const useConstructorRacesStatsQuery = () => {
         }
 
         const weekends = WeekendModel.parseList({ Races: data.Races })
+        setRaces({ races: weekends })
+
         const winsAmount = racesWon(weekends)
         const doublePodiumsAmount = podiums(weekends, true)
         const podiumsAmount = podiums(weekends)

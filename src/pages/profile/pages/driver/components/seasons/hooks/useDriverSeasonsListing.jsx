@@ -11,7 +11,7 @@ import CardsModel from '../../../../../../../model/listing/Cards'
 const useDriverSeasonsListing = () => {
   const { standingsList } = useDriverProfileContext()
 
-  if (!standingsList) return { cards: null }
+  if (!standingsList) return { title: null, cards: null }
   
   const cardsLayouts = standingsList.map(standings => (
     <DriverSeasonCard

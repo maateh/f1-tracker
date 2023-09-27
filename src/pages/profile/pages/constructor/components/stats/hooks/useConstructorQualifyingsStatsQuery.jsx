@@ -4,6 +4,9 @@ import { useQuery } from "react-query"
 // api
 import { constructorQualifyingsResults } from '../../../../../../../api/results/qualifying/constructorQualifyingsResults'
 
+// context
+import useConstructorProfileContext from "../../../context/hooks/useConstructorProfileContext"
+
 // models
 import WeekendModel from '../../../../../../../model/season/weekend/Weekend'
 import QueryError from "../../../../../../../model/error/QueryError"
@@ -18,6 +21,7 @@ import StarHalfIcon from '@mui/icons-material/StarHalf'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 
 const useConstructorQualifyingsStatsQuery = () => {
+  const { setQualifyings } = useConstructorProfileContext()
   const { id } = useParams()
 
   return useQuery({
@@ -29,6 +33,8 @@ const useConstructorQualifyingsStatsQuery = () => {
         }
 
         const weekends = WeekendModel.parseList({ Races: data.Races })
+        setQualifyings({ qualifyings: weekends })
+
         const winsAmount = qualifyingsWon(weekends)
         const frontRowsAmount = frontRows(weekends, true)
         const occupiedfrontRowsAmount = frontRows(weekends)

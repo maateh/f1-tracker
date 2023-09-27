@@ -16,10 +16,8 @@ const DriverSeasons = () => {
 
   return (
     <section className="driver-seasons__container">
-      {!cards ? (
-        <LoadingHandler
-          isLoading={!cards}
-        />
+      {!title || !cards ? (
+        <LoadingHandler isLoading={true} />
       ) : (
         <ListingContextProvider initialState={{ title, cards }}>
           <DriverSeasonsListing />

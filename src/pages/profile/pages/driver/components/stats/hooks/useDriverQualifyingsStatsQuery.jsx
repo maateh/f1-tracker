@@ -4,6 +4,9 @@ import { useQuery } from "react-query"
 // api
 import { driverQualifyingsResults } from '../../../../../../../api/results/qualifying/driverQualifyingsResults'
 
+// context
+import useDriverProfileContext from "../../../context/hooks/useDriverProfileContext"
+
 // models
 import WeekendModel from '../../../../../../../model/season/weekend/Weekend'
 import QueryError from "../../../../../../../model/error/QueryError"
@@ -17,6 +20,7 @@ import StarHalfIcon from '@mui/icons-material/StarHalf'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 
 const useDriverQualifyingsStatsQuery = () => {
+  const { setQualifyings } = useDriverProfileContext()
   const { id } = useParams()
 
   return useQuery({
@@ -28,6 +32,8 @@ const useDriverQualifyingsStatsQuery = () => {
         }
 
         const weekends = WeekendModel.parseList({ Races: data.Races })
+        setQualifyings({ qualifyings: weekends })
+
         const winsAmount = qualifyingsWon(weekends)
         const frontRowsAmount = frontRows(weekends)
         const q3Amount = reachedQ3(weekends)

@@ -1,9 +1,6 @@
 // context
 import useDriverProfileContext from "../../../context/hooks/useDriverProfileContext"
 
-// models
-
-
 // icons
 import LooksOneIcon from '@mui/icons-material/LooksOne'
 import EngineeringIcon from '@mui/icons-material/Engineering'
@@ -12,10 +9,10 @@ import StarBorderIcon from '@mui/icons-material/StarBorder'
 import AlarmOnIcon from '@mui/icons-material/AlarmOn'
 
 const useDriverAchievements = () => {
-  const { standingsList } = useDriverProfileContext()
+  const { standingsList, races, qualifyings } = useDriverProfileContext()
 
-  if (!standingsList) return {
-    isLoading: true
+  if (!standingsList || !races || !qualifyings) {
+    return { achievements: null }
   }
 
   const achievements = [
@@ -38,20 +35,6 @@ const useDriverAchievements = () => {
       icon: <EventBusyIcon />
     },
     {
-      label: 'First Team',
-      data: {
-        name: 'Mercedes',
-      },
-      icon: <EngineeringIcon />
-    },
-    {
-      label: 'Current/Last Team',
-      data: {
-        name: 'Ferrari',
-      },
-      icon: <EngineeringIcon />
-    },
-    {
       label: 'Best Race Result',
       data: {
         name: 'TestTestTest Grand Prix',
@@ -68,6 +51,20 @@ const useDriverAchievements = () => {
         date: 'xxxx.xx.',
       },
       icon: <AlarmOnIcon />
+    },
+    {
+      label: 'First Team',
+      data: {
+        name: 'Mercedes',
+      },
+      icon: <EngineeringIcon />
+    },
+    {
+      label: 'Current/Last Team',
+      data: {
+        name: 'Ferrari',
+      },
+      icon: <EngineeringIcon />
     }
   ]
 
