@@ -1,10 +1,12 @@
 // components
 import ConstructorInformation from './components/information/ConstructorInformation'
+import Achievements from '../../components/achievements/Achievements'
 import StatisticsHolder from '../../components/statistics/StatisticsHolder'
 import Statistics from '../../components/statistics/Statistics'
 import ConstructorSeasons from './components/seasons/ConstructorSeasons'
 
 // hooks
+import useConstructorAchievements from './components/achievements/hooks/useConstructorAchievements'
 import useConstructorRacesStatsQuery from './components/stats/hooks/useConstructorRacesStatsQuery'
 import useConstructorStandingsStatsQuery from './components/stats/hooks/useConstructorStandingsStatsQuery'
 import useConstructorQualifyingsStatsQuery from './components/stats/hooks/useConstructorQualifyingsStatsQuery'
@@ -17,6 +19,7 @@ const ConstructorProfile = () => {
     <div className="constructor-profile__container page__container">
       <ConstructorProfileContextProvider>
         <ConstructorInformation />
+        <Achievements useAchievements={useConstructorAchievements} />
         <StatisticsHolder>
           <Statistics
             title="Races Statistics"

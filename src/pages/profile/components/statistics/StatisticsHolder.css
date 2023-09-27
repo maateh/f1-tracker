@@ -2,7 +2,7 @@
   margin: 3.5rem auto;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   row-gap: 3.5rem;
 }
 
