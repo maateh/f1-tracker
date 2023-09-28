@@ -52,7 +52,7 @@
   margin-left: 1.5rem;
   
   font-size: 1.15rem;
-  font-weight: 500;
+  font-variant: small-caps;
   letter-spacing: 0.02rem;
   text-align: end;
 
@@ -61,21 +61,28 @@
   justify-content: end;
   align-items: center;
 }
-.achievements__container .achievement__wrapper p.achievement-data__wrapper .achievement-data-achieved {
+.achievements__container .achievement__wrapper p.achievement-data__wrapper span.achievement-data-achieved {
   flex: 1 1 36%;
   width: auto;
+
+  font-weight: 600;
+
 }
-.achievements__container .achievement__wrapper p.achievement-data__wrapper .achievement-data-name {
+.achievements__container .achievement__wrapper p.achievement-data__wrapper span.achievement-data-name {
   flex: 1 1 36%;
   width: auto;
   margin-left: 0.5rem;
+  
+  font-weight: 500;
 }
-.achievements__container .achievement__wrapper p.achievement-data__wrapper .achievement-data-date {
+.achievements__container .achievement__wrapper p.achievement-data__wrapper span.achievement-data-date {
   flex: 1 1 25%;
   width: auto;
   margin-left: 0.5rem;
-}
 
+  font-weight: 400;
+  font-style: italic;
+}
 @media (max-width: 50rem) {
   .achievements__container .achievement__wrapper p.achievement-data__wrapper {
     margin-left: 0.7rem;
