@@ -5,7 +5,7 @@ import LoadingHandler from "../../../../components/loading/LoadingHandler"
 // styles
 import './Achievements.css'
 
-const Achievements = ({ useAchievements }) => {
+const Achievements = ({ useAchievements, note }) => {
   const { achievements } = useAchievements()
 
 	// TODO - loading layouts
@@ -25,6 +25,8 @@ const Achievements = ({ useAchievements }) => {
           />
         ))}
       </div>
+
+      {note && <p className="achievements__note">{note}</p>}
     </section>
   )
 }

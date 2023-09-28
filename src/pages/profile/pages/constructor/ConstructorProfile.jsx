@@ -19,7 +19,10 @@ const ConstructorProfile = () => {
     <div className="constructor-profile__container page__container">
       <ConstructorProfileContextProvider>
         <ConstructorInformation />
-        <Achievements useAchievements={useConstructorAchievements} />
+        <Achievements
+          useAchievements={useConstructorAchievements}
+          note="*Always updated at the end of the current season"
+        />
         <StatisticsHolder>
           <Statistics
             title="Races Statistics"
@@ -27,7 +30,7 @@ const ConstructorProfile = () => {
           />
           <Statistics
             title="Standings Statistics"
-            note="*Always updated at the end of the season"
+            note="*Always updated at the end of the current season"
             useStatsQuery={useConstructorStandingsStatsQuery}
           />
           <Statistics

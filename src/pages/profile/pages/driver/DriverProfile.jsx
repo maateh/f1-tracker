@@ -19,7 +19,10 @@ const DriverProfile = () => {
     <div className="driver-profile__container page__container">
       <DriverProfileContextProvider>
         <DriverInformation />
-        <Achievements useAchievements={useDriverAchievements} />
+        <Achievements
+          useAchievements={useDriverAchievements}
+          note="*Always updated at the end of the current season"
+        />
         <StatisticsHolder>
           <Statistics
             title="Races Statistics"
@@ -27,7 +30,7 @@ const DriverProfile = () => {
           />
           <Statistics
             title="Standings Statistics"
-            note="*Always updated at the end of the season"
+            note="*Always updated at the end of the current season"
             useStatsQuery={useDriverStandingsStatsQuery}
           />
           <Statistics

@@ -15,63 +15,63 @@ const useConstructorAchievements = () => {
     return { achievements: null }
   }
 
-  const achievements = [
-    {
-      label: 'First Race Weekend',
-      data: {
-        name: 'Test Grand Prix',
-        achieved: '#3 (+DRIVER_CODE) | #6 (+DRIVER_CODE)', // + drivers profile link
-        date: 'xxxx.xx.',
-      },
-      icon: <LooksOneIcon />
-    },
-    {
-      label: 'Recent/Last Race Weekend',
-      data: {
-        name: 'TestTestTest Grand Prix',
-        achieved: '#2 (+DRIVER_CODE) | #13 (+DRIVER_CODE)', // + drivers profile link
-        date: 'xxxx.xx.',
-      },
-      icon: <EventBusyIcon />
-    },
-    {
-      label: 'Best Race Result',
-      data: {
-        name: 'TestTestTest Grand Prix',
-        achieved: '#3 (+DRIVER_CODE)', // + driver profile link
-        date: 'xxxx.xx.',
-      },
-      icon: <StarBorderIcon />
-    },
-    {
-      label: 'Best Qualifying Result',
-      data: {
-        name: 'TestTestTestTest TestTest Grand Prix',
-        achieved: '#1 (+DRIVER_CODE)', // + driver profile link
-        date: 'xxxx.xx.',
-      },
-      icon: <AlarmOnIcon />
-    },
-    {
-      label: 'First Drivers',
-      data: {
-        name: 'Driver Name1, Driver Name2', // + drivers profile link
-      },
-      icon: <SportsMotorsportsIcon />
-    },
-    {
-      label: 'Current/Last Drivers',
-      data: {
-        name: 'Driver Name1, Driver Name2', // + drivers profile link
-      },
-      icon: <SportsMotorsportsIcon />
-    }
-  ]
+  console.log('standingsList: ', standingsList)
+  console.log('races: ', races)
+  console.log('qualifyings: ', qualifyings)
 
   return {
-    isLoading: false,
-    isError: false,
-    achievements
+    achievements: [
+      {
+        label: 'First Race Weekend',
+        data: {
+          name: 'Test Grand Prix',
+          achieved: '#3 (+DRIVER_CODE) | #6 (+DRIVER_CODE)', // + drivers profile link
+          date: 'xxxx.xx.',
+        },
+        icon: <LooksOneIcon />
+      },
+      {
+        label: 'Recent/Last Race Weekend',
+        data: {
+          name: 'TestTestTest Grand Prix',
+          achieved: '#2 (+DRIVER_CODE) | #13 (+DRIVER_CODE)', // + drivers profile link
+          date: 'xxxx.xx.',
+        },
+        icon: <EventBusyIcon />
+      },
+      {
+        label: 'Best Race Result',
+        data: {
+          name: 'TestTestTest Grand Prix',
+          achieved: '#3 (+DRIVER_CODE)', // + driver profile link
+          date: 'xxxx.xx.',
+        },
+        icon: <StarBorderIcon />
+      },
+      {
+        label: 'Best Qualifying Result',
+        data: {
+          name: 'TestTestTestTest TestTest Grand Prix',
+          achieved: '#1 (+DRIVER_CODE)', // + driver profile link
+          date: 'xxxx.xx.',
+        },
+        icon: <AlarmOnIcon />
+      },
+      {
+        label: 'First Drivers',
+        data: {
+          name: 'Driver Name1, Driver Name2', // + drivers profile link
+        },
+        icon: <SportsMotorsportsIcon />
+      },
+      {
+        label: 'Current/Last Drivers*',
+        data: {
+          name: 'Driver Name1, Driver Name2', // + drivers profile link
+        },
+        icon: <SportsMotorsportsIcon />
+      }
+    ]
   }
 }
 

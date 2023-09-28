@@ -36,8 +36,8 @@ const useConstructorQualifyingsStatsQuery = () => {
         setQualifyings({ qualifyings: weekends })
 
         const winsAmount = qualifyingsWon(weekends)
-        const frontRowsAmount = frontRows(weekends, true)
         const occupiedfrontRowsAmount = frontRows(weekends)
+        const frontRowsAmount = frontRows(weekends, true)
         const q3Amount = reachedQ3(weekends, true)
         const q2Amount = reachedQ2(weekends, true)
         const bothQ3Amount = reachedQ3(weekends)
