@@ -9,7 +9,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder'
 import AlarmOnIcon from '@mui/icons-material/AlarmOn'
 
 const useDriverAchievements = () => {
-  const { standingsList, races, qualifyings } = useDriverProfileContext()
+  const { races, qualifyings } = useDriverProfileContext()
 
   if (!races) {
     return { achievements: null }
@@ -20,19 +20,6 @@ const useDriverAchievements = () => {
       label: 'Best Qualifying Result',
       data: bestQualifyingResult(qualifyings),
       icon: <AlarmOnIcon />
-    }
-  ] : []
-
-  const standingsRequiredAchievements = standingsList && standingsList.length ? [
-    {
-      label: 'First Team',
-      data: firstTeam(standingsList),
-      icon: <EngineeringIcon />
-    },
-    {
-      label: 'Current/Last Team*',
-      data: lastTeam(standingsList),
-      icon: <EngineeringIcon />
     }
   ] : []
 
@@ -54,27 +41,38 @@ const useDriverAchievements = () => {
         icon: <StarBorderIcon />
       },
       ...qualifyingsRequiredAchievements,
-      ...standingsRequiredAchievements
+      {
+        label: 'First Team',
+        data: firstTeam(races),
+        icon: <EngineeringIcon />
+      },
+      {
+        label: 'Current/Last Team',
+        data: lastTeam(races),
+        icon: <EngineeringIcon />
+      }
     ]
   }
 }
 
 // Data parsers
-function parseWeekendData(weekend) {
-  const sessionResults = weekend.results.race || weekend.results.qualifying
+function parseWeekendData(weekend, displayConstructor = false) {
+  const results = weekend.results.race || weekend.results.qualifying
   const session = weekend.sessions.race || weekend.sessions.qualifying
 
+  const achievedInfo = displayConstructor
+    ? `#${results[0].position} (with ${results[0].constructor.name})`
+    : `#${results[0].position}`
+
   return {
-    achieved: `#${sessionResults[0].position}`,
+    achieved: achievedInfo,
     name: weekend.name,
     link: `/results/${weekend.year}/rounds/${weekend.round}/race`,
     date: session.getFormattedDate('yyyy. MM. dd.'),
   }
 }
 
-function parseStandingsData(standings) {
-  const constructor = standings[0].constructors[0]
-
+function parseTeamData(constructor) {
   return {
     name: constructor.name,
     link: `/profile/constructors/${constructor.id}`
@@ -96,7 +94,7 @@ function bestRaceResult(races) {
     const currPos = +curr.results.race[0].position
     return currPos < prevPos ? curr : prev
   })
-  return parseWeekendData(weekend)
+  return parseWeekendData(weekend, true)
 }
 
 function bestQualifyingResult(qualifyings) {
@@ -105,15 +103,15 @@ function bestQualifyingResult(qualifyings) {
     const currPos = +curr.results.qualifying[0].position
     return currPos < prevPos ? curr : prev
   })
-  return parseWeekendData(weekend)
+  return parseWeekendData(weekend, true)
 }
 
-function firstTeam(standingsList) {
-  return parseStandingsData(standingsList[0].drivers)
+function firstTeam(races) {
+  return parseTeamData(races[0].results.race[0].constructor)
 }
 
-function lastTeam(standingsList) {
-  return parseStandingsData(standingsList[standingsList.length - 1].drivers)
+function lastTeam(races) {
+  return parseTeamData(races[races.length - 1].results.race[0].constructor)
 }
 
 export default useDriverAchievements

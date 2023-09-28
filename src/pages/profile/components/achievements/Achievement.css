@@ -1,7 +1,6 @@
 /* achievement wrapper */
 .achievements__container .achievement__wrapper {
   width: 100%;
-  max-width: 50rem;
 
   display: grid;
   grid-template-columns: 30% 70%;
@@ -62,6 +61,21 @@
   justify-content: end;
   align-items: center;
 }
+.achievements__container .achievement__wrapper p.achievement-data__wrapper .achievement-data-achieved {
+  flex: 1 1 36%;
+  width: auto;
+}
+.achievements__container .achievement__wrapper p.achievement-data__wrapper .achievement-data-name {
+  flex: 1 1 36%;
+  width: auto;
+  margin-left: 0.5rem;
+}
+.achievements__container .achievement__wrapper p.achievement-data__wrapper .achievement-data-date {
+  flex: 1 1 25%;
+  width: auto;
+  margin-left: 0.5rem;
+}
+
 @media (max-width: 50rem) {
   .achievements__container .achievement__wrapper p.achievement-data__wrapper {
     margin-left: 0.7rem;
@@ -78,19 +92,7 @@
     font-size: 0.95rem;
     letter-spacing: normal;
   }
-}
-
-.achievements__container .achievement__wrapper p.achievement-data__wrapper .achievement-data-name {
-  flex: 1 1 50%;
-  width: auto;
-}
-.achievements__container .achievement__wrapper p.achievement-data__wrapper .achievement-data-date {
-  flex: 1 1 24%;
-  width: auto;
-  margin-left: 0.5rem;
-}
-.achievements__container .achievement__wrapper p.achievement-data__wrapper .achievement-data-achieved {
-  flex: 1 1 23%;
-  width: auto;
-  margin-left: 0.5rem;
+  .achievements__container .achievement__wrapper p.achievement-data__wrapper .achievement-data-name {
+    width: min-content;
+  }
 }

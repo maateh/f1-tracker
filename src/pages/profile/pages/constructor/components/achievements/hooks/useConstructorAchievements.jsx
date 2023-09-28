@@ -9,70 +9,113 @@ import StarBorderIcon from '@mui/icons-material/StarBorder'
 import AlarmOnIcon from '@mui/icons-material/AlarmOn'
 
 const useConstructorAchievements = () => {
-  const { standingsList, races, qualifyings } = useConstructorProfileContext()
+  const { races, qualifyings } = useConstructorProfileContext()
 
-  if (!standingsList || !races || !qualifyings) {
+  if (!races) {
     return { achievements: null }
   }
 
-  console.log('standingsList: ', standingsList)
-  console.log('races: ', races)
-  console.log('qualifyings: ', qualifyings)
+  const qualifyingsRequiredAchievements = qualifyings && qualifyings.length ? [
+    {
+      label: 'Best Qualifying Result',
+      data: bestQualifyingResult(qualifyings),
+      icon: <AlarmOnIcon />
+    }
+  ] : []
 
   return {
     achievements: [
       {
         label: 'First Race Weekend',
-        data: {
-          name: 'Test Grand Prix',
-          achieved: '#3 (+DRIVER_CODE) | #6 (+DRIVER_CODE)', // + drivers profile link
-          date: 'xxxx.xx.',
-        },
+        data: firstRace(races),
         icon: <LooksOneIcon />
       },
       {
         label: 'Recent/Last Race Weekend',
-        data: {
-          name: 'TestTestTest Grand Prix',
-          achieved: '#2 (+DRIVER_CODE) | #13 (+DRIVER_CODE)', // + drivers profile link
-          date: 'xxxx.xx.',
-        },
+        data: lastRace(races),
         icon: <EventBusyIcon />
       },
       {
         label: 'Best Race Result',
-        data: {
-          name: 'TestTestTest Grand Prix',
-          achieved: '#3 (+DRIVER_CODE)', // + driver profile link
-          date: 'xxxx.xx.',
-        },
+        data: bestRaceResult(races),
         icon: <StarBorderIcon />
       },
-      {
-        label: 'Best Qualifying Result',
-        data: {
-          name: 'TestTestTestTest TestTest Grand Prix',
-          achieved: '#1 (+DRIVER_CODE)', // + driver profile link
-          date: 'xxxx.xx.',
-        },
-        icon: <AlarmOnIcon />
-      },
+      ...qualifyingsRequiredAchievements,
       {
         label: 'First Drivers',
-        data: {
-          name: 'Driver Name1, Driver Name2', // + drivers profile link
-        },
+        data: firstDrivers(races),
         icon: <SportsMotorsportsIcon />
       },
       {
-        label: 'Current/Last Drivers*',
-        data: {
-          name: 'Driver Name1, Driver Name2', // + drivers profile link
-        },
+        label: 'Current/Last Drivers',
+        data: lastDrivers(races),
         icon: <SportsMotorsportsIcon />
       }
     ]
   }
+}
+
+// Data parsers
+function parseWeekendData(weekend, parseOnlyBest = false) {
+  const results = weekend.results.race || weekend.results.qualifying
+  const session = weekend.sessions.race || weekend.sessions.qualifying
+
+  const achievedInfo = parseOnlyBest
+    ? `#${results[0].position} place (with ${results[0].driver.code})`
+    : results.map(result => `#${result.position}`).join(', ')
+
+  return {
+    achieved: achievedInfo,
+    name: weekend.name,
+    nameLink: `/results/${weekend.year}/rounds/${weekend.round}/race`,
+    date: session.getFormattedDate('yyyy. MM. dd.'),
+  }
+}
+
+function parseDriversData(drivers) {
+  const driversNames = drivers.map(d => `${d.code}${d.number ? ` #${d.number}` : ''}`)
+
+  return {
+    name: driversNames.join(', '),
+    nameLink: `/profile/constructors/${constructor.id}`
+  }
+}
+
+// Obtaining data for each achievements
+function firstRace(races) {
+  return parseWeekendData(races[0])
+}
+
+function lastRace(races) {
+  return parseWeekendData(races[races.length - 1])
+}
+
+function bestRaceResult(races) {
+  const weekend = races.reduce((prev, curr) => {
+    const prevPos = +prev.results.race[0].position
+    const currPos = +curr.results.race[0].position
+    return currPos < prevPos ? curr : prev
+  })
+  return parseWeekendData(weekend, true)
+}
+
+function bestQualifyingResult(qualifyings) {
+  const weekend = qualifyings.reduce((prev, curr) => {
+    const prevPos = +prev.results.qualifying[0].position
+    const currPos = +curr.results.qualifying[0].position
+    return currPos < prevPos ? curr : prev
+  })
+  return parseWeekendData(weekend, true)
+}
+
+function firstDrivers(races) {
+  const drivers = races[0].results.race.map(result => result.driver)
+  return parseDriversData(drivers)
+}
+
+function lastDrivers(races) {
+  const drivers = races[races.length - 1].results.race.map(result => result.driver)
+  return parseDriversData(drivers)
 }
 
 export default useConstructorAchievements

@@ -8,15 +8,15 @@ class StandingsResult {
     points,
     wins,
     driver,
-    constructor,
-    constructors
+    constructors,
+    constructor
   }) {
 		this.position = position
 		this.points = points
 		this.wins = wins
     this.driver = driver
-    this.constructor = constructor
     this.constructors = constructors
+    this.constructor = constructor
 	}
 
   static parser({ StandingsResult: result }) {
@@ -25,22 +25,24 @@ class StandingsResult {
       points: result.points,
       wins: result.wins,
       driver: this.#parseDriver({ Driver: result.Driver }),
-      constructor: this.#parseConstructors({ Constructor: result.Constructor }),
-      constructors: this.#parseConstructors({ Constructors: result.Constructors })
+      constructors: this.#parseConstructors({ Constructors: result.Constructors }),
+      constructor: this.#parseConstructor({ Constructor: result.Constructor })
     })
   }
 
-	static #parseDriver({ Driver: driver }) {
+  static #parseDriver({ Driver: driver }) {
 		if (driver) {
 			return Driver.parser({ Driver: driver })
 		}
 	}
 
-	static #parseConstructors({ Constructors: constructors, Constructor: constructor }) {
+	static #parseConstructors({ Constructors: constructors }) {
 		if (constructors && constructors.length) {
 			return constructors.map(c => Constructor.parser({ Constructor: c }))
 		}
+	}
 
+  static #parseConstructor({ Constructor: constructor }) {
 		if (constructor) {
 			return Constructor.parser({ Constructor: constructor })
 		}
