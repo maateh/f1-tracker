@@ -1,9 +1,9 @@
+import { Suspense, lazy } from 'react'
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
 // components
 import Filter from '../../components/filter/Filter'
-import LoadingHandler from '../../components/loading/LoadingHandler'
 
 // hooks
 import useFilterQueries from '../../components/filter/hooks/useFilterQueries'
@@ -31,20 +31,18 @@ const ScheduleContent = () => {
 	return (
 		<div className="schedule-content">
 			{year && (
-				<>
-					<FilterContextProvider selectors={FilterSelectorModel.TYPES.SEASONS}>
-						<Filter
-              useFilterQueries={
-                useFilterQueries.bind(this, [
-                  useSeasonsFilterQuery.bind(this, {
-                    onChange: (value) => navigate(`./${value}`, { replace: true }),
-                  })
-                ])
-              }
-							skeletonCounter={1}
-						/>
-					</FilterContextProvider>
-				</>
+				<FilterContextProvider selectors={FilterSelectorModel.TYPES.SEASONS}>
+					<Filter
+						useFilterQueries={
+							useFilterQueries.bind(this, [
+								useSeasonsFilterQuery.bind(this, {
+									onChange: (value) => navigate(`./${value}`, { replace: true }),
+								})
+							])
+						}
+						skeletonCounter={1}
+					/>
+				</FilterContextProvider>
 			)}
 
 			<ListingContextProvider>

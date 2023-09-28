@@ -1,33 +1,38 @@
+import { Suspense, lazy } from 'react'
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 // layouts
 import Main from './layouts/Main'
 
 // pages & components
-import Homepage from './pages/home/Homepage'
-import SchedulePage from './pages/schedule/SchedulePage'
-import ScheduleListing from './pages/schedule/components/listing/ScheduleListing'
-import ResultsPage from './pages/results/ResultsPage'
-import HistoryPage from './pages/history/HistoryPage'
-import LapsHistory from './pages/history/pages/laps/LapsHistory'
-import PitsHistory from './pages/history/pages/pits/PitsHistory'
-import DriversHistory from './pages/history/pages/drivers/DriversHistory'
-import DriversListing from './pages/history/pages/drivers/components/listing/DriversListing'
-import ConstructorsHistory from './pages/history/pages/constructors/ConstructorsHistory'
-import ConstructorsListing from './pages/history/pages/constructors/components/listing/ConstructorsListing'
-import CircuitsHistory from './pages/history/pages/circuits/CircuitsHistory'
-import CircuitsListing from './pages/history/pages/circuits/components/listing/CircuitsListing'
-import DriverProfile from './pages/profile/pages/driver/DriverProfile'
-import ConstructorProfile from './pages/profile/pages/constructor/ConstructorProfile'
-import CircuitProfile from './pages/profile/pages/circuit/CircuitProfile'
+const Homepage = lazy(() => import('./pages/home/Homepage'))
+const SchedulePage = lazy(() => import('./pages/schedule/SchedulePage'))
+const ScheduleListing = lazy(() => import('./pages/schedule/components/listing/ScheduleListing'))
+const ResultsPage = lazy(() => import('./pages/results/ResultsPage'))
+const HistoryPage = lazy(() => import('./pages/history/HistoryPage'))
+const LapsHistory = lazy(() => import('./pages/history/pages/laps/LapsHistory'))
+const PitsHistory = lazy(() => import('./pages/history/pages/pits/PitsHistory'))
+const DriversHistory = lazy(() => import('./pages/history/pages/drivers/DriversHistory'))
+const DriversListing = lazy(() => import('./pages/history/pages/drivers/components/listing/DriversListing'))
+const ConstructorsHistory = lazy(() => import('./pages/history/pages/constructors/ConstructorsHistory'))
+const ConstructorsListing = lazy(() => import('./pages/history/pages/constructors/components/listing/ConstructorsListing'))
+const CircuitsHistory = lazy(() => import('./pages/history/pages/circuits/CircuitsHistory'))
+const CircuitsListing = lazy(() => import('./pages/history/pages/circuits/components/listing/CircuitsListing'))
+const DriverProfile = lazy(() => import('./pages/profile/pages/driver/DriverProfile'))
+const ConstructorProfile = lazy(() => import('./pages/profile/pages/constructor/ConstructorProfile'))
+const CircuitProfile = lazy(() => import('./pages/profile/pages/circuit/CircuitProfile'))
 
-import Loader from './components/loader/Loader'
-import NotFound from './components/error/NotFound'
+const Loader = lazy(() => import('./components/loader/Loader'))
+const NotFound = lazy(() => import('./components/error/NotFound'))
 
 // loaders
 import { resultsLoader } from './pages/results/loader/ResultsLoader'
 import { lapsLoader } from './pages/history/pages/laps/loader/LapsLoader'
 import { pitsLoader } from './pages/history/pages/pits/loader/PitsLoader'
+import CircularProgressIcon from '@mui/material/CircularProgress'
+
+// skeletons
+import PageSkeleton from './components/skeletons/page/PageSkeleton'
 
 const router = createBrowserRouter([
   {
@@ -36,15 +41,27 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Homepage />
+        element: (
+          <Suspense fallback={<PageSkeleton />}>
+            <Homepage />
+          </Suspense>
+        )
       },
       {
         path: "schedule",
-        element: <SchedulePage />,
+        element: (
+          <Suspense fallback={<PageSkeleton />}>
+            <SchedulePage />
+          </Suspense>
+        ),
         children: [
           {
             path: ":year",
-            element: <ScheduleListing />
+            element: (
+              <Suspense fallback={<CircularProgressIcon />}>
+                <ScheduleListing />
+              </Suspense>
+            )
           },
           {
             path: "*",
@@ -54,16 +71,28 @@ const router = createBrowserRouter([
       },
       {
         path: "results",
-        element: <ResultsPage />,
+        element: (
+          <Suspense fallback={<PageSkeleton />}>
+            <ResultsPage />
+          </Suspense>
+        ),
         children: [
           {
             path: ":year/:standings/:id",
-            element: <Loader />,
+            element: (
+              <Suspense fallback={<CircularProgressIcon />}>
+                <Loader />
+              </Suspense>
+            ),
             loader: resultsLoader
           },
           {
             path: ":year/:standings/:id/:session",
-            element: <Loader />,
+            element: (
+              <Suspense fallback={<CircularProgressIcon />}>
+                <Loader />
+              </Suspense>
+            ),
             loader: resultsLoader
           },
           {
@@ -74,15 +103,27 @@ const router = createBrowserRouter([
       },
       {
         path: "history",
-        element: <HistoryPage />,
+        element: (
+          <Suspense fallback={<PageSkeleton />}>
+            <HistoryPage />
+          </Suspense>
+        ),
         children: [
           {
             path: "laps",
-            element: <LapsHistory />,
+            element: (
+              <Suspense fallback={<CircularProgressIcon />}>
+                <LapsHistory />
+              </Suspense>
+            ),
             children: [
               {
                 path: ":year/:round/:driverId",
-                element: <Loader />,
+                element: (
+                  <Suspense fallback={<CircularProgressIcon />}>
+                    <Loader />
+                  </Suspense>
+                ),
                 loader: lapsLoader
               },
               {
@@ -93,11 +134,19 @@ const router = createBrowserRouter([
           },
           {
             path: "pits",
-            element: <PitsHistory />,
+            element: (
+              <Suspense fallback={<CircularProgressIcon />}>
+                <PitsHistory />
+              </Suspense>
+            ),
             children: [
               {
                 path: ":year/:round/:driverId",
-                element: <Loader />,
+                element: (
+                  <Suspense fallback={<CircularProgressIcon />}>
+                    <Loader />
+                  </Suspense>
+                ),
                 loader: pitsLoader
               },
               {
@@ -108,31 +157,55 @@ const router = createBrowserRouter([
           },
           {
             path: "drivers",
-            element: <DriversHistory />,
+            element: (
+              <Suspense fallback={<CircularProgressIcon />}>
+                <DriversHistory />
+              </Suspense>
+            ),
             children: [
               {
                 path: ":year",
-                element: <DriversListing />
+                element: (
+                  <Suspense fallback={<CircularProgressIcon />}>
+                    <DriversListing />
+                  </Suspense>
+                )
               }
             ]
           },
           {
             path: "constructors",
-            element: <ConstructorsHistory />,
+            element: (
+              <Suspense fallback={<CircularProgressIcon />}>
+                <ConstructorsHistory />
+              </Suspense>
+            ),
             children: [
               {
                 path: ":year",
-                element: <ConstructorsListing />
+                element: (
+                  <Suspense fallback={<CircularProgressIcon />}>
+                    <ConstructorsListing />
+                  </Suspense>
+                )
               }
             ]
           },
           {
             path: "circuits",
-            element: <CircuitsHistory />,
+            element: (
+              <Suspense fallback={<CircularProgressIcon />}>
+                <CircuitsHistory />
+              </Suspense>
+            ),
             children: [
               {
                 path: ":year",
-                element: <CircuitsListing />
+                element: (
+                  <Suspense fallback={<CircularProgressIcon />}>
+                    <CircuitsListing />
+                  </Suspense>
+                )
               }
             ]
           },
@@ -143,15 +216,27 @@ const router = createBrowserRouter([
         children: [
           {
             path: "driver/:id",
-            element: <DriverProfile />
+            element: (
+              <Suspense fallback={<PageSkeleton />}>
+                <DriverProfile />
+              </Suspense>
+            )
           },
           {
             path: "constructor/:id",
-            element: <ConstructorProfile />
+            element: (
+              <Suspense fallback={<PageSkeleton />}>
+                <ConstructorProfile />
+              </Suspense>
+            )
           },
           {
             path: "circuit/:id",
-            element: <CircuitProfile />
+            element: (
+              <Suspense fallback={<PageSkeleton />}>
+                <CircuitProfile />
+              </Suspense>
+            )
           },
         ]
       },

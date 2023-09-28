@@ -27,20 +27,18 @@ const CircuitsHistory = () => {
   return (
     <div className="circuits-history">
       {year && (
-        <>
-          <FilterContextProvider selectors={FilterSelectorModel.TYPES.SEASONS}>
-            <Filter 
-              useFilterQueries={
-                useFilterQueries.bind(this, [
-                  useSeasonsFilterQuery.bind(this, {
-                    onChange: (value) => navigate(`./${value}`, { replace: true }),
-                    additionalOption: FilterOptionModel.ALL
-                  })
-                ])
-              }
-            />
-          </FilterContextProvider>
-        </>
+        <FilterContextProvider selectors={FilterSelectorModel.TYPES.SEASONS}>
+          <Filter 
+            useFilterQueries={
+              useFilterQueries.bind(this, [
+                useSeasonsFilterQuery.bind(this, {
+                  onChange: (value) => navigate(`./${value}`, { replace: true }),
+                  additionalOption: FilterOptionModel.ALL
+                })
+              ])
+            }
+          />
+        </FilterContextProvider>
       )}
 
       <ListingContextProvider>
