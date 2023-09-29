@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 
 // components
 import FilterSelector from './selector/FilterSelector'
-import SkeletonSelector from '../skeleton/SkeletonSelector'
+import FilterSkeleton from '../skeletons/filter/FilterSkeleton'
 
 // context
 import useFilterContext from './context/hooks/useFilterContext'
@@ -24,7 +24,7 @@ const Filter = ({ useFilterQueries, paramsUpdater, skeletonCounter = 1 }) => {
 	return (
 		<ul className="filter__container">
 			{preloading ? (
-				<SkeletonSelector counter={skeletonCounter} />
+				<FilterSkeleton counter={skeletonCounter} />
 			) : (
 				Object.values(selectors).map(
 					selector =>
