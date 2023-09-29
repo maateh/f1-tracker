@@ -1,17 +1,22 @@
+import { Suspense, lazy } from "react"
+import { useParams } from "react-router-dom"
+
 // components
-import SeasonListing from '../components/listing/rounds/SeasonListing'
-import WeekendRaceListing from '../components/listing/rounds/WeekendRaceListing'
-import WeekendQualifyingListing from '../components/listing/rounds/WeekendQualifyingListing'
+const SeasonListing = lazy(() => import('../components/listing/rounds/SeasonListing'))
+const WeekendRaceListing = lazy(() => import('../components/listing/rounds/WeekendRaceListing'))
+const WeekendQualifyingListing = lazy(() => import('../components/listing/rounds/WeekendQualifyingListing'))
 
-import DriverStandingsListing from '../components/listing/drivers/DriverStandingsListing'
-import DriverRacesListing from '../components/listing/drivers/DriverRacesListing'
-import DriverQualifyingsListing from '../components/listing/drivers/DriverQualifyingsListing'
+const DriverStandingsListing = lazy(() => import('../components/listing/drivers/DriverStandingsListing'))
+const DriverRacesListing = lazy(() => import('../components/listing/drivers/DriverRacesListing'))
+const DriverQualifyingsListing = lazy(() => import('../components/listing/drivers/DriverQualifyingsListing'))
 
-import ConstructorStandingsListing from '../components/listing/constructors/ConstructorStandingsListing'
-import ConstructorRacesListing from '../components/listing/constructors/ConstructorRacesListing'
+const ConstructorStandingsListing = lazy(() => import('../components/listing/constructors/ConstructorStandingsListing'))
+const ConstructorRacesListing = lazy(() => import('../components/listing/constructors/ConstructorRacesListing'))
 
-export const resultsLoader = ({ params }) => {
-	switch (params.standings) {
+const ResultsLoader = () => {
+  const params = useParams()
+
+  switch (params.standings) {
 		case 'rounds':
 			return routeRounds(params)
 		case 'drivers':
@@ -27,7 +32,11 @@ export const resultsLoader = ({ params }) => {
 const routeRounds = params => {
 	switch (params.id) {
 		case 'all':
-			return <SeasonListing />
+			return (
+        <Suspense fallback={<p>ListingSkeleton - title, cards[3], table</p>}>
+          <SeasonListing />
+        </Suspense>
+      )
 		default:
 			return routeRoundSession(params)
 	}
@@ -36,11 +45,23 @@ const routeRounds = params => {
 const routeRoundSession = params => {
 	switch (params.session) {
 		case 'race':
-			return <WeekendRaceListing />
+			return (
+        <Suspense fallback={<p>ListingSkeleton - title, cards[3], table</p>}>
+          <WeekendRaceListing />
+        </Suspense>
+      )
 		case 'qualifying':
-			return <WeekendQualifyingListing />
+			return (
+        <Suspense fallback={<p>ListingSkeleton - title, cards[3], table</p>}>
+          <WeekendQualifyingListing />
+        </Suspense>
+      )
 		default:
-			return <WeekendRaceListing />
+			return (
+        <Suspense fallback={<p>ListingSkeleton - title, cards[3], table</p>}>
+          <WeekendRaceListing />
+        </Suspense>
+      )
 	}
 }
 
@@ -48,7 +69,11 @@ const routeRoundSession = params => {
 const routeDrivers = params => {
 	switch (params.id) {
 		case 'all':
-			return <DriverStandingsListing />
+			return (
+        <Suspense fallback={<p>ListingSkeleton - title, cards[3], table</p>}>
+          <DriverStandingsListing />
+        </Suspense>
+      )
 		default:
 			return routeDriverSession(params)
 	}
@@ -57,11 +82,23 @@ const routeDrivers = params => {
 const routeDriverSession = params => {
 	switch (params.session) {
 		case 'race':
-			return <DriverRacesListing />
+			return (
+        <Suspense fallback={<p>ListingSkeleton - title, cards[3], table</p>}>
+          <DriverRacesListing />
+        </Suspense>
+      )
 		case 'qualifying':
-			return <DriverQualifyingsListing />
+			return (
+        <Suspense fallback={<p>ListingSkeleton - title, cards[3], table</p>}>
+          <DriverQualifyingsListing />
+        </Suspense>
+      )
 		default:
-			return <DriverRacesListing />
+			return (
+        <Suspense fallback={<p>ListingSkeleton - title, cards[3], table</p>}>
+          <DriverRacesListing />
+        </Suspense>
+      )
 	}
 }
 
@@ -69,8 +106,18 @@ const routeDriverSession = params => {
 const routeConstructors = params => {
 	switch (params.id) {
 		case 'all':
-			return <ConstructorStandingsListing />
+			return (
+        <Suspense fallback={<p>ListingSkeleton - title, cards[3], table</p>}>
+          <ConstructorStandingsListing />
+        </Suspense>
+      )
 		default:
-			return <ConstructorRacesListing />
+			return (
+        <Suspense fallback={<p>ListingSkeleton - title, cards[3], table</p>}>
+          <ConstructorRacesListing />
+        </Suspense>
+      )
 	}
 }
+
+export default ResultsLoader

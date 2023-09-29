@@ -1,12 +1,25 @@
+import { Suspense, lazy } from 'react'
+import { useParams } from 'react-router-dom'
+
 // components
-import RoundPitsListing from '../components/listing/RoundPitsListing'
-import DriverPitsListing from '../components/listing/DriverPitsListing'
+const RoundPitsListing = lazy(() => import('../components/listing/RoundPitsListing'))
+const DriverPitsListing = lazy(() => import('../components/listing/DriverPitsListing'))
 
 // models
-import FilterOption from '../../../../../model/filter/FilterOption'
+import FilterOptionModel from '../../../../../model/filter/FilterOption'
 
-export const pitsLoader = ({ params: { driverId } }) => {
-  return driverId === FilterOption.ALL.value 
-    ? <RoundPitsListing /> 
-    : <DriverPitsListing />
+const PitsLoader = () => {
+  const { driverId } = useParams()
+
+  return driverId === FilterOptionModel.ALL.value ? (
+    <Suspense fallback={<p>ListingSkeleton - title, cards[1], table</p>}>
+      <RoundPitsListing />
+    </Suspense>
+  ) : (
+    <Suspense fallback={<p>ListingSkeleton - title, cards[1], table</p>}>
+      <DriverPitsListing />
+    </Suspense>
+  )
 }
+
+export default PitsLoader

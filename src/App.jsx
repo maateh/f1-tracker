@@ -22,17 +22,16 @@ const DriverProfile = lazy(() => import('./pages/profile/pages/driver/DriverProf
 const ConstructorProfile = lazy(() => import('./pages/profile/pages/constructor/ConstructorProfile'))
 const CircuitProfile = lazy(() => import('./pages/profile/pages/circuit/CircuitProfile'))
 
-const Loader = lazy(() => import('./components/loader/Loader'))
 const NotFound = lazy(() => import('./components/error/NotFound'))
 
 // loaders
-import { resultsLoader } from './pages/results/loader/ResultsLoader'
-import { lapsLoader } from './pages/history/pages/laps/loader/LapsLoader'
-import { pitsLoader } from './pages/history/pages/pits/loader/PitsLoader'
-import CircularProgressIcon from '@mui/material/CircularProgress'
+const ResultsLoader = lazy(() => import('./pages/results/loader/ResultsLoader'))
+const LapsLoader = lazy(() => import('./pages/history/pages/laps/loader/LapsLoader'))
+const PitsLoader = lazy(() => import('./pages/history/pages/pits/loader/PitsLoader'))
 
 // skeletons
 import PageSkeleton from './components/skeletons/page/PageSkeleton'
+import CircularProgressIcon from '@mui/material/CircularProgress'
 
 const router = createBrowserRouter([
   {
@@ -58,7 +57,7 @@ const router = createBrowserRouter([
           {
             path: ":year",
             element: (
-              <Suspense fallback={<CircularProgressIcon />}>
+              <Suspense fallback={<p>ListingSkeleton - title, cards(9)</p>}>
                 <ScheduleListing />
               </Suspense>
             )
@@ -80,20 +79,18 @@ const router = createBrowserRouter([
           {
             path: ":year/:standings/:id",
             element: (
-              <Suspense fallback={<CircularProgressIcon />}>
-                <Loader />
+              <Suspense fallback={<p>ListingSkeleton - title, cards(3), table</p>}>
+                <ResultsLoader />
               </Suspense>
-            ),
-            loader: resultsLoader
+            )
           },
           {
             path: ":year/:standings/:id/:session",
             element: (
-              <Suspense fallback={<CircularProgressIcon />}>
-                <Loader />
+              <Suspense fallback={<p>ListingSkeleton - title, cards(3), table</p>}>
+                <ResultsLoader />
               </Suspense>
-            ),
-            loader: resultsLoader
+            )
           },
           {
             path: "*",
@@ -120,11 +117,10 @@ const router = createBrowserRouter([
               {
                 path: ":year/:round/:driverId",
                 element: (
-                  <Suspense fallback={<CircularProgressIcon />}>
-                    <Loader />
+                  <Suspense fallback={<p>ListingSkeleton - title, cards[1], table</p>}>
+                    <LapsLoader />
                   </Suspense>
-                ),
-                loader: lapsLoader
+                )
               },
               {
                 path: "*",
@@ -143,11 +139,10 @@ const router = createBrowserRouter([
               {
                 path: ":year/:round/:driverId",
                 element: (
-                  <Suspense fallback={<CircularProgressIcon />}>
-                    <Loader />
+                  <Suspense fallback={<p>ListingSkeleton - title, cards[1], table</p>}>
+                    <PitsLoader />
                   </Suspense>
-                ),
-                loader: pitsLoader
+                )
               },
               {
                 path: "*",
@@ -166,7 +161,7 @@ const router = createBrowserRouter([
               {
                 path: ":year",
                 element: (
-                  <Suspense fallback={<CircularProgressIcon />}>
+                  <Suspense fallback={<p>ListingSkeleton - title, cards[9]</p>}>
                     <DriversListing />
                   </Suspense>
                 )
@@ -184,7 +179,7 @@ const router = createBrowserRouter([
               {
                 path: ":year",
                 element: (
-                  <Suspense fallback={<CircularProgressIcon />}>
+                  <Suspense fallback={<p>ListingSkeleton - title, cards[9]</p>}>
                     <ConstructorsListing />
                   </Suspense>
                 )
@@ -202,7 +197,7 @@ const router = createBrowserRouter([
               {
                 path: ":year",
                 element: (
-                  <Suspense fallback={<CircularProgressIcon />}>
+                 <Suspense fallback={<p>ListingSkeleton - title, cards[9]</p>}>
                     <CircuitsListing />
                   </Suspense>
                 )

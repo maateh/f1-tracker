@@ -1,12 +1,19 @@
+import { lazy } from "react"
+import { useParams } from "react-router-dom"
+
 // components
-import RoundLapsListing from '../components/listing/RoundLapsListing'
-import DriverLapsListing from '../components/listing/DriverLapsListing'
+const RoundLapsListing = lazy(() => import('../components/listing/RoundLapsListing'))
+const DriverLapsListing = lazy(() => import('../components/listing/DriverLapsListing'))
 
 // models
-import FilterOption from '../../../../../model/filter/FilterOption'
+import FilterOptionModel from '../../../../../model/filter/FilterOption'
 
-export const lapsLoader = ({ params: { driverId } }) => {
-  return driverId === FilterOption.ALL.value 
+const LapsLoader = () => {
+  const { driverId } = useParams()
+
+  return driverId === FilterOptionModel.ALL.value 
     ? <RoundLapsListing /> 
     : <DriverLapsListing />
 }
+
+export default LapsLoader
