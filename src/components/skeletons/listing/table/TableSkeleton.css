@@ -1,3 +1,36 @@
 .table-skeleton__container {
-  width: 100%;
+  width: 90%;
+  max-width: 50rem;
+  border-spacing: 3.25rem 1rem;
+  border-radius: 10px;
+}
+
+/* header */
+.table-skeleton__container th.table-header-cell-skeleton {
+  height: 2.75rem;
+  border-radius: 4px;
+}
+
+/* body */
+.table-skeleton__container td.table-body-cell-skeleton {
+  height: 1.75rem;
+  border-radius: 2px;
+}
+
+/* mobile screens */
+@media (max-width: 40rem) {
+  .table-skeleton__container {
+    border-spacing: 2.25rem 1rem;
+  }
+
+  .table-skeleton__container th:nth-child(n+3),
+  .table-skeleton__container td:nth-child(n+3) {
+    display: none;
+  }
+}
+
+@media (max-width: 20rem) {
+  .table-skeleton__container {
+    border-spacing: 0.75rem 1rem;
+  }
 }

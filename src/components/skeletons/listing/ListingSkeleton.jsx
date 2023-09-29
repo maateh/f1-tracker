@@ -10,8 +10,7 @@ import '../Skeleton.css'
 const ListingSkeleton = ({
 	titleRequired,
 	cardsCounter,
-  tableColumnsCounter,
-	tableRowsCounter
+  tableRequired
 }) => {
 	return (
     <div className="listing-skeleton__container">
@@ -19,12 +18,7 @@ const ListingSkeleton = ({
 
       {cardsCounter && <CardsSkeleton counter={cardsCounter} />}
       
-      {tableColumnsCounter && tableRowsCounter && (
-        <TableSkeleton
-          columnsCounter={tableColumnsCounter}
-          rowsCounter={tableRowsCounter}
-        />
-      )}
+      {tableRequired && <TableSkeleton />}
     </div>
   )
 }

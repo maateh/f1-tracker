@@ -21,8 +21,7 @@ const ConstructorStandingsListing = () => {
 			{isLoading || isError ? (
 				<ListingSkeleton
 					titleRequired={true}
-					// tableColumnsCounter={4}
-					// tableRowsCounter={10}
+					tableRequired={true}
 				/>
 			) : title && table && (
 				<>

@@ -23,8 +23,7 @@ const RoundPitsListing = () => {
 				<ListingSkeleton
 					titleRequired={true}
 					cardsCounter={1}
-					// tableColumnsCounter={4}
-					// tableRowsCounter={10}
+					tableRequired={true}
 				/>
 			) : title && cards && table && (
 				<>

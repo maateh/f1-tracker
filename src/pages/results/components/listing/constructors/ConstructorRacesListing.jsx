@@ -23,8 +23,7 @@ const ConstructorRacesListing = () => {
 				<ListingSkeleton
 					titleRequired={true}
 					cardsCounter={3}
-					// tableColumnsCounter={4}
-					// tableRowsCounter={10}
+					tableRequired={true}
 				/>
 			) : title && cards && table && (
 				<>

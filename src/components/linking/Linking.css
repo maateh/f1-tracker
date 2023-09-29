@@ -5,13 +5,13 @@
 }
 
 .linking__container.small {
-  margin: auto;
+  margin: 0 auto;
 }
 .linking__container.medium {
-  margin: auto;
+  margin: 0 auto;
 }
 .linking__container.large {
-  margin: auto;
+  margin: 0 auto;
 }
 
 /* positioning */

@@ -17,8 +17,7 @@ const LapsLoader = () => {
       <ListingSkeleton
         titleRequired={true}
         cardsCounter={1}
-        // tableColumnsCounter={4}
-        // tableRowsCounter={10}
+        tableRequired={true}
       />
     }>
       <RoundLapsListing />
@@ -28,8 +27,7 @@ const LapsLoader = () => {
       <ListingSkeleton
         titleRequired={true}
         cardsCounter={1}
-        // tableColumnsCounter={4}
-        // tableRowsCounter={10}
+        tableRequired={true}
       />
     }>
       <DriverLapsListing />

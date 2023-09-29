@@ -17,8 +17,7 @@ const PitsLoader = () => {
       <ListingSkeleton
         titleRequired={true}
         cardsCounter={1}
-        // tableColumnsCounter={4}
-        // tableRowsCounter={10}
+        tableRequired={true}
       />
     }>
       <RoundPitsListing />
@@ -28,8 +27,7 @@ const PitsLoader = () => {
       <ListingSkeleton
         titleRequired={true}
         cardsCounter={1}
-        // tableColumnsCounter={4}
-        // tableRowsCounter={10}
+        tableRequired={true}
       />
     }>
       <DriverPitsListing />

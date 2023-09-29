@@ -36,8 +36,7 @@ const routeRounds = params => {
 					<ListingSkeleton
 						titleRequired={true}
 						cardsCounter={3}
-						// tableColumnsCounter={4}
-						// tableRowsCounter={10}
+						tableRequired={true}
 					/>
 				}>
           <SeasonListing />
@@ -56,8 +55,7 @@ const routeRoundSession = params => {
 					<ListingSkeleton
 						titleRequired={true}
 						cardsCounter={2}
-						// tableColumnsCounter={4}
-						// tableRowsCounter={10}
+						tableRequired={true}
 					/>
 				}>
           <WeekendRaceListing />
@@ -69,8 +67,7 @@ const routeRoundSession = params => {
 					<ListingSkeleton
 						titleRequired={true}
 						cardsCounter={1}
-						// tableColumnsCounter={4}
-						// tableRowsCounter={10}
+						tableRequired={true}
 					/>
 				}>
           <WeekendQualifyingListing />
@@ -82,8 +79,7 @@ const routeRoundSession = params => {
 					<ListingSkeleton
 						titleRequired={true}
 						cardsCounter={2}
-						// tableColumnsCounter={4}
-						// tableRowsCounter={10}
+						tableRequired={true}
 					/>
 				}>
           <WeekendRaceListing />
@@ -100,8 +96,7 @@ const routeDrivers = params => {
         <Suspense fallback={
 					<ListingSkeleton
 						titleRequired={true}
-						// tableColumnsCounter={4}
-						// tableRowsCounter={10}
+						tableRequired={true}
 					/>
 				}>
           <DriverStandingsListing />
@@ -120,8 +115,7 @@ const routeDriverSession = params => {
 					<ListingSkeleton
 						titleRequired={true}
 						cardsCounter={3}
-						// tableColumnsCounter={4}
-						// tableRowsCounter={10}
+						tableRequired={true}
 					/>
 				}>
           <DriverRacesListing />
@@ -133,8 +127,7 @@ const routeDriverSession = params => {
 					<ListingSkeleton
 						titleRequired={true}
 						cardsCounter={2}
-						// tableColumnsCounter={4}
-						// tableRowsCounter={10}
+						tableRequired={true}
 					/>
 				}>
           <DriverQualifyingsListing />
@@ -146,8 +139,7 @@ const routeDriverSession = params => {
 					<ListingSkeleton
 						titleRequired={true}
 						cardsCounter={3}
-						// tableColumnsCounter={4}
-						// tableRowsCounter={10}
+						tableRequired={true}
 					/>
 				}>
           <DriverRacesListing />
@@ -164,8 +156,7 @@ const routeConstructors = params => {
         <Suspense fallback={
 					<ListingSkeleton
 						titleRequired={true}
-						// tableColumnsCounter={4}
-						// tableRowsCounter={10}
+						tableRequired={true}
 					/>
 				}>
           <ConstructorStandingsListing />
@@ -177,8 +168,7 @@ const routeConstructors = params => {
 					<ListingSkeleton
 						titleRequired={true}
 						cardsCounter={3}
-						// tableColumnsCounter={4}
-						// tableRowsCounter={10}
+						tableRequired={true}
 					/>
 				}>
           <ConstructorRacesListing />
