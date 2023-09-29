@@ -4,7 +4,7 @@ import useScheduleListingQuery from "./hooks/useScheduleListingQuery"
 // components
 import ScheduleTitle from "./components/title/ScheduleTitle"
 import Cards from "../../../../components/listing/cards/Cards"
-import LoadingHandler from "../../../../components/loading/LoadingHandler"
+import ListingSkeleton from "../../../../components/skeletons/listing/ListingSkeleton"
 
 // context
 import useListingContext from '../../../../components/listing/context/hooks/useListingContext'
@@ -13,17 +13,15 @@ const ScheduleListing = () => {
   const { cards } = useListingContext()
   const {
     isLoading,
-    isError,
-    error
+    isError
   } = useScheduleListingQuery()
 
   return (
     <div className="listing__container">
       {isLoading || isError ? (
-        <LoadingHandler
-          isLoading={isLoading}
-          isError={isError}
-          error={error}
+        <ListingSkeleton
+          titleRequired={true}
+          cardsCounter={9}
         />
       ) : cards && (
         <>

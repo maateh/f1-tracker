@@ -4,7 +4,7 @@ import useDriverStandingsQuery from "./hooks/useDriverStandingsQuery"
 // components
 import Title from '../../../../../components/listing/title/Title'
 import Table from '../../../../../components/listing/table/Table'
-import LoadingHandler from '../../../../../components/loading/LoadingHandler'
+import ListingSkeleton from "../../../../../components/skeletons/listing/ListingSkeleton"
 
 // context
 import useListingContext from '../../../../../components/listing/context/hooks/useListingContext'
@@ -13,17 +13,16 @@ const DriverStandingsListing = () => {
 	const { title, table } = useListingContext()
   const {
     isLoading,
-    isError,
-    error
+    isError
   } = useDriverStandingsQuery()
 
 	return (
 		<div className="listing__container">
 			{isLoading || isError ? (
-				<LoadingHandler
-					isLoading={isLoading}
-					isError={isError}
-					error={error}
+				<ListingSkeleton
+					titleRequired={true}
+					// tableColumnsCounter={4}
+					// tableRowsCounter={10}
 				/>
 			) : title && table && (
 				<>

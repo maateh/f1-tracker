@@ -89,8 +89,8 @@ const router = createBrowserRouter([
                 <ListingSkeleton
                   titleRequired={true}
                   cardsCounter={3}
-                  tableColumnsCounter={4}
-                  tableRowsCounter={10}
+                  // tableColumnsCounter={4}
+                  // tableRowsCounter={10}
                 />
               }>
                 <ResultsLoader />
@@ -104,8 +104,8 @@ const router = createBrowserRouter([
                 <ListingSkeleton
                   titleRequired={true}
                   cardsCounter={3}
-                  tableColumnsCounter={4}
-                  tableRowsCounter={10}
+                  // tableColumnsCounter={4}
+                  // tableRowsCounter={10}
                 />
               }>
                 <ResultsLoader />
@@ -141,8 +141,8 @@ const router = createBrowserRouter([
                     <ListingSkeleton
                       titleRequired={true}
                       cardsCounter={1}
-                      tableColumnsCounter={4}
-                      tableRowsCounter={10}
+                      // tableColumnsCounter={4}
+                      // tableRowsCounter={10}
                     />
                   }>
                     <LapsLoader />
@@ -170,8 +170,8 @@ const router = createBrowserRouter([
                     <ListingSkeleton
                       titleRequired={true}
                       cardsCounter={1}
-                      tableColumnsCounter={4}
-                      tableRowsCounter={10}
+                      // tableColumnsCounter={4}
+                      // tableRowsCounter={10}
                     />
                   }>
                     <PitsLoader />

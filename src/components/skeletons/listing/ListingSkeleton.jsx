@@ -1,11 +1,11 @@
 // components
 import TitleSkeleton from './title/TitleSkeleton'
 import CardsSkeleton from './cards/CardsSkeleton'
+import TableSkeleton from './table/TableSkeleton'
 
 // styles
 import './ListingSkeleton.css'
 import '../Skeleton.css'
-import TableSkeleton from './table/TableSkeleton'
 
 const ListingSkeleton = ({
 	titleRequired,

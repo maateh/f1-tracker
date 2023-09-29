@@ -5,7 +5,7 @@ import useConstructorRacesQuery from "./hooks/useConstructorRacesQuery"
 import Title from '../../../../../components/listing/title/Title'
 import Cards from '../../../../../components/listing/cards/Cards'
 import Table from '../../../../../components/listing/table/Table'
-import LoadingHandler from '../../../../../components/loading/LoadingHandler'
+import ListingSkeleton from "../../../../../components/skeletons/listing/ListingSkeleton"
 
 // context
 import useListingContext from "../../../../../components/listing/context/hooks/useListingContext"
@@ -14,17 +14,17 @@ const ConstructorRacesListing = () => {
 	const { title, cards, table } = useListingContext()
   const {
     isLoading,
-    isError,
-    error
+    isError
   } = useConstructorRacesQuery()
 
 	return (
 		<div className="listing__container">
 			{isLoading || isError ? (
-				<LoadingHandler
-					isLoading={isLoading}
-					isError={isError}
-					error={error}
+				<ListingSkeleton
+					titleRequired={true}
+					cardsCounter={3}
+					// tableColumnsCounter={4}
+					// tableRowsCounter={10}
 				/>
 			) : title && cards && table && (
 				<>
