@@ -31,22 +31,8 @@ const PitsLoader = lazy(() => import('./pages/history/pages/pits/loader/PitsLoad
 
 // skeletons
 import PageSkeleton from './components/skeletons/page/PageSkeleton'
-import CircularProgressIcon from '@mui/material/CircularProgress'
-import ListingSkeleton from './components/skeletons/listing/ListingSkeleton'
 import FilterSkeleton from './components/skeletons/filter/FilterSkeleton'
-
-
-// fallbacks
-const filterFallback = ({ counter }) => <FilterSkeleton counter={counter} />
-
-const listingFallback = ({ titleRequired, cardsCounter, tableColumnsCounter, tableRowsCounter }) => (
-  <ListingSkeleton
-    titleRequired={titleRequired}
-    cardsCounter={cardsCounter}
-    tableColumnsCounter={tableColumnsCounter}
-    tableRowsCounter={tableRowsCounter}
-  />
-)
+import ListingSkeleton from './components/skeletons/listing/ListingSkeleton'
 
 const router = createBrowserRouter([
   {
@@ -72,7 +58,12 @@ const router = createBrowserRouter([
           {
             path: ":year",
             element: (
-              <Suspense fallback={<p>ListingSkeleton - title, cards(9)</p>}>
+              <Suspense fallback={
+                <ListingSkeleton
+                  titleRequired={true}
+                  cardsCounter={9}
+                />
+              }>
                 <ScheduleListing />
               </Suspense>
             )
@@ -94,7 +85,14 @@ const router = createBrowserRouter([
           {
             path: ":year/:standings/:id",
             element: (
-              <Suspense fallback={<p>ListingSkeleton - title, cards(3), table</p>}>
+              <Suspense fallback={
+                <ListingSkeleton
+                  titleRequired={true}
+                  cardsCounter={3}
+                  tableColumnsCounter={4}
+                  tableRowsCounter={10}
+                />
+              }>
                 <ResultsLoader />
               </Suspense>
             )
@@ -102,7 +100,14 @@ const router = createBrowserRouter([
           {
             path: ":year/:standings/:id/:session",
             element: (
-              <Suspense fallback={<p>ListingSkeleton - title, cards(3), table</p>}>
+              <Suspense fallback={
+                <ListingSkeleton
+                  titleRequired={true}
+                  cardsCounter={3}
+                  tableColumnsCounter={4}
+                  tableRowsCounter={10}
+                />
+              }>
                 <ResultsLoader />
               </Suspense>
             )
@@ -124,7 +129,7 @@ const router = createBrowserRouter([
           {
             path: "laps",
             element: (
-              <Suspense fallback={() => filterFallback({ counter: 3 })}>
+              <Suspense fallback={<FilterSkeleton counter={3} />}>
                 <LapsHistory />
               </Suspense>
             ),
@@ -132,7 +137,14 @@ const router = createBrowserRouter([
               {
                 path: ":year/:round/:driverId",
                 element: (
-                  <Suspense fallback={<p>ListingSkeleton - title, cards[1], table</p>}>
+                  <Suspense fallback={
+                    <ListingSkeleton
+                      titleRequired={true}
+                      cardsCounter={1}
+                      tableColumnsCounter={4}
+                      tableRowsCounter={10}
+                    />
+                  }>
                     <LapsLoader />
                   </Suspense>
                 )
@@ -146,7 +158,7 @@ const router = createBrowserRouter([
           {
             path: "pits",
             element: (
-              <Suspense fallback={() => filterFallback({ counter: 3 })}>
+              <Suspense fallback={<FilterSkeleton counter={3} />}>
                 <PitsHistory />
               </Suspense>
             ),
@@ -154,7 +166,14 @@ const router = createBrowserRouter([
               {
                 path: ":year/:round/:driverId",
                 element: (
-                  <Suspense fallback={<p>ListingSkeleton - title, cards[1], table</p>}>
+                  <Suspense fallback={
+                    <ListingSkeleton
+                      titleRequired={true}
+                      cardsCounter={1}
+                      tableColumnsCounter={4}
+                      tableRowsCounter={10}
+                    />
+                  }>
                     <PitsLoader />
                   </Suspense>
                 )
@@ -168,7 +187,7 @@ const router = createBrowserRouter([
           {
             path: "drivers",
             element: (
-              <Suspense fallback={() => filterFallback({ counter: 3 })}>
+              <Suspense fallback={<FilterSkeleton counter={1} />}>
                 <DriversHistory />
               </Suspense>
             ),
@@ -176,7 +195,12 @@ const router = createBrowserRouter([
               {
                 path: ":year",
                 element: (
-                  <Suspense fallback={<ListingSkeleton titleRequired={true} cardsCounter={9} />}>
+                  <Suspense fallback={
+                    <ListingSkeleton
+                      titleRequired={true}
+                      cardsCounter={9}
+                    />
+                  }>
                     <DriversListing />
                   </Suspense>
                 )
@@ -186,7 +210,7 @@ const router = createBrowserRouter([
           {
             path: "constructors",
             element: (
-              <Suspense fallback={() => filterFallback({ counter: 3 })}>
+              <Suspense fallback={<FilterSkeleton counter={1} />}>
                 <ConstructorsHistory />
               </Suspense>
             ),
@@ -194,7 +218,12 @@ const router = createBrowserRouter([
               {
                 path: ":year",
                 element: (
-                  <Suspense fallback={<ListingSkeleton titleRequired={true} cardsCounter={9} />}>
+                  <Suspense fallback={
+                    <ListingSkeleton
+                      titleRequired={true}
+                      cardsCounter={9}
+                    />
+                  }>
                     <ConstructorsListing />
                   </Suspense>
                 )
@@ -204,7 +233,7 @@ const router = createBrowserRouter([
           {
             path: "circuits",
             element: (
-              <Suspense fallback={() => filterFallback({ counter: 3 })}>
+              <Suspense fallback={<FilterSkeleton counter={1} />}>
                 <CircuitsHistory />
               </Suspense>
             ),
@@ -212,7 +241,12 @@ const router = createBrowserRouter([
               {
                 path: ":year",
                 element: (
-                  <Suspense fallback={<ListingSkeleton titleRequired={true} cardsCounter={9} />}>
+                  <Suspense fallback={
+                    <ListingSkeleton
+                      titleRequired={true}
+                      cardsCounter={9}
+                    />
+                  }>
                     <CircuitsListing />
                   </Suspense>
                 )

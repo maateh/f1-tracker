@@ -3,6 +3,7 @@ import { useQuery } from 'react-query'
 
 // components
 import Filter from '../../components/filter/Filter'
+import FilterSkeleton from '../../components/skeletons/filter/FilterSkeleton'
 
 // hooks
 import useResultsFilterQueries from './components/filter/hooks/useResultsFilterQueries'
@@ -17,14 +18,11 @@ import WeekendModel from '../../model/season/weekend/Weekend'
 import FilterOptionModel from '../../model/filter/FilterOption'
 import FilterSelectorModel from '../../model/filter/FilterSelector'
 
-// icons
-import CircularProgress from '@mui/material/CircularProgress'
-
 const ResultsContent = () => {
 	const { year, id } = useParams()
 	const navigate = useNavigate()
 
-	const { isLoading, isError, error } = useQuery({
+	useQuery({
 		queryKey: ['lastRound'],
 		queryFn: WeekendModel.queryLast,
 		onSuccess: ({ year }) =>
@@ -34,9 +32,7 @@ const ResultsContent = () => {
 
 	return (
 		<div className="results-content">
-			{isLoading && <CircularProgress />}
-
-			{year && id && (
+			{year && id ? (
 				<FilterContextProvider 
 					selectors={{
 						...FilterSelectorModel.TYPES.SEASONS,
@@ -50,9 +46,7 @@ const ResultsContent = () => {
 						skeletonCounter={3}
 					/>
 				</FilterContextProvider>
-			)}
-
-			{isError && <p className="error__element">{error.message}</p>}
+			) : <FilterSkeleton counter={3} />}
 
 			<ListingContextProvider>
 				<Outlet />

@@ -5,6 +5,7 @@ import useObserver from "../../../../../../components/listing/cards/hooks/useObs
 // components
 import Title from "../../../../../../components/listing/title/Title"
 import Cards from "../../../../../../components/listing/cards/Cards"
+import ListingSkeleton from "../../../../../../components/skeletons/listing/ListingSkeleton"
 import LoadingHandler from "../../../../../../components/loading/LoadingHandler"
 
 // context
@@ -30,7 +31,7 @@ const DriversListing = () => {
 
 	return (
 		<div className="listing__container">
-			{title && cards && data && (
+			{title && cards && data ? (
 				<>
 					<Title title={title} />
 					<Cards
@@ -39,6 +40,11 @@ const DriversListing = () => {
 						lastRef={lastRef}
 					/>
 				</>
+			) : (
+				<ListingSkeleton
+					titleRequired={true}
+					cardsCounter={9}
+				/>
 			)}
 
 			<LoadingHandler

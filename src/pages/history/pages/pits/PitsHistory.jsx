@@ -3,6 +3,7 @@ import { useQuery } from 'react-query'
 
 // components
 import Filter from '../../../../components/filter/Filter'
+import FilterSkeleton from '../../../../components/skeletons/filter/FilterSkeleton'
 
 // hooks
 import useFilterQueries from '../../../../components/filter/hooks/useFilterQueries'
@@ -20,14 +21,11 @@ import WeekendModel from "../../../../model/season/weekend/Weekend"
 import FilterSelectorModel from "../../../../model/filter/FilterSelector"
 import FilterOptionModel from '../../../../model/filter/FilterOption'
 
-// icons
-import CircularProgress from '@mui/material/CircularProgress'
-
 const PitsHistory = () => {
   const { year, round, driverId } = useParams()
   const navigate = useNavigate()
 
-  const { isLoading, isError, error } = useQuery({
+  useQuery({
 		queryKey: ['lastRound'],
 		queryFn: WeekendModel.queryLast,
 		onSuccess: ({ year, round }) => {
@@ -39,9 +37,7 @@ const PitsHistory = () => {
 
   return (
     <div className="history-category__container">
-      {isLoading && <CircularProgress />}
-
-      {year && round && (
+      {year && round ? (
         <FilterContextProvider selectors={{
           ...FilterSelectorModel.TYPES.SEASONS,
           ...FilterSelectorModel.TYPES.ROUNDS,
@@ -76,9 +72,7 @@ const PitsHistory = () => {
             skeletonCounter={3}
           />
         </FilterContextProvider>
-      )}
-
-      {isError && <p className="error__element">{error.message}</p>}
+      ) : <FilterSkeleton counter={3} />}
 
       <ListingContextProvider>
         <Outlet />

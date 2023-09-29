@@ -19,15 +19,13 @@ import { LAPS_PARAMS_UPDATER } from "../../../../components/filter/context/Filte
 import WeekendModel from "../../../../model/season/weekend/Weekend"
 import FilterSelectorModel from "../../../../model/filter/FilterSelector"
 import FilterOptionModel from "../../../../model/filter/FilterOption"
-
-// icons
-import CircularProgress from '@mui/material/CircularProgress'
+import FilterSkeleton from "../../../../components/skeletons/filter/FilterSkeleton"
 
 const LapsHistory = () => {
   const { year, round } = useParams()
   const navigate = useNavigate()
 
-	const { isLoading, isError, error } = useQuery({
+	useQuery({
 		queryKey: ['lastRound'],
 		queryFn: WeekendModel.queryLast,
 		onSuccess: ({ year, round }) => {
@@ -39,9 +37,7 @@ const LapsHistory = () => {
 
   return (
     <div className="history-category__container">
-      {isLoading && <CircularProgress />}
-      
-      {year && round && (
+      {year && round ? (
         <FilterContextProvider selectors={{
           ...FilterSelectorModel.TYPES.SEASONS,
           ...FilterSelectorModel.TYPES.ROUNDS,
@@ -76,9 +72,7 @@ const LapsHistory = () => {
             skeletonCounter={3}
           />
         </FilterContextProvider>
-      )}
-
-      {isError && <p className="error__element">{error.message}</p>}
+      ) : <FilterSkeleton counter={3} />}
 
       <ListingContextProvider>
         <Outlet />
