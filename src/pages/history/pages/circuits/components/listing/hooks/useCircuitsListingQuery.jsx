@@ -41,7 +41,10 @@ const useCircuitsListingQuery = () => {
 
         const circuits = CircuitModel.parseList({ Circuits: data.Circuits })
         const cardsLayouts = circuits.map(circuit => (
-          <CircuitCard key={circuit.id} circuit={circuit} />
+          <CircuitCard
+            key={circuit.id}
+            circuit={circuit}
+          />
         ))
 
         setTitle({

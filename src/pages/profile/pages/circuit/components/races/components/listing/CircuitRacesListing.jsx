@@ -1,6 +1,7 @@
 // components
 import Cards from "../../../../../../../../components/listing/cards/Cards"
-import LoadingHandler from "../../../../../../../../components/loading/LoadingHandler"
+import CardsSkeleton from "../../../../../../../../components/skeletons/listing/cards/CardsSkeleton"
+import LoadingSkeleton from "../../../../../../../../components/skeletons/loading/LoadingSkeleton"
 
 // hooks
 import useCircuitRacesListingQuery from "./hooks/useCircuitRacesListingQuery"
@@ -15,10 +16,7 @@ const CircuitRacesListing = () => {
     data,
     fetchNextPage,
     hasNextPage,
-    isFetchingNextPage,
-    isLoading,
-    isError,
-    error
+    isFetchingNextPage
   } = useCircuitRacesListingQuery()
 
   const lastRef = useObserver({
@@ -29,19 +27,19 @@ const CircuitRacesListing = () => {
 
   return (
     <div className="circuit-races-listing__container">
-      {cards && data && (
+      {cards && data ? (
         <Cards
           cards={cards}
           lastIndex={data.pages[data.pages.length - 1].limit}
           lastRef={lastRef}
         />
+      ) : (
+        <CardsSkeleton counter={9} />
       )}
 
-      <LoadingHandler
-        isLoading={isLoading}
-        isError={isError}
-        error={error}
-      />
+      {isFetchingNextPage && (
+				<LoadingSkeleton linear={true} />
+			)}
     </div>
   )
 }

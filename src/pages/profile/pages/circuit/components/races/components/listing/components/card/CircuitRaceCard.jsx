@@ -17,7 +17,7 @@ import PublicIcon from '@mui/icons-material/Public'
 // styles
 import './CircuitRaceCard.css'
 
-const CircuitRaceCard = ({ weekend }) => {
+const CircuitRaceCard = ({ weekend, lastRef }) => {
   const navigate = useNavigate()
 
   return (
@@ -28,6 +28,7 @@ const CircuitRaceCard = ({ weekend }) => {
       borderColor={CARD_COLOR_SECONDARY}
       invertOnHover={true}
       onClick={() => navigate(`/results/${weekend.year}/rounds/${weekend.round}/race`)}
+      lastRef={lastRef}
     >
       <h3 className="weekend-year">{weekend.year}</h3>
       <p className="weekend-date icon__container dark">

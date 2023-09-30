@@ -1,7 +1,7 @@
 /* container */
 .cards-skeleton__container {
   width: 87%;
-  margin: 1.25rem;
+  margin: 1.25rem auto;
 
   justify-content: center;
   align-items: center;

@@ -1,6 +1,6 @@
 // components
 import ConstructorSeasonsListing from "./components/listing/ConstructorSeasonsListing"
-import LoadingHandler from "../../../../../../components/loading/LoadingHandler"
+import ListingSkeleton from "../../../../../../components/skeletons/listing/ListingSkeleton"
 
 // hooks
 import useConstructorSeasonsListing from "./hooks/useConstructorSeasonsListing"
@@ -16,14 +16,15 @@ const ConstructorSeasons = () => {
 
   return (
     <section className="constructor-seasons__container">
-      {!cards ? (
-        <LoadingHandler
-          isLoading={!cards}
-        />
-      ) : (
+      {title && cards ? (
         <ListingContextProvider initialState={{ title, cards }}>
           <ConstructorSeasonsListing />
         </ListingContextProvider>
+      ) : (
+        <ListingSkeleton
+          titleRequired={true}
+          cardsCounter={9}
+        />
       )}
     </section>
   )

@@ -1,6 +1,6 @@
 // components
 import DriverSeasonsListing from "./components/listing/DriverSeasonsListing"
-import LoadingHandler from "../../../../../../components/loading/LoadingHandler"
+import ListingSkeleton from "../../../../../../components/skeletons/listing/ListingSkeleton"
 
 // hooks
 import useDriverSeasonsListing from "./hooks/useDriverSeasonsListing"
@@ -16,12 +16,15 @@ const DriverSeasons = () => {
 
   return (
     <section className="driver-seasons__container">
-      {!title || !cards ? (
-        <LoadingHandler isLoading={true} />
-      ) : (
+      {title && cards ? (
         <ListingContextProvider initialState={{ title, cards }}>
           <DriverSeasonsListing />
         </ListingContextProvider>
+      ) : (
+        <ListingSkeleton
+          titleRequired={true}
+          cardsCounter={9}
+        />
       )}
     </section>
   )
