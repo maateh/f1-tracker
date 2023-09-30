@@ -1,6 +1,6 @@
 // components
 import Achievement from "./Achievement"
-import LoadingHandler from "../../../../components/loading/LoadingHandler"
+import AchievementsSkeleton from "../../../../components/skeletons/profile/achievement/AchievementsSkeleton"
 
 // styles
 import './Achievements.css'
@@ -8,10 +8,7 @@ import './Achievements.css'
 const Achievements = ({ useAchievements, note }) => {
   const { achievements } = useAchievements()
 
-	// TODO - loading layouts
-	return !achievements ? (
-		<LoadingHandler isLoading={true} />
-	) : (
+	return achievements ? (
     <section className="achievements-holder__container">
       <h2 className="achievements__title">Career Achievements</h2>
 
@@ -28,6 +25,8 @@ const Achievements = ({ useAchievements, note }) => {
 
       {note && <p className="achievements__note">{note}</p>}
     </section>
+	) : (
+    <AchievementsSkeleton />
   )
 }
 
