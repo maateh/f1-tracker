@@ -6,7 +6,7 @@ import useObserver from "../../../../../../components/listing/cards/hooks/useObs
 import Title from "../../../../../../components/listing/title/Title"
 import Cards from "../../../../../../components/listing/cards/Cards"
 import ListingSkeleton from "../../../../../../components/skeletons/listing/ListingSkeleton"
-import LoadingHandler from "../../../../../../components/loading/LoadingHandler"
+import LoadingSkeleton from "../../../../../../components/skeletons/loading/LoadingSkeleton"
 
 // context
 import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
@@ -17,10 +17,7 @@ const DriversListing = () => {
     data,
     fetchNextPage,
     hasNextPage,
-		isFetchingNextPage,
-		isLoading,
-		isError,
-    error
+		isFetchingNextPage
   } = useDriversListingQuery()
 
 	const lastRef = useObserver({
@@ -47,11 +44,9 @@ const DriversListing = () => {
 				/>
 			)}
 
-			<LoadingHandler
-				isLoading={isLoading || isFetchingNextPage}
-				isError={isError}
-				error={error}
-			/>
+			{isFetchingNextPage && (
+				<LoadingSkeleton linear={true} />
+			)}
 		</div>
 	)
 }

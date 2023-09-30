@@ -1,0 +1,24 @@
+.loading-skeleton__container {
+  width: 70%;
+  max-width: 30rem;
+  margin: auto;
+  margin-top: 5rem;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+/* linear progress */
+.loading-skeleton__container .loading-skeleton__linear-progress-bar {
+  height: 0.6rem;
+  background-color: var(--skeleton);
+  border-radius: 16px;
+}
+.loading-skeleton__container .loading-skeleton__linear-progress-bar > span {
+  background-color: var(--accent-red);
+}
+
+/* circular progress */
+.loading-skeleton__container .loading-skeleton__circular-progress-bar {
+  color: var(--accent-red);
+  background: none;
+}

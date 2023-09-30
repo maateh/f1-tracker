@@ -2,7 +2,7 @@
 import './TableSkeleton.css'
 import '../../Skeleton.css'
 
-const TableSkeleton = ({ columnsCounter, rowsCounter }) => {
+const TableSkeleton = () => {
   return (
     <table className="table-skeleton__container">
       <thead>

@@ -1,5 +1,5 @@
-// icons
-import CircularProgressIcon from '@mui/material/CircularProgress'
+// components
+import LoadingSkeleton from '../loading/LoadingSkeleton'
 
 // styles
 import './PageSkeleton.css'
@@ -8,11 +8,8 @@ import '../Skeleton.css'
 const PageSkeleton = () => {
   return (
     <div className="page-skeleton__container">
-      <div className="page-skeleton__title skeleton skeleton"></div>
-      <CircularProgressIcon
-        className="page-skeleton__icon"
-        size={64}
-      />
+      <div className="page-skeleton__title skeleton"></div>
+      <LoadingSkeleton linear={true} />
     </div>
   )
 }

@@ -1,7 +1,9 @@
 .table-skeleton__container {
   width: 90%;
   max-width: 50rem;
-  border-spacing: 3.25rem 1rem;
+  margin: 1.25rem auto;
+
+  border-spacing: 3.25rem 1.25rem;
   border-radius: 10px;
 }
 

@@ -1,22 +1,16 @@
 .page-skeleton__container {
   width: 100%;
   height: 100%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .page-skeleton__container .page-skeleton__title {
   width: 80%;
   max-width: 40rem;
-  height: 4rem;
-  margin: 5rem;
+  height: 5rem;
+  margin: 5rem auto;
 }
 
-.page-skeleton__container .page-skeleton__icon {
-  color: var(--primary);
-  position: absolute;
-  top: 40%;
+/* progress bar */
+.page-skeleton__container .loading-skeleton__container {
+  margin: 20vh auto;
 }
