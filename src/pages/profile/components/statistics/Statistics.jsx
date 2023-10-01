@@ -1,21 +1,14 @@
 // components
 import Statistic from './Statistic'
-import LoadingHandler from '../../../../components/loading/LoadingHandler'
+import StatisticsSkeleton from '../../../../components/skeletons/profile/statistics/StatisticsSkeleton'
 
 // styles
 import './Statistics.css'
 
 const Statistics = ({ title, note, useStatsQuery }) => {
-	const { data: stats, isLoading, isError, error } = useStatsQuery()
+	const { data: stats, isLoading, isError } = useStatsQuery()
 
-	// TODO - loading layouts
-	return isLoading || isError || error ? (
-		<LoadingHandler
-			isLoading={isLoading}
-			isError={isError}
-			error={error}
-		/>
-	) : (
+	return !isLoading && stats ? (
 		<div className="stats__container">
 			<h3 className="stats__title">{title}</h3>
 
@@ -32,6 +25,8 @@ const Statistics = ({ title, note, useStatsQuery }) => {
 
 			{note && <p className="stats__note">{note}</p>}
 		</div>
+	) : (
+		<StatisticsSkeleton titleFallback={title} />
 	)
 }
 

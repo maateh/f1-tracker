@@ -11,7 +11,7 @@ import './Information.css'
 const Information = ({ useInformationQuery }) => {
   const { data, isLoading, isError } = useInformationQuery()
 
-  return !isLoading || !isError && data ? (
+  return !isLoading && data ? (
     <section className="information__container">
       <h2 className="page__title">{data.title}</h2>
 
