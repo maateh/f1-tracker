@@ -7,6 +7,7 @@ import EngineeringIcon from '@mui/icons-material/Engineering'
 import EventBusyIcon from '@mui/icons-material/EventBusy'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 import AlarmOnIcon from '@mui/icons-material/AlarmOn'
+import Linking from "../../../../../../../components/linking/Linking"
 
 const useDriverAchievements = () => {
   const { races, qualifyings } = useDriverProfileContext()
@@ -61,12 +62,20 @@ function parseWeekendData(weekend, displayConstructor = false) {
   const session = weekend.sessions.race || weekend.sessions.qualifying
 
   const achievedInfo = displayConstructor
-    ? `#${results[0].position} (with ${results[0].constructor.name})`
+    ? <Linking
+        link={`/profile/constructor/${results[0].constructor.id}`}
+        text={`#${results[0].position} (with ${results[0].constructor.name})`}
+        tooltipText="Open Constructor's profile page"
+      />
     : `#${results[0].position}`
 
   return {
     achieved: achievedInfo,
-    name: weekend.name,
+    name: <Linking
+      link={`/results/${weekend.year}/rounds/${weekend.round}/race`}
+      text={weekend.name}
+      tooltipText="Open Race Results"
+    />,
     link: `/results/${weekend.year}/rounds/${weekend.round}/race`,
     date: session.getFormattedDate('yyyy. MM. dd.'),
   }
@@ -74,8 +83,11 @@ function parseWeekendData(weekend, displayConstructor = false) {
 
 function parseTeamData(constructor) {
   return {
-    name: constructor.name,
-    link: `/profile/constructors/${constructor.id}`
+    name: <Linking
+      link={`/profile/constructor/${constructor.id}`}
+      text={constructor.name}
+      tooltipText="Open Constructor's profile page"
+    />
   }
 }
 

@@ -83,11 +83,10 @@ function participations(standingsList) {
 }
 
 function bestResult(standingsList) {
-  return '#' + standingsList.reduce((prev, curr) => {
-    const prevPos = isNaN(prev) ? prev.constructors[0].position : prev
-    const currPos = curr.constructors[0].position
+  return '#' + standingsList.reduce((prevPos, curr) => {
+    const currPos = +curr.constructors[0].position
     return Math.min(prevPos, currPos)
-  })
+  }, +standingsList[0].constructors[0].position)
 }
 
 function highestPoints(standingsList) {
@@ -96,13 +95,15 @@ function highestPoints(standingsList) {
     const currPoints = +curr.constructors[0].points
     return prevPoints > currPoints ? prev : curr
   })
-  return `${standings.constructors[0].points} points (${standings.year})`
+  const points = +standings.constructors[0].points
+  return points ? `${points} points (${standings.year})` : '-'
 }
 
 function totalPoints(standingsList) {
-  return standingsList.reduce((acc, curr) => {
+  const points = standingsList.reduce((acc, curr) => {
     return acc + +curr.constructors[0].points
-  }, +standingsList[0].constructors[0].points) + ' points'
+  }, +standingsList[0].constructors[0].points)
+  return points ? `${points} points` : '-'
 }
 
 export default useConstructorStandingsStatsQuery

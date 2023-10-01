@@ -32,7 +32,9 @@ const useCircuitInformationQuery = () => {
         return {
           title: circuit.name,
           informations: [{
-            data: `Total of ${info.total} races at this track so far!`,
+            data: <>
+              Total of <span className="highlight">{info.total}</span> races at this track so far!
+            </>,
             icon: <InfoIcon style={{ fontSize: '2.5rem' }} />,
             styles: { fontSize: '2rem', fontWeight: 600 }
           }],

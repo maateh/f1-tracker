@@ -95,13 +95,15 @@ function highestPoints(standingsList) {
     const currPoints = +curr.drivers[0].points
     return prevPoints > currPoints ? prev : curr
   })
-  return `${standings.drivers[0].points} points (${standings.year})`
+  const points = +standings.drivers[0].points
+  return points ? `${points} points (${standings.year})` : '-'
 }
 
 function totalPoints(standingsList) {
-  return standingsList.reduce((acc, curr) => {
+  const points = standingsList.reduce((acc, curr) => {
     return acc + +curr.drivers[0].points
-  }, +standingsList[0].drivers[0].points) + ' points'
+  }, +standingsList[0].drivers[0].points)
+  return points ? `${points} points` : '-'
 }
 
 export default useDriverStandingsStatsQuery

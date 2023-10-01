@@ -17,7 +17,7 @@ import DriverProfileContextProvider from './context/DriverProfileContext'
 
 const DriverProfile = () => {
   return (
-    <div className="driver-profile__container page__container">
+    <main className="driver-profile__container page__container">
       <DriverProfileContextProvider>
         <Information useInformationQuery={useDriverInformationQuery} />
         <Achievements useAchievements={useDriverAchievements} />
@@ -38,7 +38,7 @@ const DriverProfile = () => {
         </StatisticsHolder>
         <DriverSeasons />
       </DriverProfileContextProvider>
-    </div>
+    </main>
   )
 }
 

@@ -17,7 +17,7 @@ import ConstructorProfileContextProvider from './context/ConstructorProfileConte
 
 const ConstructorProfile = () => {
   return (
-    <div className="constructor-profile__container page__container">
+    <main className="constructor-profile__container page__container">
       <ConstructorProfileContextProvider>
         <Information useInformationQuery={useConstructorInformationQuery} />
         <Achievements useAchievements={useConstructorAchievements} />
@@ -38,7 +38,7 @@ const ConstructorProfile = () => {
         </StatisticsHolder>
         <ConstructorSeasons />
       </ConstructorProfileContextProvider>
-    </div>
+    </main>
   )
 }
 

@@ -1,3 +1,6 @@
+// components
+import Linking from "../../../../../../../components/linking/Linking";
+
 // context
 import useConstructorProfileContext from "../../../context/hooks/useConstructorProfileContext"
 
@@ -61,22 +64,38 @@ function parseWeekendData(weekend, parseOnlyBest = false) {
   const session = weekend.sessions.race || weekend.sessions.qualifying
 
   const achievedInfo = parseOnlyBest
-    ? `#${results[0].position} place (with ${results[0].driver.code})`
+    ? <Linking
+      link={`/profile/driver/${results[0].driver.id}`}
+      text={`#${results[0].position} place (with ${results[0].driver.code})`}
+      tooltipText="Open Driver's profile page"
+    />
     : results.map(result => `#${result.position}`).join(', ')
 
   return {
     achieved: achievedInfo,
-    name: weekend.name,
+    name: <Linking
+      link={`/results/${weekend.year}/rounds/${weekend.round}/race`}
+      text={weekend.name}
+      tooltipText="Open Race Results"
+    />,
     nameLink: `/results/${weekend.year}/rounds/${weekend.round}/race`,
     date: session.getFormattedDate('yyyy. MM. dd.'),
   }
 }
 
 function parseDriversData(drivers) {
-  const driversNames = drivers.map(d => `${d.code}${d.number ? ` #${d.number}` : ''}`)
+  const driversNames = drivers.map(d => (
+    <Linking
+      key={d.id}
+      link={`/profile/driver/${d.id}`}
+      text={`${d.code}${d.number ? ` #${d.number}` : ''}`}
+      tooltipText="Open Driver's profile page"
+      linkStyles={{ marginLeft: '1rem' }}
+    />
+  ))
 
   return {
-    name: driversNames.join(', '),
+    name: driversNames,
     nameLink: `/profile/constructors/${constructor.id}`
   }
 }
