@@ -1,2 +1,0 @@
-export const SET_CIRCUIT = 'SET_CIRCUIT'
-export const SET_RACES_AMOUNT = 'SET_RACES_AMOUNT'

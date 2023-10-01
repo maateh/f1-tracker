@@ -4,15 +4,17 @@ import { useQuery } from "react-query"
 // api
 import { driver } from '../../../../../../../api/drivers/driver'
 
-// context
-import useDriverProfileContext from "../../../context/hooks/useDriverProfileContext"
-
 // models
 import DriverModel from "../../../../../../../model/season/weekend/results/driver/Driver"
 import QueryError from "../../../../../../../model/error/QueryError"
 
+// icons
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
+import FlagIcon from '@mui/icons-material/Flag'
+import CakeIcon from '@mui/icons-material/Cake'
+import PublicIcon from '@mui/icons-material/Public'
+
 const useDriverInformationQuery = () => {
-  const { setDriver } = useDriverProfileContext()
   const { id } = useParams()
 
   return useQuery({
@@ -23,9 +25,31 @@ const useDriverInformationQuery = () => {
           throw new QueryError('No data found!', 404)
         }
 
-        setDriver({
-          driver: DriverModel.parser({ Driver: data.Drivers[0] })
-        })
+        const driver = DriverModel.parser({ Driver: data.Drivers[0] })
+        return {
+          title: driver.fullName,
+          informations: [
+            {
+              data: `${driver.code} ${driver.formattedNumber}`,
+              icon: <AlternateEmailIcon />,
+              styles: { fontWeight: 800 }
+            },
+            {
+              data: driver.formattedDateOfBirth,
+              icon: <CakeIcon />
+            },
+            {
+              data: driver.nationality,
+              icon: <FlagIcon />
+            }
+          ],
+          links: [{
+            url: driver.wiki,
+            text: 'Wikipedia page',
+            tooltipText: 'Go to the Wikipedia page',
+            icon: <PublicIcon />
+          }]
+        }
       })
       .catch(err => {
         throw new QueryError(err.message, err.code)

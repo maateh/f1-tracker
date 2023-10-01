@@ -4,7 +4,6 @@ import { createContext, useReducer } from "react"
 import * as actionType from './ConstructorProfileContextActions'
 
 const INITIAL_STATE = {
-  constructor: null,
   standingsList: null,
   races: null,
   qualifyings: null
@@ -12,8 +11,6 @@ const INITIAL_STATE = {
 
 const dataReducer = (state, action) => {
 	switch (action.type) {
-		case actionType.SET_CONSTRUCTOR:
-			return { ...state, constructor: action.payload }
     case actionType.SET_STANDINGS_LIST:
       return { ...state, standingsList: action.payload }
     case actionType.SET_RACES:
@@ -29,13 +26,6 @@ export const ConstructorProfileContext = createContext()
 
 const ConstructorProfileContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(dataReducer, INITIAL_STATE)
-
-  const setConstructor = ({ constructor }) => {
-    dispatch({
-      type: actionType.SET_CONSTRUCTOR,
-      payload: constructor
-    })
-  }
   
   const setStandingsList = ({ standingsList }) => {
     dispatch({
@@ -62,7 +52,6 @@ const ConstructorProfileContextProvider = ({ children }) => {
     <ConstructorProfileContext.Provider value={{
       ...state,
       dispatch,
-      setConstructor,
       setStandingsList,
       setRaces,
       setQualifyings

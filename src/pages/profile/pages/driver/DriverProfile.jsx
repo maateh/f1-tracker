@@ -1,11 +1,12 @@
 // components
-import DriverInformation from './components/information/DriverInformation'
+import Information from '../../components/information/Information'
 import Achievements from '../../components/achievements/Achievements'
 import StatisticsHolder from '../../components/statistics/StatisticsHolder'
 import Statistics from '../../components/statistics/Statistics'
 import DriverSeasons from './components/seasons/DriverSeasons'
 
 // hooks
+import useDriverInformationQuery from './components/information/hooks/useDriverInformationQuery'
 import useDriverAchievements from './components/achievements/hooks/useDriverAchievements'
 import useDriverRacesStatsQuery from './components/stats/hooks/useDriverRacesStatsQuery'
 import useDriverStandingsStatsQuery from './components/stats/hooks/useDriverStandingsStatsQuery'
@@ -18,7 +19,7 @@ const DriverProfile = () => {
   return (
     <div className="driver-profile__container page__container">
       <DriverProfileContextProvider>
-        <DriverInformation />
+        <Information useInformationQuery={useDriverInformationQuery} />
         <Achievements useAchievements={useDriverAchievements} />
         <StatisticsHolder>
           <Statistics

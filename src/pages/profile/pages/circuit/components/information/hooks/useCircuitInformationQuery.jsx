@@ -5,15 +5,16 @@ import { useQuery } from "react-query"
 import { circuit } from "../../../../../../../api/circuits/circuit"
 import { circuitRaces } from "../../../../../../../api/circuits/races/circuitRaces"
 
-// context
-import useCircuitProfileContext from "../../../context/hooks/useCircuitProfileContext"
-
 // models
 import CircuitModel from "../../../../../../../model/season/weekend/circuit/Circuit"
 import QueryError from "../../../../../../../model/error/QueryError"
 
+// icons
+import InfoIcon from '@mui/icons-material/Info'
+import MapIcon from '@mui/icons-material/Map'
+import PublicIcon from '@mui/icons-material/Public'
+
 const useCircuitInformationQuery = () => {
-  const { setCircuit, setRacesAmount } = useCircuitProfileContext()
   const { id } = useParams()
 
   return useQuery({
@@ -27,13 +28,29 @@ const useCircuitInformationQuery = () => {
           throw new QueryError('No data found!', 404)
         }
 
-        setCircuit({
-          circuit: CircuitModel.parser({ Circuit: data.Circuits[0] })
-        })
-
-        setRacesAmount({
-          racesAmount: info.total
-        })
+        const circuit = CircuitModel.parser({ Circuit: data.Circuits[0] })
+        return {
+          title: circuit.name,
+          informations: [{
+            data: `Total of ${info.total} races at this track so far!`,
+            icon: <InfoIcon style={{ fontSize: '2.5rem' }} />,
+            styles: { fontSize: '2rem', fontWeight: 600 }
+          }],
+          links: [
+            {
+            url: circuit.getLocality(),
+            text: 'Wikipedia page',
+            tooltipText: 'Open on Maps',
+            icon: <MapIcon />
+            },
+            {
+              url: circuit.wiki,
+              text: 'Wikipedia page',
+              tooltipText: 'Go to the Wikipedia page',
+              icon: <PublicIcon />
+            }
+          ]
+        }
       })
       .catch(err => {
         throw new QueryError(err.message, err.code)

@@ -1,9 +1,9 @@
 // components
-import CircuitInformation from './components/information/CircuitInformation'
+import Information from '../../components/information/Information'
 import CircuitRaces from './components/races/CircuitRaces'
 
-// context
-import CircuitProfileContextProvider from './context/CircuitProfileContext'
+// hooks
+import useCircuitInformationQuery from './components/information/hooks/useCircuitInformationQuery'
 
 // styles
 import './CircuitProfile.css'
@@ -11,10 +11,8 @@ import './CircuitProfile.css'
 const CircuitProfile = () => {
   return (
     <div className="circuit-profile__container page__container">
-      <CircuitProfileContextProvider>
-        <CircuitInformation />
-        <CircuitRaces />
-      </CircuitProfileContextProvider>
+      <Information useInformationQuery={useCircuitInformationQuery} />
+      <CircuitRaces />
     </div>
   )
 }

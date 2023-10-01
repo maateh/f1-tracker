@@ -10,6 +10,7 @@
 /* linear progress */
 .loading-skeleton__container .loading-skeleton__linear-progress-bar {
   height: 0.6rem;
+  margin: auto;
   background-color: var(--skeleton);
   border-radius: 16px;
 }

@@ -1,0 +1,88 @@
+.information__container {
+  margin-bottom: 2rem;
+
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+/* information title */
+.information__container h2.page__title {
+  margin-bottom: 0.8rem;
+}
+
+/* information data */
+.information__container .information-data__container {
+  margin-bottom: 1rem;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: start;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem 3rem;
+  
+  position: relative;
+}
+
+.information__container .information-data__container > p.information-data {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.information__container .information-data__container > p.information-data > span.highlight {
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+.information__container .information-data__container > p.icon__container > svg {
+  color: var(--text-color);
+  font-size: 1.8rem;
+}
+
+/* links */
+.information__container .links__container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+@media (max-width: 40rem) {
+  .information__container .links__container {
+    flex-direction: column;
+  }
+}
+
+
+/* mobile screens */
+@media (max-width: 40rem) {
+  .information__container .information-data__container {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  /* information data */
+  .information__container .information-data__container > p.information-data {
+    font-size: 1.2rem;
+  }
+  .information__container .information-data__container > p.information-data > span.highlight {
+    font-size: 1.7rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+  }
+  .information__container .driver-tag.icon__container > svg {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 20rem) {
+  /* information data */
+  .information__container .information-data__container > p.information-data {
+    font-size: 1rem;
+  }
+  .information__container .driver-tag.icon__container > svg {
+    font-size: 1.3rem;
+  }
+}
