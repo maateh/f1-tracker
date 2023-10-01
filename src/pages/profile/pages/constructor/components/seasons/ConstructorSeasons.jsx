@@ -16,13 +16,13 @@ const ConstructorSeasons = () => {
 
   return (
     <section className="constructor-seasons__container">
-      {title && cards ? (
+      {cards ? (
         <ListingContextProvider initialState={{ title, cards }}>
           <ConstructorSeasonsListing />
         </ListingContextProvider>
       ) : (
         <ListingSkeleton
-          titleRequired={true}
+          titleFallback={title.main}
           cardsCounter={9}
         />
       )}

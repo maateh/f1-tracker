@@ -5,6 +5,10 @@
   animation: pulse 3s cubic-bezier(0.8, 0.2, 0.8, 1) infinite;
 }
 
+.skeleton-pulse {
+  animation: pulse 3s cubic-bezier(0.8, 0.2, 0.8, 1) infinite;
+}
+
 @keyframes pulse {
   25% {
     opacity: 0.85;

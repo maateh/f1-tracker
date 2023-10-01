@@ -2,23 +2,19 @@
 import './AchievementsSkeleton.css'
 import '../../Skeleton.css'
 
-const AchievementsSkeleton = () => {
+const AchievementsSkeleton = ({ titleFallback }) => {
   return (
-    <div className="achievements-skeleton__container">
-      <div className="achievements-skeleton__title skeleton"></div>
-      {Array(5)
-        .fill()
-        .map((_, rowIndex) => (
-          <div key={rowIndex} className="achievements-skeleton-row__container">
-            {Array(4)
-              .fill()
-              .map((_, colIndex) => (
-                <div key={colIndex} className="achievements-skeleton-data skeleton"></div>
-              ))
-            }
-          </div>
-        ))
-      }
+    <div className="achievements-holder-skeleton__container">
+      <h2 className="achievements-skeleton__title-fallback skeleton-pulse">{titleFallback}</h2>
+
+      <div className="achievements-skeleton__container">
+        {Array(5)
+          .fill()
+          .map((_, rowIndex) => (
+            <div key={rowIndex} className="achievement-skeleton skeleton"></div>
+          ))
+        }
+      </div>
     </div>
   )
 }

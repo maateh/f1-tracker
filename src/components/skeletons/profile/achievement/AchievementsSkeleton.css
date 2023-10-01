@@ -1,6 +1,6 @@
-.achievements-skeleton__container {
+.achievements-holder-skeleton__container {
   width: 65%;
-  max-width: 60rem;
+  max-width: 50rem;
   margin: 3rem auto;
 
   display: flex;
@@ -10,33 +10,47 @@
   gap: 0.8rem;
 }
 
-.achievements-skeleton__container .achievements-skeleton__title {
-  width: 60%;
-  height: 2.5rem;
+/* achievements title fallback */
+.achievements-holder-skeleton__container h2.achievements-skeleton__title-fallback {
+  margin: 0.8rem auto;
+  font-size: 2.4rem;
+  font-weight: 800;
+  text-decoration: overline;
+  font-variant: small-caps;
+  text-align: center;
+  letter-spacing: 2px;
+}
+@media (max-width: 40rem) {
+  .achievements-holder-skeleton__container h2.achievements-skeleton__title-fallback {
+    font-size: 1.7rem;
+  }
 }
 
-.achievements-skeleton__container .achievements-skeleton-row__container {
+
+/* achievements skeleton */
+.achievements-holder-skeleton__container .achievements-skeleton__container {
   width: 100%;
-  height: 2rem;
 
   display: flex;
-  flex-direction: row;
-  gap: 3rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 0.8rem;
 }
 
-.achievements-skeleton__container .achievements-skeleton-data {
+.achievements-holder-skeleton__container .achievements-skeleton__container .achievement-skeleton {
   width: 100%;
   height: 2rem;
 }
 
 /* mobile screens */
 @media (max-width: 70rem) {
-  .achievements-skeleton__container {
+  .achievements-holder-skeleton__container {
     width: 90%;
   }
 }
 @media (max-width: 40rem) {
-  .achievements-skeleton__container {
+  .achievements-holder-skeleton__container {
     width: 90%;
     margin: auto;
   }
@@ -45,7 +59,7 @@
   }
 }
 @media (max-width: 25rem) {
-  .achievements-skeleton__container {
+  .achievements-holder-skeleton__container {
     width: 80%;
   }
   .achievements-skeleton-row__container .achievements-skeleton-data:nth-child(n+3) {

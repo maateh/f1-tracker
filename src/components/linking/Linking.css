@@ -172,17 +172,29 @@
 
 @media (max-width: 20rem) {
   /* positioning */
-  .linking__container.top {
+  .linking__container.top.small,
+  .linking__container.top.medium,
+  .linking__container.top.large {
     position: relative;
+    top: 0;
   }
-  .linking__container.bottom {
+  .linking__container.bottom.small,
+  .linking__container.bottom.medium,
+  .linking__container.bottom.large {
     position: relative;
+    bottom: 0;
   }
-  .linking__container.left {
+  .linking__container.left.small,
+  .linking__container.left.medium,
+  .linking__container.left.large {
     position: relative;
+    left: 0;
   }
-  .linking__container.right {
+  .linking__container.right.small,
+  .linking__container.right.medium,
+  .linking__container.right.large {
     position: relative;
+    right: 0;
   }
 
   /* text */

@@ -16,13 +16,13 @@ const DriverSeasons = () => {
 
   return (
     <section className="driver-seasons__container">
-      {title && cards ? (
+      {cards ? (
         <ListingContextProvider initialState={{ title, cards }}>
           <DriverSeasonsListing />
         </ListingContextProvider>
       ) : (
         <ListingSkeleton
-          titleRequired={true}
+          titleFallback={title.main}
           cardsCounter={9}
         />
       )}

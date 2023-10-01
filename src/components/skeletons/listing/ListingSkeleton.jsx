@@ -9,12 +9,13 @@ import '../Skeleton.css'
 
 const ListingSkeleton = ({
 	titleRequired,
+  titleFallback,
 	cardsCounter,
   tableRequired
 }) => {
 	return (
     <div className="listing-skeleton__container">
-      {titleRequired && <TitleSkeleton />}
+      {(titleRequired || titleFallback) && <TitleSkeleton titleFallback={titleFallback} />}
 
       {cardsCounter && <CardsSkeleton counter={cardsCounter} />}
       
