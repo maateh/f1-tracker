@@ -1,6 +1,9 @@
 import { Outlet, useNavigate, useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
+// api
+import { lastRound } from "../../../../api/season/round/lastRound"
+
 // components
 import Filter from "../../../../components/filter/Filter"
 
@@ -16,7 +19,6 @@ import ListingContextProvider from "../../../../components/listing/context/Listi
 import { LAPS_PARAMS_UPDATER } from "../../../../components/filter/context/FilterContextActions"
 
 // models
-import WeekendModel from "../../../../model/season/weekend/Weekend"
 import FilterSelectorModel from "../../../../model/filter/FilterSelector"
 import FilterOptionModel from "../../../../model/filter/FilterOption"
 import FilterSkeleton from "../../../../components/skeletons/filter/FilterSkeleton"
@@ -27,11 +29,11 @@ const LapsHistory = () => {
 
 	useQuery({
 		queryKey: ['lastRound'],
-		queryFn: WeekendModel.queryLast,
-		onSuccess: ({ year, round }) => {
-      const route = `./${year}/${round}/${FilterOptionModel.ALL.value}`
-      navigate(route, { replace: true })
-    },
+		queryFn: () => lastRound()
+      .then(({ weekend }) => {
+        const route = `./${weekend.year}/${weekend.round}/${FilterOptionModel.ALL.value}`
+        navigate(route, { replace: true })
+      }),
 		enabled: !year && !round,
 	})
 

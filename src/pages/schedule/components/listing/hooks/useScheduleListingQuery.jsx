@@ -3,6 +3,7 @@ import { useQuery } from "react-query"
 
 // api
 import { season } from "../../../../../api/season/season"
+import { nextRound } from "../../../../../api/season/round/nextRound"
 
 // components
 import WeekendCard from '../components/card/WeekendCard'
@@ -11,9 +12,7 @@ import WeekendCard from '../components/card/WeekendCard'
 import useListingContext from '../../../../../components/listing/context/hooks/useListingContext'
 
 // models
-import WeekendModel from "../../../../../model/season/weekend/Weekend"
 import CardsModel from "../../../../../model/listing/Cards"
-import QueryError from "../../../../../model/error/QueryError"
 
 const useScheduleListingQuery = () => {
   const { setCards } = useListingContext()
@@ -23,15 +22,13 @@ const useScheduleListingQuery = () => {
     queryKey: ['listing', 'season', year],
     queryFn: () => Promise.all([
       season(year),
-      WeekendModel.queryNext()
+      nextRound()
     ])
-      .then(([{ data }, nextWeekend]) => {
-        const weekends = WeekendModel.parseList({ Races: data.Races })
-
+      .then(([{ season }, { weekend: nextWeekend }]) => {
         setCards({
           cards: new CardsModel({
             styles: CardsModel.GRID_STYLES,
-            layouts: weekends.map(weekend => (
+            layouts: season.weekends.map(weekend => (
               <WeekendCard
                 key={weekend.round}
                 weekend={weekend}
@@ -40,9 +37,6 @@ const useScheduleListingQuery = () => {
             ))
           })
         })
-      })
-      .catch(err => {
-        throw new QueryError(err.message)
       })
   })
 }

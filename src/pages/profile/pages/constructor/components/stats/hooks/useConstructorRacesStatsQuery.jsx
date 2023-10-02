@@ -7,10 +7,6 @@ import { constructorRacesResults } from '../../../../../../../api/results/race/c
 // context
 import useConstructorProfileContext from "../../../context/hooks/useConstructorProfileContext"
 
-// models
-import WeekendModel from '../../../../../../../model/season/weekend/Weekend'
-import QueryError from "../../../../../../../model/error/QueryError"
-
 // icons
 import SportsScoreIcon from '@mui/icons-material/SportsScore'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
@@ -26,12 +22,7 @@ const useConstructorRacesStatsQuery = () => {
   return useQuery({
     queryKey: ['constructorRacesResults', id],
     queryFn: () => constructorRacesResults(id)
-      .then(({ data }) => {
-        if (!data.Races || !data.Races.length) {
-          throw new QueryError('No data found!', 404)
-        }
-
-        const weekends = WeekendModel.parseList({ Races: data.Races })
+      .then(({ weekends }) => {
         setRaces({ races: weekends })
 
         const winsAmount = racesWon(weekends)
@@ -87,9 +78,6 @@ const useConstructorRacesStatsQuery = () => {
             icon: <PlusOneIcon />
           }
         ]
-      })
-      .catch(err => {
-        throw new QueryError(err.message, err.code)
       })
   })
 }

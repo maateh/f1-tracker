@@ -1,14 +1,26 @@
-import ergast, { KEYS } from "../ergast"
+import ergast, { SEASON_TABLE } from "../ergast"
+
+// models
+import SeasonModel from "../../model/season/Season"
+import DataNotFoundError from "../../model/error/DataNotFoundError"
 
 // Get a list with all of the season
-export async function seasonList() {
+export async function seasonList(params = { limit: 100 }) {
+	const url = '/seasons'
+
 	return ergast({
-		url: '/seasons',
-		key: KEYS.SEASON_TABLE,
-		params: { limit: 100 },
+		url,
+		key: SEASON_TABLE,
+		params,
 	})
-		.then(res => res)
-		.catch(err => {
-			throw new Error(err)
+		.then(({ info, data }) => {
+      if (!data.Seasons || !data.Seasons.length) {
+        throw new DataNotFoundError(url)
+      }
+
+			return {
+				info,
+				seasons: SeasonModel.parseList({ Seasons: data.Seasons })
+			}
 		})
 }

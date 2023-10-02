@@ -15,7 +15,6 @@ import TimeCell from '../components/table/TimeCell'
 import useListingContext from '../../../../../../../components/listing/context/hooks/useListingContext'
 
 // models
-import RaceModel from "../../../../../../../model/season/weekend/results/race/Race"
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import TableModel from "../../../../../../../model/listing/Table"
@@ -39,8 +38,8 @@ const useDriverLapsListingQuery = () => {
       driverLaps(year, round, driverId), 
       driverRaceResults(year, round, driverId)
     ])
-      .then(([{ info, weekend }, { data: resultsData }]) => {
-        const result = RaceModel.parser({ Result: resultsData.Races[0].Results[0] })
+      .then(([{ info, weekend }, { weekend: weekendWithResults }]) => {
+        const result = weekendWithResults.results.race[0]
 
         setTitle({
           title: new TitleModel({

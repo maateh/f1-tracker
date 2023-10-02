@@ -25,9 +25,6 @@ const useRoundsFilterQuery = ({ onChange, additionalOption }) => {
           enabled: () => true
         })
       }))
-      .catch(err => {
-        throw new QueryError(err.message)
-      })
 	})
 }
 

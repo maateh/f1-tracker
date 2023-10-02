@@ -1,12 +1,12 @@
 import ergast, { RACE_TABLE } from "../../ergast"
 
 // models
-import Weekend from "../../../model/season/weekend/Weekend"
+import WeekendModel from "../../../model/season/weekend/Weekend"
 import DataNotFoundError from "../../../model/error/DataNotFoundError"
 
-// Get info from the next weekend
-export async function nextRound() {
-  const url = '/current/next'
+// Get qualifying results from a specific round in a season
+export async function weekendQualifyingResults(year, round) {
+  const url = `/${year}/${round}/qualifying`
 
   return ergast({
     url,
@@ -19,7 +19,7 @@ export async function nextRound() {
 
       return {
         info,
-        weekend: Weekend.parser({ Race: data.Races[0] })
+        weekend: WeekendModel.parser({ Race: data.Races[0] })
       }
     })
 }

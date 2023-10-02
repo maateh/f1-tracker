@@ -37,22 +37,6 @@ class Weekend {
 		this.pits = pits
 	}
 
-	static async queryLast() {
-		return lastRound()
-			.then(({ data }) => Weekend.parser({ Race: data.Races[0] }))
-			.catch(err => {
-				throw new QueryError(err.message)
-			})
-	}
-
-	static async queryNext() {
-		return nextRound()
-			.then(({ data }) => Weekend.parser({ Race: data.Races[0] }))
-			.catch(err => {
-				throw new QueryError(err.message)
-			})
-	}
-
 	static parseList({ Races: weekends }) {
 		if (weekends && weekends.length) {
 		  return weekends.map(weekend => this.parser({ Race: weekend }))

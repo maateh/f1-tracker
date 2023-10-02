@@ -1,12 +1,11 @@
 import ergast, { RACE_TABLE } from "../../ergast"
 
-// models
 import WeekendModel from "../../../model/season/weekend/Weekend"
 import DataNotFoundError from "../../../model/error/DataNotFoundError"
 
-// Get all qualifyings results from a specific season
-export async function roundsQualifyingsResults(year, ignoreDataNotFoundError = false, params = { limit: 500 }) {
-  const url = `/${year}/qualifying`
+// Get race results from a specific round in a season
+export async function weekendRaceResults(year, round, params) {
+  const url = `/${year}/${round}/results`
 
   return ergast({
     url,
@@ -14,13 +13,13 @@ export async function roundsQualifyingsResults(year, ignoreDataNotFoundError = f
     params
   })
     .then(({ info, data }) => {
-      if ((!data.Races || !data.Races.length) && !ignoreDataNotFoundError) {
+      if (!data.Races || !data.Races.length) {
         throw new DataNotFoundError(url)
       }
 
       return {
         info,
-        weekends: WeekendModel.parseList({ Races: data.Races })
+        weekend: WeekendModel.parser({ Race: data.Races[0] })
       }
     })
 }

@@ -2,8 +2,8 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // api
-import { roundsQualifyingsResults } from "../../../../../../api/results/qualifying/roundsQualifyingsResults"
-import { racesResults } from "../../../../../../api/results/race/racesResults"
+import { seasonRacesResults } from "../../../../../../api/results/race/seasonRacesResults"
+import { seasonQualifyingsResults } from "../../../../../../api/results/qualifying/seasonQualifyingsResults"
 
 // components
 import SummaryCard from "../../../../../../components/listing/cards/card/SummaryCard"
@@ -18,7 +18,6 @@ import FastestLapCell from '../../components/table/FastestLapCell'
 import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
 
 // models
-import WeekendModel from "../../../../../../model/season/weekend/Weekend"
 import QualifyingModel from "../../../../../../model/season/weekend/results/qualifying/Qualifying"
 import TitleModel from "../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../model/listing/Cards"
@@ -42,17 +41,12 @@ const useSeasonQuery = () => {
   const { year } = useParams()
 
   return useQuery({
-    queryKey: ['listing', 'roundsQualifyingsResults', 'racesResults', year], 
+    queryKey: ['listing', 'seasonQualifyingsResults', 'seasonRacesResults', year], 
     queryFn: () => Promise.all([
-      roundsQualifyingsResults(year, true),
-      racesResults(year)
+      seasonRacesResults(year),
+      seasonQualifyingsResults(year, true)
     ])
-      .then(([{ weekends: weekendsWithQualifyingsData }, { data: racesData }]) => {
-        // if (!racesData.Races || !racesData.Races.length) {
-        //   throw new QueryError('No data found!', 404)
-        // }
-
-        const weekends = WeekendModel.parseList({ Races: racesData.Races })
+      .then(([{ weekends }, { weekends: weekendsWithQualifyingsData }]) => {
         const qResults = weekendsWithQualifyingsData?.map(w => w.results.qualifying)
         if (qResults && qResults.length) {
           weekends.forEach((w, index) => {

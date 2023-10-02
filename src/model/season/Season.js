@@ -22,6 +22,12 @@ class Season {
 		this.constructors = constructors
 	}
 
+	static parseList({ Seasons: seasons }) {
+		if (seasons && seasons.length) {
+		  return seasons.map(season => this.parser({ Season: season }))
+		}
+	}
+
 	static parser({ Season: season }) {
 		return new Season({
 			year: season.season,

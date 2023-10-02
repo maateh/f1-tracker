@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // api
-import { raceResults } from "../../../../../../api/results/race/raceResults"
+import { weekendRaceResults } from "../../../../../../api/results/race/weekendRaceResults"
 
 // components
 import SummaryCard from "../../../../../../components/listing/cards/card/SummaryCard"
@@ -15,11 +15,9 @@ import PointsCell from '../../components/table/PointsCell'
 import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
 
 // models
-import WeekendModel from "../../../../../../model/season/weekend/Weekend"
 import TitleModel from "../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../model/listing/Cards"
 import TableModel from "../../../../../../model/listing/Table"
-import QueryError from "../../../../../../model/error/QueryError"
 
 // icons
 import LabelIcon from '@mui/icons-material/Label'
@@ -35,24 +33,12 @@ const useWeekendRaceQuery = () => {
   const { year, id: round } = useParams()
 
   return useQuery({
-    queryKey: ['listing', 'raceResults', year, round],
-    queryFn: () => raceResults(year, round, { limit: 30 })
-      .then(({ data }) => {
-        if (!data.Races || !data.Races.length) {
-          throw new QueryError('No data found!', 404)
-        }
-        
-        const {
-          year,
-          name,
-          circuit,
-          wiki,
-          results
-        } = WeekendModel.parser({ Race: data.Races[0] })
-
+    queryKey: ['listing', 'weekendRaceResults', year, round],
+    queryFn: () => weekendRaceResults(year, round, { limit: 30 })
+      .then(({ weekend }) => {        
         setTitle({
           title: new TitleModel({
-            main: `${year} ${name} Race Results`
+            main: `${year} ${weekend.name} Race Results`
           })
         })
 
@@ -65,36 +51,36 @@ const useWeekendRaceQuery = () => {
                 summaries: [
                   {
                     title: 'Circuit Name',
-                    desc: circuit.name,
-                    link: `/profile/circuit/${circuit.id}`,
+                    desc: weekend.circuit.name,
+                    link: `/profile/circuit/${weekend.circuit.id}`,
                     icon: <LabelIcon />
                   },
                   {
                     title: 'Country, City',
-                    desc: `${circuit.location.country}, ${circuit.location.locality}`,
-                    link: circuit.getMapsLink(),
+                    desc: `${weekend.circuit.location.country}, ${weekend.circuit.location.locality}`,
+                    link: weekend.circuit.getMapsLink(),
                     icon: <PublicIcon />
                   },
                   {
                     title: 'Wikipedia (Circuit)',
                     desc: 'Click here for more!',
-                    link: circuit.wiki,
+                    link: weekend.circuit.wiki,
                     icon: <ContactSupportIcon />
                   },
                   {
                     title: 'Wikipedia (Weekend)',
                     desc: 'Click here for more!',
-                    link: wiki, icon: <ContactSupportIcon />
+                    link: weekend.wiki, icon: <ContactSupportIcon />
                   }
                 ]
               },
               {
                 title: 'Drivers Race Status',
                 summaries: [
-                  { title: 'Race Finishers', desc: finished(results), icon: <SportsScoreIcon /> },
-                  { title: 'Drivers got a Lap', desc: gotALap(results), icon: <Timer10SelectIcon /> },
-                  { title: 'Crashes in the Race', desc: crashes(results), icon: <ErrorIcon /> },
-                  { title: 'Mechanical Failures', desc: failures(results), icon: <WarningIcon /> }
+                  { title: 'Race Finishers', desc: finished(weekend.results), icon: <SportsScoreIcon /> },
+                  { title: 'Drivers got a Lap', desc: gotALap(weekend.results), icon: <Timer10SelectIcon /> },
+                  { title: 'Crashes in the Race', desc: crashes(weekend.results), icon: <ErrorIcon /> },
+                  { title: 'Mechanical Failures', desc: failures(weekend.results), icon: <WarningIcon /> }
                 ]
               },
             ].map(card => <SummaryCard key={card.title} card={card} />)
@@ -182,7 +168,7 @@ const useWeekendRaceQuery = () => {
                   <PointsCell points={getValue().value} />
               },
             ],
-            data: results.race.map(result => ({
+            data: weekend.results.race.map(result => ({
               pos: { value: +result.position },
               driver: {
                 value: result.driver.fullName,
@@ -202,9 +188,6 @@ const useWeekendRaceQuery = () => {
             }))
           })
         })
-      })
-      .catch(err => {
-        throw new QueryError(err.message, err.code)
       })
   })
 }

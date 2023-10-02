@@ -16,11 +16,9 @@ import PointsCell from "../../components/table/PointsCell"
 import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
 
 // models
-import WeekendModel from "../../../../../../model/season/weekend/Weekend"
 import TitleModel from '../../../../../../model/listing/Title'
 import CardsModel from '../../../../../../model/listing/Cards'
 import TableModel from '../../../../../../model/listing/Table'
-import QueryError from '../../../../../../model/error/QueryError'
 
 // icons
 import EngineeringIcon from '@mui/icons-material/Engineering'
@@ -42,12 +40,7 @@ const useConstructorRacesQuery = () => {
   return useQuery({
     queryKey: ['listing', 'constructorRacesResultsFromSeason', year, constructorId],
     queryFn: () => constructorRacesResultsFromSeason(year, constructorId)
-      .then(({ data }) => {
-        if (!data.Races || !data.Races.length) {
-          throw new QueryError('No data found!', 404)
-        }
-
-        const weekends = WeekendModel.parseList({ Races: data.Races })
+      .then(({ weekends }) => {
         const team = getTeam(weekends)
   
         setTitle({
@@ -244,9 +237,6 @@ const useConstructorRacesQuery = () => {
             }))
           })
         })
-      })
-      .catch(err => {
-        throw new QueryError(err.message, err.code)
       })
   })
 }

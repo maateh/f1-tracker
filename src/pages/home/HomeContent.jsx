@@ -1,5 +1,8 @@
 import { useQuery } from "react-query"
 
+// api
+import { nextRound } from "../../api/season/round/nextRound"
+
 // components
 import RelevantWeekend from "./components/weekend/RelevantWeekend"
 import RelevantSession from "./components/session/RelevantSession"
@@ -8,9 +11,6 @@ import CardsSkeleton from "../../components/skeletons/listing/cards/CardsSkeleto
 // context
 import { useWeekendContext } from "./context/hooks/useWeekendContext"
 
-// models
-import WeekendModel from "../../model/season/weekend/Weekend"
-
 // styles
 import './Home.css'
 
@@ -18,8 +18,10 @@ const HomeContent = () => {
   const { weekend, dispatch } = useWeekendContext()
   useQuery({
     queryKey: ['nextRound'],
-    queryFn: WeekendModel.queryNext,
-    onSuccess: data => dispatch({ type: 'SET', payload: data })
+    queryFn: () => nextRound()
+      .then(({ weekend }) => {
+        dispatch({ type: 'SET', payload: weekend })
+      })
   })
 
   return (

@@ -3,7 +3,7 @@ import { useParams, useSearchParams } from "react-router-dom"
 
 // api
 import { raceLap } from "../../../../../../../api/laps/raceLap"
-import { raceResults } from "../../../../../../../api/results/race/raceResults"
+import { weekendRaceResults } from "../../../../../../../api/results/race/weekendRaceResults"
 
 // components
 import SummaryCard from "../../../../../../../components/listing/cards/card/SummaryCard"
@@ -15,8 +15,6 @@ import TimeCell from "../components/table/TimeCell"
 import useListingContext from "../../../../../../../components/listing/context/hooks/useListingContext"
 
 // models
-import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
-import ResultsModel from "../../../../../../../model/season/weekend/results/Results"
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import TableModel from "../../../../../../../model/listing/Table"
@@ -39,14 +37,13 @@ const useRoundLapsListingQuery = () => {
     queryKey: ['listing', 'laps', year, round, lap],
     queryFn: () => Promise.all([
       raceLap(year, round, lap),
-      raceResults(year, round),
+      weekendRaceResults(year, round),
       lap > 1 && raceLap(year, round, lap - 1)
     ])
-      .then(([{ weekend }, { data: resultsData }, { data: prevLapData }]) => {        
+      .then(([{ weekend }, { weekend: weekendWithRaceResults }, { weekendWithPrevLap }]) => {        
         const currentLap = weekend.laps[0]
-
-        const { race: result } = ResultsModel.parser({ Race: resultsData.Races[0] })
-        const prevLap = prevLapData && WeekendModel.parser({ Race: prevLapData.Races[0] }).laps[0]
+        const results = weekendWithRaceResults.results.race
+        const prevLap = weekendWithPrevLap && weekendWithPrevLap.laps[0]
   
         setTitle({
           title: new TitleModel({
@@ -68,12 +65,12 @@ const useRoundLapsListingQuery = () => {
                 },
                 {
                   title: 'Eliminated',
-                  desc: eliminated(currentLap, prevLap, result),
+                  desc: eliminated(currentLap, prevLap, results),
                   icon: <RemoveCircleIcon />
                 },
                 {
                   title: 'Fastest Lap',
-                  desc: fastestLap(currentLap, result),
+                  desc: fastestLap(currentLap, results),
                   icon: <SpeedIcon />
                 },
                 {
@@ -83,7 +80,7 @@ const useRoundLapsListingQuery = () => {
                 },
                 {
                   title: 'Gained Positions',
-                  desc: gainedPositions(currentLap, prevLap, result),
+                  desc: gainedPositions(currentLap, prevLap, results),
                   icon: <KeyboardDoubleArrowUpIcon />
                 },
               ]
@@ -133,9 +130,9 @@ const useRoundLapsListingQuery = () => {
             data: currentLap.timings.map(timing => ({
               position: { value: +timing.position },
               driver: {
-                value: getDriver(timing.driverId, result).fullName, 
-                driver: getDriver(timing.driverId, result),
-                gained: driverGainedPositions(timing, prevLap, result)
+                value: getDriver(timing.driverId, results).fullName, 
+                driver: getDriver(timing.driverId, results),
+                gained: driverGainedPositions(timing, prevLap, results)
               },
               time: { value: timing.time, gap: gap(currentLap, timing.driverId) },
             }))
@@ -144,7 +141,7 @@ const useRoundLapsListingQuery = () => {
 
         setPagination({
           pagination: new PaginationModel({
-            pageQuantity: resultsData.Races[0].Results[0].laps
+            pageQuantity: results[0].laps
           })
         })
       })
@@ -152,8 +149,8 @@ const useRoundLapsListingQuery = () => {
 }
 
 // Helper functions
-const getDriver = (driverId, result) => {
-  return result.find(r => r.driver.id === driverId).driver
+const getDriver = (driverId, results) => {
+  return results.find(r => r.driver.id === driverId).driver
 }
 
 // Card helpers
@@ -161,18 +158,18 @@ const driversInRace = lap => {
   return `${lap.timings.length} drivers in the race this lap`
 }
 
-const eliminated = (currentLap, prevLap, result) => {
-  const initialAmount = prevLap && prevLap.timings ? prevLap.timings.length : result.length
+const eliminated = (currentLap, prevLap, results) => {
+  const initialAmount = prevLap && prevLap.timings ? prevLap.timings.length : results.length
 	const eliminated = initialAmount - currentLap.timings.length
 	return eliminated > 0
 		? `${eliminated} drivers out from the race in this lap`
 		: '-'
 }
 
-const fastestLap = (lap, result) => {
+const fastestLap = (lap, results) => {
   const fastest = lap.timings
     .reduce((acc, curr) => (acc.getTimeInMs() || acc) < curr.getTimeInMs() ? acc : curr)
-  return `${fastest.time} (${getDriver(fastest.driverId, result).code})`
+  return `${fastest.time} (${getDriver(fastest.driverId, results).code})`
 }
 
 const averageTime = lap => {
@@ -183,13 +180,13 @@ const averageTime = lap => {
   return `${time.getMinutes()}:${time.getSeconds()}.${time.getMilliseconds()}`
 }
 
-const gainedPositions = (currentLap, prevLap, result) => {
+const gainedPositions = (currentLap, prevLap, results) => {
   const gainedPositions = currentLap.timings.reduce((acc, timing) => {
     const prevPosition = prevLap 
       ? +prevLap.timings
         .find(({ driverId }) => timing.driverId === driverId)
         .position
-      : +result
+      : +results
         .find(r => r.driver.id === timing.driverId)
         .position
     return prevPosition > timing.position 
@@ -200,10 +197,10 @@ const gainedPositions = (currentLap, prevLap, result) => {
 }
 
 // Table helpers
-const driverGainedPositions = (timing, prevLap, result) => {
+const driverGainedPositions = (timing, prevLap, results) => {
   let prevPosition = prevLap
     ? prevLap.timings.find(t => t.driverId === timing.driverId).position
-    : result.find(r => r.driver.id === timing.driverId).grid
+    : results.find(r => r.driver.id === timing.driverId).grid
   prevPosition = isNaN(prevPosition) ? timing.position : prevPosition
 
   const differential = timing.position - prevPosition

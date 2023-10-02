@@ -1,6 +1,9 @@
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
+// api
+import { lastRound } from '../../api/season/round/lastRound'
+
 // components
 import Filter from '../../components/filter/Filter'
 import FilterSkeleton from '../../components/skeletons/filter/FilterSkeleton'
@@ -14,7 +17,6 @@ import { RESULTS_PARAMS_UPDATER } from '../../components/filter/context/FilterCo
 import ListingContextProvider from '../../components/listing/context/ListingContext'
 
 // models
-import WeekendModel from '../../model/season/weekend/Weekend'
 import FilterOptionModel from '../../model/filter/FilterOption'
 import FilterSelectorModel from '../../model/filter/FilterSelector'
 
@@ -24,9 +26,12 @@ const ResultsContent = () => {
 
 	useQuery({
 		queryKey: ['lastRound'],
-		queryFn: WeekendModel.queryLast,
-		onSuccess: ({ year }) =>
-			navigate(`./${year}/rounds/${FilterOptionModel.ALL.value}`, { replace: true }),
+		queryFn: () => lastRound()
+			.then(({ weekend }) => {
+				const route = `./${weekend.year}/rounds/${FilterOptionModel.ALL.value}`
+				navigate(route, { replace: true })
+			}),
+			
 		enabled: !year && !id,
 	})
 

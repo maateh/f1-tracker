@@ -7,7 +7,6 @@ import useFilterContext from "../context/hooks/useFilterContext"
 // models
 import FilterModel from "../../../model/filter/Filter"
 import FilterSelectorModel from "../../../model/filter/FilterSelector"
-import QueryError from "../../../model/error/QueryError"
 
 const useSeasonsFilterQuery = ({ onChange, additionalOption }) => {
   const { setSeasons } = useFilterContext()
@@ -25,9 +24,6 @@ const useSeasonsFilterQuery = ({ onChange, additionalOption }) => {
           enabled: () => true
         })
       }))
-      .catch(err => {
-        throw new QueryError(err.message)
-      })
   })
 }
 

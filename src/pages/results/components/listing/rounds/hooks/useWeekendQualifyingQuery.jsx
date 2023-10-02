@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query'
 
 // api
-import { roundQualifyingResults } from '../../../../../../api/results/qualifying/roundQualifyingResults'
+import { weekendQualifyingResults } from '../../../../../../api/results/qualifying/weekendQualifyingResults'
 
 // components
 import SummaryCard from '../../../../../../components/listing/cards/card/SummaryCard'
@@ -27,8 +27,8 @@ const useWeekendQualifyingQuery = () => {
   const { year, id: round } = useParams()
 
   return useQuery({
-    queryKey: ['listing', 'roundQualifyingResults', year, round],
-    queryFn: () => roundQualifyingResults(year, round)
+    queryKey: ['listing', 'weekendQualifyingResults', year, round],
+    queryFn: () => weekendQualifyingResults(year, round)
       .then(({ weekend }) => {  
         setTitle({
           title: new TitleModel({

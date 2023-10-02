@@ -1,14 +1,26 @@
-import ergast, { KEYS } from "../../ergast"
+import ergast, { RACE_TABLE } from "../../ergast"
+
+// models
+import Weekend from "../../../model/season/weekend/Weekend"
+import DataNotFoundError from "../../../model/error/DataNotFoundError"
 
 // Get info from a specific round in a season
-export async function round(year, round) {
+export async function round(year, round, params = { limit: 100 }) {
+  const url = `/${year}/${round}`
+
   return ergast({
-    url: `/${year}/${round}`,
-    key: KEYS.RACE_TABLE,
-    params: { limit: 100 }
+    url,
+    key: RACE_TABLE,
+    params
   })
-    .then(res => res)
-    .catch(err => {
-      throw new Error(err)
+    .then(({ info, data }) => {
+      if (!data.Races || !data.Races.length) {
+        throw new DataNotFoundError(url)
+      }
+
+      return {
+        info,
+        weekend: Weekend.parser({ Race: data.Races[0] })
+      }
     })
 }

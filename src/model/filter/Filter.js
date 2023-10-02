@@ -6,7 +6,6 @@ import { constructorListFromSeason } from '../../api/constructors/constructorLis
 
 // model
 import FilterOption from './FilterOption'
-import QueryError from '../error/QueryError'
 
 class Filter {
 	constructor({ key, label, options }) {
@@ -26,35 +25,29 @@ class Filter {
 
 	static async querySeasons({ label = 'Years' }) {
 		return seasonList()
-			.then(({ data }) => new Filter({
+			.then(({ seasons }) => new Filter({
         key: 'years',
         label,
-        options: data.Seasons
-					.map(({ season }) => new FilterOption({ 
-						value: season, 
-						label: season 
+        options: seasons
+					.map(({ year }) => new FilterOption({ 
+						value: year, 
+						label: year 
 					}))
 					.reverse()
       }))
-			.catch(err => {
-				throw new QueryError(err.message)
-			})
 	}
 
 	static async queryRounds({ year, label = 'Rounds' }) {
 		return season(year)
-			.then(({ data }) => new Filter({
+			.then(({ season }) => new Filter({
 				key: 'rounds',
 				label,
-				options: data.Races
-					.map(({ round, raceName }) => new FilterOption({ 
+				options: season.weekends
+					.map(({ round, name }) => new FilterOption({ 
 						value: round, 
-						label: raceName 
+						label: name 
 					}))
 			}))
-			.catch(err => {
-				throw new QueryError(err.message)
-			})
 	}
 
 	static async queryDrivers({ year, round, label = 'Drivers' }) {
@@ -67,9 +60,9 @@ class Filter {
         key: 'drivers',
         label,
 				options: drivers
-					.map(({ id, givenName, familyName }) => new FilterOption({ 
+					.map(({ id, fullName }) => new FilterOption({ 
 						value: id, 
-						label: `${givenName} ${familyName}` 
+						label: fullName
 					}))
       }))
 	}
@@ -80,14 +73,11 @@ class Filter {
         key: 'constructors',
         label,
 				options: constructors
-					.map(({ constructorId, name }) => new FilterOption({ 
-						value: constructorId, 
+					.map(({ id, name }) => new FilterOption({ 
+						value: id, 
 						label: name 
 					}))
       }))
-			.catch(err => {
-				throw new QueryError(err.message)
-			})
 	}
 }
 
