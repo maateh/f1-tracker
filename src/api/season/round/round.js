@@ -1,4 +1,4 @@
-import { KEYS, ergast } from "../../ergast"
+import ergast, { KEYS } from "../../ergast"
 
 // Get info from a specific round in a season
 export async function round(year, round) {

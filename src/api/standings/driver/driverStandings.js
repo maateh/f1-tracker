@@ -1,4 +1,4 @@
-import { ergast, KEYS } from '../../ergast'
+import ergast, { KEYS } from '../../ergast'
 
 // Get a driver championship standings results
 export async function driverStandings(driverId) {

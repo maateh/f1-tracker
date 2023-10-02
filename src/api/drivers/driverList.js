@@ -1,4 +1,4 @@
-import { KEYS, ergast } from "../ergast"
+import ergast, { KEYS } from "../ergast"
 
 // Get a list with all of the drivers in F1
 export async function driverList(params) {

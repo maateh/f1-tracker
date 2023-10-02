@@ -34,12 +34,7 @@ const useCircuitsListingQuery = () => {
         : undefined
     },
     queryFn: ({ pageParam = 0 }) => call(pageParam)
-      .then(({ info, data }) => {
-        if (!data.Circuits || !data.Circuits.length) {
-          throw new QueryError('No data found!', 404)
-        }
-
-        const circuits = CircuitModel.parseList({ Circuits: data.Circuits })
+      .then(({ info, circuits }) => {
         const cardsLayouts = circuits.map(circuit => (
           <CircuitCard
             key={circuit.id}
@@ -72,9 +67,6 @@ const useCircuitsListingQuery = () => {
           pageQuantity: Math.ceil(info.total / info.limit),
           currentPage: pageParam
         })
-      })
-      .catch(err => {
-        throw new QueryError(err.message)
       })
   })
 }

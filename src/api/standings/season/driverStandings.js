@@ -1,4 +1,4 @@
-import { ergast, KEYS } from '../../ergast'
+import ergast, { KEYS } from '../../ergast'
 
 // Get the driver standings from a specific season
 export async function driverStandings(year, params = { limit: 60 }) {

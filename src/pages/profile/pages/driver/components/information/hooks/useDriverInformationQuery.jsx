@@ -51,9 +51,6 @@ const useDriverInformationQuery = () => {
           }]
         }
       })
-      .catch(err => {
-        throw new QueryError(err.message, err.code)
-      })
   })
 }
 

@@ -1,4 +1,4 @@
-import { KEYS, ergast } from "../ergast"
+import ergast, { KEYS } from "../ergast"
 
 // Get lap timings from a specific lap in a race
 export async function raceLap(year, round, lap) {

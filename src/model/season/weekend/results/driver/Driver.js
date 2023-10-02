@@ -28,16 +28,20 @@ class Driver {
 	}
 
   static parser({ Driver: driver }) {
-    return new Driver({
-      id: driver.driverId,
-      number: driver.permanentNumber,
-      code: driver.code || driver.familyName.substring(0, 3).toUpperCase(),
-      wiki: driver.url,
-      givenName: driver.givenName,
-      familyName: driver.familyName,
-      dateOfBirth: driver.dateOfBirth,
-      nationality: driver.nationality,
-    })
+    try {
+      return new Driver({
+        id: driver.driverId,
+        number: driver.permanentNumber,
+        code: driver.code || driver.familyName.substring(0, 3).toUpperCase(),
+        wiki: driver.url,
+        givenName: driver.givenName,
+        familyName: driver.familyName,
+        dateOfBirth: driver.dateOfBirth,
+        nationality: driver.nationality,
+      })
+    } catch (err) {
+      throw new Error('ParseError')
+    }
   }
 
   get fullName() {

@@ -1,4 +1,4 @@
-import { ergast, KEYS } from "../../ergast"
+import ergast, { KEYS } from "../../ergast"
 
 // Get driver all race results
 export async function driverRacesResults(driverId) {

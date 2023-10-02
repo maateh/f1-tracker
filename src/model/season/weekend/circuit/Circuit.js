@@ -1,5 +1,8 @@
 const GOOGLE_MAPS_LINK = 'https://maps.google.com/maps'
 
+// models
+import ParseError from '../../../error/ParseError'
+
 class Circuit {
 	constructor({ id, name, wiki, location }) {
 		this.id = id
@@ -15,12 +18,16 @@ class Circuit {
 	}
 
 	static parser({ Circuit: circuit }) {
-		return new Circuit({
-			id: circuit.circuitId,
-			name: circuit.circuitName,
-			wiki: circuit.url,
-			location: circuit.Location,
-		})
+		try {
+			return new Circuit({
+				id: circuit.circuitId,
+				name: circuit.circuitName,
+				wiki: circuit.url,
+				location: circuit.Location,
+			})
+		} catch (err) {
+			throw new ParseError(err.message)
+		}
 	}
 
 	getLocality() {

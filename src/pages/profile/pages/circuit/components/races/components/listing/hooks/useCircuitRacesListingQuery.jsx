@@ -11,10 +11,8 @@ import CircuitRaceCard from '../components/card/CircuitRaceCard'
 import useListingContext from '../../../../../../../../../components/listing/context/hooks/useListingContext'
 
 // models
-import WeekendModel from '../../../../../../../../../model/season/weekend/Weekend'
 import CardsModel from '../../../../../../../../../model/listing/Cards'
 import PaginationModel from '../../../../../../../../../model/listing/Pagination'
-import QueryError from '../../../../../../../../../model/error/QueryError'
 
 const useCircuitRacesListingQuery = () => {
   const { cards, setCards, updateCardsLayouts } = useListingContext()
@@ -28,12 +26,7 @@ const useCircuitRacesListingQuery = () => {
         : undefined
     },
     queryFn: ({ pageParam = 0 }) => circuitRaces(id, { offset: pageParam * 30, limit: 30 })
-      .then(({ info, data }) => {
-        if (!data.Races || !data.Races.length) {
-          throw new QueryError('No data found!', 404)
-        }
-
-        const weekends = WeekendModel.parseList({ Races: data.Races })
+      .then(({ info, weekends }) => {
         const cardsLayouts = weekends.map(weekend => (
           <CircuitRaceCard
             key={weekend.date}
@@ -60,9 +53,6 @@ const useCircuitRacesListingQuery = () => {
           pageQuantity: Math.ceil(info.total / info.limit),
           currentPage: pageParam
         })
-      })
-      .catch(err => {
-        throw new QueryError(err.message)
       })
   })
 }

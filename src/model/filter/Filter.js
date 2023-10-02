@@ -1,6 +1,6 @@
 // api
-import { season } from '../../api/season/season'
 import { seasonList } from '../../api/season/seasonList'
+import { season } from '../../api/season/season'
 import { driverListFromRound, driverListFromSeason } from '../../api/drivers/driverList'
 import { constructorListFromSeason } from '../../api/constructors/constructorList'
 

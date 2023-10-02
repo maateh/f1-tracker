@@ -1,4 +1,4 @@
-import { KEYS, ergast } from "../../ergast"
+import ergast, { KEYS } from "../../ergast"
 
 // Get constructor all race results
 export async function constructorRacesResults(constructorId) {

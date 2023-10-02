@@ -1,4 +1,4 @@
-import { ergast, KEYS } from "../../ergast"
+import ergast, { KEYS } from "../../ergast"
 
 // Get the constructor standings from a specific season
 export async function constructorStandings(year, params = { limit: 60 }) {

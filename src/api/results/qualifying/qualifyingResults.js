@@ -1,4 +1,4 @@
-import { KEYS, ergast } from "../../ergast"
+import ergast, { KEYS } from "../../ergast"
 
 // Get qualifying results from a specific round in a season
 export async function qualifyingResults(year, round) {

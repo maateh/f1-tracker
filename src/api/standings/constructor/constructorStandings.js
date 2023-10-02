@@ -1,4 +1,4 @@
-import { ergast, KEYS } from "../../ergast"
+import ergast, { KEYS } from "../../ergast"
 
 // Get a constructor championship standings results
 export async function constructorStandings(constructorId) {

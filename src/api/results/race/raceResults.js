@@ -1,4 +1,4 @@
-import { KEYS, ergast } from "../../ergast"
+import ergast, { KEYS } from "../../ergast"
 
 // Get race results from a specific round in a season
 export async function raceResults(year, round, params) {
