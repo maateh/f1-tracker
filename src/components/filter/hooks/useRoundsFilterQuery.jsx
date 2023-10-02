@@ -7,7 +7,6 @@ import useFilterContext from "../context/hooks/useFilterContext"
 // models
 import FilterModel from "../../../model/filter/Filter"
 import FilterSelectorModel from "../../../model/filter/FilterSelector"
-import QueryError from "../../../model/error/QueryError"
 
 const useRoundsFilterQuery = ({ onChange, additionalOption }) => {
   const { setRounds } = useFilterContext()

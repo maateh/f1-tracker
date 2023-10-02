@@ -1,14 +1,9 @@
-// api
-import { nextRound } from '../../../api/season/round/nextRound'
-import { lastRound } from '../../../api/season/round/lastRound'
-
-// model
+// models
 import Circuit from './circuit/Circuit'
 import SessionList from './session/SessionList'
 import Results from './results/Results'
 import Lap from './lap/Lap'
 import PitStop from './pit/PitStop'
-import QueryError from '../../error/QueryError'
 
 class Weekend {
 	constructor({

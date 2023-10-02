@@ -1,14 +1,28 @@
-import ergast, { KEYS } from "../../ergast"
+import ergast, { STANDINGS_TABLE } from "../../ergast"
 
-// Get a constructor championship standings results
-export async function constructorStandings(constructorId) {
+// models
+import StandingsModel from "../../../model/season/standings/Standings"
+import DataNotFoundError from "../../../model/error/DataNotFoundError"
+
+// Get a constructor's championship standings results
+export async function constructorStandings(constructorId, params = { limit: 100 }) {
+  const url = `/constructors/${constructorId}/constructorStandings`
+
   return ergast({
-    url: `/constructors/${constructorId}/constructorStandings`,
-    key: KEYS.STANDINGS_TABLE,
-    params: { limit: 100 }
+    url,
+    key: STANDINGS_TABLE,
+    params
   })
-    .then(res => res)
-    .catch(err => {
-      throw new Error(err)
+    .then(({ info, data }) => {
+      if (!data.StandingsLists || !data.StandingsLists.length) {
+        throw new DataNotFoundError(url)
+      }
+
+      return {
+        info,
+        standingsList: StandingsModel.parseList({
+					StandingsLists: data.StandingsLists,
+				})
+      }
     })
 }

@@ -7,10 +7,6 @@ import { driverStandings } from '../../../../../../../api/standings/driver/drive
 // context
 import useDriverProfileContext from "../../../context/hooks/useDriverProfileContext"
 
-// models
-import StandingsModel from "../../../../../../../model/season/standings/Standings"
-import QueryError from "../../../../../../../model/error/QueryError"
-
 // icons
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import FlagCircleIcon from '@mui/icons-material/FlagCircle'
@@ -25,14 +21,7 @@ const useDriverStandingsStatsQuery = () => {
   return useQuery({
     queryKey: ['driverStandings', id],
     queryFn: () => driverStandings(id)
-      .then(({ data }) => {
-        if (!data.StandingsLists || !data.StandingsLists.length) {
-          throw new QueryError('No data found!', 404)
-        }
-
-        const standingsList = StandingsModel.parseList({
-					StandingsLists: data.StandingsLists,
-				})
+      .then(({ standingsList }) => {
         setStandingsList({ standingsList })
 
         return [
@@ -62,9 +51,6 @@ const useDriverStandingsStatsQuery = () => {
             icon: <ControlPointDuplicateIcon />
           }
         ]
-      })
-      .catch(err => {
-        throw new QueryError(err.message, err.code)
       })
   })
 }

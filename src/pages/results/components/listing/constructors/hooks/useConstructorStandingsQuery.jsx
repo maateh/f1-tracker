@@ -13,10 +13,8 @@ import PointsCell from "../../components/table/PointsCell"
 import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
 
 // models
-import StandingsModel from "../../../../../../model/season/standings/Standings"
 import TitleModel from '../../../../../../model/listing/Title'
 import TableModel from '../../../../../../model/listing/Table'
-import QueryError from '../../../../../../model/error/QueryError'
 
 const useConstructorStandingsQuery = () => {
   const { setTitle, setTable } = useListingContext()
@@ -25,15 +23,7 @@ const useConstructorStandingsQuery = () => {
   return useQuery({
     queryKey: ['listing', 'constructorStandings', year],
     queryFn: () => constructorStandings(year)
-      .then(({ data }) => {
-        if (!data.StandingsLists || !data.StandingsLists.length) {
-          throw new QueryError('No data found!', 404)
-        }
-
-        const standings = StandingsModel.parser({
-					StandingsList: data.StandingsLists[0]
-				})
-
+      .then(({ standings }) => {
         setTitle({
           title: new TitleModel({
             main: `${year} Constructor Standings`
@@ -110,9 +100,6 @@ const useConstructorStandingsQuery = () => {
             }))
           })
         })
-      })
-      .catch(err => {
-        throw new QueryError(err.message, err.code)
       })
   })
 }

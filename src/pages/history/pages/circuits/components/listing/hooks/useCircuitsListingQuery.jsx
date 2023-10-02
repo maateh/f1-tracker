@@ -11,12 +11,10 @@ import CircuitCard from "../components/card/CircuitCard"
 import useListingContext from "../../../../../../../components/listing/context/hooks/useListingContext"
 
 // models
-import CircuitModel from "../../../../../../../model/season/weekend/circuit/Circuit"
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import PaginationModel from "../../../../../../../model/listing/Pagination"
 import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
-import QueryError from "../../../../../../../model/error/QueryError"
 
 const useCircuitsListingQuery = () => {
   const { cards, setTitle, setCards, updateCardsLayouts } = useListingContext()

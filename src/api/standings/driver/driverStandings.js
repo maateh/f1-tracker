@@ -1,13 +1,27 @@
-import ergast, { KEYS } from '../../ergast'
+import ergast, { STANDINGS_TABLE } from '../../ergast'
 
-// Get a driver championship standings results
+// models
+import StandingsModel from '../../../model/season/standings/Standings'
+import DataNotFoundError from '../../../model/error/DataNotFoundError'
+
+// Get a driver's championship standings results
 export async function driverStandings(driverId) {
+	const url = `/drivers/${driverId}/driverStandings`
+
 	return ergast({
-		url: `/drivers/${driverId}/driverStandings`,
-		key: KEYS.STANDINGS_TABLE
+		url,
+		key: STANDINGS_TABLE
 	})
-		.then(res => res)
-		.catch(err => {
-			throw new Error(err)
+		.then(({ info, data }) => {
+			if (!data.StandingsLists || !data.StandingsLists.length) {
+				throw new DataNotFoundError(url)
+			}
+
+			return {
+				info,
+				standingsList: StandingsModel.parseList({
+					StandingsLists: data.StandingsLists,
+				})
+			}
 		})
 }
