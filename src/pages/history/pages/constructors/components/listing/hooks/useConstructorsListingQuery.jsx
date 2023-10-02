@@ -11,12 +11,10 @@ import ConstructorCard from "../components/card/ConstructorCard"
 import useListingContext from "../../../../../../../components/listing/context/hooks/useListingContext"
 
 // models
-import ConstructorModel from "../../../../../../../model/season/weekend/results/constructor/Constructor"
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import PaginationModel from "../../../../../../../model/listing/Pagination"
 import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
-import QueryError from "../../../../../../../model/error/QueryError"
 
 const useConstructorsListingQuery = () => {
   const { cards, setTitle, setCards, updateCardsLayouts } = useListingContext()
@@ -34,15 +32,7 @@ const useConstructorsListingQuery = () => {
         : undefined
     },
     queryFn: ({ pageParam = 0 }) => call(pageParam)
-      .then(({ info, data }) => {
-        if (!data.Constructors || !data.Constructors.length) {
-          throw new QueryError('No data found!', 404)
-        }
-
-        const constructors = ConstructorModel.parseList({
-          Constructors: data.Constructors,
-        })
-        
+      .then(({ info, constructors }) => {        
         const cardsLayouts = constructors.map(constructor => (
           <ConstructorCard
             key={constructor.id}
@@ -75,9 +65,6 @@ const useConstructorsListingQuery = () => {
           pageQuantity: Math.ceil(info.total / info.limit),
           currentPage: pageParam
         })
-      })
-      .catch(err => {
-        throw new QueryError(err.message)
       })
   })
 }

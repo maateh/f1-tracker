@@ -14,13 +14,10 @@ import DurationCell from "../components/table/DurationCell"
 import useListingContext from "../../../../../../../components/listing/context/hooks/useListingContext"
 
 // models
-import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
-import DriverModel from "../../../../../../../model/season/weekend/results/driver/Driver"
 import PitStopModel from "../../../../../../../model/season/weekend/pit/PitStop"
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import TableModel from "../../../../../../../model/listing/Table"
-import QueryError from "../../../../../../../model/error/QueryError"
 
 // icons
 import LocalParkingIcon from '@mui/icons-material/LocalParking'
@@ -36,20 +33,13 @@ const useDriverPitsListingQuery = () => {
       driverPitStops(year, round, driverId),
       driver(driverId)
     ])
-      .then(([{ data: pitsData }, { data: driverData }]) => {
-        if (!pitsData.Races || !pitsData.Races.length) {
-          throw new QueryError('No data found!', 404)
-        }
-  
-        const { year, name, pits } = WeekendModel.parser({ Race: pitsData.Races[0] })
-        const { fullName } = DriverModel.parser({ Driver: driverData.Drivers[0] })
-
-        const fastestPit = getFastestPit(pits)
+      .then(([{ weekend }, { driver }]) => {
+        const fastestPit = getFastestPit(weekend.pits)
   
         setTitle({
           title: new TitleModel({
-            main: `${year} ${name} Pit Stops`,
-            sub: `Selected Driver | ${fullName}`
+            main: `${weekend.year} ${weekend.name} Pit Stops`,
+            sub: `Selected Driver | ${driver.fullName}`
           })
         })
 
@@ -61,12 +51,12 @@ const useDriverPitsListingQuery = () => {
               summaries: [
                 {
                   title: 'Pit Stops',
-                  desc: pitStopsAmount(pits),
+                  desc: pitStopsAmount(weekend.pits),
                   icon: <LocalParkingIcon />
                 },
                 {
                   title: 'Average Duration',
-                  desc: averageDuration(pits),
+                  desc: averageDuration(weekend.pits),
                   icon: <TimelapseIcon />
                 }
               ]
@@ -123,7 +113,7 @@ const useDriverPitsListingQuery = () => {
                   />
               },
             ],
-            data: pits.map(pit => ({
+            data: weekend.pits.map(pit => ({
               time: { value: pit.time },
               lap: { value: +pit.lap },
               stops: { value: +pit.stop },
@@ -131,9 +121,6 @@ const useDriverPitsListingQuery = () => {
             }))
           })
         })
-      })
-      .catch(err => {
-        throw new QueryError(err.message, err.code)
       })
   })
 }

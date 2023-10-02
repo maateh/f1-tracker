@@ -1,27 +1,47 @@
-import ergast, { KEYS } from "../../ergast"
+import ergast, { RACE_TABLE } from "../../ergast"
+
+// models
+import WeekendModel from "../../../model/season/weekend/Weekend"
+import DataNotFoundError from "../../../model/error/DataNotFoundError"
 
 // Get constructor all qualifying results
-export async function constructorQualifyingsResults(constructorId) {
+export async function constructorQualifyingsResults(constructorId, params = { limit: 1000 }) {
+  const url = `/constructors/${constructorId}/qualifying`
+
   return ergast({
-    url: `/constructors/${constructorId}/qualifying`,
-    key: KEYS.RACE_TABLE,
-    params: { limit: 1000 }
+    url,
+    key: RACE_TABLE,
+    params
   })
-    .then(res => res)
-    .catch(err => {
-      throw new Error(err)
+    .then(({ info, data }) => {
+      if (!data.Races || !data.Races.length) {
+        throw new DataNotFoundError(url)
+      }
+
+      return {
+        info,
+        weekends: WeekendModel.parseList({ Races: data.Races })
+      }
     })
 }
 
 // Get constructor qualifying results from a complete season
-export async function constructorQualifyingsResultsFromSeason(year, constructorId) {
+export async function constructorQualifyingsResultsFromSeason(year, constructorId, params = { limit: 60 }) {
+  const url = `/${year}/constructors/${constructorId}/qualifying`
+
   return ergast({
-    url: `/${year}/constructors/${constructorId}/qualifying`,
-    key: KEYS.RACE_TABLE,
-    params: { limit: 60 }
+    url,
+    key: RACE_TABLE,
+    params
   })
-    .then(res => res)
-    .catch(err => {
-      throw new Error(err)
+    .then(({ info, data }) => {
+      if (!data.Races || !data.Races.length) {
+        throw new DataNotFoundError(url)
+      }
+
+      return {
+        info,
+        weekends: WeekendModel.parseList({ Races: data.Races })
+      }
     })
 }

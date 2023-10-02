@@ -15,13 +15,11 @@ import TimeCell from '../components/table/TimeCell'
 import useListingContext from '../../../../../../../components/listing/context/hooks/useListingContext'
 
 // models
-import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
 import RaceModel from "../../../../../../../model/season/weekend/results/race/Race"
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import TableModel from "../../../../../../../model/listing/Table"
 import PaginationModel from "../../../../../../../model/listing/Pagination"
-import QueryError from "../../../../../../../model/error/QueryError"
 
 // icons
 import SpeedIcon from '@mui/icons-material/Speed'
@@ -41,12 +39,7 @@ const useDriverLapsListingQuery = () => {
       driverLaps(year, round, driverId), 
       driverRaceResults(year, round, driverId)
     ])
-      .then(([{ info, data: lapsData }, { data: resultsData }]) => {
-        if (!lapsData.Races || !lapsData.Races.length) {
-          throw new QueryError('No data found!', 404)
-        }
-  
-        const weekend = WeekendModel.parser({ Race: lapsData.Races[0] })        
+      .then(([{ info, weekend }, { data: resultsData }]) => {
         const result = RaceModel.parser({ Result: resultsData.Races[0].Results[0] })
 
         setTitle({
@@ -147,9 +140,6 @@ const useDriverLapsListingQuery = () => {
             })
           })
         })
-      })
-      .catch(err => {
-        throw new QueryError(err.message, err.code)
       })
   })
 }

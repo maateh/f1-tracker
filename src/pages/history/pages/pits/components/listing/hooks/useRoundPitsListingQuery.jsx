@@ -15,14 +15,11 @@ import DurationCell from "../components/table/DurationCell"
 import useListingContext from "../../../../../../../components/listing/context/hooks/useListingContext"
 
 // models
-import WeekendModel from "../../../../../../../model/season/weekend/Weekend"
-import DriverModel from "../../../../../../../model/season/weekend/results/driver/Driver"
 import PitStopModel from "../../../../../../../model/season/weekend/pit/PitStop"
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import TableModel from "../../../../../../../model/listing/Table"
 import PaginationModel from "../../../../../../../model/listing/Pagination"
-import QueryError from "../../../../../../../model/error/QueryError"
 
 // icons
 import LocalParkingIcon from '@mui/icons-material/LocalParking'
@@ -39,25 +36,12 @@ const useRoundPitsListingQuery = () => {
       pitStops(year, round),
       driverListFromRound(year, round)
     ])
-      .then(([{ info, data: pitsData }, { data: driversData }]) => {
-        if (!pitsData.Races || !pitsData.Races.length) {
-          throw new QueryError('No pits data found!', 404)
-        }
-        if (!driversData.Drivers || !driversData.Drivers.length) {
-          throw new QueryError('No drivers data found!', 404)
-        }
-  
-        const weekend = WeekendModel.parser({
-					Race: pitsData.Races[0]
-				})
-        const drivers = DriverModel.parseList({
-					Drivers: driversData.Drivers
-				})
+      .then(([{ info, weekend }, { drivers }]) => {
         const fastestPit = getFastestPit(weekend.pits)
   
         setTitle({
           title: new TitleModel({
-            main: `${year} ${weekend.name} Pit Stops`
+            main: `${weekend.year} ${weekend.name} Pit Stops`
           })
         })
 
@@ -167,9 +151,6 @@ const useRoundPitsListingQuery = () => {
             })
           })
         })
-      })
-      .catch(err => {
-        throw new QueryError(err.message, err.code)
       })
   })
 }

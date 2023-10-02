@@ -4,9 +4,9 @@ import ergast, { RACE_TABLE } from "../../ergast"
 import WeekendModel from "../../../model/season/weekend/Weekend"
 import DataNotFoundError from "../../../model/error/DataNotFoundError"
 
-// Get constructor qualifying results from a specific round in a season
-export async function constructorQualifyingResults(year, round, constructorId) {
-  const url = `/${year}/${round}/constructors/${constructorId}/qualifying`
+// Get qualifying results from a specific round in a season
+export async function roundQualifyingResults(year, round) {
+  const url = `/${year}/${round}/qualifying`
 
   return ergast({
     url,
@@ -19,7 +19,7 @@ export async function constructorQualifyingResults(year, round, constructorId) {
 
       return {
         info,
-        weekend: WeekendModel.parser({ Races: data.Races[0] })
+        weekend: WeekendModel.parser({ Race: data.Races[0] })
       }
     })
 }

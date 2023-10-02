@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 
 // api
-import { qualifyingsResults } from "../../../../../../api/results/qualifying/qualifyingsResults"
+import { roundsQualifyingsResults } from "../../../../../../api/results/qualifying/roundsQualifyingsResults"
 import { racesResults } from "../../../../../../api/results/race/racesResults"
 
 // components
@@ -19,12 +19,10 @@ import useListingContext from "../../../../../../components/listing/context/hook
 
 // models
 import WeekendModel from "../../../../../../model/season/weekend/Weekend"
-import ResultsModel from "../../../../../../model/season/weekend/results/Results"
 import QualifyingModel from "../../../../../../model/season/weekend/results/qualifying/Qualifying"
 import TitleModel from "../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../model/listing/Cards"
 import TableModel from "../../../../../../model/listing/Table"
-import QueryError from "../../../../../../model/error/QueryError"
 
 // icons
 import EventIcon from '@mui/icons-material/Event'
@@ -44,21 +42,21 @@ const useSeasonQuery = () => {
   const { year } = useParams()
 
   return useQuery({
-    queryKey: ['listing', 'qualifyingsResults', 'racesResults', year], 
+    queryKey: ['listing', 'roundsQualifyingsResults', 'racesResults', year], 
     queryFn: () => Promise.all([
-      qualifyingsResults(year),
+      roundsQualifyingsResults(year, true),
       racesResults(year)
     ])
-      .then(([{ data: qualifyingsData }, { data: racesData }]) => {
-        if (!racesData.Races || !racesData.Races.length) {
-          throw new QueryError('No data found!', 404)
-        }
+      .then(([{ weekends: weekendsWithQualifyingsData }, { data: racesData }]) => {
+        // if (!racesData.Races || !racesData.Races.length) {
+        //   throw new QueryError('No data found!', 404)
+        // }
 
         const weekends = WeekendModel.parseList({ Races: racesData.Races })
-        const qResults = qualifyingsData.Races.map(race => ResultsModel.parser({ Race: race }))
+        const qResults = weekendsWithQualifyingsData?.map(w => w.results.qualifying)
         if (qResults && qResults.length) {
           weekends.forEach((w, index) => {
-            w.results.qualifying = qResults[index]?.qualifying
+            w.results.qualifying = qResults[index]
           })
         }
   
@@ -227,9 +225,6 @@ const useSeasonQuery = () => {
             }))
           })
         })
-      })
-      .catch(err => {
-        throw new QueryError(err.message, err.code)
       })
   })
 }

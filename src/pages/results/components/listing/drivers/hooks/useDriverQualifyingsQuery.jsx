@@ -14,11 +14,9 @@ import CircuitCell from "../../components/table/CircuitCell"
 import useListingContext from "../../../../../../components/listing/context/hooks/useListingContext"
 
 // models
-import WeekendModel from "../../../../../../model/season/weekend/Weekend"
 import TitleModel from "../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../model/listing/Cards"
 import TableModel from "../../../../../../model/listing/Table"
-import QueryError from "../../../../../../model/error/QueryError"
 
 // icons
 import SportsMotorsportsIcon from '@mui/icons-material/SportsMotorsports'
@@ -37,12 +35,7 @@ const useDriverQualifyingsQuery = () => {
   return useQuery({
     queryKey: ['listing', 'driverQualifyingsResultsFromSeason', year, driverId],
     queryFn: () => driverQualifyingsResultsFromSeason(year, driverId)
-      .then(({ data }) => {
-        if (!data.Races || !data.Races.length) {
-          throw new QueryError('No data found!', 404)
-        }
-
-        const weekends = WeekendModel.parseList({ Races: data.Races })
+      .then(({ weekends }) => {
         const driver = getDriver(weekends)
   
         setTitle({
@@ -220,9 +213,6 @@ const useDriverQualifyingsQuery = () => {
             }))
           })
         })
-      })
-      .catch(err => {
-        throw new QueryError(err.message, err.code)
       })
   })
 }

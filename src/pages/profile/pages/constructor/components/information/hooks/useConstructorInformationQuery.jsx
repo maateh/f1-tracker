@@ -4,10 +4,6 @@ import { useQuery } from "react-query"
 // api
 import { constructor } from '../../../../../../../api/constructors/constructor'
 
-// models
-import ConstructorModel from "../../../../../../../model/season/weekend/results/constructor/Constructor"
-import QueryError from "../../../../../../../model/error/QueryError"
-
 // icons
 import FlagIcon from '@mui/icons-material/Flag'
 import PublicIcon from '@mui/icons-material/Public'
@@ -18,12 +14,7 @@ const useConstructorInformationQuery = () => {
   return useQuery({
     queryKey: ['constructor', id],
     queryFn: () => constructor(id)
-      .then(({ data }) => {
-        if (!data.Constructors || !data.Constructors.length) {
-          throw new QueryError('No data found!', 404)
-        }
-
-        const constructor = ConstructorModel.parser({ Constructor: data.Constructors[0] })
+      .then(({ constructor }) => {
         return {
           title: constructor.name,
           informations: [{
@@ -37,9 +28,6 @@ const useConstructorInformationQuery = () => {
             icon: <PublicIcon />
           }]
         }
-      })
-      .catch(err => {
-        throw new QueryError(err.message, err.code)
       })
   })
 }

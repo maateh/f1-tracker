@@ -4,10 +4,6 @@ import { useQuery } from "react-query"
 // api
 import { driver } from '../../../../../../../api/drivers/driver'
 
-// models
-import DriverModel from "../../../../../../../model/season/weekend/results/driver/Driver"
-import QueryError from "../../../../../../../model/error/QueryError"
-
 // icons
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
 import FlagIcon from '@mui/icons-material/Flag'
@@ -20,12 +16,7 @@ const useDriverInformationQuery = () => {
   return useQuery({
     queryKey: ['driver', id],
     queryFn: () => driver(id)
-      .then(({ data }) => {
-        if (!data.Drivers || !data.Drivers.length) {
-          throw new QueryError('No data found!', 404)
-        }
-
-        const driver = DriverModel.parser({ Driver: data.Drivers[0] })
+      .then(({ driver }) => {
         return {
           title: driver.fullName,
           informations: [

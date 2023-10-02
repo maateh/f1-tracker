@@ -7,10 +7,6 @@ import { constructorQualifyingsResults } from '../../../../../../../api/results/
 // context
 import useConstructorProfileContext from "../../../context/hooks/useConstructorProfileContext"
 
-// models
-import WeekendModel from '../../../../../../../model/season/weekend/Weekend'
-import QueryError from "../../../../../../../model/error/QueryError"
-
 // icons
 import AvTimerIcon from '@mui/icons-material/AvTimer'
 import AlarmOnIcon from '@mui/icons-material/AlarmOn'
@@ -27,12 +23,7 @@ const useConstructorQualifyingsStatsQuery = () => {
   return useQuery({
     queryKey: ['constructorQualifyingsResults', id],
     queryFn: () => constructorQualifyingsResults(id)
-      .then(({ data }) => {
-        if (!data.Races || !data.Races.length) {
-          throw new QueryError('No data found!', 404)
-        }
-
-        const weekends = WeekendModel.parseList({ Races: data.Races })
+      .then(({ weekends }) => {
         setQualifyings({ qualifyings: weekends })
 
         const winsAmount = qualifyingsWon(weekends)
@@ -111,9 +102,6 @@ const useConstructorQualifyingsStatsQuery = () => {
           },
           ...additionalStats
         ]
-      })
-      .catch(err => {
-        throw new QueryError(err.message, err.code)
       })
   })
 }

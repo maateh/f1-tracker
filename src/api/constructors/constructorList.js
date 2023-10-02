@@ -1,15 +1,27 @@
-import ergast, { KEYS } from "../ergast"
+import ergast, { CONSTRUCTOR_TABLE } from "../ergast"
+
+// models
+import ConstructorModel from "../../model/season/weekend/results/constructor/Constructor"
+import DataNotFoundError from "../../model/error/DataNotFoundError"
 
 // Get a list with all of the constructors in F1
 export async function constructorList(params) {
   return ergast({
     url: `/constructors`,
-    key: KEYS.CONSTRUCTOR_TABLE,
+    key: CONSTRUCTOR_TABLE,
     params
   })
-    .then(res => res)
-    .catch(err => {
-      throw new Error(err)
+    .then(({ info, data }) => {
+      if (!data.Constructors || !data.Constructors.length) {
+        throw new DataNotFoundError(url)
+      }
+
+      return {
+        info,
+        constructors: ConstructorModel.parseList({
+          Constructors: data.Constructors,
+        })
+      }
     })
 }
   
@@ -17,11 +29,19 @@ export async function constructorList(params) {
 export async function constructorListFromSeason(year, params = { limit: 60 }) {
   return ergast({
     url: `/${year}/constructors`,
-    key: KEYS.CONSTRUCTOR_TABLE,
+    key: CONSTRUCTOR_TABLE,
     params
   })
-    .then(res => res)
-    .catch(err => {
-      throw new Error(err)
+    .then(({ info, data }) => {
+      if (!data.Constructors || !data.Constructors.length) {
+        throw new DataNotFoundError(url)
+      }
+
+      return {
+        info,
+        constructors: ConstructorModel.parseList({
+          Constructors: data.Constructors,
+        })
+      }
     })
 }

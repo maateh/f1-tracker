@@ -63,26 +63,23 @@ class Filter {
 			: () => driverListFromSeason(year)
 
 		return call()
-			.then(({ data }) => new Filter({
+			.then(({ drivers }) => new Filter({
         key: 'drivers',
         label,
-				options: data.Drivers
-					.map(({ driverId, givenName, familyName }) => new FilterOption({ 
-						value: driverId, 
+				options: drivers
+					.map(({ id, givenName, familyName }) => new FilterOption({ 
+						value: id, 
 						label: `${givenName} ${familyName}` 
 					}))
       }))
-			.catch(err => {
-				throw new QueryError(err.message)
-			})
 	}
 
 	static async queryConstructors({ year, label = 'Constructors' }) {
 		return constructorListFromSeason(year)
-			.then(({ data }) => new Filter({
+			.then(({ constructors }) => new Filter({
         key: 'constructors',
         label,
-				options: data.Constructors
+				options: constructors
 					.map(({ constructorId, name }) => new FilterOption({ 
 						value: constructorId, 
 						label: name 

@@ -20,7 +20,6 @@ import ResultsModel from "../../../../../../../model/season/weekend/results/Resu
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import TableModel from "../../../../../../../model/listing/Table"
-import QueryError from "../../../../../../../model/error/QueryError"
 
 // icons
 import SportsMotorsportsIcon from '@mui/icons-material/SportsMotorsports'
@@ -43,23 +42,15 @@ const useRoundLapsListingQuery = () => {
       raceResults(year, round),
       lap > 1 && raceLap(year, round, lap - 1)
     ])
-      .then(([{ data: lapData }, { data: resultsData }, { data: prevLapData }]) => {
-        if (!lapData.Races || !lapData.Races.length) {
-          throw new QueryError('No data found!', 404)
-        }
-        
-        const {
-					year,
-					round,
-					name,
-					laps: [currentLap]
-				} = WeekendModel.parser({ Race: lapData.Races[0] })
+      .then(([{ weekend }, { data: resultsData }, { data: prevLapData }]) => {        
+        const currentLap = weekend.laps[0]
+
         const { race: result } = ResultsModel.parser({ Race: resultsData.Races[0] })
         const prevLap = prevLapData && WeekendModel.parser({ Race: prevLapData.Races[0] }).laps[0]
   
         setTitle({
           title: new TitleModel({
-            main: `${year} ${name} Lap Timings`,
+            main: `${year} ${weekend.name} Lap Timings`,
             sub: `Selected Lap | #${currentLap.number}`
           })
         })
@@ -156,9 +147,6 @@ const useRoundLapsListingQuery = () => {
             pageQuantity: resultsData.Races[0].Results[0].laps
           })
         })
-      })
-      .catch(err => {
-        throw new QueryError(err.message, err.code)
       })
   })
 }

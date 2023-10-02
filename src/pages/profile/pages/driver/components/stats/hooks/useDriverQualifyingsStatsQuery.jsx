@@ -7,10 +7,6 @@ import { driverQualifyingsResults } from '../../../../../../../api/results/quali
 // context
 import useDriverProfileContext from "../../../context/hooks/useDriverProfileContext"
 
-// models
-import WeekendModel from '../../../../../../../model/season/weekend/Weekend'
-import QueryError from "../../../../../../../model/error/QueryError"
-
 // icons
 import AvTimerIcon from '@mui/icons-material/AvTimer'
 import AlarmOnIcon from '@mui/icons-material/AlarmOn'
@@ -26,12 +22,7 @@ const useDriverQualifyingsStatsQuery = () => {
   return useQuery({
     queryKey: ['driverQualifyingsResults', id],
     queryFn: () => driverQualifyingsResults(id)
-      .then(({ data }) => {
-        if (!data.Races || !data.Races.length) {
-          throw new QueryError('No data found!', 404)
-        }
-
-        const weekends = WeekendModel.parseList({ Races: data.Races })
+      .then(({ weekends }) => {
         setQualifyings({ qualifyings: weekends })
 
         const winsAmount = qualifyingsWon(weekends)
@@ -86,9 +77,6 @@ const useDriverQualifyingsStatsQuery = () => {
           },
           ...additionalStats
         ]
-      })
-      .catch(err => {
-        throw new QueryError(err.message, err.code)
       })
   })
 }

@@ -11,13 +11,10 @@ import DriverCard from "../components/card/DriverCard"
 import useListingContext from "../../../../../../../components/listing/context/hooks/useListingContext"
 
 // models
-import DriverModel from "../../../../../../../model/season/weekend/results/driver/Driver"
 import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import PaginationModel from "../../../../../../../model/listing/Pagination"
 import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
-import QueryError from '../../../../../../../model/error/QueryError'
-
 const useDriversListingQuery = () => {
   const { cards, setTitle, setCards, updateCardsLayouts } = useListingContext()
   const { year } = useParams()
@@ -34,12 +31,7 @@ const useDriversListingQuery = () => {
         : undefined
     },
     queryFn: ({ pageParam = 0 }) => call(pageParam)
-      .then(({ info, data }) => {
-        if (!data.Drivers || !data.Drivers.length) {
-          throw new QueryError('No data found!', 404)
-        }
-
-        const drivers = DriverModel.parseList({ Drivers: data.Drivers })
+      .then(({ info, drivers }) => {
         const cardsLayouts = drivers.map(driver => (
           <DriverCard
             key={driver.id}
@@ -72,9 +64,6 @@ const useDriversListingQuery = () => {
           pageQuantity: Math.ceil(info.total / info.limit),
           currentPage: pageParam
         })
-      })
-      .catch(err => {
-        throw new QueryError(err.message)
       })
   })
 }
