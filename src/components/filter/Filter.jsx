@@ -37,8 +37,6 @@ const Filter = ({ useFilterQueries, paramsUpdater, skeletonCounter = 1 }) => {
 						)
 				)
 			)}
-
-			{error && <p className="error__element">{error.message}</p>}
 		</ul>
 	)
 }

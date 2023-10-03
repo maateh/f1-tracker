@@ -6,8 +6,10 @@ import DataNotFoundError from "../../model/error/DataNotFoundError"
 
 // Get a list with all of the constructors in F1
 export async function constructorList(params) {
+  const url = '/constructors'
+
   return ergast({
-    url: `/constructors`,
+    url,
     key: CONSTRUCTOR_TABLE,
     params
   })
@@ -27,8 +29,10 @@ export async function constructorList(params) {
   
 // Get a list with all of the constructor from a specific season
 export async function constructorListFromSeason(year, params = { limit: 60 }) {
+  const url = `/${year}/constructors`
+
   return ergast({
-    url: `/${year}/constructors`,
+    url,
     key: CONSTRUCTOR_TABLE,
     params
   })
