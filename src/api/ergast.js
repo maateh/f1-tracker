@@ -6,15 +6,6 @@ import NetworkError from '../model/error/NetworkError'
 const BASE_URL = 'https://ergast.com/api/f1'
 const URL_SUFFIX = '.json'
 
-export const KEYS = {
-	RACE_TABLE: 'RaceTable',
-	SEASON_TABLE: 'SeasonTable',
-	DRIVER_TABLE: 'DriverTable',
-	CONSTRUCTOR_TABLE: 'ConstructorTable',
-	CIRCUIT_TABLE: 'CircuitTable',
-	STANDINGS_TABLE: 'StandingsTable'
-}
-
 export const RACE_TABLE = 'RaceTable'
 export const SEASON_TABLE = 'SeasonTable'
 export const DRIVER_TABLE = 'DriverTable'
