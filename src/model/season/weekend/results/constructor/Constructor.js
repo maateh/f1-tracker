@@ -1,3 +1,6 @@
+// models
+import ParseError from "../../../../error/ParseError"
+
 class Constructor {
 	constructor({ id, wiki, name, nationality }) {
 		this.id = id
@@ -13,12 +16,16 @@ class Constructor {
 	}
 
 	static parser({ Constructor: constructor }) {
-		return new Constructor({
-			id: constructor.constructorId,
-			wiki: constructor.url,
-			name: constructor.name,
-			nationality: constructor.nationality,
-		})
+		try {
+			return new Constructor({
+				id: constructor.constructorId,
+				wiki: constructor.url,
+				name: constructor.name,
+				nationality: constructor.nationality
+			})
+		} catch (err) {
+			throw new ParseError(err.message)
+		}
 	}
 }
 

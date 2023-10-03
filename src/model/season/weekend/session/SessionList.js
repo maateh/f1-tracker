@@ -1,5 +1,6 @@
 // models
 import Session from './Session'
+import ParseError from '../../../error/ParseError'
 
 class SessionList {
 	constructor({ practices, sprint, qualifying, race }) {
@@ -10,12 +11,16 @@ class SessionList {
 	}
 
 	static parser({ Race }) {
-		return new SessionList({
-			practices: this.#parsePractices({ Race }),
-			sprint: this.#parseSprint({ Race }),
-			qualifying: this.#parseQualifying({ Race }),
-			race: this.#parseRace({ Race }),
-		})
+		try {
+			return new SessionList({
+				practices: this.#parsePractices({ Race }),
+				sprint: this.#parseSprint({ Race }),
+				qualifying: this.#parseQualifying({ Race }),
+				race: this.#parseRace({ Race })
+			})
+		} catch (err) {
+			throw new ParseError(err.message)
+		}
 	}
 
 	static #parsePractices({ Race }) {

@@ -4,6 +4,7 @@ import Standings from './standings/Standings'
 import Driver from './weekend/results/driver/Driver'
 import Constructor from './weekend/results/constructor/Constructor'
 import Circuit from './weekend/circuit/Circuit'
+import ParseError from '../error/ParseError'
 
 class Season {
 	constructor({
@@ -29,15 +30,19 @@ class Season {
 	}
 
 	static parser({ Season: season }) {
-		return new Season({
-			year: season.season,
-			wiki: this.#parseWiki({ Url: season.url }),
-			weekends: Weekend.parseList({ Races: season.Races }),
-			standings: Standings.parseList({ StandingsLists: season.StandingsLists }),
-			drivers: Driver.parseList({ Drivers: season.Drivers }),
-			constructors: Constructor.parseList({ Constructors: season.Constructors }),
-			circuits: Circuit.parseList({ Circuits: season.Constructors }),
-		})
+		try {
+			return new Season({
+				year: season.season,
+				wiki: this.#parseWiki({ Url: season.url }),
+				weekends: Weekend.parseList({ Races: season.Races }),
+				standings: Standings.parseList({ StandingsLists: season.StandingsLists }),
+				drivers: Driver.parseList({ Drivers: season.Drivers }),
+				constructors: Constructor.parseList({ Constructors: season.Constructors }),
+				circuits: Circuit.parseList({ Circuits: season.Constructors })
+			})
+		} catch (err) {
+			throw new ParseError(err.message)
+		}
 	}
 
 	static #parseWiki({ Url: url }) {

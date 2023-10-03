@@ -1,3 +1,6 @@
+// models
+import ParseError from "../../../../error/ParseError"
+
 class FastestLap {
   constructor({ time, avgSpeed, rank, lap }) {
     this.time = time
@@ -7,15 +10,19 @@ class FastestLap {
   }
 
   static parser({ FastestLap: fastestLap }) {
-    return new FastestLap({
-      time: fastestLap.Time.time,
-      avgSpeed: {
-        speed: fastestLap.AverageSpeed.speed,
-        units: fastestLap.AverageSpeed.units,
-      },
-      rank: fastestLap.rank,
-      lap: fastestLap.lap,
-    })
+    try {
+      return new FastestLap({
+        time: fastestLap.Time.time,
+        avgSpeed: {
+          speed: fastestLap.AverageSpeed.speed,
+          units: fastestLap.AverageSpeed.units,
+        },
+        rank: fastestLap.rank,
+        lap: fastestLap.lap
+      })
+    } catch (err) {
+      throw new ParseError(err.message)
+    }
   }
 
   getAvgSpeed() {

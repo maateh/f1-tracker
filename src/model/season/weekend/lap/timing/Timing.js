@@ -1,3 +1,6 @@
+// models
+import ParseError from "../../../../error/ParseError"
+
 class Timing {
   constructor({ driverId, position, time }) {
     this.driverId = driverId
@@ -6,11 +9,15 @@ class Timing {
   }
 
   static parser({ Timing: timing }) {
-    return new Timing({
-      driverId: timing.driverId,
-      position: timing.position,
-      time: timing.time
-    })
+    try {
+      return new Timing({
+        driverId: timing.driverId,
+        position: timing.position,
+        time: timing.time
+      })
+    } catch (err) {
+      throw new ParseError(err.message)
+    }
   }
 
   getTimeInMs() {

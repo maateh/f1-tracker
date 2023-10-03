@@ -1,6 +1,7 @@
 // models
 import Qualifying from './qualifying/Qualifying'
 import Race from './race/Race'
+import ParseError from '../../../error/ParseError'
 
 class Results {
 	constructor({
@@ -12,10 +13,14 @@ class Results {
 	}
 
 	static parser({ Race }) {
-		return new Results({
-			qualifying: this.#parseQualifying({ QualifyingResults: Race.QualifyingResults }),
-			race: this.#parseRace({ Results: Race.Results })
-		})
+		try {
+			return new Results({
+				qualifying: this.#parseQualifying({ QualifyingResults: Race.QualifyingResults }),
+				race: this.#parseRace({ Results: Race.Results })
+			})
+		} catch (err) {
+			throw new ParseError(err.message)
+		}
 	}
 
 	static #parseQualifying({ QualifyingResults: qualifying }) {

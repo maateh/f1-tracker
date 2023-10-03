@@ -1,3 +1,6 @@
+// models
+import ParseError from "../../../error/ParseError"
+
 class PitStop {
   constructor({
     driverId,
@@ -16,13 +19,17 @@ class PitStop {
   static MAX_GAP = 240000
 
   static parser({ PitStop: pit }) {
-    return new PitStop({
-      driverId: pit.driverId,
-      lap: pit.lap,
-      stop: pit.stop,
-      time: pit.time,
-      duration: pit.duration
-    })
+    try {
+      return new PitStop({
+        driverId: pit.driverId,
+        lap: pit.lap,
+        stop: pit.stop,
+        time: pit.time,
+        duration: pit.duration
+      })
+    } catch (err) {
+      throw new ParseError(err.message)
+    }
   }
 
   getDurationInMs() {

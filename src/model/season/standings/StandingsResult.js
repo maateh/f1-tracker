@@ -1,6 +1,7 @@
 // models
 import Driver from '../weekend/results/driver/Driver'
 import Constructor from '../weekend/results/constructor/Constructor'
+import ParseError from '../../error/ParseError'
 
 class StandingsResult {
 	constructor({
@@ -20,14 +21,18 @@ class StandingsResult {
 	}
 
   static parser({ StandingsResult: result }) {
-    return new StandingsResult({
-      position: result.position,
-      points: result.points,
-      wins: result.wins,
-      driver: this.#parseDriver({ Driver: result.Driver }),
-      constructors: this.#parseConstructors({ Constructors: result.Constructors }),
-      constructor: this.#parseConstructor({ Constructor: result.Constructor })
-    })
+    try {
+      return new StandingsResult({
+        position: result.position,
+        points: result.points,
+        wins: result.wins,
+        driver: this.#parseDriver({ Driver: result.Driver }),
+        constructors: this.#parseConstructors({ Constructors: result.Constructors }),
+        constructor: this.#parseConstructor({ Constructor: result.Constructor })
+      })
+    } catch (err) {
+      throw new ParseError(err.message)
+    }
   }
 
   static #parseDriver({ Driver: driver }) {

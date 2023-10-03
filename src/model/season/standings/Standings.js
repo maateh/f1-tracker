@@ -1,5 +1,6 @@
 // model
 import StandingsResult from './StandingsResult'
+import ParseError from '../../error/ParseError'
 
 class Standings {
 	constructor({ year, round, drivers, constructors }) {
@@ -16,31 +17,43 @@ class Standings {
 	}
 
 	static parser({ StandingsList: standings }) {
-		return new Standings({
-			year: standings.season,
-			round: standings.round,
-			drivers: this.parseDrivers({
-				DriverStandings: standings.DriverStandings,
-			}),
-			constructors: this.parseConstructors({
-				ConstructorStandings: standings.ConstructorStandings,
-			}),
-		})
+		try {
+			return new Standings({
+				year: standings.season,
+				round: standings.round,
+				drivers: this.parseDrivers({
+					DriverStandings: standings.DriverStandings,
+				}),
+				constructors: this.parseConstructors({
+					ConstructorStandings: standings.ConstructorStandings,
+				})
+			})
+		} catch (err) {
+			throw new ParseError(err.message)
+		}
 	}
 
 	static parseDrivers({ DriverStandings: standings }) {
-		if (standings && standings.length) {
-			return standings.map(result =>
-				StandingsResult.parser({ StandingsResult: result })
-			)
+		try {
+			if (standings && standings.length) {
+				return standings.map(result => {
+					return StandingsResult.parser({ StandingsResult: result })
+				})
+			}
+		} catch (err) {
+			throw new ParseError(err.message)
 		}
 	}
 
 	static parseConstructors({ ConstructorStandings: standings }) {
-		if (standings && standings.length) {
-			return standings.map(result =>
-				StandingsResult.parser({ StandingsResult: result })
-			)
+		try {
+			if (standings && standings.length) {
+				return standings.map(result => {
+					return StandingsResult.parser({ StandingsResult: result })
+				})
+			}
+		} catch (err) {
+			throw new ParseError(err.message)
 		}
 	}
 }

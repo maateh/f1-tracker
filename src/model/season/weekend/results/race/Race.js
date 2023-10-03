@@ -2,6 +2,7 @@
 import FastestLap from '../fastest-lap/FastestLap'
 import Driver from '../driver/Driver'
 import Constructor from '../constructor/Constructor'
+import ParseError from '../../../../error/ParseError'
 
 class Race {
 	constructor({
@@ -29,18 +30,22 @@ class Race {
 	}
 
 	static parser({ Result: result }) {
-		return new Race({
-			number: result.number,
-			position: result.position,
-			points: result.points,
-			grid: result.grid != 0 ? result.grid : 'PIT LANE',
-			laps: result.laps,
-			status: result.status,
-			raceTime: this.#parseRaceTime({ Time: result.Time, status: result.status }),
-			fastestLap: this.#parseFastestLap({ FastestLap: result.FastestLap }),
-			driver: Driver.parser({ Driver: result.Driver }),
-			constructor: Constructor.parser({ Constructor: result.Constructor })
-		})
+		try {
+			return new Race({
+				number: result.number,
+				position: result.position,
+				points: result.points,
+				grid: result.grid != 0 ? result.grid : 'PIT LANE',
+				laps: result.laps,
+				status: result.status,
+				raceTime: this.#parseRaceTime({ Time: result.Time, status: result.status }),
+				fastestLap: this.#parseFastestLap({ FastestLap: result.FastestLap }),
+				driver: Driver.parser({ Driver: result.Driver }),
+				constructor: Constructor.parser({ Constructor: result.Constructor })
+			})
+		} catch (err) {
+			throw new ParseError(err.message)
+		}
 	}
 
 	static #parseRaceTime({ Time: raceTime, status }) {

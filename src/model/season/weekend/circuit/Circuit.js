@@ -23,7 +23,7 @@ class Circuit {
 				id: circuit.circuitId,
 				name: circuit.circuitName,
 				wiki: circuit.url,
-				location: circuit.Location,
+				location: circuit.Location
 			})
 		} catch (err) {
 			throw new ParseError(err.message)

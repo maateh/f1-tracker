@@ -1,5 +1,8 @@
 import { format, parseISO } from "date-fns"
 
+// models
+import ParseError from "../../../../error/ParseError"
+
 class Driver {
   constructor({
     id,
@@ -37,10 +40,10 @@ class Driver {
         givenName: driver.givenName,
         familyName: driver.familyName,
         dateOfBirth: driver.dateOfBirth,
-        nationality: driver.nationality,
+        nationality: driver.nationality
       })
     } catch (err) {
-      throw new Error('ParseError')
+      throw new ParseError(err.message)
     }
   }
 

@@ -4,6 +4,7 @@ import SessionList from './session/SessionList'
 import Results from './results/Results'
 import Lap from './lap/Lap'
 import PitStop from './pit/PitStop'
+import ParseError from '../../error/ParseError'
 
 class Weekend {
 	constructor({
@@ -39,19 +40,23 @@ class Weekend {
 	}
 
 	static parser({ Race: weekend }) {
-		return new Weekend({
-			round: weekend.round,
-			year: weekend.season,
-			name: weekend.raceName,
-			wiki: weekend.url,
-			date: weekend.date,
-			time: weekend.time,
-			circuit: Circuit.parser({ Circuit: weekend.Circuit }),
-			sessions: SessionList.parser({ Race: weekend }),
-			results: this.#parseResults({ Race: weekend }),
-			laps: this.#parseLaps({ Laps: weekend.Laps }),
-			pits: this.#parsePits({ PitStops: weekend.PitStops })
-		})
+		try {
+			return new Weekend({
+				round: weekend.round,
+				year: weekend.season,
+				name: weekend.raceName,
+				wiki: weekend.url,
+				date: weekend.date,
+				time: weekend.time,
+				circuit: Circuit.parser({ Circuit: weekend.Circuit }),
+				sessions: SessionList.parser({ Race: weekend }),
+				results: this.#parseResults({ Race: weekend }),
+				laps: this.#parseLaps({ Laps: weekend.Laps }),
+				pits: this.#parsePits({ PitStops: weekend.PitStops })
+			})
+		} catch (err) {
+			throw new ParseError(err.message)
+		}
 	}
 
 	static #parseResults({ Race }) {
