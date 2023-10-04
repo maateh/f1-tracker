@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { driverQualifyingsResults } from '../../../../../../../api/results/qualifying/driverQualifyingsResults'
@@ -16,6 +17,7 @@ import StarHalfIcon from '@mui/icons-material/StarHalf'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 
 const useDriverQualifyingsStatsQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { setQualifyings } = useDriverProfileContext()
   const { id } = useParams()
 
@@ -77,7 +79,8 @@ const useDriverQualifyingsStatsQuery = () => {
           },
           ...additionalStats
         ]
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 

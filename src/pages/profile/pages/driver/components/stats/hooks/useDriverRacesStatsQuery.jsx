@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { driverRacesResults } from '../../../../../../../api/results/race/driverRacesResults'
@@ -15,6 +16,7 @@ import Looks3Icon from '@mui/icons-material/Looks3'
 import PlusOneIcon from '@mui/icons-material/PlusOne'
 
 const useDriverRacesStatsQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { setRaces } = useDriverProfileContext()
   const { id } = useParams()
 
@@ -61,7 +63,8 @@ const useDriverRacesStatsQuery = () => {
             icon: <PlusOneIcon />
           }
         ]
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 

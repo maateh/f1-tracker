@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { constructorQualifyingsResults } from '../../../../../../../api/results/qualifying/constructorQualifyingsResults'
@@ -17,6 +18,7 @@ import StarHalfIcon from '@mui/icons-material/StarHalf'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 
 const useConstructorQualifyingsStatsQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { setQualifyings } = useConstructorProfileContext()
   const { id } = useParams()
 
@@ -102,7 +104,8 @@ const useConstructorQualifyingsStatsQuery = () => {
           },
           ...additionalStats
         ]
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 

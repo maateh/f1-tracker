@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { driverStandings } from '../../../../../../../api/standings/driver/driverStandings'
@@ -15,6 +16,7 @@ import KeyboardCapslockIcon from '@mui/icons-material/KeyboardCapslock'
 import ControlPointDuplicateIcon from '@mui/icons-material/ControlPointDuplicate'
 
 const useDriverStandingsStatsQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { setStandingsList } = useDriverProfileContext()
   const { id } = useParams()
 
@@ -51,7 +53,8 @@ const useDriverStandingsStatsQuery = () => {
             icon: <ControlPointDuplicateIcon />
           }
         ]
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 

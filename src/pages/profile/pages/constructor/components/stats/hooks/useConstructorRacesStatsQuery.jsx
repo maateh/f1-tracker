@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { constructorRacesResults } from '../../../../../../../api/results/race/constructorRacesResults'
@@ -16,6 +17,7 @@ import ChecklistIcon from '@mui/icons-material/Checklist'
 import PlusOneIcon from '@mui/icons-material/PlusOne'
 
 const useConstructorRacesStatsQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { setRaces } = useConstructorProfileContext()
   const { id } = useParams()
 
@@ -78,7 +80,8 @@ const useConstructorRacesStatsQuery = () => {
             icon: <PlusOneIcon />
           }
         ]
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 

@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { constructorStandings } from '../../../../../../../api/standings/constructor/constructorStandings'
@@ -15,6 +16,7 @@ import KeyboardCapslockIcon from '@mui/icons-material/KeyboardCapslock'
 import ControlPointDuplicateIcon from '@mui/icons-material/ControlPointDuplicate'
 
 const useConstructorStandingsStatsQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { setStandingsList } = useConstructorProfileContext()
   const { id } = useParams()
 
@@ -51,7 +53,8 @@ const useConstructorStandingsStatsQuery = () => {
             icon: <ControlPointDuplicateIcon />
           }
         ]
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 

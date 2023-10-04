@@ -14,6 +14,7 @@ import useDriverQualifyingsStatsQuery from './components/stats/hooks/useDriverQu
 
 // context
 import DriverProfileContextProvider from './context/DriverProfileContext'
+import { ErrorBoundary } from 'react-error-boundary'
 
 const DriverProfile = () => {
   return (
@@ -22,19 +23,25 @@ const DriverProfile = () => {
         <Information useInformationQuery={useDriverInformationQuery} />
         <Achievements useAchievements={useDriverAchievements} />
         <StatisticsHolder>
-          <Statistics
-            title="Races Statistics"
-            useStatsQuery={useDriverRacesStatsQuery}
-          />
-          <Statistics
-            title="Standings Statistics"
-            note="*Always updated at the end of the current season"
-            useStatsQuery={useDriverStandingsStatsQuery}
-          />
-          <Statistics
-            title="Qualifyings Statistics"
-            useStatsQuery={useDriverQualifyingsStatsQuery}
-          />
+          <ErrorBoundary fallback={<></>} onError={() => console.log('toast message here')}>
+            <Statistics
+              title="Races Statistics"
+              useStatsQuery={useDriverRacesStatsQuery}
+            />
+          </ErrorBoundary>
+          <ErrorBoundary fallback={<></>} onError={() => console.log('toast message here')}>
+            <Statistics
+              title="Standings Statistics"
+              note="*Always updated at the end of the current season"
+              useStatsQuery={useDriverStandingsStatsQuery}
+            />
+          </ErrorBoundary>
+          <ErrorBoundary fallback={<></>} onError={() => console.log('toast message here')}>
+            <Statistics
+              title="Qualifyings Statistics"
+              useStatsQuery={useDriverQualifyingsStatsQuery}
+            />
+          </ErrorBoundary>
         </StatisticsHolder>
         <DriverSeasons />
       </DriverProfileContextProvider>

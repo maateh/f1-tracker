@@ -70,7 +70,7 @@ const ListingContextProvider = ({ children, initialState }) => {
   }
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
+    <ErrorBoundary FallbackComponent={ErrorFallback} onError={() => console.log('toast message here')}>
       <ListingContext.Provider value={{
         ...state,
         dispatch,

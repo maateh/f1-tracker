@@ -14,6 +14,7 @@ import useConstructorQualifyingsStatsQuery from './components/stats/hooks/useCon
 
 // context
 import ConstructorProfileContextProvider from './context/ConstructorProfileContext'
+import { ErrorBoundary } from 'react-error-boundary'
 
 const ConstructorProfile = () => {
   return (
@@ -22,19 +23,25 @@ const ConstructorProfile = () => {
         <Information useInformationQuery={useConstructorInformationQuery} />
         <Achievements useAchievements={useConstructorAchievements} />
         <StatisticsHolder>
-          <Statistics
-            title="Races Statistics"
-            useStatsQuery={useConstructorRacesStatsQuery}
-          />
-          <Statistics
-            title="Standings Statistics"
-            note="*Always updated at the end of the current season"
-            useStatsQuery={useConstructorStandingsStatsQuery}
-          />
-          <Statistics
-            title="Qualifyings Statistics"
-            useStatsQuery={useConstructorQualifyingsStatsQuery}
-          />
+          <ErrorBoundary fallback={<></>} onError={() => console.log('toast message here')}>
+            <Statistics
+              title="Races Statistics"
+              useStatsQuery={useConstructorRacesStatsQuery}
+            />
+          </ErrorBoundary>
+          <ErrorBoundary fallback={<></>} onError={() => console.log('toast message here')}>
+            <Statistics
+              title="Standings Statistics"
+              note="*Always updated at the end of the current season"
+              useStatsQuery={useConstructorStandingsStatsQuery}
+            />
+          </ErrorBoundary>
+          <ErrorBoundary fallback={<></>} onError={() => console.log('toast message here')}>
+            <Statistics
+              title="Qualifyings Statistics"
+              useStatsQuery={useConstructorQualifyingsStatsQuery}
+            />
+          </ErrorBoundary>
         </StatisticsHolder>
         <ConstructorSeasons />
       </ConstructorProfileContextProvider>
