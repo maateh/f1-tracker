@@ -292,9 +292,6 @@ const router = createBrowserRouter([
   }
 ])
 
-const App = () => {
-  a
-  return <RouterProvider router={router} />
-}
+const App = () => <RouterProvider router={router} />
 
 export default App

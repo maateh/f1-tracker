@@ -1,25 +1,24 @@
-// icons
-import ErrorIcon from '@mui/icons-material/Error'
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious'
+// components
+import Error from './Error'
+
+// constants
+import { ERROR_SIZE_LARGE } from './constants/ErrorConstants'
 
 // styles
 import './Error.css'
 
 const ApplicationErrorFallback = ({ resetErrorBoundary }) => {
   return (
-    <div className="error-fallback large">
-      <ErrorIcon className="error__icon" />
-      <p className="error-title">Ooops!</p>
-      <p className="error-info">An error occured.</p>
-
-      <p className="error-msg">Unfortunately, the application has crashed because something unexpected happened.</p>
-      <p className="error-msg">Please try refresh the page, or come back later.</p>
-
-			<button className="btn icon__container" onClick={resetErrorBoundary}>
-				<SkipPreviousIcon />
-				<span>Refresh page</span>
-			</button>
-    </div>
+		<Error
+			info="An error occured."
+			messages={[
+        "Unfortunately, the application has crashed because something unexpected happened.",
+        "Please try refresh the page, or come back later."
+      ]}
+			onReset={resetErrorBoundary}
+			resetLabel="Refresh page"
+			size={ERROR_SIZE_LARGE}
+		/>
   )
 }
 
