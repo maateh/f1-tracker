@@ -13,8 +13,10 @@ import useResultsFilterQueries from './components/filter/hooks/useResultsFilterQ
 
 // context
 import FilterContextProvider from '../../components/filter/context/FilterContext'
-import { RESULTS_PARAMS_UPDATER } from '../../components/filter/context/FilterContextActions'
 import ListingContextProvider from '../../components/listing/context/ListingContext'
+
+// constants
+import { FILTER_RESULTS_PARAMS_UPDATER } from '../../components/filter/context/constants/FilterContextActions'
 
 // models
 import FilterOptionModel from '../../model/filter/FilterOption'
@@ -47,7 +49,7 @@ const ResultsContent = () => {
 					}}>
 					<Filter
 						useFilterQueries={useResultsFilterQueries}
-						paramsUpdater={RESULTS_PARAMS_UPDATER}
+						paramsUpdater={FILTER_RESULTS_PARAMS_UPDATER}
 						skeletonCounter={3}
 					/>
 				</FilterContextProvider>

@@ -1,46 +1,46 @@
 import { createContext, useReducer } from 'react'
 
-// actions
-import * as actionType from './FilterContextActions'
+// constants
+import * as actionType from './constants/FilterContextActions'
 
 const dataReducer = (state, action) => {
 	switch (action.type) {
-		case actionType.SET_SEASONS:
+		case actionType.FILTER_SET_SEASONS:
 			return {
 				...state,
 				selectors: { ...state.selectors, seasons: action.payload },
 			}
-		case actionType.SET_STANDINGS:
+		case actionType.FILTER_SET_STANDINGS:
 			return {
 				...state,
 				selectors: { ...state.selectors, standings: action.payload },
 			}
-		case actionType.SET_ROUNDS:
+		case actionType.FILTER_SET_ROUNDS:
 			return {
 				...state,
 				selectors: { ...state.selectors, rounds: action.payload },
 			}
-		case actionType.SET_DRIVERS:
+		case actionType.FILTER_SET_DRIVERS:
 			return {
 				...state,
 				selectors: { ...state.selectors, drivers: action.payload },
 			}
-		case actionType.SET_CONSTRUCTORS:
+		case actionType.FILTER_SET_CONSTRUCTORS:
 			return {
 				...state,
 				selectors: { ...state.selectors, constructors: action.payload },
 			}
-		case actionType.SET_IDS:
+		case actionType.FILTER_SET_IDS:
 			return {
 				...state,
 				selectors: { ...state.selectors, ids: action.payload },
 			}
-		case actionType.SET_SESSIONS:
+		case actionType.FILTER_SET_SESSIONS:
 			return {
 				...state,
 				selectors: { ...state.selectors, sessions: action.payload },
 			}
-		case actionType.RESULTS_PARAMS_UPDATER:
+		case actionType.FILTER_RESULTS_PARAMS_UPDATER:
 			return {
 				selectors: {
 					seasons: state.selectors.seasons.updateParam(action.payload.year),
@@ -53,7 +53,7 @@ const dataReducer = (state, action) => {
 					),
 				},
 			}
-		case actionType.LAPS_PARAMS_UPDATER:
+		case actionType.FILTER_LAPS_PARAMS_UPDATER:
 			return {
 				selectors: {
 					seasons: state.selectors.seasons.updateParam(action.payload.year),
@@ -61,7 +61,7 @@ const dataReducer = (state, action) => {
 					drivers: state.selectors.drivers.updateParam(action.payload.driverId)
 				},
 			}
-		case actionType.PITS_PARAMS_UPDATER:
+		case actionType.FILTER_PITS_PARAMS_UPDATER:
 			return {
 				selectors: {
 					seasons: state.selectors.seasons.updateParam(action.payload.year),
@@ -81,49 +81,49 @@ const FilterContextProvider = ({ children, selectors }) => {
 
 	const setSeasons = ({ seasons }) => {
 		dispatch({
-			type: actionType.SET_SEASONS,
+			type: actionType.FILTER_SET_SEASONS,
 			payload: seasons
 		})
 	}
 
 	const setStandings = ({ standings }) => {
 		dispatch({
-			type: actionType.SET_STANDINGS,
+			type: actionType.FILTER_SET_STANDINGS,
 			payload: standings
 		})
 	}
 
 	const setRounds = ({ rounds }) => {
 		dispatch({
-			type: actionType.SET_ROUNDS,
+			type: actionType.FILTER_SET_ROUNDS,
 			payload: rounds
 		})
 	}
 
 	const setDrivers = ({ drivers }) => {
 		dispatch({
-			type: actionType.SET_DRIVERS,
+			type: actionType.FILTER_SET_DRIVERS,
 			payload: drivers
 		})
 	}
 
 	const setConstructors = ({ constructors }) => {
 		dispatch({
-			type: actionType.SET_CONSTRUCTORS,
+			type: actionType.FILTER_SET_CONSTRUCTORS,
 			payload: constructors
 		})
 	}
 
 	const setIds = ({ ids }) => {
 		dispatch({
-			type: actionType.SET_IDS,
+			type: actionType.FILTER_SET_IDS,
 			payload: ids
 		})
 	}
 
 	const setSessions = ({ sessions }) => {
 		dispatch({
-			type: actionType.SET_SESSIONS,
+			type: actionType.FILTER_SET_SESSIONS,
 			payload: sessions
 		})
 	}

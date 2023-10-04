@@ -1,9 +1,11 @@
 import { createContext, useReducer } from "react"
-
-// actions
-import * as actionType from './ListingContextActions'
 import { ErrorBoundary } from "react-error-boundary"
+
+// components
 import ErrorFallback from "../../error/fallbacks/ErrorFallback"
+
+// constants
+import * as actionType from './constants/ListingContextActions'
 
 const INITIAL_STATE = {
   title: null,
@@ -14,15 +16,15 @@ const INITIAL_STATE = {
 
 const dataReducer = (state, action) => {
 	switch (action.type) {
-		case actionType.SET_TITLE:
+		case actionType.LISTING_SET_TITLE:
 			return { ...state, title: action.payload }
-    case actionType.SET_CARDS:
+    case actionType.LISTING_SET_CARDS:
       return { ...state, cards: action.payload }
-    case actionType.ADD_CARDS_LAYOUTS:
+    case actionType.LISTING_ADD_CARDS_LAYOUTS:
       return { ...state, cards: { ...state.cards, layouts: action.payload }}
-    case actionType.SET_TABLE:
+    case actionType.LISTING_SET_TABLE:
       return { ...state, table: action.payload }
-    case actionType.SET_PAGINATION:
+    case actionType.LISTING_SET_PAGINATION:
       return { ...state, pagination: action.payload }
     default:
       return state
@@ -36,35 +38,35 @@ const ListingContextProvider = ({ children, initialState }) => {
 
   const setTitle = ({ title }) => {
     dispatch({
-      type: actionType.SET_TITLE,
+      type: actionType.LISTING_SET_TITLE,
       payload: title
     })
   }
 
   const setCards = ({ cards }) => {
     dispatch({
-      type: actionType.SET_CARDS,
+      type: actionType.LISTING_SET_CARDS,
       payload: cards
     })
   }
 
   const updateCardsLayouts = ({ layouts }) => {
     dispatch({
-      type: actionType.ADD_CARDS_LAYOUTS,
+      type: actionType.LISTING_ADD_CARDS_LAYOUTS,
       payload: layouts
     })
   }
 
   const setTable = ({ table }) => {
     dispatch({
-      type: actionType.SET_TABLE,
+      type: actionType.LISTING_SET_TABLE,
       payload: table
     })
   }
 
   const setPagination = ({ pagination }) => {
     dispatch({
-      type: actionType.SET_PAGINATION,
+      type: actionType.LISTING_SET_PAGINATION,
       payload: pagination
     })
   }

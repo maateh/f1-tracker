@@ -1,3 +1,0 @@
-export const SET_STANDINGS_LIST = 'SET_STANDINGS_LIST'
-export const SET_RACES = 'SET_RACES'
-export const SET_QUALIFYINGS = 'SET_QUALIFYINGS'

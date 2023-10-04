@@ -1,7 +1,7 @@
 import { createContext, useReducer } from "react"
 
-// actions
-import * as actionType from './DriverProfileContextActions'
+// constants
+import * as actionType from './constants/DriverProfileContextActions'
 
 const INITIAL_STATE = {
   standingsList: null,
@@ -11,11 +11,11 @@ const INITIAL_STATE = {
 
 const dataReducer = (state, action) => {
 	switch (action.type) {
-    case actionType.SET_STANDINGS_LIST:
+    case actionType.DRIVER_SET_STANDINGS_LIST:
       return { ...state, standingsList: action.payload }
-    case actionType.SET_RACES:
+    case actionType.DRIVER_SET_RACES:
       return { ...state, races: action.payload }
-    case actionType.SET_QUALIFYINGS:
+    case actionType.DRIVER_SET_QUALIFYINGS:
       return { ...state, qualifyings: action.payload }
     default:
       return state
@@ -29,21 +29,21 @@ const DriverProfileContextProvider = ({ children }) => {
   
   const setStandingsList = ({ standingsList }) => {
     dispatch({
-      type: actionType.SET_STANDINGS_LIST,
+      type: actionType.DRIVER_SET_STANDINGS_LIST,
       payload: standingsList
     })
   }
 
   const setRaces = ({ races }) => {
     dispatch({
-      type: actionType.SET_RACES,
+      type: actionType.DRIVER_SET_RACES,
       payload: races
     })
   }
 
   const setQualifyings = ({ qualifyings }) => {
     dispatch({
-      type: actionType.SET_QUALIFYINGS,
+      type: actionType.DRIVER_SET_QUALIFYINGS,
       payload: qualifyings
     })
   }

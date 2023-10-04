@@ -1,5 +1,0 @@
-export const SET_TITLE = 'SET_TITLE'
-export const SET_CARDS = 'SET_CARDS'
-export const ADD_CARDS_LAYOUTS = 'ADD_CARDS_LAYOUTS'
-export const SET_TABLE = 'SET_TABLE'
-export const SET_PAGINATION = 'SET_PAGINATION'

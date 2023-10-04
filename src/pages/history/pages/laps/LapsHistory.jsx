@@ -16,7 +16,9 @@ import useDriversFilterQuery from "../../../../components/filter/hooks/useDriver
 // context
 import FilterContextProvider from "../../../../components/filter/context/FilterContext"
 import ListingContextProvider from "../../../../components/listing/context/ListingContext"
-import { LAPS_PARAMS_UPDATER } from "../../../../components/filter/context/FilterContextActions"
+
+// constants
+import { FILTER_LAPS_PARAMS_UPDATER } from "../../../../components/filter/context/constants/FilterContextActions"
 
 // models
 import FilterSelectorModel from "../../../../model/filter/FilterSelector"
@@ -70,7 +72,7 @@ const LapsHistory = () => {
                 additionalOption: FilterOptionModel.ALL
               })
             ])}
-            paramsUpdater={LAPS_PARAMS_UPDATER}
+            paramsUpdater={FILTER_LAPS_PARAMS_UPDATER}
             skeletonCounter={3}
           />
         </FilterContextProvider>
