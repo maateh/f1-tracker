@@ -96,20 +96,23 @@ a:active {
 
 .btn {
   margin: 1rem;
-  padding: 0.5rem 0.8rem;
+  padding: 0.5rem 0.7rem;
 
   background: var(--highlight);
-  border-radius: 8px;
+  border-radius: 16px;
   border: 1px solid var(--highlight);
+  box-shadow: 2px 1px 3px 1px rgba(25, 25, 25, 0.5);
 
   color: var(--text-color-light);
-  font-size: 1rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.025rem;
   cursor: pointer;
 }
 .btn:hover,
 .btn:active {
-  background: var(--primary);
-  border: 1px solid var(--primary);
+  background: var(--accent-red);
+  border: 2px solid var(--accent-red);
+  text-decoration: overline;
 }
 .highlight {
   padding: 0 0.25rem;

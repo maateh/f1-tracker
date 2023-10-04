@@ -1,52 +1,142 @@
-/* container */
-.error-page__container {
-  margin: 2rem auto;
-  padding: 0 4rem;
+.error-fallback {
+  max-width: 40rem;
   display: flex;
-  flex-flow: column nowrap;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 0.4rem
+  text-align: center;
 }
-.error-page__container.not-found {
-  margin: 20vh;
+
+/* layout sizes */
+.error-fallback.small {
+  margin: 1.5rem 0.5rem;
+  padding: 0 2rem;
+  gap: 0.2rem;
+}
+.error-fallback.medium {
+  margin: 2rem 0.8rem;
+  padding: 0 3rem;
+  gap: 0.35rem;
+}
+.error-fallback.large {
+  margin: 15vh 1.35rem;
+  gap: 0.5rem;
+}
+
+/* icon */
+.error-fallback svg.error__icon {
+  color: var(--accent-red);
+}
+.error-fallback.small svg.error__icon {
+  font-size: 1.6rem;
+}
+.error-fallback.medium svg.error__icon {
+  font-size: 2.5rem;
+}
+.error-fallback.large svg.error__icon {
+  font-size: 3.5rem;
+}
+@media (max-width: 40rem) {
+  .error-fallback.small svg.error__icon {
+    font-size: 1.4rem;
+  }
+  .error-fallback.medium svg.error__icon {
+    font-size: 2.2rem;
+  }
+  .error-fallback.large svg.error__icon {
+    font-size: 3rem;
+  }
 }
 
 /* title */
-h2.error-page__title {
-  font-size: 3.2rem;
+.error-fallback p.error-title {
+  color: var(--text-color);
+}
+.error-fallback.small p.error-title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+.error-fallback.medium p.error-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+.error-fallback.large p.error-title {
+  font-size: 3.5rem;
   font-weight: 800;
+}
+@media (max-width: 40rem) {
+  .error-fallback.small p.error-title {
+    font-size: 1.6rem;
+  }
+  .error-fallback.medium p.error-title {
+    font-size: 1.95rem;
+  }
+  .error-fallback.large p.error-title {
+    font-size: 2.5rem;
+  }
 }
 
 /* info */
-p.error-details {
-  font-size: 1.8rem;
+.error-fallback p.error-info {
   font-weight: 500;
-  letter-spacing: 2px;
-  margin-bottom: 1rem;
-  max-width: 40rem;
-}
-p.error-code {
-  font-size: 2.5rem;
-  font-weight: 600;
 
-  margin-bottom: 1rem;
-  padding: 0 2rem 0.5rem;
-  border-bottom: 2px solid #888;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--secondary);
 }
-
-/* suggestion */
-p.error-suggestion {
+.error-fallback.small p.error-info {
+  font-size: 1.5rem;
+}
+.error-fallback.medium p.error-info {
   font-size: 2rem;
-  font-weight: 400;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
-p.error-suggestion > a {
-  font-size: 2.5rem;
-  font-weight: 600;
+.error-fallback.large p.error-info {
+  font-size: 2.6rem;
+}
+@media (max-width: 40rem) {
+  .error-fallback.small p.error-info {
+    font-size: 1.25rem;
+  }
+  .error-fallback.medium p.error-info {
+    font-size: 1.65rem;
+  }
+  .error-fallback.large p.error-info {
+    font-size: 2.15rem;
+  }
+}
+
+/* fallback message */
+.error-fallback p.error-msg {
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+.error-fallback p.error-msg > a {
+  font-size: 120%;
+  font-weight: 700;
   color: var(--highlight);
 }
-p.error-suggestion > a:hover,
-p.error-suggestion > a:active {
-  color: var(--primary);
+.error-fallback.small p.error-msg {
+  font-size: 1.2rem;
+}
+.error-fallback.medium p.error-msg {
+  font-size: 1.5rem;
+}
+.error-fallback.large p.error-msg {
+  font-size: 2rem;
+}
+
+.error-fallback p.error-msg > a:hover,
+.error-fallback p.error-msg > a:active {
+  color: var(--accent-red);
+}
+
+@media (max-width: 40rem) {
+  .error-fallback.small p.error-msg {
+    font-size: 1rem;
+  }
+  .error-fallback.medium p.error-msg {
+    font-size: 1.2rem;
+  }
+  .error-fallback.large p.error-msg {
+    font-size: 1.5rem;
+  }
 }

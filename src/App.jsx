@@ -282,12 +282,19 @@ const router = createBrowserRouter([
       },
       {
         path: "*",
-        element: <NotFound />
+        element: (
+          <Suspense fallback={<PageSkeleton />}>
+            <NotFound />
+          </Suspense>
+        )
       }
     ]
   }
 ])
 
-const App = () => <RouterProvider router={router} />
+const App = () => {
+  a
+  return <RouterProvider router={router} />
+}
 
 export default App

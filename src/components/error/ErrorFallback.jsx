@@ -1,11 +1,22 @@
-const ErrorFallback = ({ error, resetErrorBoundary }) => {
-  console.log('ErrorFallback - error: ', error)
+// icons
+import ErrorIcon from '@mui/icons-material/Error'
 
+// styles
+import './Error.css'
+
+const ErrorFallback = ({ error, resetErrorBoundary }) => {
   return (
     <div className="error-fallback">
-      <h1>Something went wrong.</h1>
-      <p>{error.fallbackMsg}</p>
-      <button className="error-reset" onClick={resetErrorBoundary}>Try again</button>
+      <ErrorIcon className="error__icon" />
+      <p className="error-title">Oops!</p>
+      <p className="error-info">Something went wrong!</p>
+      <p className="error-msg">{error.fallbackMsg}</p>
+      <button
+        className="error-reset__btn btn"
+        onClick={resetErrorBoundary}
+      >
+        Try again
+      </button>
     </div>
   )
 }
