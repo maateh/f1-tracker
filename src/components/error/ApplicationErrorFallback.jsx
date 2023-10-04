@@ -9,7 +9,7 @@ const ApplicationErrorFallback = ({ resetErrorBoundary }) => {
   return (
     <div className="error-fallback large">
       <ErrorIcon className="error__icon" />
-      <p className="error-title">Oops!</p>
+      <p className="error-title">Ooops!</p>
       <p className="error-info">An error occured.</p>
 
       <p className="error-msg">Unfortunately, the application has crashed because something unexpected happened.</p>
@@ -17,7 +17,7 @@ const ApplicationErrorFallback = ({ resetErrorBoundary }) => {
 
 			<button className="btn icon__container" onClick={resetErrorBoundary}>
 				<SkipPreviousIcon />
-				<span>Previous page</span>
+				<span>Refresh page</span>
 			</button>
     </div>
   )
