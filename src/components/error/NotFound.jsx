@@ -6,6 +6,9 @@ import Error from './Error'
 // constants
 import { ERROR_SIZE_LARGE } from './constants/ErrorConstants'
 
+// icons
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious'
+
 // styles
 import './Error.css'
 
@@ -22,6 +25,7 @@ const NotFound = () => {
 			]}
 			onReset={() => navigate(-1)}
 			resetLabel="Previous page"
+			resetIcon={<SkipPreviousIcon />}
 			size={ERROR_SIZE_LARGE}
 		/>
 	)

@@ -5,7 +5,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 
 // components
 import App from './App'
-import ApplicationErrorFallback from './components/error/ApplicationErrorFallback'
+import ApplicationErrorFallback from './components/error/fallbacks/ApplicationErrorFallback'
 
 // styles
 import './index.css'

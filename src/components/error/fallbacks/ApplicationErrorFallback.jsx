@@ -1,11 +1,14 @@
 // components
-import Error from './Error'
+import Error from '../Error'
 
 // constants
-import { ERROR_SIZE_LARGE } from './constants/ErrorConstants'
+import { ERROR_SIZE_LARGE } from '../constants/ErrorConstants'
+
+// icons
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious'
 
 // styles
-import './Error.css'
+import '../Error.css'
 
 const ApplicationErrorFallback = ({ resetErrorBoundary }) => {
   return (
@@ -17,6 +20,7 @@ const ApplicationErrorFallback = ({ resetErrorBoundary }) => {
       ]}
 			onReset={resetErrorBoundary}
 			resetLabel="Refresh page"
+			resetIcon={<SkipPreviousIcon />}
 			size={ERROR_SIZE_LARGE}
 		/>
   )

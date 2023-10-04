@@ -2,6 +2,8 @@ import { createContext, useReducer } from "react"
 
 // actions
 import * as actionType from './ListingContextActions'
+import { ErrorBoundary } from "react-error-boundary"
+import ErrorFallback from "../../error/fallbacks/ErrorFallback"
 
 const INITIAL_STATE = {
   title: null,
@@ -68,17 +70,19 @@ const ListingContextProvider = ({ children, initialState }) => {
   }
 
   return (
-    <ListingContext.Provider value={{
-      ...state,
-      dispatch,
-      setTitle,
-      setCards,
-      updateCardsLayouts,
-      setTable,
-      setPagination
-    }}>
-      {children}
-    </ListingContext.Provider>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <ListingContext.Provider value={{
+        ...state,
+        dispatch,
+        setTitle,
+        setCards,
+        updateCardsLayouts,
+        setTable,
+        setPagination
+      }}>
+        {children}
+      </ListingContext.Provider>
+    </ErrorBoundary>
   )
 }
 

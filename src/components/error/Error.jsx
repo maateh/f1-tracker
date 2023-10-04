@@ -1,8 +1,7 @@
 // icons
 import ErrorIcon from '@mui/icons-material/Error'
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious'
 
-const Error = ({ info, messages, onReset, resetLabel, size }) => {
+const Error = ({ info, messages, onReset, resetLabel, resetIcon, size }) => {
   return (
     <div className={`error-fallback${size ? ` ${size}` : ''}`}>
       <ErrorIcon className="error__icon" />
@@ -14,7 +13,7 @@ const Error = ({ info, messages, onReset, resetLabel, size }) => {
       ))}
 
       <button className="btn icon__container" onClick={onReset}>
-        <SkipPreviousIcon />
+        {resetIcon}
         <span>{resetLabel}</span>
       </button>
     </div>
