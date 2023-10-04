@@ -22,7 +22,7 @@ const DriverProfile = lazy(() => import('./pages/profile/pages/driver/DriverProf
 const ConstructorProfile = lazy(() => import('./pages/profile/pages/constructor/ConstructorProfile'))
 const CircuitProfile = lazy(() => import('./pages/profile/pages/circuit/CircuitProfile'))
 
-const NotFound = lazy(() => import('./components/error/NotFound'))
+const PageNotFound = lazy(() => import('./components/error/fallbacks/PageNotFound'))
 
 // loaders
 const ResultsLoader = lazy(() => import('./pages/results/loader/ResultsLoader'))
@@ -284,7 +284,7 @@ const router = createBrowserRouter([
         path: "*",
         element: (
           <Suspense fallback={<PageSkeleton />}>
-            <NotFound />
+            <PageNotFound />
           </Suspense>
         )
       }

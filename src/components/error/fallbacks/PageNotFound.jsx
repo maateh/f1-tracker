@@ -1,18 +1,18 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 
 // components
-import Error from './Error'
+import Error from '../Error'
 
 // constants
-import { ERROR_SIZE_LARGE } from './constants/ErrorConstants'
+import { ERROR_SIZE_LARGE } from '../constants/ErrorConstants'
 
 // icons
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious'
 
 // styles
-import './Error.css'
+import '../Error.css'
 
-const NotFound = () => {
+const PageNotFound = () => {
 	const navigate = useNavigate()
 
 	return (
@@ -31,4 +31,4 @@ const NotFound = () => {
 	)
 }
 
-export default NotFound
+export default PageNotFound
