@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useInfiniteQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { circuitList, circuitListFromSeason } from "../../../../../../../api/circuits/circuitList"
@@ -17,6 +18,7 @@ import PaginationModel from "../../../../../../../model/listing/Pagination"
 import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
 
 const useCircuitsListingQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { cards, setTitle, setCards, updateCardsLayouts } = useListingContext()
   const { year } = useParams()
 
@@ -65,7 +67,8 @@ const useCircuitsListingQuery = () => {
           pageQuantity: Math.ceil(info.total / info.limit),
           currentPage: pageParam
         })
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 

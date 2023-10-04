@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { constructorStandings } from "../../../../../../api/standings/season/constructorStandings"
@@ -17,6 +18,7 @@ import TitleModel from '../../../../../../model/listing/Title'
 import TableModel from '../../../../../../model/listing/Table'
 
 const useConstructorStandingsQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { setTitle, setTable } = useListingContext()
   const { year } = useParams()
 
@@ -100,7 +102,8 @@ const useConstructorStandingsQuery = () => {
             }))
           })
         })
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 

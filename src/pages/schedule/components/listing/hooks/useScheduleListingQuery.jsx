@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { season } from "../../../../../api/season/season"
@@ -15,6 +16,7 @@ import useListingContext from '../../../../../components/listing/context/hooks/u
 import CardsModel from "../../../../../model/listing/Cards"
 
 const useScheduleListingQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { setCards } = useListingContext()
   const { year } = useParams()
 
@@ -37,7 +39,8 @@ const useScheduleListingQuery = () => {
             ))
           })
         })
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 

@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { driverStandings } from "../../../../../../api/standings/season/driverStandings"
@@ -17,6 +18,7 @@ import TitleModel from "../../../../../../model/listing/Title"
 import TableModel from "../../../../../../model/listing/Table"
 
 const useDriverStandingsQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { setTitle, setTable } = useListingContext()
   const { year } = useParams()
 
@@ -116,7 +118,8 @@ const useDriverStandingsQuery = () => {
             }))
           })
         })
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 

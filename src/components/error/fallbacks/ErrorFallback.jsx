@@ -5,7 +5,7 @@ import Error from '../Error'
 import { ERROR_SIZE_MEDIUM } from '../constants/ErrorConstants'
 
 // icons
-import RefreshIcon from '@mui/icons-material/Refresh';
+import RefreshIcon from '@mui/icons-material/Refresh'
 
 // styles
 import '../Error.css'

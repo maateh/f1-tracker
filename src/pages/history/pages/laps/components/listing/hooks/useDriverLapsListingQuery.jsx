@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { driverLaps } from "../../../../../../../api/laps/driverLaps"
@@ -29,6 +30,7 @@ import UnfoldLessDoubleIcon from '@mui/icons-material/UnfoldLessDouble'
 import SportsScoreIcon from '@mui/icons-material/SportsScore'
 
 const useDriverLapsListingQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { setTitle, setCards, setTable } = useListingContext()
   const { year, round, driverId } = useParams()
 
@@ -139,7 +141,8 @@ const useDriverLapsListingQuery = () => {
             })
           })
         })
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 

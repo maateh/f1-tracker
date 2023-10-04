@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useInfiniteQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { driverList, driverListFromSeason } from "../../../../../../../api/drivers/driverList"
@@ -15,7 +16,9 @@ import TitleModel from "../../../../../../../model/listing/Title"
 import CardsModel from "../../../../../../../model/listing/Cards"
 import PaginationModel from "../../../../../../../model/listing/Pagination"
 import FilterOptionModel from "../../../../../../../model/filter/FilterOption"
+
 const useDriversListingQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { cards, setTitle, setCards, updateCardsLayouts } = useListingContext()
   const { year } = useParams()
 
@@ -64,7 +67,8 @@ const useDriversListingQuery = () => {
           pageQuantity: Math.ceil(info.total / info.limit),
           currentPage: pageParam
         })
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 

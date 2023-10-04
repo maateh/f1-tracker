@@ -5,7 +5,7 @@ import Error from '../Error'
 import { ERROR_SIZE_LARGE } from '../constants/ErrorConstants'
 
 // icons
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious'
+import RefreshIcon from '@mui/icons-material/Refresh'
 
 // styles
 import '../Error.css'
@@ -20,7 +20,7 @@ const ApplicationErrorFallback = ({ resetErrorBoundary }) => {
       ]}
 			onReset={resetErrorBoundary}
 			resetLabel="Refresh page"
-			resetIcon={<SkipPreviousIcon />}
+			resetIcon={<RefreshIcon />}
 			size={ERROR_SIZE_LARGE}
 		/>
   )

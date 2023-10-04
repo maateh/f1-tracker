@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { seasonRacesResults } from "../../../../../../api/results/race/seasonRacesResults"
@@ -37,6 +38,7 @@ import ErrorIcon from '@mui/icons-material/Error'
 import WarningIcon from '@mui/icons-material/Warning'
 
 const useSeasonQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { setTitle, setCards, setTable } = useListingContext()
   const { year } = useParams()
 
@@ -219,7 +221,8 @@ const useSeasonQuery = () => {
             }))
           })
         })
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 

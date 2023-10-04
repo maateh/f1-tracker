@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { weekendRaceResults } from "../../../../../../api/results/race/weekendRaceResults"
@@ -29,6 +30,7 @@ import ErrorIcon from '@mui/icons-material/Error'
 import WarningIcon from '@mui/icons-material/Warning'
 
 const useWeekendRaceQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { setTitle, setCards, setTable } = useListingContext()
   const { year, id: round } = useParams()
 
@@ -188,7 +190,8 @@ const useWeekendRaceQuery = () => {
             }))
           })
         })
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 

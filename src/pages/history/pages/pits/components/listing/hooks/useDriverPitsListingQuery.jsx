@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { driverPitStops } from "../../../../../../../api/pitstops/driverPitStops"
@@ -24,6 +25,7 @@ import LocalParkingIcon from '@mui/icons-material/LocalParking'
 import TimelapseIcon from '@mui/icons-material/Timelapse'
 
 const useDriverPitsListingQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { setTitle, setCards, setTable } = useListingContext()
   const { year, round, driverId } = useParams()
 
@@ -121,7 +123,8 @@ const useDriverPitsListingQuery = () => {
             }))
           })
         })
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 

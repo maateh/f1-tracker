@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { driverQualifyingsResultsFromSeason } from "../../../../../../api/results/qualifying/driverQualifyingsResults"
@@ -29,6 +30,7 @@ import StarHalfIcon from '@mui/icons-material/StarHalf'
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt'
 
 const useDriverQualifyingsQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { setTitle, setCards, setTable } = useListingContext()
   const { year, id: driverId } = useParams()
 
@@ -213,7 +215,8 @@ const useDriverQualifyingsQuery = () => {
             }))
           })
         })
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 

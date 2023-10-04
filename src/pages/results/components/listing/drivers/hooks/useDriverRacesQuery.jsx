@@ -1,5 +1,6 @@
 import { useQuery } from "react-query"
 import { useParams } from "react-router-dom"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { driverRacesResultsFromSeason } from "../../../../../../api/results/race/driverRacesResults"
@@ -35,6 +36,7 @@ import ErrorIcon from '@mui/icons-material/Error'
 import WarningIcon from '@mui/icons-material/Warning'
 
 const useDriverRacesQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { setTitle, setCards, setTable } = useListingContext()
   const { year, id: driverId } = useParams()
 
@@ -271,7 +273,8 @@ const useDriverRacesQuery = () => {
             }))
           })
         })
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 

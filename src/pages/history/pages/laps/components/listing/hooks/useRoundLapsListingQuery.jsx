@@ -1,5 +1,6 @@
-import { useQuery } from "react-query"
 import { useParams, useSearchParams } from "react-router-dom"
+import { useQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { raceLap } from "../../../../../../../api/laps/raceLap"
@@ -28,6 +29,7 @@ import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp
 import PaginationModel from "../../../../../../../model/listing/Pagination"
 
 const useRoundLapsListingQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { setTitle, setCards, setTable, setPagination } = useListingContext()
   const { year, round } = useParams()
   const [searchParams] = useSearchParams()
@@ -144,7 +146,8 @@ const useRoundLapsListingQuery = () => {
             pageQuantity: results[0].laps
           })
         })
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 

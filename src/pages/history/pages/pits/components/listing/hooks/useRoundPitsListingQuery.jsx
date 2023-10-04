@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // api
 import { pitStops } from "../../../../../../../api/pitstops/pitStops"
@@ -27,6 +28,7 @@ import CalculateIcon from '@mui/icons-material/Calculate'
 import TimelapseIcon from '@mui/icons-material/Timelapse'
 
 const useRoundPitsListingQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { setTitle, setCards, setTable } = useListingContext()
   const { year, round } = useParams()
 
@@ -151,7 +153,8 @@ const useRoundPitsListingQuery = () => {
             })
           })
         })
-      })
+      }),
+    onError: err => showBoundary(err)
   })
 }
 
