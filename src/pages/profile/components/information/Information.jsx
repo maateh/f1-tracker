@@ -3,7 +3,7 @@ import Linking from "../../../../components/linking/Linking"
 import LoadingSkeleton from "../../../../components/skeletons/loading/LoadingSkeleton"
 
 // constants
-import { LINKING_SIZE_MEDIUM } from "../../../../components/linking/LinkingConstants"
+import { LINKING_SIZE_MEDIUM } from "../../../../components/linking/constants/LinkingConstants"
 
 // styles
 import './Information.css'

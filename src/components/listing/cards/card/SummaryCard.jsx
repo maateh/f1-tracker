@@ -2,7 +2,7 @@
 import Linking from '../../../linking/Linking'
 
 // constants
-import { LINKING_SIZE_SMALL } from '../../../linking/LinkingConstants'
+import { LINKING_SIZE_SMALL } from '../../../linking/constants/LinkingConstants'
 
 // styles
 import './SummaryCard.css'

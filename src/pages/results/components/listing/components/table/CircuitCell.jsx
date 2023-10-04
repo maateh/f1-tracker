@@ -2,7 +2,7 @@
 import Linking from "../../../../../../components/linking/Linking"
 
 // constants
-import { LINKING_SIZE_SMALL } from "../../../../../../components/linking/LinkingConstants"
+import { LINKING_SIZE_SMALL } from "../../../../../../components/linking/constants/LinkingConstants"
 
 const CircuitCell = ({ circuit }) => {
 	return (

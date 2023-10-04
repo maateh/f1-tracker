@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import Linking from "../../../../../../components/linking/Linking"
 
 // constants
-import { LINKING_SIZE_SMALL } from "../../../../../../components/linking/LinkingConstants"
+import { LINKING_SIZE_SMALL } from "../../../../../../components/linking/constants/LinkingConstants"
 
 const WinnerCell = ({ result: { driver, constructor } }) => {
 	const { year } = useParams()

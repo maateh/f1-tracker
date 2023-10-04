@@ -9,11 +9,11 @@ import {
 	CARD_COLOR_ORANGE,
 	CARD_COLOR_SECONDARY,
 	CARD_SIZE_MEDIUM,
-} from '../../../../../../../../../../components/listing/cards/card/CardConstants'
+} from '../../../../../../../../../../components/listing/cards/card/constants/CardConstants'
 import {
 	LINKING_POS_BOTTOM_LEFT,
 	LINKING_SIZE_SMALL,
-} from '../../../../../../../../../../components/linking/LinkingConstants'
+} from '../../../../../../../../../../components/linking/constants/LinkingConstants'
 
 // icons
 import EventAvailableIcon from '@mui/icons-material/EventAvailable'

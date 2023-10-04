@@ -5,8 +5,8 @@ import Card from '../../../../../../../../components/listing/cards/card/Card'
 import Linking from '../../../../../../../../components/linking/Linking'
 
 // constants
-import { CARD_COLOR_GREEN, CARD_COLOR_SECONDARY, CARD_SIZE_MEDIUM } from '../../../../../../../../components/listing/cards/card/CardConstants'
-import { LINKING_POS_BOTTOM_LEFT, LINKING_SIZE_MEDIUM, LINKING_SIZE_SMALL } from '../../../../../../../../components/linking/LinkingConstants'
+import { CARD_COLOR_GREEN, CARD_COLOR_SECONDARY, CARD_SIZE_MEDIUM } from '../../../../../../../../components/listing/cards/card/constants/CardConstants'
+import { LINKING_POS_BOTTOM_LEFT, LINKING_SIZE_MEDIUM, LINKING_SIZE_SMALL } from '../../../../../../../../components/linking/constants/LinkingConstants'
 
 // icons
 import MyLocationIcon from '@mui/icons-material/MyLocation'
