@@ -1,0 +1,5 @@
+export const TOASTER_CLASSES = 'toaster'
+export const TOAST_DEFAULT_CLASSES = 'toast'
+export const TOAST_SUCCESS_CLASSES = 'toast success'
+export const TOAST_ERROR_CLASSES = 'toast error'
+export const TOAST_WARNING_CLASSES = 'toast warning'

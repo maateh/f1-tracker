@@ -1,6 +1,5 @@
 import { Suspense, lazy } from 'react'
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { Toaster } from 'sonner'
 
 // layouts
 import Main from './layouts/Main'
@@ -24,6 +23,7 @@ const ConstructorProfile = lazy(() => import('./pages/profile/pages/constructor/
 const CircuitProfile = lazy(() => import('./pages/profile/pages/circuit/CircuitProfile'))
 
 const PageNotFound = lazy(() => import('./components/error/fallbacks/PageNotFound'))
+import ToasterSetup from './components/toaster/ToasterSetup'
 
 // loaders
 const ResultsLoader = lazy(() => import('./pages/results/loader/ResultsLoader'))
@@ -296,10 +296,7 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <>
-      <Toaster
-        position='bottom-right'
-        visibleToasts={2}
-      />
+      <ToasterSetup />
       <RouterProvider router={router} />
     </>
   )
