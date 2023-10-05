@@ -33,6 +33,7 @@ const PitsLoader = lazy(() => import('./pages/history/pages/pits/loader/PitsLoad
 import PageSkeleton from './components/skeletons/page/PageSkeleton'
 import FilterSkeleton from './components/skeletons/filter/FilterSkeleton'
 import ListingSkeleton from './components/skeletons/listing/ListingSkeleton'
+import { Toaster } from 'sonner'
 
 const router = createBrowserRouter([
   {
@@ -292,6 +293,16 @@ const router = createBrowserRouter([
   }
 ])
 
-const App = () => <RouterProvider router={router} />
+const App = () => {
+  return (
+    <>
+      <Toaster
+        position='bottom-right'
+        visibleToasts={2}
+      />
+      <RouterProvider router={router} />
+    </>
+  )
+}
 
 export default App

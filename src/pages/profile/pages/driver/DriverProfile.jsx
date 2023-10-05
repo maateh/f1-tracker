@@ -1,3 +1,6 @@
+import { ErrorBoundary } from 'react-error-boundary'
+import { toast } from 'sonner'
+
 // components
 import Information from '../../components/information/Information'
 import Achievements from '../../components/achievements/Achievements'
@@ -14,7 +17,6 @@ import useDriverQualifyingsStatsQuery from './components/stats/hooks/useDriverQu
 
 // context
 import DriverProfileContextProvider from './context/DriverProfileContext'
-import { ErrorBoundary } from 'react-error-boundary'
 
 const DriverProfile = () => {
   return (
@@ -22,27 +24,38 @@ const DriverProfile = () => {
       <DriverProfileContextProvider>
         <Information useInformationQuery={useDriverInformationQuery} />
         <Achievements useAchievements={useDriverAchievements} />
+
         <StatisticsHolder>
-          <ErrorBoundary fallback={<></>} onError={() => console.log('toast message here')}>
+          <ErrorBoundary
+            fallback={<></>}
+            onError={() => toast("The driver doesn't have any race statistics data.")}
+          >
             <Statistics
               title="Races Statistics"
               useStatsQuery={useDriverRacesStatsQuery}
             />
           </ErrorBoundary>
-          <ErrorBoundary fallback={<></>} onError={() => console.log('toast message here')}>
+          <ErrorBoundary
+            fallback={<></>}
+            onError={() => toast.success("The driver doesn't have any championship standings data.")}
+          >
             <Statistics
               title="Standings Statistics"
               note="*Always updated at the end of the current season"
               useStatsQuery={useDriverStandingsStatsQuery}
             />
           </ErrorBoundary>
-          <ErrorBoundary fallback={<></>} onError={() => console.log('toast message here')}>
+          <ErrorBoundary
+            fallback={<></>}
+            onError={() => toast("The driver doesn't have any qualifying statistics data.")}
+          >
             <Statistics
               title="Qualifyings Statistics"
               useStatsQuery={useDriverQualifyingsStatsQuery}
             />
           </ErrorBoundary>
         </StatisticsHolder>
+
         <DriverSeasons />
       </DriverProfileContextProvider>
     </main>

@@ -1,3 +1,6 @@
+import { ErrorBoundary } from 'react-error-boundary'
+import { toast } from 'sonner'
+
 // components
 import Information from '../../components/information/Information'
 import Achievements from '../../components/achievements/Achievements'
@@ -14,7 +17,6 @@ import useConstructorQualifyingsStatsQuery from './components/stats/hooks/useCon
 
 // context
 import ConstructorProfileContextProvider from './context/ConstructorProfileContext'
-import { ErrorBoundary } from 'react-error-boundary'
 
 const ConstructorProfile = () => {
   return (
@@ -22,27 +24,38 @@ const ConstructorProfile = () => {
       <ConstructorProfileContextProvider>
         <Information useInformationQuery={useConstructorInformationQuery} />
         <Achievements useAchievements={useConstructorAchievements} />
+
         <StatisticsHolder>
-          <ErrorBoundary fallback={<></>} onError={() => console.log('toast message here')}>
+          <ErrorBoundary
+            fallback={<></>}
+            onError={() => toast("The constructor doesn't have any race statistics data.")}
+          >
             <Statistics
               title="Races Statistics"
               useStatsQuery={useConstructorRacesStatsQuery}
             />
           </ErrorBoundary>
-          <ErrorBoundary fallback={<></>} onError={() => console.log('toast message here')}>
+          <ErrorBoundary
+            fallback={<></>}
+            onError={() => toast("The constructor doesn't have any championship standings data.")}
+          >
             <Statistics
               title="Standings Statistics"
               note="*Always updated at the end of the current season"
               useStatsQuery={useConstructorStandingsStatsQuery}
             />
           </ErrorBoundary>
-          <ErrorBoundary fallback={<></>} onError={() => console.log('toast message here')}>
+          <ErrorBoundary
+            fallback={<></>}
+            onError={() => toast("The constructor doesn't have any qualifying statistics data.")}
+          >
             <Statistics
               title="Qualifyings Statistics"
               useStatsQuery={useConstructorQualifyingsStatsQuery}
             />
           </ErrorBoundary>
         </StatisticsHolder>
+
         <ConstructorSeasons />
       </ConstructorProfileContextProvider>
     </main>
