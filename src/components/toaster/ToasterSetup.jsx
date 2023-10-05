@@ -3,6 +3,9 @@ import { Toaster } from "sonner"
 // constants
 import { TOASTER_CLASSES } from "./constants/ToasterConstants"
 
+// styles
+import './Toaster.css'
+
 const ToasterSetup = () => {
   return (
     <Toaster
@@ -13,4 +16,5 @@ const ToasterSetup = () => {
     />
   )
 }
+
 export default ToasterSetup

@@ -156,32 +156,3 @@ label span {
 .icon__container.dark svg {
   color: var(--text-color);
 }
-
-/* toaster */
-.toaster .toast {
-  background: var(--secondary);
-  border-color: var(--secondary);
-  box-shadow: 1px 1px 1px 1px rgba(100, 100, 100, 0.5);
-
-  color: var(--text-color-light);
-  font-size: 0.95rem;
-  letter-spacing: 0.015rem;
-}
-.toaster .toast div[data-title] {
-  margin-left: 0.35rem;
-}
-.toaster .toast.success {
-  background: var(--accent-green);
-  border-color: var(--accent-green);
-  color: var(--text-color);
-}
-.toaster .toast.error {
-  background: var(--accent-red);
-  border-color: var(--accent-red);
-  color: var(--text-color-light);
-}
-.toaster .toast.warning {
-  background: var(--accent-orange);
-  border-color: var(--accent-orange);
-  color: var(--text-color);
-}
