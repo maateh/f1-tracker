@@ -1,5 +1,4 @@
 import { ErrorBoundary } from 'react-error-boundary'
-import { toast } from 'sonner'
 
 // components
 import Information from '../../components/information/Information'
@@ -14,11 +13,14 @@ import useDriverAchievements from './components/achievements/hooks/useDriverAchi
 import useDriverRacesStatsQuery from './components/stats/hooks/useDriverRacesStatsQuery'
 import useDriverStandingsStatsQuery from './components/stats/hooks/useDriverStandingsStatsQuery'
 import useDriverQualifyingsStatsQuery from './components/stats/hooks/useDriverQualifyingsStatsQuery'
+import useToaster from '../../../../components/toaster/hooks/useToaster'
 
 // context
 import DriverProfileContextProvider from './context/DriverProfileContext'
 
 const DriverProfile = () => {
+  const { warningToast } = useToaster()
+
   return (
     <main className="driver-profile__container page__container">
       <DriverProfileContextProvider>
@@ -28,7 +30,7 @@ const DriverProfile = () => {
         <StatisticsHolder>
           <ErrorBoundary
             fallback={<></>}
-            onError={() => toast("The driver doesn't have any race statistics data.")}
+            onError={() => warningToast("The driver doesn't have any race statistics data.")}
           >
             <Statistics
               title="Races Statistics"
@@ -37,7 +39,7 @@ const DriverProfile = () => {
           </ErrorBoundary>
           <ErrorBoundary
             fallback={<></>}
-            onError={() => toast("The driver doesn't have any championship standings data.")}
+            onError={() => warningToast("The driver doesn't have any championship standings data.")}
           >
             <Statistics
               title="Standings Statistics"
@@ -47,7 +49,7 @@ const DriverProfile = () => {
           </ErrorBoundary>
           <ErrorBoundary
             fallback={<></>}
-            onError={() => toast("The driver doesn't have any qualifying statistics data.")}
+            onError={() => warningToast("The driver doesn't have any qualifying statistics data.")}
           >
             <Statistics
               title="Qualifyings Statistics"

@@ -1,5 +1,4 @@
 import { ErrorBoundary } from 'react-error-boundary'
-import { toast } from 'sonner'
 
 // components
 import Information from '../../components/information/Information'
@@ -14,11 +13,14 @@ import useConstructorAchievements from './components/achievements/hooks/useConst
 import useConstructorRacesStatsQuery from './components/stats/hooks/useConstructorRacesStatsQuery'
 import useConstructorStandingsStatsQuery from './components/stats/hooks/useConstructorStandingsStatsQuery'
 import useConstructorQualifyingsStatsQuery from './components/stats/hooks/useConstructorQualifyingsStatsQuery'
+import useToaster from '../../../../components/toaster/hooks/useToaster'
 
 // context
 import ConstructorProfileContextProvider from './context/ConstructorProfileContext'
 
 const ConstructorProfile = () => {
+  const { warningToast } = useToaster()
+
   return (
     <main className="constructor-profile__container page__container">
       <ConstructorProfileContextProvider>
@@ -28,7 +30,7 @@ const ConstructorProfile = () => {
         <StatisticsHolder>
           <ErrorBoundary
             fallback={<></>}
-            onError={() => toast("The constructor doesn't have any race statistics data.")}
+            onError={() => warningToast("The constructor doesn't have any race statistics data.")}
           >
             <Statistics
               title="Races Statistics"
@@ -37,7 +39,7 @@ const ConstructorProfile = () => {
           </ErrorBoundary>
           <ErrorBoundary
             fallback={<></>}
-            onError={() => toast("The constructor doesn't have any championship standings data.")}
+            onError={() => warningToast("The constructor doesn't have any championship standings data.")}
           >
             <Statistics
               title="Standings Statistics"
@@ -47,7 +49,7 @@ const ConstructorProfile = () => {
           </ErrorBoundary>
           <ErrorBoundary
             fallback={<></>}
-            onError={() => toast("The constructor doesn't have any qualifying statistics data.")}
+            onError={() => warningToast("The constructor doesn't have any qualifying statistics data.")}
           >
             <Statistics
               title="Qualifyings Statistics"
