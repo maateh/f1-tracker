@@ -1,5 +1,6 @@
 /* override card components styles */
 .card__container.summary {
+  width: auto;
   max-width: 35rem;
   margin: 0.25rem 3rem;
   padding: 0.4rem;
