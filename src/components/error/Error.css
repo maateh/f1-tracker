@@ -121,10 +121,10 @@
   font-size: 1.2rem;
 }
 .error-fallback.medium p.error-msg {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 }
 .error-fallback.large p.error-msg {
-  font-size: 2rem;
+  font-size: 1.6rem;
 }
 
 .error-fallback p.error-msg > a:hover,

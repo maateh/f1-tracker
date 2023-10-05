@@ -3,11 +3,11 @@ import { ErrorBoundary } from "react-error-boundary"
 
 // components
 import Navbar from "../components/navbar/Navbar"
-import ApplicationErrorFallback from "../components/error/fallbacks/ApplicationErrorFallback"
+import ComponentErrorFallback from "../components/error/fallbacks/ComponentErrorFallback"
 
 const Main = () => {
   return (
-    <ErrorBoundary FallbackComponent={ApplicationErrorFallback}>
+    <ErrorBoundary FallbackComponent={ComponentErrorFallback}>
       <Navbar />
       <Outlet />
     </ErrorBoundary>

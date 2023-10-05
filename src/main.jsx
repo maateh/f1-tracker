@@ -21,7 +21,7 @@ const queryClient = new QueryClient({
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    <ErrorBoundary FallbackComponent={ApplicationErrorFallback} onReset={() => window.location.reload()}>
+    <ErrorBoundary FallbackComponent={ApplicationErrorFallback}>
       <QueryClientProvider client={queryClient}>
         <App />
       </QueryClientProvider>

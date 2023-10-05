@@ -37,7 +37,7 @@ const DriverProfile = () => {
           </ErrorBoundary>
           <ErrorBoundary
             fallback={<></>}
-            onError={() => toast.success("The driver doesn't have any championship standings data.")}
+            onError={() => toast("The driver doesn't have any championship standings data.")}
           >
             <Statistics
               title="Standings Statistics"

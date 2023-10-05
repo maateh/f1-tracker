@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react'
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Toaster } from 'sonner'
 
 // layouts
 import Main from './layouts/Main'
@@ -33,7 +34,6 @@ const PitsLoader = lazy(() => import('./pages/history/pages/pits/loader/PitsLoad
 import PageSkeleton from './components/skeletons/page/PageSkeleton'
 import FilterSkeleton from './components/skeletons/filter/FilterSkeleton'
 import ListingSkeleton from './components/skeletons/listing/ListingSkeleton'
-import { Toaster } from 'sonner'
 
 const router = createBrowserRouter([
   {

@@ -9,7 +9,7 @@ import { LINKING_SIZE_MEDIUM } from "../../../../components/linking/constants/Li
 import './Information.css'
 
 const Information = ({ useInformationQuery }) => {
-  const { data, isLoading, isError } = useInformationQuery()
+  const { data, isLoading } = useInformationQuery()
 
   return !isLoading && data ? (
     <section className="information__container">
