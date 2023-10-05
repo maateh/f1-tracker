@@ -7,7 +7,7 @@ import { pitStops } from "../../../../../../../api/pitstops/pitStops"
 import { driverListFromRound } from "../../../../../../../api/drivers/driverList"
 
 // components
-import SummaryCard from "../../../../../../../components/listing/cards/card/SummaryCard"
+import SummaryCard from "../../../../../../../components/listing/cards/components/summary/SummaryCard"
 import SingleTableCell from "../../../../../../../components/listing/table/cell/SingleTableCell"
 import LinkingTableCell from "../../../../../../../components/listing/table/cell/LinkingTableCell"
 import DurationCell from "../components/table/DurationCell"

@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom'
 
 // components
-import Card from '../../../../../../../../components/listing/cards/card/Card'
+import Card from '../../../../../../../../components/listing/cards/components/card/Card'
 import Linking from '../../../../../../../../components/linking/Linking'
 
 // constants
-import { CARD_COLOR_SECONDARY, CARD_COLOR_YELLOW, CARD_SIZE_MEDIUM } from '../../../../../../../../components/listing/cards/card/constants/CardConstants'
+import { CARD_COLOR_SECONDARY, CARD_COLOR_YELLOW, CARD_SIZE_MEDIUM } from '../../../../../../../../components/listing/cards/components/card/constants/CardConstants'
 import { LINKING_POS_BOTTOM_LEFT, LINKING_SIZE_SMALL } from '../../../../../../../../components/linking/constants/LinkingConstants'
 
 // icons

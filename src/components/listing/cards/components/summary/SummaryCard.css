@@ -1,0 +1,64 @@
+/* override card components styles */
+.card__container.summary {
+  max-width: 35rem;
+  margin: 0.25rem 3rem;
+  padding: 0.4rem;
+  cursor: auto;
+}
+
+
+/* card title */
+.card__container.summary > .summary-card-title {
+  margin: 1.15rem 4rem;
+  color: var(--text-color-light);
+  font-size: 1.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 3px rgba(170, 170, 170, 0.8);
+}
+
+/* card summaries */
+.card__container.summary > .summaries__container {
+  margin: 2rem 1rem;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  row-gap: 1.5rem;
+  column-gap: 3rem;
+}
+.card__container.summary > .summaries__container > .summary {
+  flex: 1 0 40%;
+  color: var(--text-color-light);
+}
+.card__container.summary > .summaries__container > .summary .summary-title {
+  margin: 0 0.15rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  font-variant: small-caps;
+}
+.card__container.summary > .summaries__container > .summary .summary-desc {
+  margin-top: 0.25rem;
+  display: block;
+  color: var(--text-color-light);
+  font-size: 1.1rem;
+  font-weight: 300;
+}
+
+/* mobile screens */
+@media (max-width: 30rem) {
+  .card__container.summary > .summary-card-title {
+    margin: 1rem 1.5rem;
+    font-size: 1.4rem;
+  }
+
+  .card__container.summary > .summaries__container > .summary .icon__container {
+    flex-direction: column;
+  }
+  .card__container.summary > .summaries__container > .summary .summary-title {
+    font-size: 1.1rem;
+  }
+
+  .card__container.summary > .summaries__container > .summary .summary-desc {
+    font-size: 1rem;
+  }
+}

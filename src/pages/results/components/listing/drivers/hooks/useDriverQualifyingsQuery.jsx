@@ -6,7 +6,7 @@ import { useErrorBoundary } from "react-error-boundary"
 import { driverQualifyingsResultsFromSeason } from "../../../../../../api/results/qualifying/driverQualifyingsResults"
 
 // components
-import SummaryCard from "../../../../../../components/listing/cards/card/SummaryCard"
+import SummaryCard from "../../../../../../components/listing/cards/components/summary/SummaryCard"
 import SingleTableCell from "../../../../../../components/listing/table/cell/SingleTableCell"
 import LinkingTableCell from "../../../../../../components/listing/table/cell/LinkingTableCell"
 import CircuitCell from "../../components/table/CircuitCell"

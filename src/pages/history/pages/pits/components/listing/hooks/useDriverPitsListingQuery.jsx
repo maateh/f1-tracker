@@ -7,7 +7,7 @@ import { driverPitStops } from "../../../../../../../api/pitstops/driverPitStops
 import { driver } from "../../../../../../../api/drivers/driver"
 
 // components
-import SummaryCard from "../../../../../../../components/listing/cards/card/SummaryCard"
+import SummaryCard from "../../../../../../../components/listing/cards/components/summary/SummaryCard"
 import SingleTableCell from "../../../../../../../components/listing/table/cell/SingleTableCell"
 import DurationCell from "../components/table/DurationCell"
 

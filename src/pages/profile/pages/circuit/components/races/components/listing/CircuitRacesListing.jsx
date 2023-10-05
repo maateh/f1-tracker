@@ -5,7 +5,7 @@ import LoadingSkeleton from "../../../../../../../../components/skeletons/loadin
 
 // hooks
 import useCircuitRacesListingQuery from "./hooks/useCircuitRacesListingQuery"
-import useObserver from "../../../../../../../../components/listing/cards/hooks/useObserver"
+import useObserver from "../../../../../../../../components/listing/cards/components/card/hooks/useObserver"
 
 // context
 import useListingContext from '../../../../../../../../components/listing/context/hooks/useListingContext'

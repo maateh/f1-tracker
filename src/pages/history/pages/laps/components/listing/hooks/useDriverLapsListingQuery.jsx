@@ -7,7 +7,7 @@ import { driverLaps } from "../../../../../../../api/laps/driverLaps"
 import { driverRaceResults } from "../../../../../../../api/results/race/driverRaceResults"
 
 // components
-import SummaryCard from "../../../../../../../components/listing/cards/card/SummaryCard"
+import SummaryCard from "../../../../../../../components/listing/cards/components/summary/SummaryCard"
 import SingleTableCell from "../../../../../../../components/listing/table/cell/SingleTableCell"
 import GainedInfoCell from "../components/table/GainedInfoCell"
 import TimeCell from '../components/table/TimeCell'

@@ -1,11 +1,11 @@
-// hooks
-import useDriverLapsListingQuery from './hooks/useDriverLapsListingQuery'
-
 // components
 import Title from '../../../../../../components/listing/title/Title'
 import Cards from '../../../../../../components/listing/cards/Cards'
 import Table from '../../../../../../components/listing/table/Table'
 import ListingSkeleton from "../../../../../../components/skeletons/listing/ListingSkeleton"
+
+// hooks
+import useDriverLapsListingQuery from './hooks/useDriverLapsListingQuery'
 
 // context
 import useListingContext from '../../../../../../components/listing/context/hooks/useListingContext'

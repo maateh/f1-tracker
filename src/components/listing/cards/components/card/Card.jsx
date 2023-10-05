@@ -3,11 +3,11 @@ import { Tooltip } from '@mui/material'
 // styles
 import './Card.css'
 
-const Card = ({ children, tooltipText, size, bgColor, borderColor, invertOnHover, onClick, lastRef }) => {
+const Card = ({ children, tooltipText, size, classNames, bgColor, borderColor, invertOnHover, onClick, lastRef }) => {
   return (
     <Tooltip title={tooltipText} placement='top' arrow>
       <li
-        className={`card__container ${size} bg--${bgColor} border--${borderColor} ${invertOnHover ? `hover--${borderColor}` : ''}`}
+        className={`card__container ${size} bg--${bgColor} border--${borderColor}${invertOnHover ? ` hover--${borderColor}` : ''}${classNames ? ` ${classNames}` : ''}`}
         onClick={onClick}
         ref={lastRef || undefined}
       >

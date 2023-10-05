@@ -6,7 +6,7 @@ import { useErrorBoundary } from "react-error-boundary"
 import { weekendQualifyingResults } from '../../../../../../api/results/qualifying/weekendQualifyingResults'
 
 // components
-import SummaryCard from '../../../../../../components/listing/cards/card/SummaryCard'
+import SummaryCard from '../../../../../../components/listing/cards/components/summary/SummaryCard'
 import SingleTableCell from '../../../../../../components/listing/table/cell/SingleTableCell'
 import LinkingTableCell from '../../../../../../components/listing/table/cell/LinkingTableCell'
 
