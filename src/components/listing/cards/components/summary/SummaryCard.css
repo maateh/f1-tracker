@@ -2,7 +2,7 @@
 .card__container.summary {
   width: auto;
   max-width: 35rem;
-  margin: 0.25rem 3rem;
+  margin: 0.25rem 2.5rem;
   padding: 0.4rem;
   cursor: auto;
 }
@@ -10,7 +10,7 @@
 
 /* card title */
 .card__container.summary > .summary-card-title {
-  margin: 1.15rem 4rem;
+  margin: 1rem 4rem;
   color: var(--text-color-light);
   font-size: 1.7rem;
   font-weight: 600;
@@ -20,7 +20,8 @@
 
 /* card summaries */
 .card__container.summary > .summaries__container {
-  margin: 2rem 1rem;
+  margin: 1rem;
+  margin-bottom: 2rem;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;

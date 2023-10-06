@@ -16,21 +16,21 @@ const useToaster = () => {
 	const successToast = (text) => {
 		return toast(text, {
 			className: TOAST_CLASS_SUCCESS,
-			icon: <CheckCircleIcon />,
+			icon: <CheckCircleIcon />
 		})
 	}
 
 	const errorToast = (text) => {
 		return toast(text, {
 			className: TOAST_CLASS_ERROR,
-			icon: <CancelIcon />,
+			icon: <CancelIcon />
 		})
 	}
 
 	const warningToast = (text) => {
 		return toast(text, {
 			className: TOAST_CLASS_WARNING,
-			icon: <ErrorIcon />,
+			icon: <ErrorIcon />
 		})
 	}
 
