@@ -7,6 +7,7 @@ import Error from '../Error'
 import { ERROR_SIZE_LARGE } from '../constants/ErrorConstants'
 
 // icons
+import ErrorIcon from '@mui/icons-material/Error'
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious'
 
 // styles
@@ -17,6 +18,7 @@ const PageNotFound = () => {
 
 	return (
 		<Error
+			headerIcon={<ErrorIcon />}
 			info="Page not found!"
 			messages={[
 				<>
