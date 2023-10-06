@@ -23,7 +23,7 @@ const ConstructorProfile = lazy(() => import('./pages/profile/pages/constructor/
 const CircuitProfile = lazy(() => import('./pages/profile/pages/circuit/CircuitProfile'))
 
 const PageNotFound = lazy(() => import('./components/error/fallbacks/PageNotFound'))
-import ToasterSetup from './components/toaster/ToasterSetup'
+import ToastProvider from './components/toaster/ToastProvider'
 
 // loaders
 const ResultsLoader = lazy(() => import('./pages/results/loader/ResultsLoader'))
@@ -296,7 +296,7 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <>
-      <ToasterSetup />
+      <ToastProvider />
       <RouterProvider router={router} />
     </>
   )

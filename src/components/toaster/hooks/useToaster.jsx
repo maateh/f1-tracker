@@ -2,9 +2,9 @@ import { toast } from 'sonner'
 
 // constants
 import {
-	TOAST_ERROR_CLASSES,
-	TOAST_SUCCESS_CLASSES,
-	TOAST_WARNING_CLASSES,
+	TOAST_CLASS_SUCCESS,
+	TOAST_CLASS_ERROR,
+	TOAST_CLASS_WARNING
 } from '../constants/ToasterConstants'
 
 // icons
@@ -15,21 +15,21 @@ import ErrorIcon from '@mui/icons-material/Error'
 const useToaster = () => {
 	const successToast = (text) => {
 		return toast(text, {
-			className: TOAST_SUCCESS_CLASSES,
+			className: TOAST_CLASS_SUCCESS,
 			icon: <CheckCircleIcon />,
 		})
 	}
 
 	const errorToast = (text) => {
 		return toast(text, {
-			className: TOAST_ERROR_CLASSES,
+			className: TOAST_CLASS_ERROR,
 			icon: <CancelIcon />,
 		})
 	}
 
 	const warningToast = (text) => {
 		return toast(text, {
-			className: TOAST_WARNING_CLASSES,
+			className: TOAST_CLASS_WARNING,
 			icon: <ErrorIcon />,
 		})
 	}
