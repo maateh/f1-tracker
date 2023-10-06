@@ -27,26 +27,29 @@
 }
 
 /* icon */
-.error-fallback svg.error__icon {
+.error-fallback.error > svg {
   color: var(--accent-red);
 }
-.error-fallback.small svg.error__icon {
+.error-fallback.warning > svg {
+  color: var(--accent-orange);
+}
+.error-fallback.small > svg {
   font-size: 1.6rem;
 }
-.error-fallback.medium svg.error__icon {
+.error-fallback.medium > svg {
   font-size: 2.5rem;
 }
-.error-fallback.large svg.error__icon {
+.error-fallback.large > svg {
   font-size: 3.5rem;
 }
 @media (max-width: 40rem) {
-  .error-fallback.small svg.error__icon {
+  .error-fallback.small > svg {
     font-size: 1.4rem;
   }
-  .error-fallback.medium svg.error__icon {
+  .error-fallback.medium > svg {
     font-size: 2.2rem;
   }
-  .error-fallback.large svg.error__icon {
+  .error-fallback.large > svg {
     font-size: 3rem;
   }
 }
@@ -115,7 +118,12 @@
 .error-fallback p.error-msg > a {
   font-size: 120%;
   font-weight: 700;
+}
+.error-fallback.error p.error-msg > a {
   color: var(--highlight);
+}
+.error-fallback.warning p.error-msg > a {
+  color: var(--accent-orange);
 }
 .error-fallback.small p.error-msg {
   font-size: 1.2rem;
@@ -127,9 +135,13 @@
   font-size: 1.6rem;
 }
 
-.error-fallback p.error-msg > a:hover,
-.error-fallback p.error-msg > a:active {
+.error-fallback.error p.error-msg > a:hover,
+.error-fallback.error p.error-msg > a:active {
   color: var(--accent-red);
+}
+.error-fallback.warning p.error-msg > a:hover,
+.error-fallback.warning p.error-msg > a:active {
+  color: var(--accent-orange);
 }
 
 @media (max-width: 40rem) {
@@ -142,4 +154,31 @@
   .error-fallback.large p.error-msg {
     font-size: 1.5rem;
   }
+}
+
+/* reset button */
+.error-fallback.error button {
+  background: var(--highlight);
+  border-color: var(--highlight);
+}
+.error-fallback.error button:active,
+.error-fallback.error button:hover {
+  background: var(--accent-red);
+  border-color: var(--accent-red);
+}
+
+.error-fallback.warning button {
+  color: var(--text-color-light);
+  background: var(--accent-orange);
+  border-color: var(--accent-orange);
+}
+.error-fallback.warning button:active,
+.error-fallback.warning button:hover {
+  color: var(--text-color);
+  background: var(--accent-yellow);
+  border-color: var(--accent-yellow);
+}
+.error-fallback.warning button:active > svg,
+.error-fallback.warning button:hover > svg {
+  color: var(--text-color);
 }
