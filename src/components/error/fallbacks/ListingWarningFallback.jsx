@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom'
+
 // components
 import Error from '../Error'
 
@@ -11,14 +13,16 @@ import FilterListOffIcon from '@mui/icons-material/FilterListOff'
 // styles
 import '../Error.css'
 
-const ListingWarningFallback = ({ error, resetErrorBoundary }) => {
+const ListingWarningFallback = ({ error }) => {
+	const navigate = useNavigate()
+
   return (
 		<Error
 			headerIcon={<InfoIcon />}
 			oops={false}
 			info="No data for this period!"
 			messages={[error.fallbackMsg]}
-			onReset={resetErrorBoundary}
+			onReset={() => navigate('./')}
 			resetLabel="Filter reset"
 			resetIcon={<FilterListOffIcon />}
 			size={ERROR_SIZE_MEDIUM}

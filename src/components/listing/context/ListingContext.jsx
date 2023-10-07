@@ -1,4 +1,5 @@
 import { createContext, useReducer } from "react"
+import { useParams } from "react-router-dom"
 import { ErrorBoundary } from "react-error-boundary"
 
 // components
@@ -12,7 +13,6 @@ import * as actionType from './constants/ListingContextActions'
 
 // models
 import DataNotFoundError from '../../../model/error/DataNotFoundError'
-import { useNavigate } from "react-router-dom"
 
 const INITIAL_STATE = {
   title: null,
@@ -41,9 +41,9 @@ const dataReducer = (state, action) => {
 export const ListingContext = createContext()
 
 const ListingContextProvider = ({ children, initialState }) => {
-  const [state, dispatch] = useReducer(dataReducer, initialState || INITIAL_STATE)
-  const navigate = useNavigate()
+  const params = useParams()
   const { warningToast, errorToast } = useToaster()
+  const [state, dispatch] = useReducer(dataReducer, initialState || INITIAL_STATE)
 
   const setTitle = ({ title }) => {
     dispatch({
@@ -81,12 +81,15 @@ const ListingContextProvider = ({ children, initialState }) => {
   }
 
   return (
-    <ErrorBoundary FallbackComponent={ListingWarningFallback} onReset={() => navigate('./')} onError={err => {
-      if (err instanceof DataNotFoundError) {
-        warningToast('Sorry! There are no data for this period to display.')
-        return
-      }
-      errorToast('Sorry! An unexpected error occured. Try refresh the page.')
+    <ErrorBoundary
+      FallbackComponent={ListingWarningFallback}
+      resetKeys={Object.values(params)}
+      onError={err => {
+        if (err instanceof DataNotFoundError) {
+          warningToast('Sorry! There are no data for this period to display.')
+          return
+        }
+        errorToast('Sorry! An unexpected error occured. Try refresh the page.')
     }}>
       <ListingContext.Provider value={{
         ...state,
