@@ -1,0 +1,38 @@
+/* result links */
+.card__container.schedule .result-links__container {
+  margin: 0.4rem;
+
+  display: flex;
+  column-gap: 1rem;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.card__container.schedule .result-links__container a {
+  color: var(--text-color-light);
+  font-size: 0.9rem;
+}
+.card__container.schedule .result-links__container a:hover,
+.card__container.schedule .result-links__container a:active {
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+
+/* mobile screens */
+@media (max-width: 40rem) {
+  .card__container.schedule .result-links__container {
+    flex-direction: column;
+  }
+  .card__container.schedule .result-links__container > a.linking__container:last-of-type {
+    display: none;
+  }
+}
+
+@media (max-width: 20rem) {
+  .card__container.schedule .result-links__container {
+    position: relative;
+    margin: 0;
+  }
+}

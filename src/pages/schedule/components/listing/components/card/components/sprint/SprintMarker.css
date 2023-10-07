@@ -1,0 +1,31 @@
+/* sprint marker */
+.card__container.schedule .sprint-marker {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.2rem;
+  cursor: pointer;
+
+  color: var(--text-color-light);
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: overline;
+}
+.card__container.schedule .sprint-marker:hover,
+.card__container.schedule .sprint-marker:active {
+  font-weight: 700;
+}
+
+.card__container.schedule .sprint-marker.icon__container > svg {
+  color: var(--accent-yellow);
+  font-size: 1.4rem;
+}
+
+/* mobile screens */
+@media (max-width: 40rem) {
+  .card__container.schedule .sprint-marker {
+    font-size: 0.9rem;
+  }
+  .card__container.schedule .sprint-marker.icon__container > svg {
+    font-size: 1.2rem;
+  }
+}

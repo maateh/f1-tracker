@@ -1,16 +1,19 @@
 // components
-import Linking from '../../../../../../../components/linking/Linking'
+import Linking from '../../../../../../../../components/linking/Linking'
 
 // constants
-import { LINKING_SIZE_SMALL } from '../../../../../../../components/linking/constants/LinkingConstants'
+import { LINKING_SIZE_SMALL } from '../../../../../../../../components/linking/constants/LinkingConstants'
 
 // icons
 import SegmentIcon from '@mui/icons-material/Segment'
 import InfoIcon from '@mui/icons-material/Info'
 
-const WeekendLinks = ({ weekend }) => {
+// styles
+import './ResultLinks.css'
+
+const ResultLinks = ({ weekend }) => {
   return weekend.sessions.race.isOver() && (
-    <div className="weekend-links__container">
+    <div className="result-links__container">
       <Linking
         text="Race results"
         tooltipText="Race results"
@@ -34,4 +37,4 @@ const WeekendLinks = ({ weekend }) => {
   )
 }
 
-export default WeekendLinks
+export default ResultLinks

@@ -1,0 +1,33 @@
+/* status marker */
+.card__container.schedule .status-marker {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.card__container.schedule .status-marker > svg {
+  font-size: 1.35rem;
+}
+.card__container.schedule .status-marker.active > svg,
+.card__container.schedule .status-marker.next > svg {
+  color: var(--secondary);
+}
+.card__container.schedule:hover .status-marker.active > svg,
+.card__container.schedule:active .status-marker.active > svg,
+.card__container.schedule:hover .status-marker.next > svg,
+.card__container.schedule:active .status-marker.next > svg {
+  color: var(--text-color-light);
+}
+.card__container.schedule .status-marker.over > svg {
+  color: var(--accent-orange);
+}
+.card__container.schedule .status-marker.remaining > svg {
+  color: var(--accent-red);
+}
+
+/* mobile screens */
+@media (max-width: 40rem) {
+  .card__container.schedule .status-marker > svg {
+    font-size: 1.2rem;
+  }
+}

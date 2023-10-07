@@ -6,6 +6,9 @@ import FlashOnIcon from '@mui/icons-material/FlashOn'
 import TimerIcon from '@mui/icons-material/Timer'
 import TimerOffIcon from '@mui/icons-material/TimerOff'
 
+// styles
+import './SprintMarker.css'
+
 const WeekendSprint = ({ sprint }) => {
 	return sprint && (
     <Tooltip
@@ -37,7 +40,7 @@ const WeekendSprint = ({ sprint }) => {
         )
       }
     >
-      <div className="weekend-sprint-info icon__container">
+      <div className="sprint-marker icon__container">
         <span>Sprint weekend!</span>
         <FlashOnIcon />
       </div>

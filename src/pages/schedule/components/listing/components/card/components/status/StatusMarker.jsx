@@ -7,7 +7,10 @@ import EventAvailableIcon from '@mui/icons-material/EventAvailable'
 import HourglassTopIcon from '@mui/icons-material/HourglassTop'
 import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty'
 
-const WeekendMarker = ({ weekend, nextWeekend }) => {
+// styles
+import './StatusMarker.css'
+
+const StatusMarker = ({ weekend, nextWeekend }) => {
   const { title, status, icon } = weekend.isActive() ? {
     title: "Weekend is currently underway",
     status: 'active',
@@ -27,7 +30,7 @@ const WeekendMarker = ({ weekend, nextWeekend }) => {
   }
 
   return (
-    <div className={`weekend-marker ${status}`}>
+    <div className={`status-marker ${status}`}>
       <Tooltip title={title} arrow={true} disableInteractive={true}>
         {icon}
       </Tooltip>
@@ -35,4 +38,4 @@ const WeekendMarker = ({ weekend, nextWeekend }) => {
   )
 }
 
-export default WeekendMarker
+export default StatusMarker

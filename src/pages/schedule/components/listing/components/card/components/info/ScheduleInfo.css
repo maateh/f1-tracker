@@ -1,0 +1,35 @@
+/* schedule info */
+.card__container.schedule .schedule-info .weekend-title {
+  margin: 0.4rem 0.15rem;
+
+  color: var(--text-color-light);
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  text-shadow: 1px 1px 5px rgba(50, 50, 50, 0.3);
+  text-decoration: overline;
+}
+.card__container.schedule .schedule-info .weekend-date {
+  color: var(--text-color-light);
+  font-size: 1.5rem;
+  font-weight: lighter;
+}
+.card__container.schedule .schedule-info .weekend-race-time {
+  color: var(--text-color-light);
+  font-size: 1.9rem;
+}
+
+/* mobile screens */
+@media (max-width: 40rem) {
+  .card__container.schedule .schedule-info .weekend-title {
+    font-size: 1.5rem;
+  }
+  .card__container.schedule .schedule-info .weekend-date {
+    font-size: 1.2rem;
+  }
+  .card__container.schedule .schedule-info .weekend-race-time {
+    margin-top: 0.1rem;
+    font-size: 1.5rem;
+  }
+}
