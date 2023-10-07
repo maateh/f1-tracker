@@ -12,9 +12,9 @@ import RoundMarker from './components/round/RoundMarker'
 import { CARD_SIZE_LARGE } from '../../../../../../components/listing/cards/components/card/constants/CardConstants'
 
 // styles
-import './WeekendCard.css'
+import './ScheduleCard.css'
 
-const WeekendCard = ({ weekend, nextWeekend }) => {
+const ScheduleCard = ({ weekend, nextWeekend }) => {
 	const navigate = useNavigate()
 
 	const handleNavigate = () => {
@@ -41,4 +41,4 @@ const WeekendCard = ({ weekend, nextWeekend }) => {
 	)
 }
 
-export default WeekendCard
+export default ScheduleCard

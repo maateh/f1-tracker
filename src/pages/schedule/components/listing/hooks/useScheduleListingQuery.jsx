@@ -7,7 +7,7 @@ import { season } from "../../../../../api/season/season"
 import { nextRound } from "../../../../../api/season/round/nextRound"
 
 // components
-import WeekendCard from '../components/card/WeekendCard'
+import ScheduleCard from '../components/card/ScheduleCard'
 
 // context
 import useListingContext from '../../../../../components/listing/context/hooks/useListingContext'
@@ -31,7 +31,7 @@ const useScheduleListingQuery = () => {
           cards: new CardsModel({
             styles: CardsModel.GRID_STYLES,
             layouts: season.weekends.map(weekend => (
-              <WeekendCard
+              <ScheduleCard
                 key={weekend.round}
                 weekend={weekend}
                 nextWeekend={nextWeekend}
