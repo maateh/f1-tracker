@@ -33,7 +33,7 @@ const useIdsFilterQuery = () => {
         enabled: () => true
       })
     }),
-    onError: () => showBoundary()
+    onError: err => showBoundary(err)
   })
 }
 

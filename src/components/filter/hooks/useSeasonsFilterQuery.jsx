@@ -26,7 +26,7 @@ const useSeasonsFilterQuery = ({ onChange, additionalOption }) => {
           enabled: () => true
         })
       })),
-    onError: () => showBoundary()
+    onError: err => showBoundary(err)
   })
 }
 
