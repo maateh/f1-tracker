@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom"
 import { useQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // context
 import useFilterContext from "../../../../../components/filter/context/hooks/useFilterContext"
@@ -10,6 +11,7 @@ import FilterSelectorModel from "../../../../../model/filter/FilterSelector"
 import FilterOptionModel from "../../../../../model/filter/FilterOption"
 
 const useIdsFilterQuery = () => {
+  const { showBoundary } = useErrorBoundary()
   const { selectors, setIds } = useFilterContext()
   const { year, standings, id } = useParams()
   const navigate = useNavigate()
@@ -30,7 +32,8 @@ const useIdsFilterQuery = () => {
         },
         enabled: () => true
       })
-    })
+    }),
+    onError: () => showBoundary()
   })
 }
 

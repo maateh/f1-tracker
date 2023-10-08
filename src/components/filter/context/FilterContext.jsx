@@ -4,6 +4,9 @@ import { ErrorBoundary } from 'react-error-boundary'
 // components
 import FilterErrorFallback from '../../error/fallbacks/FilterErrorFallback'
 
+// hooks
+import useToaster from '../../toaster/hooks/useToaster'
+
 // constants
 import * as actionType from './constants/FilterContextActions'
 
@@ -81,6 +84,7 @@ const dataReducer = (state, action) => {
 export const FilterContext = createContext()
 
 const FilterContextProvider = ({ children, selectors }) => {
+	const { errorToast } = useToaster()
 	const [state, dispatch] = useReducer(dataReducer, { selectors })
 
 	const setSeasons = ({ seasons }) => {
@@ -133,7 +137,10 @@ const FilterContextProvider = ({ children, selectors }) => {
 	}
 
 	return (
-		<ErrorBoundary FallbackComponent={FilterErrorFallback}>
+		<ErrorBoundary
+			FallbackComponent={FilterErrorFallback}
+			onError={() => errorToast('An error occurred while loading the filter. Please try reset the filter parameters.')}
+		>
 			<FilterContext.Provider value={{
 				...state,
 				dispatch,

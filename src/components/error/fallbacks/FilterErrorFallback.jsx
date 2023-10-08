@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Error from '../Error'
 
 // constants
-import { ERROR_SIZE_MEDIUM, ERROR_THEME_ERROR } from '../constants/ErrorConstants'
+import { ERROR_SIZE_SMALL, ERROR_THEME_ERROR } from '../constants/ErrorConstants'
 
 // icons
 import ErrorIcon from '@mui/icons-material/Error'
@@ -25,7 +25,7 @@ const FilterErrorFallback = () => {
 			onReset={() => navigate('./')}
 			resetLabel="Filter reset"
 			resetIcon={<FilterListOffIcon />}
-			size={ERROR_SIZE_MEDIUM}
+			size={ERROR_SIZE_SMALL}
 			color={ERROR_THEME_ERROR}
 		/>
   )

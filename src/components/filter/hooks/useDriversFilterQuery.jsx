@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useQuery } from "react-query"
+import { useErrorBoundary } from "react-error-boundary"
 
 // context
 import useFilterContext from "../context/hooks/useFilterContext"
@@ -9,6 +10,7 @@ import FilterModel from "../../../model/filter/Filter"
 import FilterSelectorModel from "../../../model/filter/FilterSelector"
 
 const useDriversFilterQuery = ({ onChange, additionalOption }) => {
+  const { showBoundary } = useErrorBoundary()
   const { setDrivers } = useFilterContext()
   const { year, round, driverId } = useParams()
 
@@ -23,7 +25,8 @@ const useDriversFilterQuery = ({ onChange, additionalOption }) => {
           onChange,
           enabled: () => true
         })
-      }))
+      })),
+    onError: () => showBoundary()
 	})
 }
 
