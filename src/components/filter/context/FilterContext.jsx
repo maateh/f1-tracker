@@ -1,4 +1,8 @@
 import { createContext, useReducer } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
+
+// components
+import FilterErrorFallback from '../../error/fallbacks/FilterErrorFallback'
 
 // constants
 import * as actionType from './constants/FilterContextActions'
@@ -129,19 +133,21 @@ const FilterContextProvider = ({ children, selectors }) => {
 	}
 
 	return (
-		<FilterContext.Provider value={{
-			...state,
-			dispatch,
-			setSeasons,
-			setStandings,
-			setRounds,
-			setDrivers,
-			setConstructors,
-			setIds,
-			setSessions
-		}}>
-			{children}
-		</FilterContext.Provider>
+		<ErrorBoundary FallbackComponent={FilterErrorFallback}>
+			<FilterContext.Provider value={{
+				...state,
+				dispatch,
+				setSeasons,
+				setStandings,
+				setRounds,
+				setDrivers,
+				setConstructors,
+				setIds,
+				setSessions
+			}}>
+				{children}
+			</FilterContext.Provider>
+		</ErrorBoundary>
 	)
 }
 

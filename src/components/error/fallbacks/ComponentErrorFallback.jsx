@@ -2,7 +2,7 @@
 import Error from '../Error'
 
 // constants
-import { ERROR_THEME_RED, ERROR_SIZE_LARGE } from '../constants/ErrorConstants'
+import { ERROR_THEME_ERROR, ERROR_SIZE_LARGE } from '../constants/ErrorConstants'
 
 // icons
 import ErrorIcon from '@mui/icons-material/Error'
@@ -15,7 +15,7 @@ const ComponentErrorFallback = ({ resetErrorBoundary }) => {
   return (
 		<Error
 			headerIcon={<ErrorIcon />}
-			info="An error occured."
+			info="An error occurred."
 			messages={[
         "Unfortunately, a component in the application was crashed unexpectedly.",
         <>
@@ -26,7 +26,7 @@ const ComponentErrorFallback = ({ resetErrorBoundary }) => {
 			resetLabel="Refresh page"
 			resetIcon={<RefreshIcon />}
 			size={ERROR_SIZE_LARGE}
-			color={ERROR_THEME_RED}
+			color={ERROR_THEME_ERROR}
 		/>
   )
 }

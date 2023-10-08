@@ -2,7 +2,7 @@
 import Error from '../Error'
 
 // constants
-import { ERROR_THEME_RED, ERROR_SIZE_MEDIUM } from '../constants/ErrorConstants'
+import { ERROR_THEME_ERROR, ERROR_SIZE_MEDIUM } from '../constants/ErrorConstants'
 
 // icons
 import ErrorIcon from '@mui/icons-material/Error'
@@ -21,7 +21,7 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
 			resetLabel="Try again"
 			resetIcon={<RefreshIcon />}
 			size={ERROR_SIZE_MEDIUM}
-			color={ERROR_THEME_RED}
+			color={ERROR_THEME_ERROR}
 		/>
   )
 }

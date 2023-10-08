@@ -1,5 +1,5 @@
 // constants
-import { ERROR_THEME_RED } from "./constants/ErrorConstants"
+import { ERROR_THEME_ERROR } from "./constants/ErrorConstants"
 
 const Error = ({
 	headerIcon,
@@ -10,7 +10,7 @@ const Error = ({
 	resetLabel,
 	resetIcon,
 	size,
-	color = ERROR_THEME_RED,
+	color = ERROR_THEME_ERROR,
 }) => {
 	return (
 		<div
