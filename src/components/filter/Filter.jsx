@@ -14,7 +14,7 @@ import './Filter.css'
 const Filter = ({ useFilterQueries, paramsUpdater, skeletonCounter = 1 }) => {
 	const params = useParams()
 	const { selectors, dispatch } = useFilterContext()
-	const { preloading, loading, error } = useFilterQueries()
+	const { preloading, loading } = useFilterQueries()
 
 	useEffect(() => {
 		if (preloading) return

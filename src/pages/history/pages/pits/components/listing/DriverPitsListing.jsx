@@ -12,14 +12,11 @@ import useListingContext from "../../../../../../components/listing/context/hook
 
 const DriverPitsListing = () => {
 	const { title, cards, table } = useListingContext()
-	const { 
-    isLoading,
-    isError
-  } = useDriverPitsListingQuery()
+	const { isLoading } = useDriverPitsListingQuery()
 
 	return (
 		<div className="listing__container">
-			{isLoading || isError ? (
+			{isLoading ? (
 				<ListingSkeleton
 					titleRequired={true}
 					cardsCounter={1}

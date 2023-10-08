@@ -11,14 +11,11 @@ import useListingContext from "../../../../../components/listing/context/hooks/u
 
 const ConstructorStandingsListing = () => {
 	const { title, table } = useListingContext()
-  const {
-    isLoading,
-    isError
-  } = useConstructorStandingsQuery()
+  const { isLoading } = useConstructorStandingsQuery()
 
 	return (
 		<div className="listing__container">
-			{isLoading || isError ? (
+			{isLoading ? (
 				<ListingSkeleton
 					titleRequired={true}
 					tableRequired={true}

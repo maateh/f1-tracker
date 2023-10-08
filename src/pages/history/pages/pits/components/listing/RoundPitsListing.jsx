@@ -12,14 +12,11 @@ import useListingContext from "../../../../../../components/listing/context/hook
 
 const RoundPitsListing = () => {
 	const { title, cards, table } = useListingContext()
-	const { 
-    isLoading,
-    isError
-  } = useRoundPitsListingQuery()
+	const { isLoading } = useRoundPitsListingQuery()
 
 	return (
 		<div className="listing__container">
-			{isLoading || isError ? (
+			{isLoading ? (
 				<ListingSkeleton
 					titleRequired={true}
 					cardsCounter={1}

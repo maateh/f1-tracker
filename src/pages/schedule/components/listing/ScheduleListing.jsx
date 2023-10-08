@@ -11,14 +11,11 @@ import useListingContext from '../../../../components/listing/context/hooks/useL
 
 const ScheduleListing = () => {
   const { cards } = useListingContext()
-  const {
-    isLoading,
-    isError
-  } = useScheduleListingQuery()
+  const { isLoading } = useScheduleListingQuery()
 
   return (
     <div className="listing__container">
-      {isLoading || isError ? (
+      {isLoading ? (
         <ListingSkeleton
           titleRequired={true}
           cardsCounter={9}

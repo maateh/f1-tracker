@@ -12,14 +12,11 @@ import useListingContext from '../../../../../components/listing/context/hooks/u
 
 const SeasonListing = () => {
 	const { title, cards, table } = useListingContext()
-  const {
-    isLoading,
-    isError
-  } = useSeasonQuery()
+  const { isLoading } = useSeasonQuery()
 
 	return (
 		<div className="listing__container">
-			{isLoading || isError ? (
+			{isLoading ? (
 				<ListingSkeleton
 					titleRequired={true}
 					cardsCounter={3}

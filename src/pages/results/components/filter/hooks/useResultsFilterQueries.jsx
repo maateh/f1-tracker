@@ -18,13 +18,13 @@ const useResultsFilterQueries = () => {
   const { standings, session } = useParams()
   const navigate = useNavigate()
 
-  const { isLoading: seasonsLoading, error: seasonsError } = useSeasonsFilterQuery({
+  const { isLoading: seasonsLoading } = useSeasonsFilterQuery({
     onChange: (value, { standings }) => {
       const pathname = `./${value}/${standings}/${FilterOptionModel.ALL.value}`
       navigate({ pathname }, { replace: true })
     }
   })
-  const { isLoading: idsLoading, error: idsError } = useIdsFilterQuery()
+  const { isLoading: idsLoading } = useIdsFilterQuery()
 
   useEffect(() => {
     selectors.standings || loadStandings(navigate, standings, setStandings)
@@ -35,8 +35,7 @@ const useResultsFilterQueries = () => {
     preloading: 
       Object.values(selectors).some(s => !s) || 
       selectors.standings.param !== selectors.ids.filter.key,
-    loading: seasonsLoading || idsLoading,
-    error: seasonsError || idsError
+    loading: seasonsLoading || idsLoading
   }
 }
 

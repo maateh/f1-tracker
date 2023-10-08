@@ -12,14 +12,11 @@ import useListingContext from "../../../../../components/listing/context/hooks/u
 
 const ConstructorRacesListing = () => {
 	const { title, cards, table } = useListingContext()
-  const {
-    isLoading,
-    isError
-  } = useConstructorRacesQuery()
+  const { isLoading } = useConstructorRacesQuery()
 
 	return (
 		<div className="listing__container">
-			{isLoading || isError ? (
+			{isLoading ? (
 				<ListingSkeleton
 					titleRequired={true}
 					cardsCounter={3}

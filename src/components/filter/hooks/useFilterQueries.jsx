@@ -7,8 +7,7 @@ const useFilterQueries = (queries) => {
 
   return {
     preloading: Object.values(selectors).some(s => !s),
-    loading: results.some(r => r.isLoading),
-    error: results.some(r => r.isError)
+    loading: results.some(r => r.isLoading)
   }
 }
 
