@@ -1,6 +1,7 @@
 .stats-holder__container {
   margin: 3.5rem auto;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: start;
   row-gap: 3.5rem;
