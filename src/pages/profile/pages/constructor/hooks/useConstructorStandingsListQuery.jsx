@@ -9,9 +9,9 @@ import { constructorStandings } from '../../../../../api/standings/constructor/c
 import useToaster from "../../../../../components/toaster/hooks/useToaster"
 
 const useConstructorStandingsListQuery = () => {
-  const { warningToast } = useToaster()
-  const { showBoundary } = useErrorBoundary()
   const { id } = useParams()
+  const { showBoundary } = useErrorBoundary()
+  const { warningToast } = useToaster()
 
   return useQuery({
     queryKey: ['constructorStandings', id],

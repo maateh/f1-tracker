@@ -254,6 +254,7 @@ const router = createBrowserRouter([
       },
       {
         path: "profile",
+        // element: <ProfileErrorFallback />,
         children: [
           {
             path: "driver/:id",

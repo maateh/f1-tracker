@@ -9,9 +9,9 @@ import { constructorRacesResults } from '../../../../../api/results/race/constru
 import useToaster from "../../../../../components/toaster/hooks/useToaster"
 
 const useConstructorRacesQuery = () => {
-  const { warningToast } = useToaster()
-  const { showBoundary } = useErrorBoundary()
   const { id } = useParams()
+  const { showBoundary } = useErrorBoundary()
+  const { warningToast } = useToaster()
 
   return useQuery({
     queryKey: ['constructorRacesResults', id],

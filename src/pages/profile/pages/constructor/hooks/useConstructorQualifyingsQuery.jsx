@@ -9,9 +9,9 @@ import { constructorQualifyingsResults } from '../../../../../api/results/qualif
 import useToaster from "../../../../../components/toaster/hooks/useToaster"
 
 const useConstructorQualifyingsQuery = () => {
-  const { warningToast } = useToaster()
-  const { showBoundary } = useErrorBoundary()
   const { id } = useParams()
+  const { showBoundary } = useErrorBoundary()
+  const { warningToast } = useToaster()
 
   return useQuery({
     queryKey: ['constructorQualifyingsResults', id],

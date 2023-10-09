@@ -8,8 +8,8 @@ import { LINKING_SIZE_MEDIUM } from "../../../../components/linking/constants/Li
 // styles
 import './Information.css'
 
-const Information = ({ useInformationQuery }) => {
-  const { data, isLoading } = useInformationQuery()
+const Information = ({ useInformation }) => {
+  const { data, isLoading } = useInformation()
 
   return !isLoading && data ? (
     <section className="information__container">
