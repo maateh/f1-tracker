@@ -12,11 +12,11 @@ import ListingContextProvider from "../../../../../../components/listing/context
 import './DriverSeasons.css'
 
 const DriverSeasons = () => {
-  const { title, cards } = useDriverSeasonsListing()
+  const { title, cards, isLoading } = useDriverSeasonsListing()
 
   return (
     <section className="driver-seasons__container">
-      {cards ? (
+      {!isLoading && cards ? (
         <ListingContextProvider initialState={{ title, cards }}>
           <DriverSeasonsListing />
         </ListingContextProvider>

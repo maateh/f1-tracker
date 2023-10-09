@@ -21,10 +21,12 @@ const useConstructorSeasonsListing = () => {
   }} = useConstructorProfileContext()
 
   if (isError) showBoundary(error)
-  if (isLoading || !standingsList) return {
-    title: LISTING_TITLE,
-    cards: null,
-    isLoading
+  if (isLoading || !standingsList) {
+    return {
+      title: LISTING_TITLE,
+      cards: null,
+      isLoading
+    }
   }
   
   const cardsLayouts = standingsList.map(standings => (

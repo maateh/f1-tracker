@@ -1,3 +1,8 @@
+import { useErrorBoundary } from "react-error-boundary"
+
+// components
+import Linking from "../../../../../../../components/linking/Linking"
+
 // context
 import useDriverProfileContext from "../../../context/hooks/useDriverProfileContext"
 
@@ -7,13 +12,21 @@ import EngineeringIcon from '@mui/icons-material/Engineering'
 import EventBusyIcon from '@mui/icons-material/EventBusy'
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 import AlarmOnIcon from '@mui/icons-material/AlarmOn'
-import Linking from "../../../../../../../components/linking/Linking"
 
 const useDriverAchievements = () => {
-  const { races, qualifyings } = useDriverProfileContext()
+  const { showBoundary } = useErrorBoundary()
+  const { races: {
+    data: races, isLoading, isError, error
+  }, qualifyings: {
+    data: qualifyings
+  }} = useDriverProfileContext()
 
-  if (!races) {
-    return { achievements: null }
+  if (isError) showBoundary(error)
+  if (isLoading || !races) {
+    return {
+      achievements: null,
+      isLoading
+    }
   }
 
   const qualifyingsRequiredAchievements = qualifyings && qualifyings.length ? [
@@ -52,7 +65,8 @@ const useDriverAchievements = () => {
         data: lastTeam(races),
         icon: <EngineeringIcon />
       }
-    ]
+    ],
+    isLoading
   }
 }
 

@@ -8,59 +8,64 @@ import Statistics from '../../components/statistics/Statistics'
 import DriverSeasons from './components/seasons/DriverSeasons'
 
 // hooks
-import useDriverInformationQuery from './components/information/hooks/useDriverInformationQuery'
+import useDriverQuery from './hooks/useDriverQuery'
+import useDriverStandingsListQuery from './hooks/useDriverStandingsListQuery'
+import useDriverRacesQuery from './hooks/useDriverRacesQuery'
+import useDriverQualifyingsQuery from './hooks/useDriverQualifyingsQuery'
+
+import useDriverInformation from './components/information/hooks/useDriverInformation'
 import useDriverAchievements from './components/achievements/hooks/useDriverAchievements'
-import useDriverRacesStatsQuery from './components/stats/hooks/useDriverRacesStatsQuery'
-import useDriverStandingsStatsQuery from './components/stats/hooks/useDriverStandingsStatsQuery'
-import useDriverQualifyingsStatsQuery from './components/stats/hooks/useDriverQualifyingsStatsQuery'
-import useToaster from '../../../../components/toaster/hooks/useToaster'
+import useDriverRacesStats from './components/stats/hooks/useDriverRacesStats'
+import useDriverStandingsStats from './components/stats/hooks/useDriverStandingsStats'
+import useDriverQualifyingsStats from './components/stats/hooks/useDriverQualifyingsStats'
 
 // context
 import DriverProfileContextProvider from './context/DriverProfileContext'
 
 const DriverProfile = () => {
-  const { warningToast } = useToaster()
-
   return (
-    <main className="driver-profile__container page__container">
-      <DriverProfileContextProvider>
-        <Information useInformationQuery={useDriverInformationQuery} />
-        <Achievements useAchievements={useDriverAchievements} />
+    <DriverProfileContextProvider
+      useDriverQuery={useDriverQuery}
+      useStandingsListQuery={useDriverStandingsListQuery}
+      useRacesQuery={useDriverRacesQuery}
+      useQualifyingsQuery={useDriverQualifyingsQuery}
+    >
+      <main className="driver-profile__container page__container">
+        <Information useInformation={useDriverInformation} />
+
+        {/* TODO - fallback */}
+        <ErrorBoundary fallback={<>Fallback here</>}>
+          <Achievements useAchievements={useDriverAchievements} />
+        </ErrorBoundary>
 
         <StatisticsHolder>
-          <ErrorBoundary
-            fallback={<></>}
-            onError={() => warningToast("The driver doesn't have any race statistics data.")}
-          >
+          <ErrorBoundary fallback={<></>}>
             <Statistics
               title="Races Statistics"
-              useStatsQuery={useDriverRacesStatsQuery}
+              useStats={useDriverRacesStats}
             />
           </ErrorBoundary>
-          <ErrorBoundary
-            fallback={<></>}
-            onError={() => warningToast("The driver doesn't have any championship standings data.")}
-          >
+          <ErrorBoundary fallback={<></>}>
             <Statistics
               title="Standings Statistics"
               note="*Always updated at the end of the current season"
-              useStatsQuery={useDriverStandingsStatsQuery}
+              useStats={useDriverStandingsStats}
             />
           </ErrorBoundary>
-          <ErrorBoundary
-            fallback={<></>}
-            onError={() => warningToast("The driver doesn't have any qualifying statistics data.")}
-          >
+          <ErrorBoundary fallback={<></>}>
             <Statistics
               title="Qualifyings Statistics"
-              useStatsQuery={useDriverQualifyingsStatsQuery}
+              useStats={useDriverQualifyingsStats}
             />
           </ErrorBoundary>
         </StatisticsHolder>
 
-        <DriverSeasons />
-      </DriverProfileContextProvider>
-    </main>
+        {/* TODO - fallback */}
+        <ErrorBoundary fallback={<>Fallback here</>}>
+          <DriverSeasons />
+        </ErrorBoundary>
+      </main>
+    </DriverProfileContextProvider>
   )
 }
 

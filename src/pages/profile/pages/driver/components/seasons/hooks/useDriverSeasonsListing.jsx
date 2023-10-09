@@ -1,3 +1,5 @@
+import { useErrorBoundary } from 'react-error-boundary'
+
 // components
 import DriverSeasonCard from '../components/listing/components/card/DriverSeasonCard'
 
@@ -13,11 +15,18 @@ const LISTING_TITLE = new TitleModel({
 })
 
 const useDriverSeasonsListing = () => {
-  const { standingsList } = useDriverProfileContext()
+  const { showBoundary } = useErrorBoundary()
+  const { standingsList: {
+    data: standingsList, isLoading, isError, error
+  }} = useDriverProfileContext()
 
-  if (!standingsList) return {
-    title: LISTING_TITLE,
-    cards: null
+  if (isError) showBoundary(error)
+  if (isLoading || !standingsList) {
+    return {
+      title: LISTING_TITLE,
+      cards: null,
+      isLoading
+    }
   }
   
   const cardsLayouts = standingsList.map(standings => (

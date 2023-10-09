@@ -9,7 +9,7 @@ const ConstructorProfileContextProvider = ({
   useRacesQuery,
   useQualifyingsQuery
 }) => {
-  const state = {
+  const data = {
     constructor: useConstructorQuery(),
     standingsList: useStandingsListQuery(),
     races: useRacesQuery(),
@@ -17,7 +17,7 @@ const ConstructorProfileContextProvider = ({
   }
   
   return (
-    <ConstructorProfileContext.Provider value={{ ...state }}>
+    <ConstructorProfileContext.Provider value={{ ...data }}>
       {children}
     </ConstructorProfileContext.Provider>
   )
