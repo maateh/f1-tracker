@@ -8,57 +8,58 @@ import Statistics from '../../components/statistics/Statistics'
 import ConstructorSeasons from './components/seasons/ConstructorSeasons'
 
 // hooks
+import useConstructorStandingsListQuery from './hooks/useConstructorStandingsListQuery'
+import useConstructorQualifyingsQuery from './hooks/useConstructorQualifyingsQuery'
+import useConstructorRacesQuery from './hooks/useConstructorRacesQuery'
+
 import useConstructorInformationQuery from './components/information/hooks/useConstructorInformationQuery'
 import useConstructorAchievements from './components/achievements/hooks/useConstructorAchievements'
-import useConstructorRacesStatsQuery from './components/stats/hooks/useConstructorRacesStatsQuery'
-import useConstructorStandingsStatsQuery from './components/stats/hooks/useConstructorStandingsStatsQuery'
-import useConstructorQualifyingsStatsQuery from './components/stats/hooks/useConstructorQualifyingsStatsQuery'
-import useToaster from '../../../../components/toaster/hooks/useToaster'
+import useConstructorRacesStats from './components/stats/hooks/useConstructorRacesStats'
+import useConstructorStandingsStats from './components/stats/hooks/useConstructorStandingsStats'
+import useConstructorQualifyingsStats from './components/stats/hooks/useConstructorQualifyingsStats'
 
 // context
 import ConstructorProfileContextProvider from './context/ConstructorProfileContext'
 
 const ConstructorProfile = () => {
-  const { warningToast } = useToaster()
-
   return (
     <main className="constructor-profile__container page__container">
-      <ConstructorProfileContextProvider>
+      <ConstructorProfileContextProvider
+        useStandingsListQuery={useConstructorStandingsListQuery}
+        useQualifyingsQuery={useConstructorQualifyingsQuery}
+        useRacesQuery={useConstructorRacesQuery}
+      >
         <Information useInformationQuery={useConstructorInformationQuery} />
-        <Achievements useAchievements={useConstructorAchievements} />
+
+        <ErrorBoundary fallback={<>Fallback here</>}>
+          <Achievements useAchievements={useConstructorAchievements} />
+        </ErrorBoundary>
 
         <StatisticsHolder>
-          <ErrorBoundary
-            fallback={<></>}
-            onError={() => warningToast("The constructor doesn't have any race statistics data.")}
-          >
+          <ErrorBoundary fallback={<></>}>
             <Statistics
               title="Races Statistics"
-              useStatsQuery={useConstructorRacesStatsQuery}
+              useStats={useConstructorRacesStats}
             />
           </ErrorBoundary>
-          <ErrorBoundary
-            fallback={<></>}
-            onError={() => warningToast("The constructor doesn't have any championship standings data.")}
-          >
+          <ErrorBoundary fallback={<></>}>
             <Statistics
               title="Standings Statistics"
               note="*Always updated at the end of the current season"
-              useStatsQuery={useConstructorStandingsStatsQuery}
+              useStats={useConstructorStandingsStats}
             />
           </ErrorBoundary>
-          <ErrorBoundary
-            fallback={<></>}
-            onError={() => warningToast("The constructor doesn't have any qualifying statistics data.")}
-          >
+          <ErrorBoundary fallback={<></>}>
             <Statistics
               title="Qualifyings Statistics"
-              useStatsQuery={useConstructorQualifyingsStatsQuery}
+              useStats={useConstructorQualifyingsStats}
             />
           </ErrorBoundary>
         </StatisticsHolder>
 
-        <ConstructorSeasons />
+        <ErrorBoundary fallback={<>Fallback here</>}>
+          <ConstructorSeasons />
+        </ErrorBoundary>
       </ConstructorProfileContextProvider>
     </main>
   )

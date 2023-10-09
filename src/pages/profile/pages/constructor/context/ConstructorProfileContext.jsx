@@ -24,37 +24,49 @@ const dataReducer = (state, action) => {
 
 export const ConstructorProfileContext = createContext()
 
-const ConstructorProfileContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(dataReducer, INITIAL_STATE)
+const ConstructorProfileContextProvider = ({
+  children,
+  useInfoQuery,
+  useStandingsListQuery,
+  useRacesQuery,
+  useQualifyingsQuery
+}) => {
+  const state = {
+    standingsList: useStandingsListQuery(),
+    races: useRacesQuery(),
+    qualifyings: useQualifyingsQuery()
+  }
   
-  const setStandingsList = ({ standingsList }) => {
-    dispatch({
-      type: actionType.CONSTRUCTOR_SET_STANDINGS_LIST,
-      payload: standingsList
-    })
-  }
+  
 
-  const setRaces = ({ races }) => {
-    dispatch({
-      type: actionType.CONSTRUCTOR_SET_RACES,
-      payload: races
-    })
-  }
+  // const setStandingsList = ({ standingsList }) => {
+  //   dispatch({
+  //     type: actionType.CONSTRUCTOR_SET_STANDINGS_LIST,
+  //     payload: standingsList
+  //   })
+  // }
 
-  const setQualifyings = ({ qualifyings }) => {
-    dispatch({
-      type: actionType.CONSTRUCTOR_SET_QUALIFYINGS,
-      payload: qualifyings
-    })
-  }
+  // const setRaces = ({ races }) => {
+  //   dispatch({
+  //     type: actionType.CONSTRUCTOR_SET_RACES,
+  //     payload: races
+  //   })
+  // }
+
+  // const setQualifyings = ({ qualifyings }) => {
+  //   dispatch({
+  //     type: actionType.CONSTRUCTOR_SET_QUALIFYINGS,
+  //     payload: qualifyings
+  //   })
+  // }
   
   return (
     <ConstructorProfileContext.Provider value={{
       ...state,
-      dispatch,
-      setStandingsList,
-      setRaces,
-      setQualifyings
+      // dispatch,
+      // setStandingsList,
+      // setRaces,
+      // setQualifyings
     }}>
       {children}
     </ConstructorProfileContext.Provider>

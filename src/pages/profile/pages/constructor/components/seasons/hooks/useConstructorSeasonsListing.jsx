@@ -1,3 +1,5 @@
+import { useErrorBoundary } from 'react-error-boundary'
+
 // components
 import ConstructorSeasonCard from '../components/listing/components/card/ConstructorSeasonCard'
 
@@ -13,11 +15,16 @@ const LISTING_TITLE = new TitleModel({
 })
 
 const useConstructorSeasonsListing = () => {
-  const { standingsList } = useConstructorProfileContext()
+  const { showBoundary } = useErrorBoundary()
+  const { standingsList: {
+    data: standingsList, isLoading, isError, error
+  }} = useConstructorProfileContext()
 
-  if (!standingsList) return {
+  if (isError) showBoundary(error)
+  if (isLoading || !standingsList) return {
     title: LISTING_TITLE,
-    cards: null
+    cards: null,
+    isLoading
   }
   
   const cardsLayouts = standingsList.map(standings => (
@@ -32,7 +39,8 @@ const useConstructorSeasonsListing = () => {
     cards: new CardsModel({
       styles: CardsModel.GRID_STYLES,
       layouts: cardsLayouts
-    })
+    }),
+    isLoading
   }
 }
 

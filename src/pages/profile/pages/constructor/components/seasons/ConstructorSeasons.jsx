@@ -12,11 +12,11 @@ import ListingContextProvider from "../../../../../../components/listing/context
 import './ConstructorSeasons.css'
 
 const ConstructorSeasons = () => {
-  const { title, cards } = useConstructorSeasonsListing()
+  const { title, cards, isLoading } = useConstructorSeasonsListing()
 
   return (
     <section className="constructor-seasons__container">
-      {cards ? (
+      {!isLoading || cards ? (
         <ListingContextProvider initialState={{ title, cards }}>
           <ConstructorSeasonsListing />
         </ListingContextProvider>

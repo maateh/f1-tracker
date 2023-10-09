@@ -1,9 +1,4 @@
-import { useParams } from "react-router-dom"
-import { useQuery } from "react-query"
 import { useErrorBoundary } from "react-error-boundary"
-
-// api
-import { constructorStandings } from '../../../../../../../api/standings/constructor/constructorStandings'
 
 // context
 import useConstructorProfileContext from "../../../context/hooks/useConstructorProfileContext"
@@ -15,47 +10,50 @@ import StarsIcon from '@mui/icons-material/Stars'
 import KeyboardCapslockIcon from '@mui/icons-material/KeyboardCapslock'
 import ControlPointDuplicateIcon from '@mui/icons-material/ControlPointDuplicate'
 
-const useConstructorStandingsStatsQuery = () => {
+const useConstructorStandingsStats = () => {
   const { showBoundary } = useErrorBoundary()
-  const { setStandingsList } = useConstructorProfileContext()
-  const { id } = useParams()
+  const { standingsList: {
+    data: standingsList, isLoading, isError, error
+  }} = useConstructorProfileContext()
 
-  return useQuery({
-    queryKey: ['constructorStandings', id],
-    queryFn: () => constructorStandings(id)
-      .then(({ standingsList }) => {
-        setStandingsList({ standingsList })
+  if (isError) showBoundary(error)
+  if (isLoading || !standingsList) {
+    return {
+      stats: null,
+      isLoading
+    }
+  }
 
-        return [
-          {
-            label: "Championships won",
-            data: championshipsWon(standingsList),
-            icon: <EmojiEventsIcon />
-          },
-          {
-            label: "Participate in a season",
-            data: participations(standingsList),
-            icon: <FlagCircleIcon />
-          },
-          {
-            label: "Best championship standings result",
-            data: bestResult(standingsList),
-            icon: <StarsIcon />
-          },
-          {
-            label: "Highest points of a season",
-            data: highestPoints(standingsList),
-            icon: <KeyboardCapslockIcon />
-          },
-          {
-            label: "Total points",
-            data: totalPoints(standingsList),
-            icon: <ControlPointDuplicateIcon />
-          }
-        ]
-      }),
-    onError: err => showBoundary(err)
-  })
+  return {
+    stats: [
+      {
+        label: "Championships won",
+        data: championshipsWon(standingsList),
+        icon: <EmojiEventsIcon />
+      },
+      {
+        label: "Participate in a season",
+        data: participations(standingsList),
+        icon: <FlagCircleIcon />
+      },
+      {
+        label: "Best championship standings result",
+        data: bestResult(standingsList),
+        icon: <StarsIcon />
+      },
+      {
+        label: "Highest points of a season",
+        data: highestPoints(standingsList),
+        icon: <KeyboardCapslockIcon />
+      },
+      {
+        label: "Total points",
+        data: totalPoints(standingsList),
+        icon: <ControlPointDuplicateIcon />
+      }
+    ],
+    isLoading
+  }
 }
 
 function championshipsWon(standingsList) {
@@ -95,4 +93,4 @@ function totalPoints(standingsList) {
   return points ? `${points} points` : '-'
 }
 
-export default useConstructorStandingsStatsQuery
+export default useConstructorStandingsStats

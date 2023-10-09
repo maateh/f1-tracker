@@ -8,9 +8,9 @@ import './Achievements.css'
 const SECTION_TITLE = "Career Achievements"
 
 const Achievements = ({ useAchievements, note }) => {
-  const { achievements } = useAchievements()
+  const { achievements, isLoading } = useAchievements()
 
-	return achievements ? (
+	return !isLoading || achievements ? (
     <section className="achievements-holder__container">
       <h2 className="achievements__title">{SECTION_TITLE}</h2>
 

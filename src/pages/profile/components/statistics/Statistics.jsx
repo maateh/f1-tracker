@@ -5,8 +5,8 @@ import StatisticsSkeleton from '../../../../components/skeletons/profile/statist
 // styles
 import './Statistics.css'
 
-const Statistics = ({ title, note, useStatsQuery }) => {
-	const { data: stats, isLoading } = useStatsQuery()
+const Statistics = ({ title, note, useStats }) => {
+	const { stats, isLoading } = useStats()
 
 	return !isLoading && stats ? (
 		<div className="stats__container">
