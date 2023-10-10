@@ -7,7 +7,7 @@ import { constructorQualifyingsResults } from '../../../../../api/results/qualif
 // hooks
 import useToaster from "../../../../../components/toaster/hooks/useToaster"
 
-const useConstructorQualifyingsQuery = () => {
+const useConstructorQualifyingsResultsQuery = () => {
   const { id } = useParams()
   const { warningToast } = useToaster()
 
@@ -21,4 +21,4 @@ const useConstructorQualifyingsQuery = () => {
   })
 }
 
-export default useConstructorQualifyingsQuery
+export default useConstructorQualifyingsResultsQuery

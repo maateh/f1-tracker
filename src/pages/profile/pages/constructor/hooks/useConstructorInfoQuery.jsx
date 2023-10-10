@@ -8,7 +8,7 @@ import { constructor } from '../../../../../api/constructors/constructor'
 // hooks
 import useToaster from '../../../../../components/toaster/hooks/useToaster'
 
-const useConstructorQuery = () => {
+const useConstructorInfoQuery = () => {
   const { id } = useParams()
   const { showBoundary } = useErrorBoundary()
   const { errorToast } = useToaster()
@@ -18,11 +18,10 @@ const useConstructorQuery = () => {
     queryFn: () => constructor(id)
       .then(({ constructor }) => constructor),
     onError: err => {
-      // TODO
-      errorToast('error message here')
+      errorToast("Couldn't find any data with the requested constructor ID. Please go back and try to select another constructor.")
       showBoundary(err)
     }
   })
 }
 
-export default useConstructorQuery
+export default useConstructorInfoQuery

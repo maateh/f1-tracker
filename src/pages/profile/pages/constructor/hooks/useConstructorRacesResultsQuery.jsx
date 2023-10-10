@@ -7,7 +7,7 @@ import { constructorRacesResults } from '../../../../../api/results/race/constru
 // hooks
 import useToaster from "../../../../../components/toaster/hooks/useToaster"
 
-const useConstructorRacesQuery = () => {
+const useConstructorRacesResultsQuery = () => {
   const { id } = useParams()
   const { warningToast } = useToaster()
 
@@ -21,4 +21,4 @@ const useConstructorRacesQuery = () => {
   })
 }
 
-export default useConstructorRacesQuery
+export default useConstructorRacesResultsQuery

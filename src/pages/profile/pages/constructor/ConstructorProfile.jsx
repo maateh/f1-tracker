@@ -8,10 +8,10 @@ import Statistics from '../../components/statistics/Statistics'
 import ConstructorSeasons from './components/seasons/ConstructorSeasons'
 
 // hooks
-import useConstructorQuery from './hooks/useConstructorQuery'
+import useConstructorInfoQuery from './hooks/useConstructorInfoQuery'
 import useConstructorStandingsListQuery from './hooks/useConstructorStandingsListQuery'
-import useConstructorQualifyingsQuery from './hooks/useConstructorQualifyingsQuery'
-import useConstructorRacesQuery from './hooks/useConstructorRacesQuery'
+import useConstructorQualifyingsResultsQuery from './hooks/useConstructorQualifyingsResultsQuery'
+import useConstructorRacesResultsQuery from './hooks/useConstructorRacesResultsQuery'
 
 import useConstructorInformation from './components/information/hooks/useConstructorInformation'
 import useConstructorAchievements from './components/achievements/hooks/useConstructorAchievements'
@@ -25,10 +25,10 @@ import ProfileContextProvider from '../../context/ProfileContext'
 const ConstructorProfile = () => {
   return (
     <ProfileContextProvider
-      useInfoQuery={useConstructorQuery}
+      useInfoQuery={useConstructorInfoQuery}
       useStandingsListQuery={useConstructorStandingsListQuery}
-      useRacesResultsQuery={useConstructorRacesQuery}
-      useQualifyingsResultsQuery={useConstructorQualifyingsQuery}
+      useRacesResultsQuery={useConstructorRacesResultsQuery}
+      useQualifyingsResultsQuery={useConstructorQualifyingsResultsQuery}
     >
       <Information useInformation={useConstructorInformation} />
 

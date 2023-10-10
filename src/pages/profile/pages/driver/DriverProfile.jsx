@@ -8,10 +8,10 @@ import Statistics from '../../components/statistics/Statistics'
 import DriverSeasons from './components/seasons/DriverSeasons'
 
 // hooks
-import useDriverQuery from './hooks/useDriverQuery'
+import useDriverInfoQuery from './hooks/useDriverInfoQuery'
 import useDriverStandingsListQuery from './hooks/useDriverStandingsListQuery'
-import useDriverRacesQuery from './hooks/useDriverRacesQuery'
-import useDriverQualifyingsQuery from './hooks/useDriverQualifyingsQuery'
+import useDriverRacesResultsQuery from './hooks/useDriverRacesResultsQuery'
+import useDriverQualifyingsResultsQuery from './hooks/useDriverQualifyingsResultsQuery'
 
 import useDriverInformation from './components/information/hooks/useDriverInformation'
 import useDriverAchievements from './components/achievements/hooks/useDriverAchievements'
@@ -25,10 +25,10 @@ import ProfileContextProvider from '../../context/ProfileContext'
 const DriverProfile = () => {
   return (
     <ProfileContextProvider
-      useInfoQuery={useDriverQuery}
+      useInfoQuery={useDriverInfoQuery}
       useStandingsListQuery={useDriverStandingsListQuery}
-      useRacesResultsQuery={useDriverRacesQuery}
-      useQualifyingsResultsQuery={useDriverQualifyingsQuery}
+      useRacesResultsQuery={useDriverRacesResultsQuery}
+      useQualifyingsResultsQuery={useDriverQualifyingsResultsQuery}
     >
       <Information useInformation={useDriverInformation} />
 

@@ -7,7 +7,7 @@ import { driverQualifyingsResults } from '../../../../../api/results/qualifying/
 // hooks
 import useToaster from "../../../../../components/toaster/hooks/useToaster"
 
-const useDriverQualifyingsQuery = () => {
+const useDriverQualifyingsResultsQuery = () => {
   const { id } = useParams()
   const { warningToast } = useToaster()
 
@@ -21,4 +21,4 @@ const useDriverQualifyingsQuery = () => {
   })
 }
 
-export default useDriverQualifyingsQuery
+export default useDriverQualifyingsResultsQuery

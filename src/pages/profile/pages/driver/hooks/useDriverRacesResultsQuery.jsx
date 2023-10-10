@@ -7,7 +7,7 @@ import { driverRacesResults } from '../../../../../api/results/race/driverRacesR
 // hooks
 import useToaster from "../../../../../components/toaster/hooks/useToaster"
 
-const useDriverRacesQuery = () => {
+const useDriverRacesResultsQuery = () => {
   const { id } = useParams()
   const { warningToast } = useToaster()
 
@@ -21,4 +21,4 @@ const useDriverRacesQuery = () => {
   })
 }
 
-export default useDriverRacesQuery
+export default useDriverRacesResultsQuery
