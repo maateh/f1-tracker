@@ -27,10 +27,12 @@ import ProfileContextProvider from '../../context/ProfileContext'
 const ConstructorProfile = () => {
   return (
     <ProfileContextProvider
-      useInfoQuery={useConstructorInfoQuery}
-      useStandingsListQuery={useConstructorStandingsListQuery}
-      useRacesResultsQuery={useConstructorRacesResultsQuery}
-      useQualifyingsResultsQuery={useConstructorQualifyingsResultsQuery}
+      dataWithQueries={{
+        info: useConstructorInfoQuery(),
+        standingsList: useConstructorStandingsListQuery(),
+        racesResults: useConstructorRacesResultsQuery(),
+        qualifyingsResults: useConstructorQualifyingsResultsQuery()
+      }}
     >
       <Information useInformation={useConstructorInformation} />
 

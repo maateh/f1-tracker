@@ -2,23 +2,7 @@ import { createContext } from "react"
 
 export const ProfileContext = createContext()
 
-const ProfileContextProvider = ({
-  children,
-  dataWithQueries
-  // useInfoQuery,
-  // useStandingsListQuery,
-  // useRacesResultsQuery,
-  // useQualifyingsResultsQuery,
-  // useWeekendsQuery
-}) => {  
-  // const data = {
-  //   info: useInfoQuery(),
-  //   standingsList: useStandingsListQuery(),
-  //   racesResults: useRacesResultsQuery(),
-  //   qualifyingsResults: useQualifyingsResultsQuery(),
-  //   weekends: useWeekendsQuery()
-  // }
-
+const ProfileContextProvider = ({ children, dataWithQueries }) => {
   return (
     <ProfileContext.Provider value={dataWithQueries}>
       {children}

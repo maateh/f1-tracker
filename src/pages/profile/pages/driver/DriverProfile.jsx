@@ -27,10 +27,12 @@ import ProfileContextProvider from '../../context/ProfileContext'
 const DriverProfile = () => {
   return (
     <ProfileContextProvider
-      useInfoQuery={useDriverInfoQuery}
-      useStandingsListQuery={useDriverStandingsListQuery}
-      useRacesResultsQuery={useDriverRacesResultsQuery}
-      useQualifyingsResultsQuery={useDriverQualifyingsResultsQuery}
+      dataWithQueries={{
+        info: useDriverInfoQuery(),
+        standingsList: useDriverStandingsListQuery(),
+        racesResults: useDriverRacesResultsQuery(),
+        qualifyingsResults: useDriverQualifyingsResultsQuery()
+      }}
     >
       <Information useInformation={useDriverInformation} />
 
