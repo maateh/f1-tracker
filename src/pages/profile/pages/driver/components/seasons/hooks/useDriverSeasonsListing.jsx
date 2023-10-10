@@ -4,7 +4,7 @@ import { useErrorBoundary } from 'react-error-boundary'
 import DriverSeasonCard from '../components/listing/components/card/DriverSeasonCard'
 
 // context
-import useDriverProfileContext from '../../../context/hooks/useDriverProfileContext'
+import useProfileContext from '../../../../../context/hooks/useProfileContext'
 
 // models
 import TitleModel from '../../../../../../../model/listing/Title'
@@ -18,7 +18,7 @@ const useDriverSeasonsListing = () => {
   const { showBoundary } = useErrorBoundary()
   const { standingsList: {
     data: standingsList, isLoading, isError, error
-  }} = useDriverProfileContext()
+  }} = useProfileContext()
 
   if (isError) showBoundary(error)
   if (isLoading || !standingsList) {

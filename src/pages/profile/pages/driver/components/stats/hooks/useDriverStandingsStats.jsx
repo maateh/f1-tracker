@@ -1,7 +1,7 @@
 import { useErrorBoundary } from "react-error-boundary"
 
 // context
-import useDriverProfileContext from "../../../context/hooks/useDriverProfileContext"
+import useProfileContext from "../../../../../context/hooks/useProfileContext"
 
 // icons
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
@@ -14,7 +14,7 @@ const useDriverStandingsStats = () => {
   const { showBoundary } = useErrorBoundary()
   const { standingsList: {
     data: standingsList, isLoading, isError, error
-  }} = useDriverProfileContext()
+  }} = useProfileContext()
 
   if (isError) showBoundary(error)
   if (isLoading || !standingsList) {

@@ -4,7 +4,7 @@ import { useErrorBoundary } from "react-error-boundary"
 import Linking from "../../../../../../../components/linking/Linking"
 
 // context
-import useDriverProfileContext from "../../../context/hooks/useDriverProfileContext"
+import useProfileContext from "../../../../../context/hooks/useProfileContext"
 
 // icons
 import LooksOneIcon from '@mui/icons-material/LooksOne'
@@ -15,11 +15,11 @@ import AlarmOnIcon from '@mui/icons-material/AlarmOn'
 
 const useDriverAchievements = () => {
   const { showBoundary } = useErrorBoundary()
-  const { races: {
+  const { racesResults: {
     data: races, isLoading, isError, error
-  }, qualifyings: {
+  }, qualifyingsResults: {
     data: qualifyings
-  }} = useDriverProfileContext()
+  }} = useProfileContext()
 
   if (isError) showBoundary(error)
   if (isLoading || !races) {

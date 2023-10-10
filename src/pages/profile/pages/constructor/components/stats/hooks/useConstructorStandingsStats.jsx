@@ -1,7 +1,7 @@
 import { useErrorBoundary } from "react-error-boundary"
 
 // context
-import useConstructorProfileContext from "../../../context/hooks/useConstructorProfileContext"
+import useProfileContext from "../../../../../context/hooks/useProfileContext"
 
 // icons
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
@@ -14,7 +14,7 @@ const useConstructorStandingsStats = () => {
   const { showBoundary } = useErrorBoundary()
   const { standingsList: {
     data: standingsList, isLoading, isError, error
-  }} = useConstructorProfileContext()
+  }} = useProfileContext()
 
   if (isError) showBoundary(error)
   if (isLoading || !standingsList) {

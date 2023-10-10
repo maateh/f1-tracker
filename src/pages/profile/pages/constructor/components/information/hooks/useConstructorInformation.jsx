@@ -1,14 +1,14 @@
 // context
-import useConstructorProfileContext from '../../../context/hooks/useConstructorProfileContext'
+import useProfileContext from '../../../../../context/hooks/useProfileContext'
 
 // icons
 import FlagIcon from '@mui/icons-material/Flag'
 import PublicIcon from '@mui/icons-material/Public'
 
 const useConstructorInformation = () => {
-  const { constructor: {
+  const { info: {
     data: constructor, isLoading
-  }} = useConstructorProfileContext()
+  }} = useProfileContext()
 
   if (isLoading || !constructor) {
     return {

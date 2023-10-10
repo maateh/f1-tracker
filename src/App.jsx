@@ -9,6 +9,7 @@ const Homepage = lazy(() => import('./pages/home/Homepage'))
 const SchedulePage = lazy(() => import('./pages/schedule/SchedulePage'))
 const ScheduleListing = lazy(() => import('./pages/schedule/components/listing/ScheduleListing'))
 const ResultsPage = lazy(() => import('./pages/results/ResultsPage'))
+
 const HistoryPage = lazy(() => import('./pages/history/HistoryPage'))
 const LapsHistory = lazy(() => import('./pages/history/pages/laps/LapsHistory'))
 const PitsHistory = lazy(() => import('./pages/history/pages/pits/PitsHistory'))
@@ -18,6 +19,8 @@ const ConstructorsHistory = lazy(() => import('./pages/history/pages/constructor
 const ConstructorsListing = lazy(() => import('./pages/history/pages/constructors/components/listing/ConstructorsListing'))
 const CircuitsHistory = lazy(() => import('./pages/history/pages/circuits/CircuitsHistory'))
 const CircuitsListing = lazy(() => import('./pages/history/pages/circuits/components/listing/CircuitsListing'))
+
+const ProfilePage = lazy(() => import('./pages/profile/ProfilePage'))
 const DriverProfile = lazy(() => import('./pages/profile/pages/driver/DriverProfile'))
 const ConstructorProfile = lazy(() => import('./pages/profile/pages/constructor/ConstructorProfile'))
 const CircuitProfile = lazy(() => import('./pages/profile/pages/circuit/CircuitProfile'))
@@ -254,7 +257,11 @@ const router = createBrowserRouter([
       },
       {
         path: "profile",
-        // element: <ProfileErrorFallback />,
+        element: (
+          <Suspense fallback={<PageSkeleton />}>
+            <ProfilePage />
+          </Suspense>
+        ),
         children: [
           {
             path: "driver/:id",

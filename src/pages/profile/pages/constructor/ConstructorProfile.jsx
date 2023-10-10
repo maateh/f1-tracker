@@ -20,52 +20,50 @@ import useConstructorStandingsStats from './components/stats/hooks/useConstructo
 import useConstructorQualifyingsStats from './components/stats/hooks/useConstructorQualifyingsStats'
 
 // context
-import ConstructorProfileContextProvider from './context/ConstructorProfileContext'
+import ProfileContextProvider from '../../context/ProfileContext'
 
 const ConstructorProfile = () => {
   return (
-    <ConstructorProfileContextProvider
-      useConstructorQuery={useConstructorQuery}
+    <ProfileContextProvider
+      useInfoQuery={useConstructorQuery}
       useStandingsListQuery={useConstructorStandingsListQuery}
-      useQualifyingsQuery={useConstructorQualifyingsQuery}
-      useRacesQuery={useConstructorRacesQuery}
+      useRacesResultsQuery={useConstructorRacesQuery}
+      useQualifyingsResultsQuery={useConstructorQualifyingsQuery}
     >
-      <main className="constructor-profile__container page__container">
-        <Information useInformation={useConstructorInformation} />
+      <Information useInformation={useConstructorInformation} />
 
-        {/* TODO - fallback */}
-        <ErrorBoundary fallback={<>Fallback here</>}>
-          <Achievements useAchievements={useConstructorAchievements} />
+      {/* TODO - fallback */}
+      <ErrorBoundary fallback={<>Fallback here</>}>
+        <Achievements useAchievements={useConstructorAchievements} />
+      </ErrorBoundary>
+
+      <StatisticsHolder>
+        <ErrorBoundary fallback={<></>}>
+          <Statistics
+            title="Races Statistics"
+            useStats={useConstructorRacesStats}
+          />
         </ErrorBoundary>
-
-        <StatisticsHolder>
-          <ErrorBoundary fallback={<></>}>
-            <Statistics
-              title="Races Statistics"
-              useStats={useConstructorRacesStats}
-            />
-          </ErrorBoundary>
-          <ErrorBoundary fallback={<></>}>
-            <Statistics
-              title="Standings Statistics"
-              note="*Always updated at the end of the current season"
-              useStats={useConstructorStandingsStats}
-            />
-          </ErrorBoundary>
-          <ErrorBoundary fallback={<></>}>
-            <Statistics
-              title="Qualifyings Statistics"
-              useStats={useConstructorQualifyingsStats}
-            />
-          </ErrorBoundary>
-        </StatisticsHolder>
-
-        {/* TODO - fallback */}
-        <ErrorBoundary fallback={<>Fallback here</>}>
-          <ConstructorSeasons />
+        <ErrorBoundary fallback={<></>}>
+          <Statistics
+            title="Standings Statistics"
+            note="*Always updated at the end of the current season"
+            useStats={useConstructorStandingsStats}
+          />
         </ErrorBoundary>
-      </main>
-    </ConstructorProfileContextProvider>
+        <ErrorBoundary fallback={<></>}>
+          <Statistics
+            title="Qualifyings Statistics"
+            useStats={useConstructorQualifyingsStats}
+          />
+        </ErrorBoundary>
+      </StatisticsHolder>
+
+      {/* TODO - fallback */}
+      <ErrorBoundary fallback={<>Fallback here</>}>
+        <ConstructorSeasons />
+      </ErrorBoundary>
+    </ProfileContextProvider>
   )
 }
 

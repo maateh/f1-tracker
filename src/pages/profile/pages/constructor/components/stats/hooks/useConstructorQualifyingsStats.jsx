@@ -1,7 +1,7 @@
 import { useErrorBoundary } from "react-error-boundary"
 
 // context
-import useConstructorProfileContext from "../../../context/hooks/useConstructorProfileContext"
+import useProfileContext from "../../../../../context/hooks/useProfileContext"
 
 // icons
 import AvTimerIcon from '@mui/icons-material/AvTimer'
@@ -14,9 +14,9 @@ import StarBorderIcon from '@mui/icons-material/StarBorder'
 
 const useConstructorQualifyingsStats = () => {
   const { showBoundary } = useErrorBoundary()
-  const { qualifyings: {
+  const { qualifyingsResults: {
     data: weekends, isLoading, isError, error
-  }} = useConstructorProfileContext()
+  }} = useProfileContext()
 
   if (isError) showBoundary(error)
   if (isLoading || !weekends) {

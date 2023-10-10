@@ -20,52 +20,50 @@ import useDriverStandingsStats from './components/stats/hooks/useDriverStandings
 import useDriverQualifyingsStats from './components/stats/hooks/useDriverQualifyingsStats'
 
 // context
-import DriverProfileContextProvider from './context/DriverProfileContext'
+import ProfileContextProvider from '../../context/ProfileContext'
 
 const DriverProfile = () => {
   return (
-    <DriverProfileContextProvider
-      useDriverQuery={useDriverQuery}
+    <ProfileContextProvider
+      useInfoQuery={useDriverQuery}
       useStandingsListQuery={useDriverStandingsListQuery}
-      useRacesQuery={useDriverRacesQuery}
-      useQualifyingsQuery={useDriverQualifyingsQuery}
+      useRacesResultsQuery={useDriverRacesQuery}
+      useQualifyingsResultsQuery={useDriverQualifyingsQuery}
     >
-      <main className="driver-profile__container page__container">
-        <Information useInformation={useDriverInformation} />
+      <Information useInformation={useDriverInformation} />
 
-        {/* TODO - fallback */}
-        <ErrorBoundary fallback={<>Fallback here</>}>
-          <Achievements useAchievements={useDriverAchievements} />
+      {/* TODO - fallback */}
+      <ErrorBoundary fallback={<>Fallback here</>}>
+        <Achievements useAchievements={useDriverAchievements} />
+      </ErrorBoundary>
+
+      <StatisticsHolder>
+        <ErrorBoundary fallback={<></>}>
+          <Statistics
+            title="Races Statistics"
+            useStats={useDriverRacesStats}
+          />
         </ErrorBoundary>
-
-        <StatisticsHolder>
-          <ErrorBoundary fallback={<></>}>
-            <Statistics
-              title="Races Statistics"
-              useStats={useDriverRacesStats}
-            />
-          </ErrorBoundary>
-          <ErrorBoundary fallback={<></>}>
-            <Statistics
-              title="Standings Statistics"
-              note="*Always updated at the end of the current season"
-              useStats={useDriverStandingsStats}
-            />
-          </ErrorBoundary>
-          <ErrorBoundary fallback={<></>}>
-            <Statistics
-              title="Qualifyings Statistics"
-              useStats={useDriverQualifyingsStats}
-            />
-          </ErrorBoundary>
-        </StatisticsHolder>
-
-        {/* TODO - fallback */}
-        <ErrorBoundary fallback={<>Fallback here</>}>
-          <DriverSeasons />
+        <ErrorBoundary fallback={<></>}>
+          <Statistics
+            title="Standings Statistics"
+            note="*Always updated at the end of the current season"
+            useStats={useDriverStandingsStats}
+          />
         </ErrorBoundary>
-      </main>
-    </DriverProfileContextProvider>
+        <ErrorBoundary fallback={<></>}>
+          <Statistics
+            title="Qualifyings Statistics"
+            useStats={useDriverQualifyingsStats}
+          />
+        </ErrorBoundary>
+      </StatisticsHolder>
+
+      {/* TODO - fallback */}
+      <ErrorBoundary fallback={<>Fallback here</>}>
+        <DriverSeasons />
+      </ErrorBoundary>
+    </ProfileContextProvider>
   )
 }
 

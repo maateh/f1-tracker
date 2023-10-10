@@ -4,7 +4,7 @@ import { useErrorBoundary } from 'react-error-boundary'
 import ConstructorSeasonCard from '../components/listing/components/card/ConstructorSeasonCard'
 
 // context
-import useConstructorProfileContext from '../../../context/hooks/useConstructorProfileContext'
+import useProfileContext from '../../../../../context/hooks/useProfileContext'
 
 // models
 import TitleModel from '../../../../../../../model/listing/Title'
@@ -18,7 +18,7 @@ const useConstructorSeasonsListing = () => {
   const { showBoundary } = useErrorBoundary()
   const { standingsList: {
     data: standingsList, isLoading, isError, error
-  }} = useConstructorProfileContext()
+  }} = useProfileContext()
 
   if (isError) showBoundary(error)
   if (isLoading || !standingsList) {

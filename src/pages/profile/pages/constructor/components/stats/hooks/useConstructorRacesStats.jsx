@@ -1,7 +1,7 @@
 import { useErrorBoundary } from "react-error-boundary"
 
 // context
-import useConstructorProfileContext from "../../../context/hooks/useConstructorProfileContext"
+import useProfileContext from "../../../../../context/hooks/useProfileContext"
 
 // icons
 import SportsScoreIcon from '@mui/icons-material/SportsScore'
@@ -13,9 +13,9 @@ import PlusOneIcon from '@mui/icons-material/PlusOne'
 
 const useConstructorRacesStats = () => {
   const { showBoundary } = useErrorBoundary()
-  const { races: {
+  const { racesResults: {
     data: weekends, isLoading, isError, error
-  }} = useConstructorProfileContext()
+  }} = useProfileContext()
 
   if (isError) showBoundary(error)
   if (isLoading || !weekends) {

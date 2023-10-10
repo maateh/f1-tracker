@@ -1,7 +1,7 @@
 import { useErrorBoundary } from "react-error-boundary"
 
 // context
-import useDriverProfileContext from "../../../context/hooks/useDriverProfileContext"
+import useProfileContext from "../../../../../context/hooks/useProfileContext"
 
 // icons
 import AvTimerIcon from '@mui/icons-material/AvTimer'
@@ -13,9 +13,9 @@ import StarBorderIcon from '@mui/icons-material/StarBorder'
 
 const useDriverQualifyingsStats = () => {
   const { showBoundary } = useErrorBoundary()
-  const { qualifyings: {
+  const { qualifyingsResults: {
     data: weekends, isLoading, isError, error
-  }} = useDriverProfileContext()
+  }} = useProfileContext()
 
   if (isError) showBoundary(error)
   if (isLoading || !weekends) {

@@ -1,5 +1,5 @@
 // context
-import useDriverProfileContext from '../../../context/hooks/useDriverProfileContext'
+import useProfileContext from '../../../../../context/hooks/useProfileContext'
 
 // icons
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
@@ -8,9 +8,9 @@ import CakeIcon from '@mui/icons-material/Cake'
 import PublicIcon from '@mui/icons-material/Public'
 
 const useDriverInformation = () => {
-  const { driver: {
+  const { info: {
     data: driver, isLoading
-  }} = useDriverProfileContext()
+  }} = useProfileContext()
 
   if (isLoading || !driver) {
     return {
