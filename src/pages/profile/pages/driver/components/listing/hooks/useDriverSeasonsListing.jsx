@@ -1,7 +1,7 @@
 import { useErrorBoundary } from 'react-error-boundary'
 
 // components
-import DriverSeasonCard from '../components/listing/components/card/DriverSeasonCard'
+import DriverSeasonCard from '../components/card/DriverSeasonCard'
 
 // context
 import useProfileContext from '../../../../../context/hooks/useProfileContext'
@@ -41,7 +41,8 @@ const useDriverSeasonsListing = () => {
     cards: new CardsModel({
       styles: CardsModel.GRID_STYLES,
       layouts: cardsLayouts
-    })
+    }),
+    isLoading
   }
 }
 

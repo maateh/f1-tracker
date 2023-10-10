@@ -5,7 +5,7 @@ import Information from '../../components/information/Information'
 import Achievements from '../../components/achievements/Achievements'
 import StatisticsHolder from '../../components/statistics/StatisticsHolder'
 import Statistics from '../../components/statistics/Statistics'
-import DriverSeasons from './components/seasons/DriverSeasons'
+import ProfileListing from '../../components/listing/ProfileListing'
 
 // hooks
 import useDriverInfoQuery from './hooks/useDriverInfoQuery'
@@ -18,9 +18,11 @@ import useDriverAchievements from './components/achievements/hooks/useDriverAchi
 import useDriverRacesStats from './components/stats/hooks/useDriverRacesStats'
 import useDriverStandingsStats from './components/stats/hooks/useDriverStandingsStats'
 import useDriverQualifyingsStats from './components/stats/hooks/useDriverQualifyingsStats'
+import useDriverSeasonsListing from './components/listing/hooks/useDriverSeasonsListing'
 
 // context
 import ProfileContextProvider from '../../context/ProfileContext'
+import DriverSeasonsListing from './components/listing/DriverSeasonsListing'
 
 const DriverProfile = () => {
   return (
@@ -59,10 +61,9 @@ const DriverProfile = () => {
         </ErrorBoundary>
       </StatisticsHolder>
 
-      {/* TODO - fallback */}
-      <ErrorBoundary fallback={<>Fallback here</>}>
-        <DriverSeasons />
-      </ErrorBoundary>
+      <ProfileListing useListing={useDriverSeasonsListing}>
+        <DriverSeasonsListing />
+      </ProfileListing>
     </ProfileContextProvider>
   )
 }

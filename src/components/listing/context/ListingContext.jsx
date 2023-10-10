@@ -40,7 +40,7 @@ const dataReducer = (state, action) => {
 
 export const ListingContext = createContext()
 
-const ListingContextProvider = ({ children, initialState }) => {
+const ListingContextProvider = ({ children, initialState, CustomErrorFallbackComponent }) => {
   const params = useParams()
   const { warningToast, errorToast } = useToaster()
   const [state, dispatch] = useReducer(dataReducer, initialState || INITIAL_STATE)
@@ -82,15 +82,17 @@ const ListingContextProvider = ({ children, initialState }) => {
 
   return (
     <ErrorBoundary
-      FallbackComponent={ListingWarningFallback}
+      FallbackComponent={CustomErrorFallbackComponent || ListingWarningFallback}
       resetKeys={Object.values(params)}
       onError={err => {
         if (err instanceof DataNotFoundError) {
+          if (CustomErrorFallbackComponent) return
           warningToast('Sorry! There are no data for this period to display.')
           return
         }
         errorToast('Sorry! An unexpected error occurred. Try refresh the page.')
-    }}>
+      }}
+    >
       <ListingContext.Provider value={{
         ...state,
         dispatch,
