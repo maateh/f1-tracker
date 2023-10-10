@@ -4,20 +4,23 @@ export const ProfileContext = createContext()
 
 const ProfileContextProvider = ({
   children,
-  useInfoQuery,
-  useStandingsListQuery,
-  useRacesResultsQuery,
-  useQualifyingsResultsQuery
+  dataWithQueries
+  // useInfoQuery,
+  // useStandingsListQuery,
+  // useRacesResultsQuery,
+  // useQualifyingsResultsQuery,
+  // useWeekendsQuery
 }) => {  
-  const data = {
-    info: useInfoQuery(),
-    standingsList: useStandingsListQuery(),
-    racesResults: useRacesResultsQuery(),
-    qualifyingsResults: useQualifyingsResultsQuery()
-  }
+  // const data = {
+  //   info: useInfoQuery(),
+  //   standingsList: useStandingsListQuery(),
+  //   racesResults: useRacesResultsQuery(),
+  //   qualifyingsResults: useQualifyingsResultsQuery(),
+  //   weekends: useWeekendsQuery()
+  // }
 
   return (
-    <ProfileContext.Provider value={data}>
+    <ProfileContext.Provider value={dataWithQueries}>
       {children}
     </ProfileContext.Provider>
   )

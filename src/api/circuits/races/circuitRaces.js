@@ -5,7 +5,7 @@ import WeekendModel from "../../../model/season/weekend/Weekend"
 import DataNotFoundError from "../../../model/error/DataNotFoundError"
 
 // Get a list with all of the races in this circuit
-export async function circuitRaces(circuitId, params = { limit: 30 }) {
+export async function circuitRaces(circuitId, params = { limit: 100 }) {
   const url = `/circuits/${circuitId}/races`
 
   return ergast({

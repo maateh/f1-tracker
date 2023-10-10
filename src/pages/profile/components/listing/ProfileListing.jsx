@@ -9,7 +9,7 @@ const ProfileListing = ({ children, useListing }) => {
 
   return isLoading ? (
     <ListingSkeleton
-      titleFallback={title.main}
+      titleFallback={title?.main}
       cardsCounter={6}
     />
   ) : (

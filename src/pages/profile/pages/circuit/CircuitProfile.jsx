@@ -1,19 +1,31 @@
 // components
 import Information from '../../components/information/Information'
-import CircuitRaces from './components/races/CircuitRaces'
+import ProfileListing from '../../components/listing/ProfileListing'
+import CircuitRacesListing from './components/listing/CircuitRacesListing'
 
 // hooks
-import useCircuitInformationQuery from './components/information/hooks/useCircuitInformationQuery'
+import useCircuitInfoQuery from './hooks/useCircuitInfoQuery'
+import useCircuitRacesQuery from './hooks/useCircuitRacesQuery'
 
-// styles
-import './CircuitProfile.css'
+import useCircuitInformation from './components/information/hooks/useCircuitInformation'
+import useCircuitRacesListing from './components/listing/hooks/useCircuitRacesListing'
+
+// context
+import ProfileContextProvider from '../../context/ProfileContext'
 
 const CircuitProfile = () => {
   return (
-    <main className="circuit-profile__container page__container">
-      <Information useInformationQuery={useCircuitInformationQuery} />
-      <CircuitRaces />
-    </main>
+    <ProfileContextProvider
+      dataWithQueries={{
+        info: useCircuitInfoQuery(),
+        weekends: useCircuitRacesQuery()
+      }}
+    >
+      <Information useInformation={useCircuitInformation} />
+      <ProfileListing useListing={useCircuitRacesListing}>
+        <CircuitRacesListing />
+      </ProfileListing>
+    </ProfileContextProvider>
   )
 }
 
