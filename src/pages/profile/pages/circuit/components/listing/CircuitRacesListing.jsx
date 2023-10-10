@@ -7,7 +7,7 @@ import useListingContext from "../../../../../../components/listing/context/hook
 
 const CircuitRacesListing = () => {
   const { cards } = useListingContext()
-
+	
   return (
 		<div className="listing__container">
 			{!cards ? <ListingSkeleton cardsCounter={6} /> : (

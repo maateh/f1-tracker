@@ -37,19 +37,6 @@ const useCircuitRacesListing = () => {
     }),
     isLoading
   }
-
-  // if (cards) {
-  //   updateCardsLayouts({
-  //     layouts: pageParam === 0 ? cardsLayouts : [...cards.layouts, ...cardsLayouts]
-  //   })
-  // } else {
-  //   setCards({
-  //     cards: new CardsModel({
-  //       styles: CardsModel.GRID_STYLES,
-  //       layouts: cardsLayouts
-  //     })
-  //   })
-  // }
 }
 
 export default useCircuitRacesListing
