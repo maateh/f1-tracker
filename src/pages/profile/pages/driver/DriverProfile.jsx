@@ -6,6 +6,7 @@ import Achievements from '../../components/achievements/Achievements'
 import StatisticsHolder from '../../components/statistics/StatisticsHolder'
 import Statistics from '../../components/statistics/Statistics'
 import ProfileListing from '../../components/listing/ProfileListing'
+import DriverSeasonsListing from './components/listing/DriverSeasonsListing'
 
 // hooks
 import useDriverInfoQuery from './hooks/useDriverInfoQuery'
@@ -22,7 +23,6 @@ import useDriverSeasonsListing from './components/listing/hooks/useDriverSeasons
 
 // context
 import ProfileContextProvider from '../../context/ProfileContext'
-import DriverSeasonsListing from './components/listing/DriverSeasonsListing'
 
 const DriverProfile = () => {
   return (

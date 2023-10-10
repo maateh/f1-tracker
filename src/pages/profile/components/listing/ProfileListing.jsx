@@ -13,7 +13,7 @@ const ProfileListing = ({ children, useListing }) => {
       cardsCounter={6}
     />
   ) : (
-    <ListingContextProvider initialState={{ title, cards }}>
+    <ListingContextProvider initialState={{ title, cards }} CustomErrorFallbackComponent={() => <></>}>
       {children}
     </ListingContextProvider>
   )

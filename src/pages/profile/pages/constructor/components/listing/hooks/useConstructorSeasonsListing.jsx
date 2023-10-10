@@ -1,7 +1,7 @@
 import { useErrorBoundary } from 'react-error-boundary'
 
 // components
-import ConstructorSeasonCard from '../components/listing/components/card/ConstructorSeasonCard'
+import ConstructorSeasonCard from '../../../components/listing/components/card/ConstructorSeasonCard'
 
 // context
 import useProfileContext from '../../../../../context/hooks/useProfileContext'

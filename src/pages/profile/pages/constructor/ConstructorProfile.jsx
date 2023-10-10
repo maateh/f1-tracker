@@ -5,7 +5,8 @@ import Information from '../../components/information/Information'
 import Achievements from '../../components/achievements/Achievements'
 import StatisticsHolder from '../../components/statistics/StatisticsHolder'
 import Statistics from '../../components/statistics/Statistics'
-import ConstructorSeasons from './components/seasons/ConstructorSeasons'
+import ProfileListing from '../../components/listing/ProfileListing'
+import ConstructorSeasonsListing from './components/listing/ConstructorSeasonsListing'
 
 // hooks
 import useConstructorInfoQuery from './hooks/useConstructorInfoQuery'
@@ -18,6 +19,7 @@ import useConstructorAchievements from './components/achievements/hooks/useConst
 import useConstructorRacesStats from './components/stats/hooks/useConstructorRacesStats'
 import useConstructorStandingsStats from './components/stats/hooks/useConstructorStandingsStats'
 import useConstructorQualifyingsStats from './components/stats/hooks/useConstructorQualifyingsStats'
+import useConstructorSeasonsListing from './components/listing/hooks/useConstructorSeasonsListing'
 
 // context
 import ProfileContextProvider from '../../context/ProfileContext'
@@ -59,10 +61,9 @@ const ConstructorProfile = () => {
         </ErrorBoundary>
       </StatisticsHolder>
 
-      {/* TODO - fallback */}
-      <ErrorBoundary fallback={<>Fallback here</>}>
-        <ConstructorSeasons />
-      </ErrorBoundary>
+      <ProfileListing useListing={useConstructorSeasonsListing}>
+        <ConstructorSeasonsListing />
+      </ProfileListing>
     </ProfileContextProvider>
   )
 }

@@ -15,7 +15,9 @@ const useDriverStandingsListQuery = () => {
     queryKey: ['driverStandings', id],
     queryFn: () => driverStandings(id)
       .then(({ standingsList }) => standingsList),
-    onError: () => warningToast("The driver doesn't have any championship standings data.")
+    onError: () => {
+      warningToast("The driver doesn't have any championship standings data.")
+    }
   })
 }
 
