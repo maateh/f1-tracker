@@ -89,7 +89,7 @@ const ListingContextProvider = ({ children, initialState }) => {
           warningToast('Sorry! There are no data for this period to display.')
           return
         }
-        errorToast('Sorry! An unexpected error occured. Try refresh the page.')
+        errorToast('Sorry! An unexpected error occurred. Try refresh the page.')
     }}>
       <ListingContext.Provider value={{
         ...state,
