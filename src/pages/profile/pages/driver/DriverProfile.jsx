@@ -61,9 +61,11 @@ const DriverProfile = () => {
         </ErrorBoundary>
       </StatisticsHolder>
 
-      <ProfileListing useListing={useDriverSeasonsListing}>
-        <DriverSeasonsListing />
-      </ProfileListing>
+      <ErrorBoundary fallback={<></>}>
+        <ProfileListing useListing={useDriverSeasonsListing}>
+          <DriverSeasonsListing />
+        </ProfileListing>
+      </ErrorBoundary>
     </ProfileContextProvider>
   )
 }

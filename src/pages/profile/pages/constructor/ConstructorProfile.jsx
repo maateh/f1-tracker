@@ -61,9 +61,11 @@ const ConstructorProfile = () => {
         </ErrorBoundary>
       </StatisticsHolder>
 
-      <ProfileListing useListing={useConstructorSeasonsListing}>
-        <ConstructorSeasonsListing />
-      </ProfileListing>
+      <ErrorBoundary fallback={<></>}>
+        <ProfileListing useListing={useConstructorSeasonsListing}>
+          <ConstructorSeasonsListing />
+        </ProfileListing>
+      </ErrorBoundary>
     </ProfileContextProvider>
   )
 }
