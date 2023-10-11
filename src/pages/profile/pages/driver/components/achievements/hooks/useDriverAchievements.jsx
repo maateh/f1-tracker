@@ -78,10 +78,10 @@ function parseWeekendData(weekend, displayConstructor = false) {
   const achievedInfo = displayConstructor
     ? <Linking
         link={`/profile/constructor/${results[0].constructor.id}`}
-        text={`#${results[0].position} (with ${results[0].constructor.name})`}
+        text={`#${results[0].position} place (with ${results[0].constructor.name})`}
         tooltipText="Open Constructor's profile page"
       />
-    : `#${results[0].position}`
+    : `#${results[0].position} place`
 
   return {
     achieved: achievedInfo,

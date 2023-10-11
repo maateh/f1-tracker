@@ -81,7 +81,7 @@ function parseWeekendData(weekend, parseOnlyBest = false) {
       text={`#${results[0].position} place (with ${results[0].driver.code})`}
       tooltipText="Open Driver's profile page"
     />
-    : results.map(result => `#${result.position}`).join(', ')
+    : results.map(result => `#${result.position}`).join(', ') + ' places'
 
   return {
     achieved: achievedInfo,
