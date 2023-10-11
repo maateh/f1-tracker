@@ -25,7 +25,7 @@ export async function constructorRacesResults(constructorId, params = { limit: 1
     })
 }
 
-// Get constructor all race results (with API call limit overridden)
+// Get constructor all race results (with "bypassing" the API call limit)
 export async function constructorRacesResultsWithoutAPILimit(
   constructorId,
   // API query params
