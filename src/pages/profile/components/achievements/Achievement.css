@@ -114,4 +114,7 @@
     width: min-content;
     flex-flow: column wrap;
   }
+  .achievements__container .achievement__wrapper p.achievement-data__wrapper .achievement-data-achieved {
+    width: min-content;
+  }
 }
