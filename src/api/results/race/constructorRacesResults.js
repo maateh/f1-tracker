@@ -25,6 +25,37 @@ export async function constructorRacesResults(constructorId, params = { limit: 1
     })
 }
 
+// Get constructor all race results (with API call limit overridden)
+export async function constructorRacesResultsWithoutAPILimit(
+  constructorId,
+  // API query params
+  params = { offset: 0, limit: 1000 },
+  // Helper params for the recursive calls
+  // maxLimit: maximum callbacks limitation
+  // counter: callbacks counter
+  callbacks = { maxLimit: 3, counter: 1 }
+) {
+  return constructorRacesResults(constructorId, params)
+    .then(async ({ info, weekends }) => {
+      // Safety return to definitely avoid
+      // any accidental infinite loop
+      if (callbacks.counter >= callbacks.maxLimit) {
+        return { info, weekends }
+      }
+
+      // Recursive call
+      if (info.total > parseInt(info.offset) + parseInt(info.limit)) {
+        await constructorRacesResultsWithoutAPILimit(
+          constructorId,
+          { ...params, offset: parseInt(info.offset) + parseInt(info.limit) },
+          { ...callbacks, counter: callbacks.counter + 1 }
+        ).then(res => weekends.push(...res.weekends))
+      }
+      return { info, weekends }
+    })
+}
+
+
 // Get constructor race results from a complete season
 export async function constructorRacesResultsFromSeason(year, constructorId, params = { limit: 60 }) {
   const url = `/${year}/constructors/${constructorId}/results`
