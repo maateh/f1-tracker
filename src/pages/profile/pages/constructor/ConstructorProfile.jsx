@@ -58,6 +58,7 @@ const ConstructorProfile = () => {
         <ErrorBoundary fallback={<></>}>
           <Statistics
             title="Qualifyings Statistics"
+            note="*Qualifying results are only fully supported from the 2003 season onwards"
             useStats={useConstructorQualifyingsStats}
           />
         </ErrorBoundary>
