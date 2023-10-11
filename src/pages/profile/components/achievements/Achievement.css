@@ -112,5 +112,6 @@
   }
   .achievements__container .achievement__wrapper p.achievement-data__wrapper .achievement-data-name {
     width: min-content;
+    flex-flow: column wrap;
   }
 }
