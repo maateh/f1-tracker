@@ -4,6 +4,12 @@ import { cloneElement } from 'react'
 import './Cards.css'
 
 const Cards = ({ cards: { styles, layouts }, lastIndex, lastRef }) => {
+  
+  // TODO: items -> layouts[].props
+	// const filteredItems = useMemo(() => {
+	// 	return items.filter(item => item.toLowerCase().includes(query.toLowerCase))
+	// }, [items, query])
+
   return (
     <ul className="cards__container" style={styles}>
       {layouts.map((layout, index) => {
